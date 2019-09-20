@@ -206,8 +206,8 @@
 
 @section('scripts')
 <!-- ▼本頁引用▼ -->
-<script src="{{ asset('js/fullcalendar.js') }}"></script>
-<script src="{{ asset('js/examples.calendar.js') }}"></script>
+<script src="{{ asset('public/js/fullcalendar.js') }}"></script>
+<script src="{{ asset('public/js/examples.calendar.js') }}"></script>
 <script>
     $(document).ready(function() {
         $(".fc-right").append(

@@ -30,7 +30,7 @@ function asset($path, $secure = null)
 //        return app('url')->asset($path, $secure);
 //    }else{
 //        // $path before add "/public" if application on Azure
-        return app('url')->asset('/' . $path, $secure);
+        return app('url')->asset('/public/' . $path, $secure);
 //    }
 }
 /*

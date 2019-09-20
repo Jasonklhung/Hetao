@@ -46,7 +46,7 @@
                                                             </button>
                                                             <div class="sticky toolbar text-center">
                                                                 <ul>
-                                                                    <li class="t01"><img src="{{ asset('public/img/head.png') }}">標題</li><li class="t02"><img src="{{ asset('public/img/article.png') }}">文章</li><li class="t03"><img src="{{ asset('public/img/divider.png') }}">隔線</li><li class="t04"><img src="{{ asset('public/img/select.png') }}">單選</li><li class="t05"><img src="{{ asset('public/img/checked.png') }}">多選</li><li class="t06"><img src="{{ asset('public/img/drop.png') }}">下拉</li><li class="t07"><img src="{{ asset('public/img/simple.png') }}">簡答</li><li class="t08"><img src="{{ asset('public/img/multiple.png') }}">段落</li><li class="t09"><img src="{{ asset('public/img/date.png') }}">日期</li><li class="t10"><img src="{{ asset('public/img/time.png') }}">時間</li><li class="rwdmenu"><i class="fas fa-pencil-alt"></i></li>
+                                                                    <li class="t01"><img src="{{ asset('img/head.png') }}">標題</li><li class="t02"><img src="{{ asset('img/article.png') }}">文章</li><li class="t03"><img src="{{ asset('img/divider.png') }}">隔線</li><li class="t04"><img src="{{ asset('img/select.png') }}">單選</li><li class="t05"><img src="{{ asset('img/checked.png') }}">多選</li><li class="t06"><img src="{{ asset('img/drop.png') }}">下拉</li><li class="t07"><img src="{{ asset('img/simple.png') }}">簡答</li><li class="t08"><img src="{{ asset('img/multiple.png') }}">段落</li><li class="t09"><img src="{{ asset('img/date.png') }}">日期</li><li class="t10"><img src="{{ asset('img/time.png') }}">時間</li><li class="rwdmenu"><i class="fas fa-pencil-alt"></i></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -82,6 +82,6 @@
 
 @section('scripts')
 <!-- ▼本頁引用▼ -->
-<script src="{{ asset('public/js/formset.js') }}"></script>
+<script src="{{ asset('js/formset.js') }}"></script>
 <!-- ▲本頁引用▲ -->
 @endsection

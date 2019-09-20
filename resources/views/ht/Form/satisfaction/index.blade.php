@@ -82,6 +82,6 @@
 
 @section('scripts')
 <!-- ▼本頁引用▼ -->
-<script src="{{ asset('public/js/formset.js') }}"></script>
+<script src="{{ asset('js/formset.js') }}"></script>
 <!-- ▲本頁引用▲ -->
 @endsection

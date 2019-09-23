@@ -57,7 +57,38 @@ component('side-bar', toggleAbleOpenAttr({
   }
 }))
 
+component('side-bar', toggleAbleOpenAttr({
+  props: {
+    accessors: {
+      selected: {
+        get (sb) {
+          const selected = sb.state.selected || sb.findOne('sb-item2.selected')
+          if (selected) return $(selected)
+        },
+        set (sb, selected) {
+          selected = $(selected)
+          if (selected.class.selected) return
+          selected.class.selected = true
+          if (sb.selected) {
+            (sb.selectedLast = sb.selected).class.selected = false
+          }
+          sb.state.selected = selected
+        }
+      }
+    }
+  },
+  mount (el) {
+    el.on.click(({target}) => {
+      if (target === el || target === el()) return
+      if ((target = $(target)).matches('sb-item2') && !target.class.selected) {
+        el.selected = target
+      }
+    })
+  }
+}))
+
 component('sb-menu', toggleAbleOpenAttr({}, 'sb-menu-title'))
+component('sb-menu2', toggleAbleOpenAttr({}, 'sb-menu-title2'))
 }
 
 $('.c-l').click(function(){

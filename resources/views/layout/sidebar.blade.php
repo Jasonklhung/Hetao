@@ -68,12 +68,12 @@
                 <sb-item onclick="javascript:location.href='{{ route('ht.StrokeManage.supervisor.index') }}'">主管</sb-item>
                 <sb-item onclick="javascript:location.href='{{ route('ht.StrokeManage.staff.index') }}'">員工</sb-item>
             </sb-menu>
-            <sb-menu>
-                <sb-menu-title><i class="fas fa-angle-double-right fa-fw"></i> <span> 表單設定</span><span class="badge">5</span></sb-menu-title>
-                <sb-item onclick="javascript:location.href='{{ route('ht.Form.reservation.index') }}'">線上預約</sb-item>
-                <sb-item onclick="javascript:location.href='{{ route('ht.Form.satisfaction.index') }}'">滿意度調查</sb-item>
-                <sb-item onclick="javascript:location.href='{{ route('ht.Form.contact.index') }}'">與我聯繫</sb-item>
-            </sb-menu>
+            <sb-menu2>
+                <sb-menu-title2><i class="fas fa-angle-double-right fa-fw"></i> <span> 表單設定</span><span class="badge">5</span></sb-menu-title2>
+                <sb-item2 onclick="javascript:location.href='{{ route('ht.Form.reservation.index') }}'">線上預約</sb-item2>
+                <sb-item2 onclick="javascript:location.href='{{ route('ht.Form.satisfaction.index') }}'">滿意度調查</sb-item2>
+                <sb-item2 onclick="javascript:location.href='{{ route('ht.Form.contact.index') }}'">與我聯繫</sb-item2>
+            </sb-menu2>
             <a class="" href="{{ route('ht.Timeset.index') }}">
                 <sb-item><i class="fas fa-angle-double-right fa-fw"></i> 推播時間設定</sb-item>
             </a>

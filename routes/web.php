@@ -11,6 +11,9 @@
 |
 */
 
+// Auth::routes();
+// Route::get('/home', 'HomeController@index')->name('home');
+
 //總覽
 Route::get('/HT/Overview/index','HT\Overview\OverviewController@index')->name('ht.Overview.index');
 

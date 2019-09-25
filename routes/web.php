@@ -16,6 +16,7 @@
 
 //總覽
 Route::get('/HT/Overview/index','HT\Overview\OverviewController@index')->name('ht.Overview.index');
+Route::get('/HT/Overview/getData','HT\Overview\OverviewController@getData')->name('ht.Overview.getData');
 
 //行程管理-助理
 Route::get('/HT/StrokeManage/assistant/index','HT\StrokeManage\AssistantController@index')->name('ht.StrokeManage.assistant.index');

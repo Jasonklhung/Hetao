@@ -185,15 +185,15 @@
         <ul class="add-ul">
             <li class="mb-s">
                 <ul>
-                    <li><span>派工類型 </span>維修</li>
-                    <li><span>客戶代碼 </span>楊梅國中</li>
-                    <li><span>地址 </span><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></li>
-                    <li><span>電話 </span><a href="tel:5551234567">03-3322101</a></li>
-                    <li><span>派工原因 </span>載清缸 宿舍1.3樓+教學1樓右邊</li>
-                    <li><span>承辦人員 </span>邱小姐</li>
-                    <li><span>工單編號 </span>00000000</li>
-                    <li><span>工單日期 </span>2019-08-06 10:30</li>
-                    <li><span>狀態 </span>執行中</li>
+                    <li id="type"><span>派工類型 </span>維修</li>
+                    <li id="custkey"><span>客戶代碼 </span>楊梅國中</li>
+                    <li id="address"><span>地址 </span><a href="https://www.google.com.tw/maps/place/桃園市楊梅區秀才路919號" target="_blank">楊梅區秀才路919號</a></li>
+                    <li id="mobile"><span>電話 </span><a href="tel:5551234567">03-3322101</a></li>
+                    <li id="reason"><span>派工原因 </span>載清缸 宿舍1.3樓+教學1樓右邊</li>
+                    <li id="owner"><span>承辦人員 </span>邱小姐</li>
+                    <li id="id"><span>工單編號 </span>00000000</li>
+                    <li id="date"><span>工單日期 </span>2019-08-06 10:30</li>
+                    <li id="status"><span>狀態 </span>執行中</li>
                 </ul>
             </li>
             <li class="mb-s mt-m text-center"><div class="coupon"><button type="button" class="btn" data-dismiss="modal">關閉</button></div></li>
@@ -243,138 +243,77 @@
         var m = date.getMonth();
         var y = date.getFullYear();
 
-        $calendar.fullCalendar({
-            eventLimit: true, // for all non-agenda views  
-            views: {  
-                agenda: {  
-                    eventLimit: 2 // adjust to 6 only for agendaWeek/agendaDay  
-                }  
-            },  
-            header: {
-                left: 'title',
-                right: 'prev,today,next,basicDay,basicWeek,month,search'
+        var chart_json = new Array(); 
+
+        $.ajax({
+            method:'get',
+            url:'{{ route('ht.Overview.getData') }}',
+            data:{
+                "token": "Z8564d5737a4ba80b8e7921e882e506ea",
+                "DEPT": "H026"
             },
-            timeFormat: 'h:mm',
-            themeButtonIcons: {
-                prev: 'fas fa-caret-left',
-                next: 'fas fa-caret-right',
-            },
+            dataType:'json',
+            success:function(data){
+                $.each(data['data'], function (i, item) {
 
-            editable: false,
-            droppable: false, // this allows things to be dropped onto the calendar !!!
-            drop: function(date, allDay) { // this function is called when something is dropped
-                var $externalEvent = $(this);
-                // retrieve the dropped element's stored Event Object
-                var originalEventObject = $externalEvent.data('eventObject');
+                    chart_json.push({'title':"工單:"+item.id+" "+item.owner+"",'start':item.time,'url':'#job1','className':'fc-event-success','allDay':true,'id':item.id,'owner':item.owner,'type':item.work_type,'time':item.time});
+                });
+                $calendar.fullCalendar({
+                    eventLimit: true,  
+                    views: {  
+                        agenda: {  
+                            eventLimit: 2
+                        }  
+                    },  
+                    header: {
+                        left: 'title',
+                        right: 'prev,today,next,basicDay,basicWeek,month,search'
+                    },
+                    timeFormat: 'h:mm',
+                    themeButtonIcons: {
+                        prev: 'fas fa-caret-left',
+                        next: 'fas fa-caret-right',
+                    },
+                    editable: false,
+                    droppable: false,
+                    drop: function(date, allDay) {
+                        var $externalEvent = $(this);
+                        
+                        var originalEventObject = $externalEvent.data('eventObject');
 
-                // we need to copy it, so that multiple events don't have a reference to the same object
-                var copiedEventObject = $.extend({}, originalEventObject);
+                        var copiedEventObject = $.extend({}, originalEventObject);
+                      
+                        copiedEventObject.start = date;
+                        copiedEventObject.allDay = allDay;
+                        copiedEventObject.className = $externalEvent.attr('data-event-class');
+                    
+                        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+     
+                        if ($('#RemoveAfterDrop').is(':checked')) {
+                            $(this).remove();
+                        }
+                    },
+                    events: chart_json,
+                    eventClick: function(info) {
 
-                // assign it the date that was reported
-                copiedEventObject.start = date;
-                copiedEventObject.allDay = allDay;
-                copiedEventObject.className = $externalEvent.attr('data-event-class');
+                        $("li[id='type']").html("<span>派工類型 </span>"+info.type+"");
+                        //$("li[id='custkey']").html("<span>客戶代碼 </span>"+info.custkey+"");
+                        //$("li[id='address']").html("<span>地址 </span><a href='https://www.google.com.tw/maps/place/"+info.address+"' target='_blank'>"+info.address+"</a>");
+                        //$("li[id='mobile']").html("<span>電話 </span><a href='tel:"+info.mobile+"'>"+info.mobile+"</a>");
+                        //$("li[id='reason']").html("<span>派工原因 </span>"+info.reason+"");
+                        $("li[id='owner']").html("<span>承辦人員 </span>"+info.owner+"");
+                        $("li[id='id']").html("<span>工單編號 </span>"+info.id+"");
+                        $("li[id='date']").html("<span>工單日期 </span>"+info.time+"");
+                        //$("li[id='status']").html("<span>狀態 </span>"+info.status+"");
 
-                // render the event on the calendar
-                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+                        $(info.url).modal('show')
+                    }
+                });
 
-                // is the "remove after drop" checkbox checked?
-                if ($('#RemoveAfterDrop').is(':checked')) {
-                    // if so, remove the element from the "Draggable Events" list
-                    $(this).remove();
-                }
 
-            },
-            events: [
-                {
-                    title: '2張工單',
-                    start: new Date(y, m, 1),
-                    url: "#job",
-                    className: 'fc-event-success',
-                    allDay: true,
-                },
-                {
-                    title: '會議',
-                    start: new Date(y, m, d-5),
-                    end: new Date(y, m, d-2),
-                    url: "#meet",
-                },
-                {
-                    title: '會議',
-                    start: new Date(y, m, d-3, 16, 0),
-                    allDay: false,
-                    url: "#meet",
-                },
-                {
-                    title: '2張工單',
-                    start: new Date(y, m, d+4, 16, 0),
-                    url: "#job",
-                    className: 'fc-event-success',
-                    allDay: true,
-                },
-                {
-                    title: '工單○○',
-                    start: new Date(y, m, d, 10, 30),
-                    url: "#job1",
-                    className: 'fc-event-success',
-                    allDay: true,
-                },
-                {
-                    title: '會議',
-                    start: new Date(y, m, d, 12, 0),
-                    end: new Date(y, m, d, 14, 0),
-                    allDay: false,
-                    url: "#meet",
-                },
-                {
-                    title: '會議',
-                    start: new Date(y, m, d+1, 19, 0),
-                    end: new Date(y, m, d+1, 22, 30),
-                    allDay: false,
-                    url: "#meet",
-                },
-                {
-                    title: '會議',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: "#meet",
-                },
-                {
-                    title: '會議',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: "#meet",
-                },
-                {
-                    title: '會議',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: "#meet",
-                },
-                {
-                    title: '會議',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: "#meet",
-                },
-                {
-                    title: '會議',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: "#meet",
-                },
-                {
-                    title: '會議77',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: "#meet",
-                }
-            ],
-            eventClick: function(info) {
-                $(info.url).modal('show')
             }
-        });
+        })
+
 
         // FIX INPUTS TO BOOTSTRAP VERSIONS
         var $calendarButtons = $calendar.find('.fc-header-right > span');

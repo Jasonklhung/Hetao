@@ -15,12 +15,13 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('ID_number')->unique();
-            $table->string('mobile')->unique();
-            $table->string('emp_id');
-            $table->string('job');
-            $table->string('belong');
+            $table->bigInteger('organization_id')->comment('組織id');
+            $table->string('name')->comment('姓名');
+            $table->string('ID_number')->unique()->comment('身分證字號');
+            $table->string('mobile')->unique()->comment('手機');
+            $table->string('emp_id')->comment('員工編號');
+            $table->string('job')->comment('職稱');
+            $table->string('department_id')->comment('部門id');
             $table->timestamps();
         });
     }

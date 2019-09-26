@@ -32,6 +32,8 @@
 <body>
     <div id="wrapper">
         @include('layout.sidebar')
+
+        
         
         @yield('content')
     </div>

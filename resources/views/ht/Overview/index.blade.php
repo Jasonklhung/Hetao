@@ -6,6 +6,7 @@
                 <div class="container-fluid">
                     <!-- 活動分析 -->
                     <h3 class="page-title">總覽 <span>Overview</span></h3>
+                     @include('common.message')
                     <div class="panel bg-transparent">
                         <div class="panel-body">
                             <div class="row">
@@ -19,12 +20,13 @@
                                             <div class="tabbable">
                                                 <div id="calendar" class="col-lg-9 col-md-12 px-0 cccalendar"></div>
                                                 <div class="col-lg-3 col-md-12 pt-l pr-0 addcalendar" id="addd-form">
-                                                    <form class="form-inline">
+                                                    <form class="form-inline" method="post" action="{{ route('ht.Overview.store') }}">
+                                                        @csrf
                                                         <ul class="add-ul">
                                                             <li class="mb-s"><span class="title-deco activity">新增活動</span>
                                                                 <div class="coupon float-right"></div>
                                                             </li>
-                                                            <li class="mb-s"><input class="form-control title" type="text" placeholder="輸入標題"></li>
+                                                            <li class="mb-s"><input class="form-control title" type="text" name="title" placeholder="輸入標題" required=""></li>
                                                             <li class="mb-s">
                                                                 <i class="fas fa-clock"></i>
                                                                 <div class="allday">
@@ -34,12 +36,12 @@
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </div>
-                                                                <input class='day-select form-control' placeholder='開始時間' type='text' readonly="true"><input class='hide text-right time-select form-control' placeholder='14:00' type='text' readonly="true"><input class='day-select form-control' placeholder='結束時間' type='text' readonly="true"><input class='hide text-right time-select form-control' placeholder='15:00' type='text' readonly="true">
+                                                                <input class='day-select form-control' name="start" placeholder='開始時間' type='text' required=""><input class='hide text-right time-select form-control' name="startTime" placeholder='14:00' type='text' readonly="true"><input class='day-select form-control' name="end" placeholder='結束時間' type='text' required=""><input class='hide text-right time-select form-control' name="endTime" placeholder='15:00' type='text' readonly="true">
                                                             </li>
-                                                            <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" type="text" placeholder="新增位置"></li>
-                                                            <li class="mb-s"><i class="fas fa-bell"></i><div class="opmodal o1" data-toggle="modal" data-target="#newalert">新增通知</div></li>
-                                                            <li class="mb-s"><i class="fas fa-users"></i><div class="opmodal o2" data-toggle="modal" data-target="#person">會議對象</div></li>
-                                                            <li class="mb-s"><i class="fas fa-align-left"></i><input class="form-control ps" type="text" placeholder="新增說明"></li>
+                                                            <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" type="text" name="position" placeholder="新增位置"></li>
+                                                            <li class="mb-s"><i class="fas fa-bell"></i><div class="opmodal o1" data-toggle="modal" data-target="#newalert"><input type="text" name="notice" value="新增通知"></div></li>
+                                                            <li class="mb-s"><i class="fas fa-users"></i><div class="opmodal o2" data-toggle="modal" data-target="#person"><input type="text" name="meeting" value="會議對象"></div></li>
+                                                            <li class="mb-s"><i class="fas fa-align-left"></i><input class="form-control ps" type="text" name="description" placeholder="新增說明"></li>
                                                             <li class="text-center"><div class="coupon"><button type="submit">儲存</button></div></li>
                                                         </ul>
                                                     </form>
@@ -258,59 +260,76 @@
 
                     chart_json.push({'title':"工單:"+item.id+" "+item.owner+"",'start':item.time,'url':'#job1','className':'fc-event-success','allDay':true,'id':item.id,'owner':item.owner,'type':item.work_type,'time':item.time});
                 });
-                $calendar.fullCalendar({
-                    eventLimit: true,  
-                    views: {  
-                        agenda: {  
-                            eventLimit: 2
-                        }  
-                    },  
-                    header: {
-                        left: 'title',
-                        right: 'prev,today,next,basicDay,basicWeek,month,search'
-                    },
-                    timeFormat: 'h:mm',
-                    themeButtonIcons: {
-                        prev: 'fas fa-caret-left',
-                        next: 'fas fa-caret-right',
-                    },
-                    editable: false,
-                    droppable: false,
-                    drop: function(date, allDay) {
-                        var $externalEvent = $(this);
-                        
-                        var originalEventObject = $externalEvent.data('eventObject');
 
-                        var copiedEventObject = $.extend({}, originalEventObject);
-                      
-                        copiedEventObject.start = date;
-                        copiedEventObject.allDay = allDay;
-                        copiedEventObject.className = $externalEvent.attr('data-event-class');
-                    
-                        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-     
-                        if ($('#RemoveAfterDrop').is(':checked')) {
-                            $(this).remove();
-                        }
-                    },
-                    events: chart_json,
-                    eventClick: function(info) {
+                $.ajax({
+                    method:'get',
+                    url:'{{ route('ht.Overview.show') }}',
+                    dataType:'json',
+                    success:function(response){
+                        $.each(response, function (i, item) {
 
-                        $("li[id='type']").html("<span>派工類型 </span>"+info.type+"");
-                        //$("li[id='custkey']").html("<span>客戶代碼 </span>"+info.custkey+"");
-                        //$("li[id='address']").html("<span>地址 </span><a href='https://www.google.com.tw/maps/place/"+info.address+"' target='_blank'>"+info.address+"</a>");
-                        //$("li[id='mobile']").html("<span>電話 </span><a href='tel:"+info.mobile+"'>"+info.mobile+"</a>");
-                        //$("li[id='reason']").html("<span>派工原因 </span>"+info.reason+"");
-                        $("li[id='owner']").html("<span>承辦人員 </span>"+info.owner+"");
-                        $("li[id='id']").html("<span>工單編號 </span>"+info.id+"");
-                        $("li[id='date']").html("<span>工單日期 </span>"+info.time+"");
-                        //$("li[id='status']").html("<span>狀態 </span>"+info.status+"");
+                           if(item.start.split(" ")[1] == '00:00:00'){
 
-                        $(info.url).modal('show')
+                                chart_json.push({'title':"會議",'start':item.start,'end':item.end,'url':'#meet','allDay':true});
+                           }
+                           else{
+                                chart_json.push({'title':""+item.start.split(" ")[1]+" 會議",'start':item.start,'end':item.end,'url':'#meet','allDay':true});
+                           }
+                        });
+
+                        $calendar.fullCalendar({
+                            eventLimit: true,  
+                            views: {  
+                                agenda: {  
+                                    eventLimit: 2
+                                }  
+                            },  
+                            header: {
+                                left: 'title',
+                                right: 'prev,today,next,basicDay,basicWeek,month,search'
+                            },
+                            timeFormat: 'h:mm',
+                            themeButtonIcons: {
+                                prev: 'fas fa-caret-left',
+                                next: 'fas fa-caret-right',
+                            },
+                            editable: false,
+                            droppable: false,
+                            drop: function(date, allDay) {
+                                var $externalEvent = $(this);
+
+                                var originalEventObject = $externalEvent.data('eventObject');
+
+                                var copiedEventObject = $.extend({}, originalEventObject);
+
+                                copiedEventObject.start = date;
+                                copiedEventObject.allDay = allDay;
+                                copiedEventObject.className = $externalEvent.attr('data-event-class');
+
+                                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                                if ($('#RemoveAfterDrop').is(':checked')) {
+                                    $(this).remove();
+                                }
+                            },
+                            events: chart_json,
+                            eventClick: function(info) {
+
+                                $("li[id='type']").html("<span>派工類型 </span>"+info.type+"");
+                                //$("li[id='custkey']").html("<span>客戶代碼 </span>"+info.custkey+"");
+                                //$("li[id='address']").html("<span>地址 </span><a href='https://www.google.com.tw/maps/place/"+info.address+"' target='_blank'>"+info.address+"</a>");
+                                //$("li[id='mobile']").html("<span>電話 </span><a href='tel:"+info.mobile+"'>"+info.mobile+"</a>");
+                                //$("li[id='reason']").html("<span>派工原因 </span>"+info.reason+"");
+                                $("li[id='owner']").html("<span>承辦人員 </span>"+info.owner+"");
+                                $("li[id='id']").html("<span>工單編號 </span>"+info.id+"");
+                                $("li[id='date']").html("<span>工單日期 </span>"+info.time+"");
+                                //$("li[id='status']").html("<span>狀態 </span>"+info.status+"");
+
+                                $(info.url).modal('show')
+                            }
+                        });
                     }
-                });
-
-
+                })
             }
         })
 

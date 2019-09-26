@@ -73,6 +73,8 @@
         </nav>
 
         <main class="py-4">
+            @include('common.message')
+
             @yield('content')
         </main>
     </div>

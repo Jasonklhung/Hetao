@@ -125,14 +125,14 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
       <div class="modal-body">
         <ul class="add-ul">
-            <li class="mb-s"><span class="title-deco active">會議</span>
+            <li class="mb-s" id="title"><span class="title-deco active">會議</span>
             </li>
             <li class="mb-s">
                 <i class="fas fa-clock fa-fw"></i><span>全天</span>
             </li>
-            <li class="mb-s"><i class="fas fa-map-marker-alt fa-fw"></i><span>XXXXX會議室</span></li>
-            <li class="mb-s"><i class="fas fa-users fa-fw"></i><span>Vicky, Andy, Luna</span></li>
-            <li class="mb-s"><i class="fas fa-align-left fa-fw"></i><span>記得要下班</span></li>
+            <li class="mb-s" id="position"><i class="fas fa-map-marker-alt fa-fw"></i><span>XXXXX會議室</span></li>
+            <li class="mb-s" id="people"><i class="fas fa-users fa-fw"></i><span>Vicky, Andy, Luna</span></li>
+            <li class="mb-s" id="description"><i class="fas fa-align-left fa-fw"></i><span>記得要下班</span></li>
             <li class="mb-s mt-m text-center"><div class="coupon"><button type="button" class="btn" data-dismiss="modal">關閉</button></div></li>
         </ul>
       </div>
@@ -270,10 +270,10 @@
 
                            if(item.start.split(" ")[1] == '00:00:00'){
 
-                                chart_json.push({'title':"會議",'start':item.start,'end':item.end,'url':'#meet','allDay':true});
+                                chart_json.push({'title':item.title,'start':item.start,'end':item.end,'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'description':item.description});
                            }
                            else{
-                                chart_json.push({'title':""+item.start.split(" ")[1]+" 會議",'start':item.start,'end':item.end,'url':'#meet','allDay':true});
+                                chart_json.push({'title':""+item.start.split(" ")[1]+item.title,'start':item.start,'end':item.end,'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'description':item.description});
                            }
                         });
 
@@ -315,15 +315,24 @@
                             events: chart_json,
                             eventClick: function(info) {
 
-                                $("li[id='type']").html("<span>派工類型 </span>"+info.type+"");
-                                //$("li[id='custkey']").html("<span>客戶代碼 </span>"+info.custkey+"");
-                                //$("li[id='address']").html("<span>地址 </span><a href='https://www.google.com.tw/maps/place/"+info.address+"' target='_blank'>"+info.address+"</a>");
-                                //$("li[id='mobile']").html("<span>電話 </span><a href='tel:"+info.mobile+"'>"+info.mobile+"</a>");
-                                //$("li[id='reason']").html("<span>派工原因 </span>"+info.reason+"");
-                                $("li[id='owner']").html("<span>承辦人員 </span>"+info.owner+"");
-                                $("li[id='id']").html("<span>工單編號 </span>"+info.id+"");
-                                $("li[id='date']").html("<span>工單日期 </span>"+info.time+"");
-                                //$("li[id='status']").html("<span>狀態 </span>"+info.status+"");
+                                if(info.url == '#job1'){
+
+                                    $("li[id='type']").html("<span>派工類型 </span>"+info.type+"");
+                                    //$("li[id='custkey']").html("<span>客戶代碼 </span>"+info.custkey+"");
+                                    //$("li[id='address']").html("<span>地址 </span><a href='https://www.google.com.tw/maps/place/"+info.address+"' target='_blank'>"+info.address+"</a>");
+                                    //$("li[id='mobile']").html("<span>電話 </span><a href='tel:"+info.mobile+"'>"+info.mobile+"</a>");
+                                    //$("li[id='reason']").html("<span>派工原因 </span>"+info.reason+"");
+                                    $("li[id='owner']").html("<span>承辦人員 </span>"+info.owner+"");
+                                    $("li[id='id']").html("<span>工單編號 </span>"+info.id+"");
+                                    $("li[id='date']").html("<span>工單日期 </span>"+info.time+"");
+                                    //$("li[id='status']").html("<span>狀態 </span>"+info.status+"");
+                                }
+                                else{
+                                    $("li[id='title']").html("<span class='title-deco active'>"+info.title+"</span>");
+                                    $("li[id='position']").html("<i class='fas fa-map-marker-alt fa-fw'></i><span>"+info.position+"</span>");
+                                    $("li[id='people']").html("<i class='fas fa-users fa-fw'></i><span>"+info.meeting+"</span>");
+                                    $("li[id='description']").html("<i class='fas fa-align-left fa-fw'></i><span>"+info.description+"</span>");
+                                }
 
                                 $(info.url).modal('show')
                             }

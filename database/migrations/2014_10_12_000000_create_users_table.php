@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('mobile')->unique()->comment('手機');
             $table->string('emp_id')->comment('員工編號');
             $table->string('job')->comment('職稱');
-            $table->string('department_id')->comment('部門id');
+            $table->bigInteger('department_id')->comment('部門id');
             $table->timestamps();
         });
     }

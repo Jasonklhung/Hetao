@@ -22,7 +22,7 @@ class CreateActivitiesTable extends Migration
             $table->string('position')->nullable()->comment('活動位置');
             $table->string('notice')->nullable()->comment('通知時間');
             $table->string('meeting')->nullable()->comment('參與此活動的人');
-            $table->string('description')->nullable()->comment('');
+            $table->string('description')->nullable()->comment('活動描述');
             $table->timestamps();
         });
     }

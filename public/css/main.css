@@ -329,7 +329,7 @@ ul {
 .login-main .content {
     transform: translateX(50%);
     position: absolute;
-    top: 50%;
+    /*top: 50%;*/
     right: 50%;	
     font-size: 16px;
 }

@@ -16,6 +16,7 @@
 
 //login
 Route::get('/HT/login','HT\Auth\LoginController@show')->name('ht.Auth.show');
+Route::post('/HT/getUUID','HT\Auth\LoginController@getUUID')->name('ht.Auth.getUUID');
 
 //總覽
 Route::get('/HT/Overview/index','HT\Overview\OverviewController@index')->name('ht.Overview.index');

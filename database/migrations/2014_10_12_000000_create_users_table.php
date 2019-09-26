@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('organization_id')->comment('組織id');
-            $table->string('token')->comment('Line token');
+            $table->string('token')->nullable()->unique()->comment('Line token');
             $table->string('name')->comment('姓名');
             $table->string('ID_number')->unique()->comment('身分證字號');
             $table->string('mobile')->unique()->comment('手機');

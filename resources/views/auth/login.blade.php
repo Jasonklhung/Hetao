@@ -37,3 +37,27 @@
 </body>
 
 </html>
+<script type="text/javascript">
+
+     var t = setInterval(function () {
+             getStatus()
+         }, 5000);
+
+
+    function getStatus(){
+        $.ajax({
+            method:'post',
+            url:'{{ route('ht.Auth.getUUID') }}',
+            data:{
+                '_token': '{{ csrf_token() }}',
+                'UUID':'{{$UUID}}'
+            },
+            success:function(data){
+                if(data == 'ok')
+                {
+                    window.location = '{{ route('ht.Overview.index') }}';
+                }
+            }
+        })
+    }
+</script>

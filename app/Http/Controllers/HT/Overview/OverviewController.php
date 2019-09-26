@@ -9,8 +9,6 @@ use App\Activity;
 //Guzzle
 use GuzzleHttp\Client;
 
-use flash;
-
 class OverviewController extends Controller
 {
     public function index()

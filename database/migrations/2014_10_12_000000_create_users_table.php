@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('emp_id')->comment('員工編號');
             $table->string('job')->comment('職稱');
             $table->bigInteger('department_id')->comment('部門id');
+            $table->enum('is_verified',array('Y','N'))->default('N')->comment('是否已驗證');
             $table->timestamps();
         });
     }

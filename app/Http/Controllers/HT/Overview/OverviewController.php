@@ -56,4 +56,9 @@ class OverviewController extends Controller
 
     	return $response;
     }
+
+    public function test(Request $request)
+    {
+        dd($request->all());
+    }
 }

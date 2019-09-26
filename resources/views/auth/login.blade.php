@@ -26,7 +26,7 @@
                 <p>賀桃工單管理系統</p>
                 <div class="login-main">
                     <div class="content">
-                        掃描QR code登入
+                        <img src="{{$qrcode}}" style="height: 260px;width: 260px">
                     </div>
                 </div>
             </div>

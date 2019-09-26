@@ -14,11 +14,15 @@
 // Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
 
+//login
+Route::get('/HT/login','HT\Auth\LoginController@show')->name('ht.Auth.show');
+
 //總覽
 Route::get('/HT/Overview/index','HT\Overview\OverviewController@index')->name('ht.Overview.index');
 Route::post('/HT/Overview/store','HT\Overview\OverviewController@store')->name('ht.Overview.store');
 Route::get('/HT/Overview/show','HT\Overview\OverviewController@show')->name('ht.Overview.show');
 Route::get('/HT/Overview/getData','HT\Overview\OverviewController@getData')->name('ht.Overview.getData');
+Route::post('/HT/Overview/test','HT\Overview\OverviewController@test')->name('ht.Overview.test');
 
 //行程管理-助理
 Route::get('/HT/StrokeManage/assistant/index','HT\StrokeManage\AssistantController@index')->name('ht.StrokeManage.assistant.index');

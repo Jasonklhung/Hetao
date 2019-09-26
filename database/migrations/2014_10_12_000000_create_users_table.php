@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('job')->comment('職稱');
             $table->bigInteger('department_id')->comment('部門id');
             $table->enum('is_verified',array('Y','N'))->default('N')->comment('是否已驗證');
+            $table->string('UUID')->nullable()->comment('登入驗證');
             $table->timestamps();
         });
     }

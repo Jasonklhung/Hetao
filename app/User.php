@@ -24,10 +24,9 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $hidden = ['password'];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    public function organization(){
+        return $this->belongsTo(Organization::class);
+    }
 }

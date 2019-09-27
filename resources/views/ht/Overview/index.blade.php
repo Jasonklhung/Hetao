@@ -20,7 +20,7 @@
                                             <div class="tabbable">
                                                 <div id="calendar" class="col-lg-9 col-md-12 px-0 cccalendar"></div>
                                                 <div class="col-lg-3 col-md-12 pt-l pr-0 addcalendar" id="addd-form">
-                                                    <form class="form-inline" method="post" action="{{ route('ht.Overview.store') }}">
+                                                    <form class="form-inline" method="post" action="{{ route('ht.Overview.store',['organization'=>$organization]) }}">
                                                         @csrf
                                                         <ul class="add-ul">
                                                             <li class="mb-s"><span class="title-deco activity">新增活動</span>
@@ -249,7 +249,7 @@
 
         $.ajax({
             method:'get',
-            url:'{{ route('ht.Overview.getData') }}',
+            url:'{{ route('ht.Overview.getData',['organization'=>$organization]) }}',
             data:{
                 "token": "Z8564d5737a4ba80b8e7921e882e506ea",
                 "DEPT": "H026"
@@ -263,7 +263,7 @@
 
                 $.ajax({
                     method:'get',
-                    url:'{{ route('ht.Overview.show') }}',
+                    url:'{{ route('ht.Overview.show',['organization'=>$organization]) }}',
                     dataType:'json',
                     success:function(response){
                         $.each(response, function (i, item) {

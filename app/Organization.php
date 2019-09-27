@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Organization extends Model
 {
-    //
+    public function users(){
+    	return $this->hasmany(User::class);
+    }
 }

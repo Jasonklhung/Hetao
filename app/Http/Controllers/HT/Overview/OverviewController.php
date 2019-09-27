@@ -6,19 +6,22 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 //model
 use App\Activity;
+use App\Organization;
 //Guzzle
 use GuzzleHttp\Client;
 use Auth;
 
 class OverviewController extends Controller
 {
-    public function index()
+    public function index(Organization $organization)
     {
 
-    	return view('ht.Overview.index');
+        //dd($organization);
+
+    	return view('ht.Overview.index',compact('organization'));
     }
 
-    public function store(Activity $activity,Request $request)
+    public function store(Organization $organization,Request $request)
     {
     	 $activity = new Activity;
     	 $activity->title = $request->title;
@@ -30,14 +33,14 @@ class OverviewController extends Controller
     	 $activity->description = $request->description;
     	 $activity->save();
 
-    	 return redirect()->route('ht.Overview.index')->with('success','新增成功');
+    	 return redirect()->route('ht.Overview.index',compact('organization'))->with('success','新增成功');
     }
 
     public function show(Activity $activity)
     {
-    	$users = Activity::all();
+    	$activity = Activity::all();
 
-    	return $users;
+    	return $activity;
     }
 
     public function getData(Request $request)

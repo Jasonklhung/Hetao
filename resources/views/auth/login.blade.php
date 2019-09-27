@@ -53,10 +53,7 @@
                 'UUID':'{{$UUID}}'
             },
             success:function(data){
-                if(data == 'ok')
-                {
-                    window.location = '{{ route('ht.Overview.index') }}';
-                }
+                
             }
         })
     }

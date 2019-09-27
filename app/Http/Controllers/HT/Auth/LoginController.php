@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 
 use GuzzleHttp\Client;
+use Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -34,7 +36,13 @@ class LoginController extends Controller
     	$user = User::where('UUID', $request->UUID)->first();
 
     	if(isset($user)){
-    		return 'ok';
+
+    		if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){
+
+    			$user = User::where('id', $user['id'])->update(['UUID' => null]);
+
+    			return redirect()->route('ht.Overview.index');
+    		}
     	}
     	else{
     		return 'failed';

@@ -8,11 +8,13 @@ use App\Http\Controllers\Controller;
 use App\Activity;
 //Guzzle
 use GuzzleHttp\Client;
+use Auth;
 
 class OverviewController extends Controller
 {
     public function index()
     {
+
     	return view('ht.Overview.index');
     }
 

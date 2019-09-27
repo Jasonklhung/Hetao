@@ -41,7 +41,7 @@
 
      var t = setInterval(function () {
              getStatus()
-         }, 5000);
+         }, 3000);
 
 
     function getStatus(){
@@ -52,8 +52,9 @@
                 '_token': '{{ csrf_token() }}',
                 'UUID':'{{$UUID}}'
             },
+            dataType:'json',
             success:function(data){
-                
+                window.location = data.redirect;
             }
         })
     }

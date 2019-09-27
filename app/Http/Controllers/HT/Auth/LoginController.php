@@ -41,7 +41,9 @@ class LoginController extends Controller
 
     			$user = User::where('id', $user['id'])->update(['UUID' => null]);
 
-    			return redirect()->route('ht.Overview.index');
+    			return response()->json([
+    				'redirect'=>route('ht.Overview.index'),
+    			],	200);
     		}
     	}
     	else{

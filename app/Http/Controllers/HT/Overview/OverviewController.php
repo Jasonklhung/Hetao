@@ -16,14 +16,14 @@ class OverviewController extends Controller
     public function index(Organization $organization)
     {
 
-        //dd($organization);
-
     	return view('ht.Overview.index',compact('organization'));
     }
 
     public function store(Organization $organization,Request $request)
     {
     	 $activity = new Activity;
+         $activity->organization_id = $organization->id;
+         $activity->user_id = Auth::user()->id;
     	 $activity->title = $request->title;
     	 ($request->startTime == null)? $activity->start = $request->start : $activity->start = $request->start.' '.$request->startTime;
     	 ($request->endTime == null)? $activity->end = $request->end : $activity->end = $request->end.' '.$request->endTime;
@@ -36,14 +36,14 @@ class OverviewController extends Controller
     	 return redirect()->route('ht.Overview.index',compact('organization'))->with('success','新增成功');
     }
 
-    public function show(Activity $activity)
+    public function show(Organization $organization,Activity $activity)
     {
     	$activity = Activity::all();
 
     	return $activity;
     }
 
-    public function getData(Request $request)
+    public function getData(Organization $organization,Request $request)
     {
 
     	$client = new \GuzzleHttp\Client();

@@ -61,6 +61,8 @@ Route::group(['middleware' => ['auth']], function () {
 		//推播時間設定
 		Route::get('/HT/{organization}/Timeset/index','HT\Timeset\TimesetController@index')->name('ht.Timeset.index');
 
+		Route::post('/HT/{organization}/Timeset/store','HT\Timeset\TimesetController@store')->name('ht.Timeset.store');
+
 		//權限管理
 		Route::get('/HT/{organization}/Permission/index','HT\Permission\PermissionController@index')->name('ht.Permission.index');
 

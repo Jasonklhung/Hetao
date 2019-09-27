@@ -39,10 +39,10 @@ class LoginController extends Controller
 
     		if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){
 
-    			$user = User::where('id', $user['id'])->update(['UUID' => null]);
+    			$users = User::where('id', $user['id'])->update(['UUID' => null]);
 
     			return response()->json([
-    				'redirect'=>route('ht.Overview.index'),
+    				'redirect'=>route('ht.Overview.index',['organization'=>$user['organization_id']]),
     			],	200);
     		}
     	}

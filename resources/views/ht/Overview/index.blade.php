@@ -273,7 +273,7 @@
                                 chart_json.push({'title':item.title,'start':item.start,'end':item.end,'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'description':item.description});
                            }
                            else{
-                                chart_json.push({'title':""+item.start.split(" ")[1]+item.title,'start':item.start,'end':item.end,'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'description':item.description});
+                                chart_json.push({'title':""+item.start.split(" ")[1]+" "+item.title,'start':item.start,'end':item.end,'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'description':item.description});
                            }
                         });
 

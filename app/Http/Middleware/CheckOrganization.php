@@ -30,7 +30,7 @@ class CheckOrganization
 			return $next($request);
 		}else{
 
-			throw new PermissionException('權限錯誤');
+			abort(403);
 		}
 
 	}

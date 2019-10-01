@@ -466,17 +466,6 @@ $("#hetao-list-authority").DataTable({
     },
 });
 
-//權限管理filter
-$('#hetao-list-authority_filter').append(
-    "<div class='coupon'>" +
-        "<form class='form-inline'>" +
-            "<div class='btn-wrap'>" +
-                "<a href='newuser.html'><button class='btn-bright' type='button'>新增人員</button></a>" +
-            "</div>" +
-        "</form>" +
-    "</div>"
-);
-
 
 //切換tab重新抓取寬度
 $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {

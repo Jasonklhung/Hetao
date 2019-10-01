@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->enum('is_verified',array('Y','N'))->default('N')->comment('是否已驗證');
             $table->string('UUID')->nullable()->unique()->comment('登入驗證');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

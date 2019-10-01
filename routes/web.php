@@ -73,5 +73,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/HT/{organization}/Permission/edit','HT\Permission\PermissionController@edit')->name('ht.Permission.edit');
 
 		Route::get('/HT/{organization}/Permission/update','HT\Permission\PermissionController@update')->name('ht.Permission.update');
+
+		Route::delete('/HT/{organization}/Permission/destroy','HT\Permission\PermissionController@destroy')->name('ht.Permission.destroy');
 	});
 });

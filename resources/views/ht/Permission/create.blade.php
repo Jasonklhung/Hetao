@@ -79,10 +79,20 @@
                                                                 </li>
                                                                 <li>
                                                                     <span class="text-left">表單設定</span>
-                                                                    <label class="switch">
-                                                                        <input type="checkbox" id="formset" name="formset" checked>
-                                                                        <span class="slider round"></span>
-                                                                    </label>
+                                                                    <ul class="text-left">
+                                                                        <li class="si">線上預約<label class="switch">
+                                                                                <input type="checkbox" name="formset" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label></li>
+                                                                        <li class="si">滿意度調查<label class="switch">
+                                                                                <input type="checkbox" name="formset" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label></li>
+                                                                        <li class="si">與我聯繫<label class="switch">
+                                                                                <input type="checkbox" name="formset" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label></li>
+                                                                    </ul>
                                                                 </li>
                                                                 <li>
                                                                     <span class="text-left">推播時間設定</span>
@@ -129,7 +139,10 @@
                 document.all.jobCheck[1].checked = false;
                 document.all.jobCheck[2].checked = false;
 
-                document.all.formset.checked = true;
+                document.all.formset[0].checked = true;
+                document.all.formset[1].checked = true;
+                document.all.formset[2].checked = true;
+
                 document.all.timeset.checked = true;
                 document.all.permission.checked = false;
             }
@@ -138,7 +151,10 @@
                 document.all.jobCheck[1].checked = true;
                 document.all.jobCheck[2].checked = false;
 
-                document.all.formset.checked = false;
+                document.all.formset[0].checked = false;
+                document.all.formset[1].checked = false;
+                document.all.formset[2].checked = false;
+
                 document.all.timeset.checked = false;
                 document.all.permission.checked = false;
             }
@@ -147,7 +163,10 @@
                 document.all.jobCheck[1].checked = false;
                 document.all.jobCheck[2].checked = true;
 
-                document.all.formset.checked = false;
+                document.all.formset[0].checked = false;
+                document.all.formset[1].checked = false;
+                document.all.formset[2].checked = false;
+                
                 document.all.timeset.checked = false;
                 document.all.permission.checked = false;
             }

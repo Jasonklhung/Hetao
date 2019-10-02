@@ -509,10 +509,24 @@ $('input#chkall').change(function() {
 /*-----------------------------------/
   執行中/延後/已完成 狀態切換
 /*----------------------------------*/
+// $('.table').on('click', '.btn.status', function(){
+//     $(this).parent().find('.btn.status').removeClass('btn-primary');
+//     $(this).addClass('btn-primary');
+// });
+
 $('.table').on('click', '.btn.status', function(){
-    $(this).parent().find('.btn.status').removeClass('btn-primary');
-    $(this).addClass('btn-primary');
+    if (!$(this).hasClass('btn-primary')){
+        $(this).parent().find('.btn.status').removeClass('btn-primary');
+        $(this).addClass('btn-primary');
+    }else {
+        $(this).removeClass('btn-primary');
+    } 
 });
+
+
+// $('.table').on('click','.btn-primary', function(){
+//     $(this).removeClass('btn-primary');
+// });
 
 /*-----------------------------------/
   總覽-新增日曆設定

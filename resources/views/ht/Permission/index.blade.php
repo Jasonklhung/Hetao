@@ -41,7 +41,7 @@
                                                                     <td><a href="tel:{{ $data->mobile }}">{{ $data->mobile }}</a></td>
                                                                     <td>{{ $data->updated_at }}</td>
                                                                     <td>
-                                                                        <a href="{{ route('ht.Permission.edit',['organization'=>$organization]) }}"><button type="button" class="btn btn-primary">編輯</button></a>
+                                                                        <a href="{{ route('ht.Permission.edit',['organization'=>$organization,'id'=>$data->id]) }}"><button type="button" class="btn btn-primary">編輯</button></a>
                                                                         <form method="post" class="d-inline" action="{{ route('ht.Permission.destroy',['organization'=>$organization]) }}">
                                                                             @csrf
                                                                             <input type="hidden" name="_method" value="DELETE">

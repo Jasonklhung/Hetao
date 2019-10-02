@@ -21,7 +21,7 @@
                                                     @csrf
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">人員職稱</label>
-                                                        <div class='form-group batch-select'><select class='form-control' name="job" id="job">
+                                                        <div class='form-group batch-select'><select class='form-control' name="job" id="job" required="">
                                                                 <option value="" selected>請選擇職務</option>
                                                                 <option value="助理">助理</option>
                                                                 <option value="主管">主管</option>
@@ -32,9 +32,13 @@
                                                         <label class="d-block title-deco">人員名稱</label>
                                                         <input type="text" class="form-control" name="name" placeholder="請填寫人員名稱" required="">
                                                     </div>
-                                                     <div class="form-item">
+                                                    <div class="form-item">
                                                         <label class="d-block title-deco">員工編號</label>
                                                         <input type="text" class="form-control" name="emp_id" placeholder="請填寫員工編號" required="">
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="d-block title-deco">員工手機號碼</label>
+                                                        <input type="text" class="form-control" name="mobile" placeholder="請填寫員工手機號碼 ex:0912345678" required="">
                                                     </div>
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">身分證字號</label>
@@ -42,11 +46,17 @@
                                                     </div>
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">分公司</label>
-                                                        <div class='form-group batch-select'><select class='form-control' required="">
+                                                        <div class='form-group batch-select'><select class='form-control' id="company" name="company" required="">
                                                                 <option selected disabled hidden>請選擇分公司</option>
                                                                 @foreach($company as $company)
-                                                                <option>{{$company->name}}</option>
+                                                                <option value="{{$company->id}}">{{$company->name}}</option>
                                                                 @endforeach
+                                                            </select></div>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="d-block title-deco">人員部門</label>
+                                                        <div class='form-group batch-select'><select class='form-control' name="dept" id="dept" required="">
+                                                                
                                                             </select></div>
                                                     </div>
                                                     <div class="form-item">
@@ -64,15 +74,15 @@
                                                                     <span class="text-left">行程管理</span>
                                                                     <ul class="text-left">
                                                                         <li class="si">助理<label class="switch">
-                                                                                <input type="checkbox" id="assistant" name="jobCheck" checked>
+                                                                                <input type="checkbox" id="assistant" name="assistant" checked>
                                                                                 <span class="slider round"></span>
                                                                             </label></li>
                                                                         <li class="si">主管<label class="switch">
-                                                                                <input type="checkbox" id="supervisor" name="jobCheck" checked>
+                                                                                <input type="checkbox" id="supervisor" name="supervisor" checked>
                                                                                 <span class="slider round"></span>
                                                                             </label></li>
                                                                         <li class="si">員工<label class="switch">
-                                                                                <input type="checkbox" id="staff" name="jobCheck" checked>
+                                                                                <input type="checkbox" id="staff" name="staff" checked>
                                                                                 <span class="slider round"></span>
                                                                             </label></li>
                                                                     </ul>
@@ -81,15 +91,15 @@
                                                                     <span class="text-left">表單設定</span>
                                                                     <ul class="text-left">
                                                                         <li class="si">線上預約<label class="switch">
-                                                                                <input type="checkbox" name="formset" checked>
+                                                                                <input type="checkbox" name="reservation" checked>
                                                                                 <span class="slider round"></span>
                                                                             </label></li>
                                                                         <li class="si">滿意度調查<label class="switch">
-                                                                                <input type="checkbox" name="formset" checked>
+                                                                                <input type="checkbox" name="satisfaction" checked>
                                                                                 <span class="slider round"></span>
                                                                             </label></li>
                                                                         <li class="si">與我聯繫<label class="switch">
-                                                                                <input type="checkbox" name="formset" checked>
+                                                                                <input type="checkbox" name="contact" checked>
                                                                                 <span class="slider round"></span>
                                                                             </label></li>
                                                                     </ul>
@@ -131,42 +141,67 @@
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function(){
+
+        $('#company').on('change',function(){
+
+            var value = $('#company').val();
+
+            $.ajax({
+                url:"{{ route('ht.Permission.getCompany',['organization'=>$organization]) }}", 
+                method:"POST",
+                data:{
+                    '_token': '{{ csrf_token() }}',
+                    'value':value,
+                },                  
+                success:function(res){
+                    var selOpts = "<option value='' selected='selected' disabled='true'>請選擇部門</option>";
+                    $.each(res, function (i, item) {
+                        selOpts += "<option value='"+item.id+"'>"+item.name+"</option>";
+                    })
+                    $("#dept").empty();
+                    $('#dept').append(selOpts);
+                }
+            })
+        });
+
+
+
         $('#job').on('change',function(){
             var value = $('#job').val();
 
             if(value == '助理'){
-                document.all.jobCheck[0].checked = true;
-                document.all.jobCheck[1].checked = false;
-                document.all.jobCheck[2].checked = false;
+                document.all.assistant.checked = true;
+                document.all.supervisor.checked = false;
+                document.all.staff.checked = false;
 
-                document.all.formset[0].checked = true;
-                document.all.formset[1].checked = true;
-                document.all.formset[2].checked = true;
+                document.all.reservation.checked = true;
+                document.all.satisfaction.checked = true;
+                document.all.contact.checked = true;
 
                 document.all.timeset.checked = true;
                 document.all.permission.checked = false;
             }
             else if(value == '主管'){
-                document.all.jobCheck[0].checked = false;
-                document.all.jobCheck[1].checked = true;
-                document.all.jobCheck[2].checked = false;
+                document.all.assistant.checked = false;
+                document.all.supervisor.checked = true;
+                document.all.staff.checked = false;
 
-                document.all.formset[0].checked = false;
-                document.all.formset[1].checked = false;
-                document.all.formset[2].checked = false;
+                document.all.reservation.checked = false;
+                document.all.satisfaction.checked = false;
+                document.all.contact.checked = false;
 
                 document.all.timeset.checked = false;
                 document.all.permission.checked = false;
             }
             else if(value == '員工'){
-                document.all.jobCheck[0].checked = false;
-                document.all.jobCheck[1].checked = false;
-                document.all.jobCheck[2].checked = true;
+                document.all.assistant.checked = false;
+                document.all.supervisor.checked = false;
+                document.all.staff.checked = true;
 
-                document.all.formset[0].checked = false;
-                document.all.formset[1].checked = false;
-                document.all.formset[2].checked = false;
-                
+                document.all.reservation.checked = false;
+                document.all.satisfaction.checked = false;
+                document.all.contact.checked = false;
+
                 document.all.timeset.checked = false;
                 document.all.permission.checked = false;
             }

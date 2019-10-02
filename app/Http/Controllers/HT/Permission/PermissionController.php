@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Organization;
 use App\User;
+use App\Permission;
+use App\Department;
 
 class PermissionController extends Controller
 {
@@ -26,9 +28,89 @@ class PermissionController extends Controller
     	return view('ht.Permission.create',compact('organization','company'));
     }
 
-    public function edit(Organization $organization)
+    public function getCompany(Organization $organization,Request $request)
     {
-    	return view('ht.Permission.edit',compact('organization'));
+    	$organization_id = $request->value;
+
+    	$dept = Organization::find($organization_id)->departments;
+
+    	return $dept;
+    }
+
+    public function store(Organization $organization,Permission $permission,Request $request)
+    {
+    	$user = new User;
+    	$user->organization_id = $request->company;
+    	$user->department_id = $request->dept;
+    	$user->name = $request->name;
+    	$user->ID_number = $request->ID_number;
+    	$user->mobile = $request->mobile;
+    	$user->emp_id = $request->emp_id;
+    	$user->password = bcrypt($request->emp_id);
+    	$user->job = $request->job;
+    	$user->save();
+
+    	$permission = new Permission;
+    	$permission->user_id = $user->id;
+    	(isset($request->assistant))? $permission->assistant = 'Y' : $permission->assistant = 'N';
+    	(isset($request->supervisor))? $permission->supervisor = 'Y' : $permission->supervisor = 'N';
+    	(isset($request->staff))? $permission->staff = 'Y' : $permission->staff = 'N';
+    	(isset($request->reservation))? $permission->reservation = 'Y' : $permission->reservation = 'N';
+    	(isset($request->satisfaction))? $permission->satisfaction = 'Y' : $permission->satisfaction = 'N';
+    	(isset($request->contact))? $permission->contact = 'Y' : $permission->contact = 'N';
+    	(isset($request->timeset))? $permission->timeset = 'Y' : $permission->timeset = 'N';
+    	(isset($request->permission))? $permission->permission = 'Y' : $permission->permission = 'N';
+    	$permission->save();
+
+    	return redirect()->route('ht.Permission.index',compact('organization'))->with('success','新增成功');
+    }
+
+    public function edit(Organization $organization,$id)
+    {
+    	$user = User::find($id);
+    	$permission = User::find($id)->permission;
+    	$company = Organization::all();
+    	$dept = Organization::find($user->organization_id)->departments;
+
+    	return view('ht.Permission.edit',compact('organization','user','permission','company','dept'));
+    }
+
+    public function update(Organization $organization,Request $request)
+    {
+    	$user = User::find($request->id);
+        $user->organization_id = $request->company;
+    	$user->department_id = $request->dept;
+    	$user->name = $request->name;
+    	$user->ID_number = $request->ID_number;
+    	$user->mobile = $request->mobile;
+    	$user->emp_id = $request->emp_id;
+    	$user->password = bcrypt($request->emp_id);
+    	$user->job = $request->job;
+    	$user->save();
+
+    	$permission = User::find($request->id)->permission;
+    	(isset($request->assistant))? $permission->assistant = 'Y' : $permission->assistant = 'N';
+    	(isset($request->supervisor))? $permission->supervisor = 'Y' : $permission->supervisor = 'N';
+    	(isset($request->staff))? $permission->staff = 'Y' : $permission->staff = 'N';
+    	(isset($request->reservation))? $permission->reservation = 'Y' : $permission->reservation = 'N';
+    	(isset($request->satisfaction))? $permission->satisfaction = 'Y' : $permission->satisfaction = 'N';
+    	(isset($request->contact))? $permission->contact = 'Y' : $permission->contact = 'N';
+    	(isset($request->timeset))? $permission->timeset = 'Y' : $permission->timeset = 'N';
+    	(isset($request->permission))? $permission->permission = 'Y' : $permission->permission = 'N';
+    	$permission->save();
+
+    	return redirect()->route('ht.Permission.index',compact('organization'))->with('success','修改成功');
+    }
+
+    public function getUserInfo(Organization $organization,Request $request)
+    {
+    	$user_id = $request->user_id;
+
+    	$user = User::find($user_id);
+    	$company_user = Organization::find($user->organization_id);
+    	$dept_user = Department::find($user->department_id);
+
+    	return [$user,$company_user,$dept_user];
     }
 
     public function destroy(Request $request,Organization $organization,User $user)

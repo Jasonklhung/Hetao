@@ -68,11 +68,15 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::get('/HT/{organization}/Permission/create','HT\Permission\PermissionController@create')->name('ht.Permission.create');
 
+		Route::post('/HT/{organization}/Permission/getCompany','HT\Permission\PermissionController@getCompany')->name('ht.Permission.getCompany');
+
 		Route::post('/HT/{organization}/Permission/store','HT\Permission\PermissionController@store')->name('ht.Permission.store');
 
-		Route::get('/HT/{organization}/Permission/edit','HT\Permission\PermissionController@edit')->name('ht.Permission.edit');
+		Route::get('/HT/{organization}/Permission/edit/{id}','HT\Permission\PermissionController@edit')->name('ht.Permission.edit');
 
-		Route::get('/HT/{organization}/Permission/update','HT\Permission\PermissionController@update')->name('ht.Permission.update');
+		Route::post('/HT/{organization}/Permission/update','HT\Permission\PermissionController@update')->name('ht.Permission.update');
+
+		Route::get('/HT/{organization}/Permission/getUserInfo','HT\Permission\PermissionController@getUserInfo')->name('ht.Permission.getUserInfo');
 
 		Route::delete('/HT/{organization}/Permission/destroy','HT\Permission\PermissionController@destroy')->name('ht.Permission.destroy');
 	});

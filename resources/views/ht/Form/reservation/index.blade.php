@@ -33,7 +33,7 @@
                                                                     <label for="sec01">
                                                                         <i class="fas fa-check-circle fa-fw"></i>
                                                                         <a class="thx" data-toggle="tab" href="#thankyou1">
-                                                                        <span>感謝頁</span> </a><input type="checkbox" id="sec01" class="form-sec-btn">
+                                                                        <input class="form-control formName" type="text" value="感謝頁" disabled=""></a><input type="checkbox" id="sec01" class="form-sec-btn">
                                                                     </label>
                                                                 </div>
                                                             <!-- 新增頁面 -->
@@ -41,7 +41,7 @@
                                                                 <i class="fas fa-plus"></i>
                                                             </div>
                                                             <!-- 儲存 -->
-                                                            <button type="submit" class="save">
+                                                            <button type="button" id="save" class="save">
                                                                 <i class="fas fa-save"></i>
                                                             </button>
                                                             <div class="sticky toolbar text-center">
@@ -56,9 +56,10 @@
                                                                 <div class="panel-heading text-center font-l font-r">線上預約表單</div>
                                                                 <div class="panel-body font-sm pdx-0">
                                                                     <div class="last-page tab-content">
-                                                                        <form class="form-content-0" action="">
+                                                                        <form class="form-content-0 classForm" action="" method="post">
+                                                                            @csrf
                                                                             <div class="form-group mgy-sm pd-l">
-                                                                                <textarea class="form-control" placeholder="填寫歡迎詞" row="1">感謝您耐心填寫表單，我們將會盡速聯繫您！</textarea>
+                                                                                <textarea class="form-control" name="thx" placeholder="填寫歡迎詞" row="1">感謝您耐心填寫表單，我們將會盡速聯繫您！</textarea>
                                                                             </div>
                                                                         </form>   
                                                                     </div>
@@ -84,4 +85,57 @@
 <!-- ▼本頁引用▼ -->
 <script src="{{ asset('js/formset.js') }}"></script>
 <!-- ▲本頁引用▲ -->
+<script type="text/javascript">
+//新增頁面
+var i = 1
+var a = 0
+$('body').on('click', '.add-section', function(){
+    i++
+    a++
+    $(this).parent().children('.sec01').before('<div class="sec-1-'+ i +' section mr-s"><label for="sec-1-'+ i +'"><i class="fas fa-check-circle fa-fw"></i><a data-toggle="tab" href="#p-1-'+ i +'"><input class="form-control formName" type="text" placeholder="未命名"></a><input type="checkbox" id="sec-1-'+ i +'" class="form-sec-btn"></label><button class="close"type="button">&times;</button></div>');
+    $(this).parent().parent().children('#thankyou1').before('<div class="tab-pane fade" id="p-1-'+ i +'"><div class="panel panel-default panel-type page"><div class="panel-heading text-center font-l font-r">線上預約表單</div><div class="panel-body font-sm pdx-0"><div class="last-page tab-content"><form class="form-content-0 classForm"></form></div></div></div></div>');
+    $(".add-section").parent().find('.thx').siblings(".section").click();
+});
+</script>
+<script type="text/javascript">
+        $('#save').on('click',function(){
+
+             var thisForm = document.forms[0];
+             var elementHtml = thisForm.outerHTML;
+
+             var thisForm1 = document.forms[1];
+             var elementHtml1 = thisForm1.outerHTML;
+
+             var thisForm2 = document.forms[2];
+             var elementHtml2 = thisForm2.outerHTML;
+
+            var obj = document.getElementsByClassName("formName");
+            console.log(obj[0].value)
+            console.log(elementHtml)
+            console.log(obj[1].value)
+            console.log(elementHtml1)
+            console.log(obj[2].value)
+            console.log(elementHtml2)
+            // var arr = new Array();
+            // for (var i = 0; i <obj.length; i++) {
+            //     arr[i] = obj[i].name;
+            // }
+
+
+            // $.ajax({
+            //     method:'post',
+            //     url:'{{ route('ht.Form.reservation.store',['organization'=>$organization]) }}',
+            //     data:{
+            //         '_token':'{{csrf_token()}}',
+            //         'form':elementHtml,
+            //     },
+            //     dataType:'text',
+            //     success:function(res){
+
+            //     },
+            // })
+
+        })
+
+</script>
 @endsection

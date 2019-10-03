@@ -84,4 +84,15 @@
 <!-- ▼本頁引用▼ -->
 <script src="{{ asset('js/formset.js') }}"></script>
 <!-- ▲本頁引用▲ -->
+<script type="text/javascript">
+    var j = 1
+    var b =0
+    $('body').on('click', '.add-section2', function(){
+        j++
+        b++
+        $(this).parent().children('.sec02').before('<div class="sec-2-'+ j +' section mr-s"><label for="sec-2-'+ j +'"><i class="fas fa-check-circle fa-fw"></i><a data-toggle="tab" href="#p-2-'+ j +'"><input class="form-control" type="text" placeholder="未命名"></a><input type="checkbox" id="sec-2-'+ j +'" class="form-sec-btn"></label><button class="close"type="button">&times;</button></div>');
+        $(this).parent().parent().append('<div class="tab-pane fade" id="p-2-'+ j +'"><div class="panel panel-default panel-type page"><div class="panel-heading text-center font-l font-r">線上預約表單</div><div class="panel-body font-sm pdx-0"><div class="last-page tab-content"><form class="form-content-0" action=""></form></div></div></div></div>');
+        $(".add-section").parent().find('.thx').siblings(".section:last").click();
+    });
+</script>
 @endsection

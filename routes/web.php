@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
 		//表單設定-線上預約
 		Route::get('/HT/{organization}/Form/reservation/index','HT\Form\ReservationController@index')->name('ht.Form.reservation.index');
 
+		Route::post('/HT/{organization}/Form/reservation/store','HT\Form\ReservationController@store')->name('ht.Form.reservation.store');
+
 		//表單設定-滿意度調查
 		Route::get('/HT/{organization}/Form/satisfaction/index','HT\Form\SatisfactionController@index')->name('ht.Form.satisfaction.index');
 

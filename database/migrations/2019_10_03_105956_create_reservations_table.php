@@ -16,8 +16,8 @@ class CreateReservationsTable extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->comment('表單名稱');
-            $table->text('form')->comment('整包表單內容');
-            $table->json('node')->comment('跳轉節點');
+            $table->json('form')->comment('整包表單內容');
+            $table->json('node')->nullable()->comment('跳轉節點');
             $table->timestamps();
         });
     }

@@ -21,4 +21,5 @@ use Illuminate\Http\Request;
 // 	
 // });
 
-Route::get('getData', 'API\ReservationController@index');
+
+Route::get('getData','Api\ReservationController@index');

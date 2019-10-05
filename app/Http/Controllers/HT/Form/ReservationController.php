@@ -36,11 +36,4 @@ class ReservationController extends Controller
 
     	return response()->json(['success'=>['ok']]);
     }
-
-    public function getData(Organization $organization,Request $request)
-    {
-    	$data = Reservation::all();
-
-    	return $data;
-    }
 }

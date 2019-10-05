@@ -10,7 +10,7 @@ class ReservationController extends Controller
 {
     public function index()
     {
-        $data = Reservation::all();
+        $data = Reservation::select('form')->get();
 
         return $data;
     }

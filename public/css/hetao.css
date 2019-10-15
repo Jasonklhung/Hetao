@@ -257,9 +257,9 @@ div.dataTables_wrapper div.dataTables_filter label, .dataTables_filter .form-gro
         width: 100%;
     }
 
-    /*	.fc-right .fc-button-group , .fc-right .search, .fc-right .datetime , .fc-right button {
-		display: block;
-	}*/
+    /*  .fc-right .fc-button-group , .fc-right .search, .fc-right .datetime , .fc-right button {
+        display: block;
+    }*/
     .fc-toolbar .fc-right {
         width: 100%;
     }
@@ -511,10 +511,10 @@ h4.title-deco {
     color: #333;
 }
 
-/*.status.btn-primary {
+.status.btn-primary {
     cursor: inherit;
     pointer-events: none;
-}*/
+}
 
 .status.btn-primary:hover {
     background-color: #0088cc;
@@ -638,7 +638,7 @@ h4.title-deco {
     }
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1317px) {
     .rwdhide {
         visibility: hidden;
     }
@@ -664,8 +664,61 @@ h4.title-deco {
         display: inline-block;
         width: 40%;
     }
-
 }
+@media screen and (max-width: 1334px) {
+    #hetao-list-a .rwdhide {
+        visibility: hidden;
+    }
+
+    #hetao-list-a .odd,
+    #hetao-list-a .even {
+        visibility: hidden;
+        display: none;
+    }
+
+    #hetao-list-a.dataTable tbody>tr>td {
+        text-align: left;
+    }
+    .dataTables_wrapper table.dataTable#hetao-list-a {
+        position: relative;
+        top: -30px;
+    }
+    #hetao-list-a .child .form-control {
+        display: inline-block;
+        width: 40%;
+    }
+}
+@media screen and (max-width: 1370px) {
+    #hetao-list-a-2 .rwdhide {
+        visibility: hidden;
+    }
+
+    #hetao-list-a-2 .odd,
+    #hetao-list-a-2 .even {
+        visibility: hidden;
+        display: none;
+    }
+
+    #hetao-list-a-2.dataTable tbody>tr>td {
+        text-align: left;
+    }
+    .dataTables_wrapper table.dataTable#hetao-list-a-2 {
+        position: relative;
+        top: -30px;
+    }
+    #hetao-list-a-2 .child .form-control {
+        display: inline-block;
+        width: 40%;
+    }
+}
+   .batch-finish {
+        position: fixed;
+        bottom: 10px;
+        right: 20px;
+        z-index: 9999;
+        box-shadow: 0 2px 10px -3px rgba(0,0,0,0.5);
+    }
+
 
 /* 權限管理
 =================================*/
@@ -699,7 +752,7 @@ h4.title-deco {
     margin: 8px 0;
 }
 .setting .switch {
-    margin: 0;	
+    margin: 0;  
 }
 
 .switch input {
@@ -756,25 +809,25 @@ input:checked+.slider:before {
 }
 /*權限*/
 .authority input:checked+.slider:after {
-	content: '顯示';
-	color: #53a8e9;
+    content: '顯示';
+    color: #53a8e9;
 }
 .authority .slider:after {
-	content: '隱藏';
-	position: absolute;
-	color: #464646;
+    content: '隱藏';
+    position: absolute;
+    color: #464646;
     left: -36px;
     top: -9px;
 }
 /*推播*/
 .setting input:checked+.slider:after {
-	content: '開啟';
-	color: #53a8e9;
+    content: '開啟';
+    color: #53a8e9;
 }
 .setting .slider:after {
-	content: '關閉';
-	position: absolute;
-	color: #464646;
+    content: '關閉';
+    position: absolute;
+    color: #464646;
     left: -36px;
     top: -1px;
 }

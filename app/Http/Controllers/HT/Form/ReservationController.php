@@ -17,6 +17,8 @@ class ReservationController extends Controller
 
     public function store(Organization $organization,Request $request)
     {
+    	//dd($request->all());
+
     	$form = array();
 
     	foreach ($request->name as $name => $n) {

@@ -138,28 +138,28 @@
                                                         <table class="table table-hover dt-responsive table-striped" id="hetao-list-a-2">
                                                             <thead class="rwdhide">
                                                                 <tr>
-                                                                    <th class="desktop">派工類型</th>
+                                                                    <th class="desktop">工單編號</th>
+                                                                    <th class="desktop">工單日期</th>
                                                                     <th class="desktop">客戶代碼</th>
+                                                                    <th class="desktop">承辦人員</th>
                                                                     <th class="desktop">地址</th>
                                                                     <th class="desktop">電話</th>
                                                                     <th class="desktop">派工原因</th>
-                                                                    <th class="desktop">承辦人員</th>
-                                                                    <th class="desktop">工單編號</th>
-                                                                    <th class="desktop">工單日期</th>
+                                                                    <th class="desktop">派工類型</th>
                                                                     <th class="desktop">負責主管</th>
                                                                     <th class="desktop"></th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    <td>維修</td>
+                                                                    <td>00000000</td>
+                                                                    <td>2019-08-06 10:30</td>
                                                                     <td>楊梅國中</td>
+                                                                    <td>邱小姐</td>
                                                                     <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
                                                                     <td><a href="tel:5551234567">03-3322101</a></td>
                                                                     <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
-                                                                    <td>邱小姐</td>
-                                                                    <td>00000000</td>
-                                                                    <td>2019-08-06 10:30</td>
+                                                                    <td>維修</td>
                                                                     <td>
                                                                         <select class="form-control" id="sel1">
                                                                             <option selected hidden disabled>待指派</option>
@@ -175,14 +175,14 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>維修</td>
+                                                                    <td>00000000</td>
+                                                                    <td>2019-08-06 10:30</td>
                                                                     <td>楊梅國中</td>
+                                                                    <td>邱小姐</td>
                                                                     <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
                                                                     <td><a href="tel:5551234567">03-3322101</a></td>
                                                                     <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
-                                                                    <td>邱小姐</td>
-                                                                    <td>00000000</td>
-                                                                    <td>2019-08-06 10:30</td>
+                                                                    <td>維修</td>
                                                                     <td>
                                                                         <select class="form-control" id="sel1">
                                                                             <option selected hidden disabled>待指派</option>
@@ -193,19 +193,19 @@
                                                                         </select>
                                                                     </td>
                                                                     <td>
-                                                                        <a target="_blank" href=""><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
+                                                                        <a target="_blank" href="editdispatch.html"><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
                                                                         <input id="chk" class="chkall hide" type="checkbox" value="" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>維修</td>
+                                                                    <td>00000000</td>
+                                                                    <td>2019-08-06 10:30</td>
                                                                     <td>楊梅國中</td>
+                                                                    <td>邱小姐</td>
                                                                     <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
                                                                     <td><a href="tel:5551234567">03-3322101</a></td>
                                                                     <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
-                                                                    <td>邱小姐</td>
-                                                                    <td>00000000</td>
-                                                                    <td>2019-08-06 10:30</td>
+                                                                    <td>維修</td>
                                                                     <td>
                                                                         <select class="form-control" id="sel1">
                                                                             <option selected hidden disabled>待指派</option>
@@ -216,19 +216,19 @@
                                                                         </select>
                                                                     </td>
                                                                     <td>
-                                                                        <a target="_blank" href=""><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
+                                                                        <a target="_blank" href="editdispatch.html"><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
                                                                         <input id="chk" class="chkall hide" type="checkbox" value="" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>維修</td>
+                                                                    <td>00000000</td>
+                                                                    <td>2019-08-06 10:30</td>
                                                                     <td>楊梅國中</td>
+                                                                    <td>邱小姐</td>
                                                                     <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
                                                                     <td><a href="tel:5551234567">03-3322101</a></td>
                                                                     <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
-                                                                    <td>邱小姐</td>
-                                                                    <td>00000000</td>
-                                                                    <td>2019-08-06 10:30</td>
+                                                                    <td>維修</td>
                                                                     <td>
                                                                         <select class="form-control" id="sel1">
                                                                             <option selected hidden disabled>待指派</option>
@@ -239,19 +239,19 @@
                                                                         </select>
                                                                     </td>
                                                                     <td>
-                                                                        <a target="_blank" href=""><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
+                                                                        <a target="_blank" href="editdispatch.html"><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
                                                                         <input id="chk" class="chkall hide" type="checkbox" value="" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>維修</td>
+                                                                    <td>00000000</td>
+                                                                    <td>2019-08-06 10:30</td>
                                                                     <td>楊梅國中</td>
+                                                                    <td>邱小姐</td>
                                                                     <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
                                                                     <td><a href="tel:5551234567">03-3322101</a></td>
                                                                     <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
-                                                                    <td>邱小姐</td>
-                                                                    <td>00000000</td>
-                                                                    <td>2019-08-06 10:30</td>
+                                                                    <td>維修</td>
                                                                     <td>
                                                                         <select class="form-control" id="sel1">
                                                                             <option selected hidden disabled>待指派</option>
@@ -262,19 +262,19 @@
                                                                         </select>
                                                                     </td>
                                                                     <td>
-                                                                        <a target="_blank" href=""><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
+                                                                        <a target="_blank" href="editdispatch.html"><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
                                                                         <input id="chk" class="chkall hide" type="checkbox" value="" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>維修</td>
+                                                                    <td>00000000</td>
+                                                                    <td>2019-08-06 10:30</td>
                                                                     <td>楊梅國中</td>
+                                                                    <td>邱小姐</td>
                                                                     <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
                                                                     <td><a href="tel:5551234567">03-3322101</a></td>
                                                                     <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
-                                                                    <td>邱小姐</td>
-                                                                    <td>00000000</td>
-                                                                    <td>2019-08-06 10:30</td>
+                                                                    <td>維修</td>
                                                                     <td>
                                                                         <select class="form-control" id="sel1">
                                                                             <option selected hidden disabled>待指派</option>
@@ -285,19 +285,19 @@
                                                                         </select>
                                                                     </td>
                                                                     <td>
-                                                                        <a target="_blank" href=""><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
+                                                                        <a target="_blank" href="editdispatch.html"><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
                                                                         <input id="chk" class="chkall hide" type="checkbox" value="" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>維修</td>
+                                                                    <td>00000000</td>
+                                                                    <td>2019-08-06 10:30</td>
                                                                     <td>楊梅國中</td>
+                                                                    <td>邱小姐</td>
                                                                     <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
                                                                     <td><a href="tel:5551234567">03-3322101</a></td>
                                                                     <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
-                                                                    <td>邱小姐</td>
-                                                                    <td>00000000</td>
-                                                                    <td>2019-08-06 10:30</td>
+                                                                    <td>維修</td>
                                                                     <td>
                                                                         <select class="form-control" id="sel1">
                                                                             <option selected hidden disabled>待指派</option>
@@ -308,19 +308,19 @@
                                                                         </select>
                                                                     </td>
                                                                     <td>
-                                                                        <a target="_blank" href=""><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
-                                                                        <input class="chkall hide" type="checkbox" value="" />
+                                                                        <a target="_blank" href="editdispatch.html"><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
+                                                                        <input id="chk" class="chkall hide" type="checkbox" value="" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>維修</td>
+                                                                    <td>00000000</td>
+                                                                    <td>2019-08-06 10:30</td>
                                                                     <td>楊梅國中</td>
+                                                                    <td>邱小姐</td>
                                                                     <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
                                                                     <td><a href="tel:5551234567">03-3322101</a></td>
                                                                     <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
-                                                                    <td>邱小姐</td>
-                                                                    <td>00000000</td>
-                                                                    <td>2019-08-06 10:30</td>
+                                                                    <td>維修</td>
                                                                     <td>
                                                                         <select class="form-control" id="sel1">
                                                                             <option selected hidden disabled>待指派</option>
@@ -331,19 +331,20 @@
                                                                         </select>
                                                                     </td>
                                                                     <td>
-                                                                        <a target="_blank" href=""><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
+                                                                        <a target="_blank" href="editdispatch.html"><button type="button" class="btn btn-primary" style="margin-right: 28px;">處理</button></a>
                                                                         <input id="chk" class="chkall hide" type="checkbox" value="" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="past">
-                                                                    <td>維修</td>
+                                                                    
+                                                                    <td>00000000</td>
+                                                                    <td>2019-08-06 10:30</td>
                                                                     <td>楊梅國中</td>
+                                                                    <td>邱小姐</td>
                                                                     <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
                                                                     <td><a href="tel:5551234567">03-3322101</a></td>
                                                                     <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
-                                                                    <td>邱小姐</td>
-                                                                    <td>00000000</td>
-                                                                    <td>2019-08-06 10:30</td>
+                                                                    <td>維修</td>
                                                                     <td>
                                                                         王大明
                                                                     </td>
@@ -351,14 +352,14 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="past">
-                                                                    <td>維修</td>
+                                                                    <td>00000000</td>
+                                                                    <td>2019-08-06 10:30</td>
                                                                     <td>楊梅國中</td>
+                                                                    <td>邱小姐</td>
                                                                     <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
                                                                     <td><a href="tel:5551234567">03-3322101</a></td>
                                                                     <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
-                                                                    <td>邱小姐</td>
-                                                                    <td>00000000</td>
-                                                                    <td>2019-08-06 10:30</td>
+                                                                    <td>維修</td>
                                                                     <td>
                                                                         王大明
                                                                     </td>
@@ -379,6 +380,7 @@
                 </div>
             </div>
         </div>
+    </div>
 @endsection
 
 @section('scripts')

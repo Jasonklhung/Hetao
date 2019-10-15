@@ -111,6 +111,8 @@ $('body').on('click', '.add-section', function(){
             var formId = obj2[i].id
             var formdata = $('#'+formId+'').serializeArray()
 
+            console.log(formdata)
+
             DataArray.push(formdata)
             FormName.push(name)
         }

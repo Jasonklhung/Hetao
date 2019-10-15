@@ -29,15 +29,15 @@ $('.toolbar').on('click', '.t03', function() {
 var radio = 0
 $('.toolbar').on('click', '.t04', function() {
     radio++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" name="radio'+radio+'" type="text" placeholder="未命名的問題"></p><div class="select-con"><div class="mb-s"><button class="close" type="button">&times;</button><div class="out mr-s"></div><input type="text" name="radioOpt1" placeholder="填寫選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select></div></div><a href="javascript:void(0)" class="select-fun"><div class="out mr-s"></div>新增選項</a><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label><input class="followw" id="follow1'+radio+'" type="checkbox"><label class="followanswer" for="follow1'+radio+'">依答案至相關頁面</label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" name="radio'+radio+'" type="text" placeholder="未命名的問題"></p><div class="select-con"><div class="mb-s"><button class="close" type="button">&times;</button><div class="out mr-s"></div><input type="text" name="radio'+radio+'Opt" placeholder="填寫選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select></div></div><a href="javascript:void(0)" class="select-fun"><div class="out mr-s"></div>新增選項</a><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="radio'+radio+'Req"><span class="slider round"></span></label><input class="followw" id="follow1'+radio+'" type="checkbox"><label class="followanswer" for="follow1'+radio+'">依答案至相關頁面</label></div></div>');
     // option()
 });
 
 /*單選新增選項*/
 var opt = 1;
 $('body').on('click', '.select-fun', function() {
-    opt++
-    $(this).parents('.item').children('.select-con').append('<div class="mb-s"> <button class="close" type ="button">&times;</button> <div class="out mr-s"> </div><input type="text" name="radioOpt'+opt+'" placeholder="填寫選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select> </div>');
+    var name = $(this).parents('.item').children('.title-deco').children('.form-control').attr('name')
+    $(this).parents('.item').children('.select-con').append('<div class="mb-s"> <button class="close" type ="button">&times;</button> <div class="out mr-s"> </div><input type="text" name="'+name+'Opt" placeholder="填寫選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select> </div>');
 });
 
 /*單選選項刪除*/
@@ -49,14 +49,14 @@ $('body').on('click', '.select-con .close', function() {
 var multi = 0
 $('.toolbar').on('click', '.t05', function() {
     multi++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" name="multi'+multi+'" placeholder="未命名的問題"></p><div class="multi-con"><div class="mb-s"><button class="close" type="button">&times;</button><div class="shape mr-s"></div><input type="text" name="multiOpt1" placeholder="選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select></div></div><a href="javascript:void(0)" class="multi-fun"><div class="shape mr-s"></div>新增選項</a><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label><input class="followw" id="follow2'+multi+'" type="checkbox"><label class="followanswer" for="follow2'+multi+'">依答案至相關頁面</label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" name="multi'+multi+'" placeholder="未命名的問題"></p><div class="multi-con"><div class="mb-s"><button class="close" type="button">&times;</button><div class="shape mr-s"></div><input type="text" name="multi'+multi+'Opt" placeholder="選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select></div></div><a href="javascript:void(0)" class="multi-fun"><div class="shape mr-s"></div>新增選項</a><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="multi'+multi+'Req"><span class="slider round"></span></label><input class="followw" id="follow2'+multi+'" type="checkbox"><label class="followanswer" for="follow2'+multi+'">依答案至相關頁面</label></div></div>');
 });
 
 /*多選新增選項*/
 var multiOpt = 1
 $('body').on('click', '.multi-fun', function() {
-    multiOpt++
-    $(this).parents('.item').children('.multi-con').append('<div class="mb-s"> <button class="close" type ="button">&times;</button> <div class="shape mr-s"> </div><input type="text" name="multiOpt'+multiOpt+'" placeholder="填寫選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select>  </div>');
+    var multiname = $(this).parents('.item').children('.title-deco').children('.form-control').attr('name')
+    $(this).parents('.item').children('.multi-con').append('<div class="mb-s"> <button class="close" type ="button">&times;</button> <div class="shape mr-s"> </div><input type="text" name="'+multiname+'Opt" placeholder="填寫選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select>  </div>');
 });
 
 /*多選選項刪除*/
@@ -68,14 +68,14 @@ $('body').on('click', '.multi-con .close', function() {
 var sele = 0
 $('.toolbar').on('click', '.t06', function() {
     sele++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" name="select'+sele+'" type="text" placeholder="未命名的問題"></p><ol class="drop-con"><li class="mb-s"><button class="close" type="button">&times;</button><input type="text" name="selectOpt1" placeholder="選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select></li><li class="mb-s drop-fun-dot"><a href="javascript:void(0)" class="drop-fun">新增選項</a></li></ol><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label><input class="followw" id="follow3'+sele+'" type="checkbox"><label class="followanswer" for="follow3'+sele+'">依答案至相關頁面</label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" name="select'+sele+'" type="text" placeholder="未命名的問題"></p><ol class="drop-con"><li class="mb-s"><button class="close" type="button">&times;</button><input type="text"  name="select'+sele+'Opt" placeholder="選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select></li><li class="mb-s drop-fun-dot"><a href="javascript:void(0)" class="drop-fun">新增選項</a></li></ol><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="select'+sele+'Req"><span class="slider round"></span></label><input class="followw" id="follow3'+sele+'" type="checkbox"><label class="followanswer" for="follow3'+sele+'">依答案至相關頁面</label></div></div>');
 });
 
 /*下拉新增選項*/
 var selectOpt = 1
 $('body').on('click', '.drop-fun', function() {
-    selectOpt++
-    $(this).parents('.drop-con').children('.drop-fun-dot').before('<li class="mb-s"><button class="close" type="button">&times;</button><input type="text" name="selectOpt'+selectOpt+'" placeholder="選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select> </li>');
+    var selectname = $(this).parents('.item').children('.title-deco').children('.form-control').attr('name')
+    $(this).parents('.drop-con').children('.drop-fun-dot').before('<li class="mb-s"><button class="close" type="button">&times;</button><input type="text" name="'+selectname+'Opt" placeholder="選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select> </li>');
 });
 
 /*下拉選項刪除*/
@@ -87,25 +87,25 @@ $('body').on('click', '.drop-con li .close', function() {
 var qa = 0
 $('.toolbar').on('click', '.t07', function() {
     qa++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" name="qa'+qa+'" placeholder="未命名的問題"></p><input class="lock" type="text" value="簡答文字" disabled><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" name="qa'+qa+'" placeholder="未命名的問題"></p><input class="lock" type="text" value="簡答文字" disabled><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="qa'+qa+'Req"><span class="slider round"></span></label></div></div>');
 });
 //段落
 var part = 0
 $('.toolbar').on('click', '.t08', function() {
     part++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" name="part'+part+'" placeholder="未命名的問題"></p><input class="lock" type="text" value="詳答文字" disabled><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" name="part'+part+'" placeholder="未命名的問題"></p><input class="lock" type="text" value="詳答文字" disabled><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="part'+part+'Req"><span class="slider round"></span></label></div></div>');
 });
 //日期
 var date = 0
 $('.toolbar').on('click', '.t09', function() {
     date++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" name="date'+date+'" placeholder="未命名的問題"></p><input class="lock datime" type="text" value="年/月/日" disabled><span class="glyphicon glyphicon-calendar date-icon" aria-hidden="true"></span><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" name="date'+date+'" placeholder="未命名的問題"></p><input class="lock datime" type="text" value="年/月/日" disabled><span class="glyphicon glyphicon-calendar date-icon" aria-hidden="true"></span><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="date'+date+'Req"><span class="slider round"></span></label></div></div>');
 });
 //時間
 var time = 0
 $('.toolbar').on('click', '.t10', function() {
     time ++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" name="time'+time+'" placeholder="未命名的問題"></p><input class="lock datime" type="text" value="時：分" disabled><span class="glyphicon glyphicon-time time-icon" aria-hidden="true"></span><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" name="time'+time+'" placeholder="未命名的問題"></p><input class="lock datime" type="text" value="時：分" disabled><span class="glyphicon glyphicon-time time-icon" aria-hidden="true"></span><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="time'+time+'Req"><span class="slider round"></span></label></div></div>');
 });
 
 

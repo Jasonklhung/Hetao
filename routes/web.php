@@ -20,7 +20,7 @@ Route::post('/HT/getUUID','HT\Auth\LoginController@getUUID')->name('ht.Auth.getU
 
 //richmenu 派工單
 Route::get('/HT/assignCase','HT\Auth\LoginController@assignCase')->name('ht.Auth.assignCase');
-Route::post('/HT/getAssignCase','HT\Auth\LoginController@getAssignCase')->name('ht.Auth.getAssignCase');
+Route::get('/HT/getAssignCase','HT\Auth\LoginController@getAssignCase')->name('ht.Auth.getAssignCase');
 
 
 Route::group(['middleware' => ['auth']], function () {

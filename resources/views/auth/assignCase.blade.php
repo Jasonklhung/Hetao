@@ -41,11 +41,11 @@
     });
 
     function initializeApp(data) {
-       document.getElementById('input1').value = data.context.userId;
-       alert(data.context.userId)
+       // document.getElementById('input1').value = data.context.userId;
+       // alert(data.context.userId)
 
        $.ajax({
-            method:'post',
+            method:'get',
             url:'{{ route('ht.Auth.getAssignCase') }}',
             data:{
                 '_token': '{{ csrf_token() }}',

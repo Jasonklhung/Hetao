@@ -18,8 +18,9 @@
 Route::get('/HT/login','HT\Auth\LoginController@show')->name('ht.Auth.show');
 Route::post('/HT/getUUID','HT\Auth\LoginController@getUUID')->name('ht.Auth.getUUID');
 
-Route::get('/HT/botlogin','HT\Auth\LoginController@botlogin')->name('ht.Auth.botlogin');
-Route::post('/HT/getUUID','HT\Auth\LoginController@getUUID')->name('ht.Auth.getUUID');
+//richmenu 派工單
+Route::get('/HT/assignCase','HT\Auth\LoginController@assignCase')->name('ht.Auth.assignCase');
+Route::post('/HT/getAssignCase','HT\Auth\LoginController@getAssignCase')->name('ht.Auth.getAssignCase');
 
 
 Route::group(['middleware' => ['auth']], function () {

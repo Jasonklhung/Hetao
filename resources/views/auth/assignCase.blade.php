@@ -25,7 +25,7 @@
             <div class="login-container">
                 <p>賀桃工單管理系統</p>
                 
-                <input type="text" name="input1" id="input1">
+                <span>跳轉中...</span>
             </div>
         </div>
     </div>
@@ -43,6 +43,19 @@
     function initializeApp(data) {
        document.getElementById('input1').value = data.context.userId;
        alert(data.context.userId)
+
+       $.ajax({
+            method:'post',
+            url:'{{ route('ht.Auth.getAssignCase') }}',
+            data:{
+                '_token': '{{ csrf_token() }}',
+                'token':data.context.userId,
+            },
+            dataType:'json',
+            success:function(data){
+                window.location = data.redirect;
+            }
+        })
     }
     
 </script>

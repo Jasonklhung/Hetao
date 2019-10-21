@@ -51,9 +51,34 @@ class LoginController extends Controller
     	}
     }
 
-    public function botlogin()
+    public function assignCase()
     {
+        return view('auth.assignCase');
+    }
 
-        return view('auth.botlogin');
+    public function getAssignCase(Request $request)
+    {
+        $user = User::where('token', $request->token)->first();
+
+        if(isset($user)){
+
+            if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){
+
+                if($user['job'] == '助理'){
+                    return response()->json([
+                        'redirect'=>route('ht.StrokeManage.assistant.index',['organization'=>$user['organization_id']]),
+                    ],  200);
+                }
+                elseif($user['job'] == '主管'){
+                    return response()->json([
+                        'redirect'=>route('ht.StrokeManage.supervisor.index',['organization'=>$user['organization_id']]),
+                    ],  200);
+                }
+                
+            }
+        }
+        else{
+            return 'failed';
+        }
     }
 }

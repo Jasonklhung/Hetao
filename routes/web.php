@@ -26,6 +26,10 @@ Route::get('/HT/getAssignCase','HT\Auth\LoginController@getAssignCase')->name('h
 Route::get('/HT/report','HT\Auth\LoginController@report')->name('ht.Auth.report');
 Route::get('/HT/getReport','HT\Auth\LoginController@getReport')->name('ht.Auth.getReport');
 
+//richmenu 行程總覽
+Route::get('/HT/overview','HT\Auth\LoginController@overview')->name('ht.Auth.overview');
+Route::get('/HT/getOverview','HT\Auth\LoginController@getOverview')->name('ht.Auth.getOverview');
+
 
 Route::group(['middleware' => ['auth']], function () {
 

@@ -10,6 +10,7 @@
                     <div class="panel bg-transparent">
                         <div class="panel-body">
                             <div class="row">
+                                {{dd($action)}}
                                 <!-- 分析數據-->
                                 <div class="col-md-12 wrap">
                                     <div class="panel" id="manager">

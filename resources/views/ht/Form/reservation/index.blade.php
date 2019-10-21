@@ -127,7 +127,10 @@ $('body').on('click', '.add-section', function(){
             },
             dataType:'json',
             success:function(res){
-
+                if(res.success == 'ok'){
+                    window.location = '{{ route('ht.Form.reservation.index',['organization'=>$organization]) }}';
+                    alert('新增成功')
+                }
             },
         })
     })

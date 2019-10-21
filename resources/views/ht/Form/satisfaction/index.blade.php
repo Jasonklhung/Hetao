@@ -33,7 +33,7 @@
                                                                     <label for="sec02">
                                                                         <i class="fas fa-check-circle fa-fw"></i>
                                                                         <a class="thx" data-toggle="tab" href="#thankyou2">
-                                                                        <span>感謝頁</span> </a><input type="checkbox" id="sec02" class="form-sec-btn">
+                                                                        <input class="form-control formName" type="text" value="感謝頁" disabled=""></a><input type="checkbox" id="sec02" class="form-sec-btn">
                                                                     </label>
                                                                 </div>
                                                             <!-- 新增頁面 -->

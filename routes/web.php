@@ -18,6 +18,9 @@
 Route::get('/HT/login','HT\Auth\LoginController@show')->name('ht.Auth.show');
 Route::post('/HT/getUUID','HT\Auth\LoginController@getUUID')->name('ht.Auth.getUUID');
 
+Route::get('/HT/botlogin','HT\Auth\LoginController@botlogin')->name('ht.Auth.botlogin');
+Route::post('/HT/getUUID','HT\Auth\LoginController@getUUID')->name('ht.Auth.getUUID');
+
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -40,6 +43,12 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/HT/{organization}/StrokeManage/assistant/edit','HT\StrokeManage\AssistantController@edit')->name('ht.StrokeManage.assistant.edit');
 
 		Route::post('/HT/{organization}/StrokeManage/assistant/update','HT\StrokeManage\AssistantController@update')->name('ht.StrokeManage.assistant.update');
+
+		Route::get('/HT/{organization}/StrokeManage/assistant/getData','HT\StrokeManage\AssistantController@getData')->name('ht.StrokeManage.assistant.getData');
+
+		Route::get('/HT/{organization}/StrokeManage/assistant/getSupervisor','HT\StrokeManage\AssistantController@getSupervisor')->name('ht.StrokeManage.assistant.getSupervisor');
+
+		Route::post('/HT/{organization}/StrokeManage/assistant/assignCaseBoss','HT\StrokeManage\AssistantController@assignCaseBoss')->name('ht.StrokeManage.assistant.assignCaseBoss');
 
 		//行程管理-主管
 		Route::get('/HT/{organization}/StrokeManage/supervisor/index','HT\StrokeManage\SupervisorController@index')->name('ht.StrokeManage.supervisor.index');

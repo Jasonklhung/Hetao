@@ -50,4 +50,10 @@ class LoginController extends Controller
     		return 'failed';
     	}
     }
+
+    public function botlogin()
+    {
+
+        return view('auth.botlogin');
+    }
 }

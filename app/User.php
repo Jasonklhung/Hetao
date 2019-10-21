@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Permission::class);
     }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 }

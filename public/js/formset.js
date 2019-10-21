@@ -29,15 +29,16 @@ $('.toolbar').on('click', '.t03', function() {
 var radio = 0
 $('.toolbar').on('click', '.t04', function() {
     radio++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" name="radio'+radio+'" type="text" placeholder="未命名的問題"></p><div class="select-con"><div class="mb-s"><button class="close" type="button">&times;</button><div class="out mr-s"></div><input type="text" name="radio'+radio+'Opt" placeholder="填寫選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select></div></div><a href="javascript:void(0)" class="select-fun"><div class="out mr-s"></div>新增選項</a><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="radio'+radio+'Req"><span class="slider round"></span></label><input class="followw" id="follow1'+radio+'" type="checkbox"><label class="followanswer" for="follow1'+radio+'">依答案至相關頁面</label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" name="radio'+radio+'" type="text" placeholder="未命名的問題"></p><div class="select-con"><div class="mb-s"><button class="close" type="button">&times;</button><div class="out mr-s"></div><input type="text" name="radio'+radio+'Opt" placeholder="填寫選項文字"><select class="form-control" name="radio'+radio+'Href"></select></div></div><a href="javascript:void(0)" class="select-fun"><div class="out mr-s"></div>新增選項</a><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="radio'+radio+'Req"><span class="slider round"></span></label><input class="followw" id="follow1'+radio+'" type="checkbox"><label class="followanswer" for="follow1'+radio+'">依答案至相關頁面</label></div></div>');
     // option()
 });
 
 /*單選新增選項*/
 var opt = 1;
 $('body').on('click', '.select-fun', function() {
+    opt++
     var name = $(this).parents('.item').children('.title-deco').children('.form-control').attr('name')
-    $(this).parents('.item').children('.select-con').append('<div class="mb-s"> <button class="close" type ="button">&times;</button> <div class="out mr-s"> </div><input type="text" name="'+name+'Opt" placeholder="填寫選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select> </div>');
+    $(this).parents('.item').children('.select-con').append('<div class="mb-s"> <button class="close" type ="button">&times;</button> <div class="out mr-s"> </div><input type="text" name="'+name+'Opt" placeholder="填寫選項文字"><select class="form-control" name="'+name+'Href"></select> </div>');
 });
 
 /*單選選項刪除*/
@@ -49,14 +50,14 @@ $('body').on('click', '.select-con .close', function() {
 var multi = 0
 $('.toolbar').on('click', '.t05', function() {
     multi++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" name="multi'+multi+'" placeholder="未命名的問題"></p><div class="multi-con"><div class="mb-s"><button class="close" type="button">&times;</button><div class="shape mr-s"></div><input type="text" name="multi'+multi+'Opt" placeholder="選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select></div></div><a href="javascript:void(0)" class="multi-fun"><div class="shape mr-s"></div>新增選項</a><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="multi'+multi+'Req"><span class="slider round"></span></label><input class="followw" id="follow2'+multi+'" type="checkbox"><label class="followanswer" for="follow2'+multi+'">依答案至相關頁面</label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" name="multi'+multi+'" placeholder="未命名的問題"></p><div class="multi-con"><div class="mb-s"><button class="close" type="button">&times;</button><div class="shape mr-s"></div><input type="text" name="multi'+multi+'Opt" placeholder="選項文字"><select class="form-control"></select></div></div><a href="javascript:void(0)" class="multi-fun"><div class="shape mr-s"></div>新增選項</a><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="multi'+multi+'Req"><span class="slider round"></span></label></div></div>');
 });
 
 /*多選新增選項*/
 var multiOpt = 1
 $('body').on('click', '.multi-fun', function() {
     var multiname = $(this).parents('.item').children('.title-deco').children('.form-control').attr('name')
-    $(this).parents('.item').children('.multi-con').append('<div class="mb-s"> <button class="close" type ="button">&times;</button> <div class="shape mr-s"> </div><input type="text" name="'+multiname+'Opt" placeholder="填寫選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select>  </div>');
+    $(this).parents('.item').children('.multi-con').append('<div class="mb-s"> <button class="close" type ="button">&times;</button> <div class="shape mr-s"> </div><input type="text" name="'+multiname+'Opt" placeholder="填寫選項文字"><select class="form-control"></select>  </div>');
 });
 
 /*多選選項刪除*/
@@ -68,14 +69,14 @@ $('body').on('click', '.multi-con .close', function() {
 var sele = 0
 $('.toolbar').on('click', '.t06', function() {
     sele++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" name="select'+sele+'" type="text" placeholder="未命名的問題"></p><ol class="drop-con"><li class="mb-s"><button class="close" type="button">&times;</button><input type="text"  name="select'+sele+'Opt" placeholder="選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select></li><li class="mb-s drop-fun-dot"><a href="javascript:void(0)" class="drop-fun">新增選項</a></li></ol><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="select'+sele+'Req"><span class="slider round"></span></label><input class="followw" id="follow3'+sele+'" type="checkbox"><label class="followanswer" for="follow3'+sele+'">依答案至相關頁面</label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" name="select'+sele+'" type="text" placeholder="未命名的問題"></p><ol class="drop-con"><li class="mb-s"><button class="close" type="button">&times;</button><input type="text"  name="select'+sele+'Opt" placeholder="選項文字"><select class="form-control" name="select'+sele+'Href"></select></li><li class="mb-s drop-fun-dot"><a href="javascript:void(0)" class="drop-fun">新增選項</a></li></ol><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="select'+sele+'Req"><span class="slider round"></span></label><input class="followw" id="follow3'+sele+'" type="checkbox"><label class="followanswer" for="follow3'+sele+'">依答案至相關頁面</label></div></div>');
 });
 
 /*下拉新增選項*/
 var selectOpt = 1
 $('body').on('click', '.drop-fun', function() {
     var selectname = $(this).parents('.item').children('.title-deco').children('.form-control').attr('name')
-    $(this).parents('.drop-con').children('.drop-fun-dot').before('<li class="mb-s"><button class="close" type="button">&times;</button><input type="text" name="'+selectname+'Opt" placeholder="選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select> </li>');
+    $(this).parents('.drop-con').children('.drop-fun-dot').before('<li class="mb-s"><button class="close" type="button">&times;</button><input type="text" name="'+selectname+'Opt" placeholder="選項文字"><select class="form-control" name="'+selectname+'Href"></select> </li>');
 });
 
 /*下拉選項刪除*/
@@ -245,20 +246,38 @@ $('body').on('change','.followw', function(){
 // });
 
 function option1() {
+    var arr4 = []
+    var change = $(".item select")
+    change.each(function(){
+            var change_value=$(this).val()
+            arr4.push(change_value)
+            console.log(arr4)
+        })
     var inputs = $("#viewers-tab-01 .nav-tabs input[type='text']")
     arr1 = []
     $('#viewers-tab-01 .item.link .form-control option:not(.thxpage)').remove();
     inputs.each(
         function() {
             var input = $(this);
-            arr1.push(input.val())
+            arr1.push(input.val());
         }
     )
+    $('#viewers-tab-01 .item.link .form-control').append('<option value="">請選擇</option>');
     for (var i = 0; i < arr1.length; i++) {
-        $('#viewers-tab-01 .item.link .form-control').append('<option>' + arr1[i] + '</option>');
+        $('#viewers-tab-01 .item.link .form-control').append('<option value="'+arr1[i]+'">' + arr1[i] + '</option>');
     }
+    for(var i=0;i<arr4.length;i++){
+            $(".item select").eq(i).val(arr4[i])
+        }
 }
 function option2() {
+    var arr4 = []
+    var change = $(".item select")
+    change.each(function(){
+            var change_value=$(this).val()
+            arr4.push(change_value)
+            console.log(arr4)
+        })
     var inputs = $("#viewers-tab-02 .nav-tabs input[type='text']")
     arr2 = []
     $('#viewers-tab-02 .item.link .form-control option:not(.thxpage)').remove();
@@ -268,11 +287,22 @@ function option2() {
             arr2.push(input.val())
         }
     )
+    $('#viewers-tab-02 .item.link .form-control').append('<option value="">請選擇</option>');
     for (var i = 0; i < arr2.length; i++) {
-        $('#viewers-tab-02 .item.link .form-control').append('<option>' + arr2[i] + '</option>');
+        $('#viewers-tab-02 .item.link .form-control').append('<option value="'+arr2[i]+'">' + arr2[i] + '</option>');
     }
+    for(var i=0;i<arr4.length;i++){
+            $(".item select").eq(i).val(arr4[i])
+        }
 }
 function option3() {
+    var arr4 = []
+    var change = $(".item select")
+    change.each(function(){
+            var change_value=$(this).val()
+            arr4.push(change_value)
+            console.log(arr4)
+        })
     var inputs = $("#viewers-tab-03 .nav-tabs input[type='text']")
     arr3 = []
     $('#viewers-tab-03 .item.link .form-control option:not(.thxpage)').remove();
@@ -282,7 +312,11 @@ function option3() {
             arr3.push(input.val())
         }
     )
+    $('#viewers-tab-03 .item.link .form-control').append('<option value="">請選擇</option>');    
     for (var i = 0; i < arr3.length; i++) {
-        $('#viewers-tab-03 .item.link .form-control').append('<option>' + arr3[i] + '</option>');
+        $('#viewers-tab-03 .item.link .form-control').append('<option value="'+arr3[i]+'">' + arr3[i] + '</option>');
     }
+    for(var i=0;i<arr4.length;i++){
+            $(".item select").eq(i).val(arr4[i])
+        }    
 }

@@ -102,7 +102,7 @@ $("#hetao-list-a").DataTable({
     }],
     "order": [],
     "columnDefs": [{
-        "targets": [5],
+        "targets": [0],
         "orderable": false,
     }],
     "responsive": {
@@ -153,55 +153,90 @@ $("#hetao-list-a-2").DataTable({
         }
     },
 });
+//助理-與我聯繫
+$("#hetao-list-ab").DataTable({
+    "bPaginate": true,
+    "searching": true,
+    "info": false,
+    "bLengthChange": false,
+    "bServerSide": false,
+    "language": {
+        "search": "",
+        "searchPlaceholder": "請輸入關鍵字",
+        "paginate": { "previous": "上一頁", "next": "下一頁" },
+    },
+    "dom": "Bfrtip",
+    "buttons": [{
+        "extend": 'colvis',
+        "collectionLayout": 'fixed two-column'
+    }],
+    "order": [],
+    "columnDefs": [{
+        "targets": [0],
+        "orderable": false,
+    }],
+    "responsive": {
+        "breakpoints": [
+        { name: 'desktop', width: Infinity},
+        { name: 'tablet',  width: 1300},
+        ],
+        "details": {
+            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+            "type": 'none',
+            renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
+            "target": ''
+        }
+    },
+});
 //助理-預約表單filter
-$('#hetao-list-a_filter').append(
-    "<div class='coupon'>" +
-    "<form class='form-inline'>" +
-    "<div class='form-group'>" +
-    "<div class='datetime'>" +
-    "<div class='input-group date date-select'>" +
-    "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
-    "<div class='input-group date date-select mr-s'>" +
-    "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
-    "</div>" +
-    "</div>" +
-    "</div>" +
-    "<div class='btn-wrap'>" +
-    "<button class='mr-s' href=''>確認送出</button>" +
-    "<button class='mr-s' href=''>重新設定時間</button>" +
-    "<a href='dispatch.html'><button class='btn-bright' type='button'>新增派工單</button></a>" +
-    "</div>" +
-    "</form>" +
-    "</div>"
-);
+// $('#hetao-list-a_filter').append(
+//     "<div class='coupon'>" +
+//     "<form class='form-inline'>" +
+//     "<div class='form-group'>" +
+//     "<div class='datetime'>" +
+//     "<div class='input-group date date-select'>" +
+//     "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
+//     "<div class='input-group date date-select mr-s'>" +
+//     "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
+//     "</div>" +
+//     "</div>" +
+//     "</div>" +
+//     "<div class='btn-wrap'>" +
+//     "<button class='mr-s' href=''>確認送出</button>" +
+//     "<button class='mr-s' href=''>重新設定時間</button>" +
+//     "<a href='dispatch.html'><button class='btn-bright' type='button'>新增派工單</button></a>" +
+//     "</div>" +
+//     "</form>" +
+//     "</div>"
+// );
 //助理-預約表單rwd的頁面連結
 $(document).ready(function(){
     $('#hetao-list-a .child').attr("onclick","javascript:location.href='detail.html'")
 });
 //助理-派工單filter
-$('#hetao-list-a-2_filter').append(
-    "<div class='coupon'>" +
-    "<form class='form-inline'>" +
-    "<div class='form-group'>" +
-    "<div class='datetime'>" +
-    "<div class='input-group date date-select'>" +
-    "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
-    "<div class='input-group date date-select mr-s'>" +
-    "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
-    "</div>" +
-    "</div>" +
-    "</div>" +
-    "<div class='btn-wrap'>" +
-    "<button class='mr-s' href=''>確認送出</button>" +
-    "<button class='mr-s' href=''>重新設定時間</button>" +
-    "<a href='dispatch.html'><button type='button' class='mr-s btn-bright' type='button'>新增派工單</button></a>" +
-    "<div class='batchwrap'><div class='form-group mr-s hide batch-select'><select class='form-control' id='sel1'><option selected hidden disabled>請指派負責主管</option><option>Ricky</option><option>Eva</option><option>Apple</option><option>Banana</option></select></div>" +
-    "<button type='button' class='btn-bright hide batch-finish'>完成</button><label for='chkall' class='sall'>全選</label><input id='chkall' type='checkbox' value='' />" +
-    "<button type='button' class='btn-bright batch' href=''>批次指派</button></div>" +
-    "</div>" +
-    "</form>" +
-    "</div>"
-);
+// $('#hetao-list-a-2_filter').append(
+//     "<div class='coupon'>" +
+//     "<form class='form-inline'>" +
+//     "<div class='form-group'>" +
+//     "<div class='datetime'>" +
+//     "<div class='input-group date date-select'>" +
+//     "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
+//     "<div class='input-group date date-select mr-s'>" +
+//     "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
+//     "</div>" +
+//     "</div>" +
+//     "</div>" +
+//     "<div class='btn-wrap'>" +
+//     "<button class='mr-s' href=''>確認送出</button>" +
+//     "<button class='mr-s' href=''>重新設定時間</button>" +
+//     "<a href='dispatch.html'><button type='button' class='mr-s btn-bright' type='button'>新增派工單</button></a>" +
+//     "<div class='batchwrap'><div class='form-group mr-s hide batch-select'><select class='form-control' id='sel1'><option selected hidden disabled>請指派負責主管</option><option>Ricky</option><option>Eva</option><option>Apple</option><option>Banana</option></select></div>" +
+//     "<button type='button' class='btn-bright hide batch-finish'>完成</button><label for='chkall' class='sall'>全選</label><input id='chkall' type='checkbox' value='' />" +
+//     "<button type='button' class='btn-bright batch' href=''>批次指派</button></div>" +
+//     "</div>" +
+//     "</form>" +
+//     "</div>"
+// );
 
 
 

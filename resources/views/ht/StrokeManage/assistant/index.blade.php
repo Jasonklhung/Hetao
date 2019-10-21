@@ -10,7 +10,6 @@
                     <div class="panel bg-transparent">
                         <div class="panel-body">
                             <div class="row">
-                                {{dd($action)}}
                                 <!-- 分析數據-->
                                 <div class="col-md-12 wrap">
                                     <div class="panel" id="manager">
@@ -18,7 +17,7 @@
                                             <i class="fas fa-tasks"></i>行程管理
                                         </div>
                                         <div class="panel-body">
-                                            @if($action == 'assignCase')
+                                            @if(!empty($action) && $action == 'assignCase')
                                             <div class="tabbable">
                                                 <!-- tab標籤 -->
                                                 <ul class="nav nav-tabs">
@@ -135,7 +134,7 @@
                                                     <!-- end -->
                                                 </div>
                                             </div>
-                                            @elseif($action == 'report')
+                                            @elseif(!empty($action) && $action == 'report')
                                             <div class="tabbable">
                                                 <!-- tab標籤 -->
                                                 <ul class="nav nav-tabs">

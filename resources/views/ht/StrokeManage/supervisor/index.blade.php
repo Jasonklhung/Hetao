@@ -16,7 +16,7 @@
                                             <i class="fas fa-tasks"></i>行程管理
                                         </div>
                                         <div class="panel-body">
-                                            @if($action == 'report')
+                                            @if(!empty($action) && $action == 'report')
                                             <div class="tabbable">
                                                 <!-- tab標籤 -->
                                                 <ul class="nav nav-tabs">

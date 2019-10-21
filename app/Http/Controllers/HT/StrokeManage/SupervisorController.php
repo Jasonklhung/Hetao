@@ -10,6 +10,8 @@ class SupervisorController extends Controller
 {
     public function index(Organization $organization)
     {
-    	return view('ht.StrokeManage.supervisor.index',compact('organization'));
+    	$action = '';
+
+    	return view('ht.StrokeManage.supervisor.index',compact('organization','action'));
     }
 }

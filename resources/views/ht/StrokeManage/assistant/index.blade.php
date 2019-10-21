@@ -17,6 +17,241 @@
                                             <i class="fas fa-tasks"></i>行程管理
                                         </div>
                                         <div class="panel-body">
+                                            @if($action == 'assignCase')
+                                            <div class="tabbable">
+                                                <!-- tab標籤 -->
+                                                <ul class="nav nav-tabs">
+                                                    <li>
+                                                        <a data-toggle="tab" href="#viewers-tab-01">客戶線上預約</a>
+                                                    </li>
+                                                    <li class="active">
+                                                        <a data-toggle="tab" href="#viewers-tab-02">派工單</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" href="#viewers-tab-03">行程回報</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" href="#viewers-tab-04">與我聯繫</a>
+                                                    </li>
+                                                </ul>
+                                                <!-- tab標籤內容 -->
+                                                <div class="tab-content">
+                                                    <!-- 客戶線上預約 -->
+                                                    <div class="tab-pane" id="viewers-tab-01">
+                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-a">
+                                                            <thead class="rwdhide">
+                                                                <tr>
+                                                                    <th class="desktop">姓名</th>
+                                                                    <th class="desktop">預約日期</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="watch" onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.show',['organization'=>$organization]) }}'">
+                                                                    <td>愛酷</td>
+                                                                    <td>2019-08-06 16:30</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- end -->
+                                                    <!-- 派工單 -->
+                                                    <div class="tab-pane active" id="viewers-tab-02">
+                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-a-2">
+                                                            <thead class="rwdhide">
+                                                                <tr>
+                                                                    <th class="desktop">工單編號</th>
+                                                                    <th class="desktop">工單日期</th>
+                                                                    <th class="desktop">客戶代碼</th>
+                                                                    <th class="desktop">承辦人員</th>
+                                                                    <th class="desktop">地址</th>
+                                                                    <th class="desktop">電話</th>
+                                                                    <th class="desktop">派工原因</th>
+                                                                    <th class="desktop">派工類型</th>
+                                                                    <th hidden="">統編</th>
+                                                                    <th class="desktop">負責主管</th>
+                                                                    <th class="desktop"></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- end -->
+                                                    <!-- 行程回報 -->
+                                                    <div class="tab-pane" id="viewers-tab-03">
+                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-s-2">
+                                                            <thead class="rwdhide">
+                                                                <tr>
+                                                                    <th class="desktop">工單編號</th>
+                                                                    <th class="desktop">工單日期</th>
+                                                                    <th class="desktop">客戶代碼</th>
+                                                                    <th class="desktop">承辦人員</th>
+                                                                    <th class="desktop">地址</th>
+                                                                    <th class="desktop">電話</th>
+                                                                    <th class="desktop">派工原因</th>
+                                                                    <th class="desktop">派工類型</th>
+                                                                    <th class="desktop">狀態</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>00000000</td>
+                                                                    <td>2019-08-06 10:30</td>
+                                                                    <td>楊梅國中</td>
+                                                                    <td>邱小姐</td>
+                                                                    <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
+                                                                    <td><a href="tel:5551234567">03-3322101</a></td>
+                                                                    <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
+                                                                    <td>維修</td>
+                                                                    <td>
+                                                                        <button type="button" class="btn status">轉單</button>
+                                                                        <button type="button" class="btn status">延後</button>
+                                                                        <button type="button" class="btn status">已完成</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- end -->
+                                                    <!-- 與我聯繫 -->
+                                                    <div class="tab-pane" id="viewers-tab-04">
+                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-ab">
+                                                            <thead class="rwdhide">
+                                                                <tr>
+                                                                    <th class="desktop">姓名</th>
+                                                                    <th class="desktop">預約日期</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="watch" onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.show',['organization'=>$organization]) }}'">
+                                                                    <td>愛酷</td>
+                                                                    <td>2019-08-06 16:30</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- end -->
+                                                </div>
+                                            </div>
+                                            @elseif($action == 'report')
+                                            <div class="tabbable">
+                                                <!-- tab標籤 -->
+                                                <ul class="nav nav-tabs">
+                                                    <li>
+                                                        <a data-toggle="tab" href="#viewers-tab-01">客戶線上預約</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" href="#viewers-tab-02">派工單</a>
+                                                    </li>
+                                                    <li class="active">
+                                                        <a data-toggle="tab" href="#viewers-tab-03">行程回報</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" href="#viewers-tab-04">與我聯繫</a>
+                                                    </li>
+                                                </ul>
+                                                <!-- tab標籤內容 -->
+                                                <div class="tab-content">
+                                                    <!-- 客戶線上預約 -->
+                                                    <div class="tab-pane" id="viewers-tab-01">
+                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-a">
+                                                            <thead class="rwdhide">
+                                                                <tr>
+                                                                    <th class="desktop">姓名</th>
+                                                                    <th class="desktop">預約日期</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="watch" onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.show',['organization'=>$organization]) }}'">
+                                                                    <td>愛酷</td>
+                                                                    <td>2019-08-06 16:30</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- end -->
+                                                    <!-- 派工單 -->
+                                                    <div class="tab-pane" id="viewers-tab-02">
+                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-a-2">
+                                                            <thead class="rwdhide">
+                                                                <tr>
+                                                                    <th class="desktop">工單編號</th>
+                                                                    <th class="desktop">工單日期</th>
+                                                                    <th class="desktop">客戶代碼</th>
+                                                                    <th class="desktop">承辦人員</th>
+                                                                    <th class="desktop">地址</th>
+                                                                    <th class="desktop">電話</th>
+                                                                    <th class="desktop">派工原因</th>
+                                                                    <th class="desktop">派工類型</th>
+                                                                    <th hidden="">統編</th>
+                                                                    <th class="desktop">負責主管</th>
+                                                                    <th class="desktop"></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- end -->
+                                                    <!-- 行程回報 -->
+                                                    <div class="tab-pane active" id="viewers-tab-03">
+                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-s-2">
+                                                            <thead class="rwdhide">
+                                                                <tr>
+                                                                    <th class="desktop">工單編號</th>
+                                                                    <th class="desktop">工單日期</th>
+                                                                    <th class="desktop">客戶代碼</th>
+                                                                    <th class="desktop">承辦人員</th>
+                                                                    <th class="desktop">地址</th>
+                                                                    <th class="desktop">電話</th>
+                                                                    <th class="desktop">派工原因</th>
+                                                                    <th class="desktop">派工類型</th>
+                                                                    <th class="desktop">狀態</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>00000000</td>
+                                                                    <td>2019-08-06 10:30</td>
+                                                                    <td>楊梅國中</td>
+                                                                    <td>邱小姐</td>
+                                                                    <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
+                                                                    <td><a href="tel:5551234567">03-3322101</a></td>
+                                                                    <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
+                                                                    <td>維修</td>
+                                                                    <td>
+                                                                        <button type="button" class="btn status">轉單</button>
+                                                                        <button type="button" class="btn status">延後</button>
+                                                                        <button type="button" class="btn status">已完成</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- end -->
+                                                    <!-- 與我聯繫 -->
+                                                    <div class="tab-pane" id="viewers-tab-04">
+                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-ab">
+                                                            <thead class="rwdhide">
+                                                                <tr>
+                                                                    <th class="desktop">姓名</th>
+                                                                    <th class="desktop">預約日期</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="watch" onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.show',['organization'=>$organization]) }}'">
+                                                                    <td>愛酷</td>
+                                                                    <td>2019-08-06 16:30</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- end -->
+                                                </div>
+                                            </div>
+                                            @else
                                             <div class="tabbable">
                                                 <!-- tab標籤 -->
                                                 <ul class="nav nav-tabs">
@@ -133,6 +368,7 @@
                                                     <!-- end -->
                                                 </div>
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

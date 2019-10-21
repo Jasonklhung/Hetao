@@ -66,15 +66,49 @@ class LoginController extends Controller
 
                 if($user['job'] == '助理'){
                     return response()->json([
-                        'redirect'=>route('ht.StrokeManage.assistant.index',['organization'=>$user['organization_id']]),
+                        'redirect'=>route('ht.StrokeManage.assistant.index',['organization'=>$user['organization_id'],'action'=>'assignCase']),
                     ],  200);
                 }
                 elseif($user['job'] == '主管'){
                     return response()->json([
                         'redirect'=>route('ht.StrokeManage.supervisor.index',['organization'=>$user['organization_id']]),
                     ],  200);
+                } 
+            }
+        }
+        else{
+            return 'failed';
+        }
+    }
+
+    public function report()
+    {
+        return view('auth.report');
+    }
+
+    public function getReport(Request $request)
+    {
+        $user = User::where('token', $request->token)->first();
+
+        if(isset($user)){
+
+            if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){
+
+                if($user['job'] == '助理'){
+                    return response()->json([
+                        'redirect'=>route('ht.StrokeManage.assistant.index',['organization'=>$user['organization_id'],'action'=>'report']),
+                    ],  200);
                 }
-                
+                elseif($user['job'] == '主管'){
+                    return response()->json([
+                        'redirect'=>route('ht.StrokeManage.supervisor.index',['organization'=>$user['organization_id'],'action'=>'report']),
+                    ],  200);
+                } 
+                elseif($user['job'] == '員工'){
+                    return response()->json([
+                        'redirect'=>route('ht.StrokeManage.staff.index',['organization'=>$user['organization_id']]),
+                    ],  200);
+                } 
             }
         }
         else{

@@ -17,7 +17,9 @@ class AssistantController extends Controller
 {
     public function index(Organization $organization)
     {
-    	return view('ht.StrokeManage.assistant.index',compact('organization'));
+    	$action = '';
+
+    	return view('ht.StrokeManage.assistant.index',compact('organization','action'));
     }
 
     public function create(Organization $organization)

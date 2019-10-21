@@ -22,6 +22,10 @@ Route::post('/HT/getUUID','HT\Auth\LoginController@getUUID')->name('ht.Auth.getU
 Route::get('/HT/assignCase','HT\Auth\LoginController@assignCase')->name('ht.Auth.assignCase');
 Route::get('/HT/getAssignCase','HT\Auth\LoginController@getAssignCase')->name('ht.Auth.getAssignCase');
 
+//richmenu 行程回報
+Route::get('/HT/report','HT\Auth\LoginController@report')->name('ht.Auth.report');
+Route::get('/HT/getReport','HT\Auth\LoginController@getReport')->name('ht.Auth.getReport');
+
 
 Route::group(['middleware' => ['auth']], function () {
 

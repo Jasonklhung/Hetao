@@ -25,7 +25,7 @@
             <div class="login-container">
                 <p>賀桃工單管理系統</p>
                 
-                <span>跳轉中...</span>
+                <span id="input1"></span>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
     });
 
     function initializeApp(data) {
-       // document.getElementById('input1').value = data.context.userId;
+       document.getElementById('input1').value = data.context.userId;
        alert(data)
     }
     

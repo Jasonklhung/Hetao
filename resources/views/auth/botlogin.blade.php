@@ -42,7 +42,7 @@
 
     function initializeApp(data) {
        document.getElementById('input1').value = data.context.userId;
-       alert(data)
+       alert(data.context.userId)
     }
     
 </script>

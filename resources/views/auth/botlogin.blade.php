@@ -25,7 +25,7 @@
             <div class="login-container">
                 <p>賀桃工單管理系統</p>
                 
-                <span id="input1"></span>
+                <input type="text" name="input1" id="input1">
             </div>
         </div>
     </div>

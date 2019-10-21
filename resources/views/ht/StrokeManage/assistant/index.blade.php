@@ -11,6 +11,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <!-- 分析數據-->
+                                {{dd($action)}}
                                 <div class="col-md-12 wrap">
                                     <div class="panel" id="manager">
                                         <div class="panel-title">

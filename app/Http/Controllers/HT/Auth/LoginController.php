@@ -21,10 +21,12 @@ class LoginController extends Controller
     	$UUID = 'HT'.$random;
 
     	$client = new Client;
-    	$response = $client->request('GET','https://bot168.azurewebsites.net/api/qr/?https://line.me/R/oaMessage/@320hyrul/?'.$UUID.'')
+    	$response = $client->request('GET','https://bot168.azurewebsites.net/api/qr/?https://www.logitech-event.com.tw/qrcode-event')
     	->getBody()->getContents();
 
     	$result = json_decode($response);
+
+        dd($result);
 
     	$qrcode = $result->image;
 
@@ -65,8 +67,11 @@ class LoginController extends Controller
             if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){
 
                 if($user['job'] == '助理'){
+
+                    $action = 'assignCase';
+
                     return response()->json([
-                        'redirect'=>route('ht.StrokeManage.assistant.index',['organization'=>$user['organization_id'],'action'=>'assignCase']),
+                        'redirect'=>route('ht.StrokeManage.assistant.index',['organization'=>$user['organization_id'],'action'=>$action]),
                     ],  200);
                 }
                 elseif($user['job'] == '主管'){
@@ -95,13 +100,19 @@ class LoginController extends Controller
             if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){
 
                 if($user['job'] == '助理'){
+
+                    $action = 'report';
+
                     return response()->json([
-                        'redirect'=>route('ht.StrokeManage.assistant.index',['organization'=>$user['organization_id'],'action'=>'report']),
+                        'redirect'=>route('ht.StrokeManage.assistant.index',['organization'=>$user['organization_id'],'action'=>$action]),
                     ],  200);
                 }
                 elseif($user['job'] == '主管'){
+
+                    $action = 'report';
+                    
                     return response()->json([
-                        'redirect'=>route('ht.StrokeManage.supervisor.index',['organization'=>$user['organization_id'],'action'=>'report']),
+                        'redirect'=>route('ht.StrokeManage.supervisor.index',['organization'=>$user['organization_id'],'action'=>$action]),
                     ],  200);
                 } 
                 elseif($user['job'] == '員工'){

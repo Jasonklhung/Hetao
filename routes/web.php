@@ -59,13 +59,25 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::post('/HT/{organization}/StrokeManage/assistant/assignCaseBoss','HT\StrokeManage\AssistantController@assignCaseBoss')->name('ht.StrokeManage.assistant.assignCaseBoss');
 
+		Route::post('/HT/{organization}/StrokeManage/assistant/updateStatus','HT\StrokeManage\AssistantController@updateStatus')->name('ht.StrokeManage.assistant.updateStatus');
+
 		//行程管理-主管
 		Route::get('/HT/{organization}/StrokeManage/supervisor/index','HT\StrokeManage\SupervisorController@index')->name('ht.StrokeManage.supervisor.index');
 
-		Route::get('/HT/{organization}/StrokeManage/supervisor/show','HT\StrokeManage\SupervisorController@show')->name('ht.StrokeManage.supervisor.show');
+		Route::get('/HT/{organization}/StrokeManage/supervisor/getData','HT\StrokeManage\SupervisorController@getData')->name('ht.StrokeManage.supervisor.getData');
+
+		Route::get('/HT/{organization}/StrokeManage/supervisor/getAssign','HT\StrokeManage\SupervisorController@getAssign')->name('ht.StrokeManage.supervisor.getAssign');
+
+		Route::post('/HT/{organization}/StrokeManage/supervisor/assignCaseBoss','HT\StrokeManage\SupervisorController@assignCaseBoss')->name('ht.StrokeManage.supervisor.assignCaseBoss');
+
+		Route::post('/HT/{organization}/StrokeManage/supervisor/updateStatus','HT\StrokeManage\SupervisorController@updateStatus')->name('ht.StrokeManage.supervisor.updateStatus');
 
 		//行程管理-員工
 		Route::get('/HT/{organization}/StrokeManage/staff/index','HT\StrokeManage\StaffController@index')->name('ht.StrokeManage.staff.index');
+
+		Route::get('/HT/{organization}/StrokeManage/staff/getData','HT\StrokeManage\StaffController@getData')->name('ht.StrokeManage.staff.getData');
+
+		Route::post('/HT/{organization}/StrokeManage/staff/updateStatus','HT\StrokeManage\StaffController@updateStatus')->name('ht.StrokeManage.staff.updateStatus');
 
 		//表單設定-線上預約
 		Route::get('/HT/{organization}/Form/reservation/index','HT\Form\ReservationController@index')->name('ht.Form.reservation.index');
@@ -75,8 +87,12 @@ Route::group(['middleware' => ['auth']], function () {
 		//表單設定-滿意度調查
 		Route::get('/HT/{organization}/Form/satisfaction/index','HT\Form\SatisfactionController@index')->name('ht.Form.satisfaction.index');
 
+		Route::post('/HT/{organization}/Form/satisfaction/store','HT\Form\SatisfactionController@store')->name('ht.Form.satisfaction.store');
+
 		//表單設定-與我聯繫
 		Route::get('/HT/{organization}/Form/contact/index','HT\Form\ContactController@index')->name('ht.Form.contact.index');
+
+		Route::post('/HT/{organization}/Form/contact/store','HT\Form\ContactController@store')->name('ht.Form.contact.store');
 
 		//推播時間設定
 		Route::get('/HT/{organization}/Timeset/index','HT\Timeset\TimesetController@index')->name('ht.Timeset.index');

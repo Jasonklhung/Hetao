@@ -11,13 +11,13 @@ class ReservationController extends Controller
 {
     public function index(Organization $organization,Request $request)
     {
+        $reservation = Reservation::all();
 
-    	return view('ht.Form.reservation.index',compact('organization'));
+    	return view('ht.Form.reservation.index',compact('organization','reservation'));
     }
 
     public function store(Organization $organization,Request $request)
     {
-    	//dd($request->all());
 
     	$form = array();
 

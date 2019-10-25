@@ -152,7 +152,11 @@
                     var tt =  'GUI-number'
                     var itemtt = item['GUI-number']
 
-                    rows += "<tr>"
+                    if(item.status == 'F' || item.status == 'T'){
+                        
+                    }
+                    else{
+                        rows += "<tr>"
                               + "<td>" + item.id + "</td>"
                               + "<td>" + item.time + "</td>"
                               + "<td>" + item.CUSTKEY + "</td>"
@@ -163,8 +167,10 @@
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
                               + "<td><select class='form-control' name='assign'><option selected value=''>待指派</option></select></td>"
-                              + "<td><a target='_blank' href='{{ route('ht.StrokeManage.assistant.edit',['organization'=>$organization]) }}'><button type='button' class='btn btn-primary' style='margin-right: 28px;''>處理</button></a><input id='chk' class='chkall hide' type='checkbox' value='' /></td>"
+                              + "<td><a target='_blank' href='{{ route('ht.StrokeManage.assistant.edit',['organization'=>$organization]) }}'><button type='button' class='btn btn-primary' style='margin-right: 28px;''>處理</button></a><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                          + "</tr>";
+                    }
+                    
                 });
                 $('#hetao-list-a-2 tbody').append(rows);
                 $("#hetao-list-a-2").DataTable({
@@ -218,7 +224,7 @@
                     "<button class='mr-s' href=''>重新設定時間</button>" +
                     "<a href='{{ route('ht.StrokeManage.assistant.create',['organization'=>$organization]) }}'><button type='button' class='mr-s btn-bright' type='button'>新增派工單</button></a>" +
                     "<div class='batchwrap'><div class='form-group mr-s hide batch-select'><select class='form-control' name='allassign' id='sel1'><option selected hidden disabled>請指派負責主管</option><option>Ricky</option><option>Eva</option><option>Apple</option><option>Banana</option></select></div>" +
-                    "<button type='button' class='btn-bright hide batch-finish'>完成</button><label for='chkall' class='sall'>全選</label><input id='chkall' type='checkbox' value='' />" +
+                    "<button type='button' class='btn-bright hide batch-finish'>完成</button><label for='chkall' class='sall'>全選</label><input id='chkall' name='oneforall' type='checkbox' value='' />" +
                     "<button type='button' class='btn-bright batch' href=''>批次指派</button></div>" +
                     "</div>" +
                     "</form>" +
@@ -256,13 +262,6 @@
                     }
                 });
 
-                $('.batch-finish').on('click',function(){
-                    var name = $('#sel1').val()
-                    alert(name)
-                    alert(123)
-                })
-
-
                 $.ajax({
                     url:"{{ route('ht.StrokeManage.assistant.getSupervisor',['organization'=>$organization]) }}", 
                     method:"get",
@@ -281,7 +280,7 @@
                     }
                 })
 
-                $("select[name='assign']").on('change',function(){
+                $('#hetao-list-a-2 tbody').on('change', 'select[name="assign"]', function () {
 
                      var token = $("select[name='assign']").val()
                      var id = $(this).parents('tr').children('td')[0].textContent 
@@ -318,6 +317,22 @@
                     })
 
                  })
+
+                $('.batch-finish').on('click',function(){
+                    var token = $('#sel1').val()
+
+                    var c=[];
+                    $("input[type=checkbox]:checked").each(function () {
+                        var id = $(this).parents('tr').children('td')[0].textContent
+                        console.log(id)
+                        c.push(id);
+
+                    });
+                    result = c.toString();
+
+                    console.log(result)
+                                    
+                })
             }
         })
 
@@ -485,6 +500,41 @@
                             }
                             else{
                                 alert('狀態更新失敗')
+                            }
+                        }
+                    })
+                })
+
+                $("#hetao-list-s-2").on("click", ".transfer", function(){
+
+                    var id = $(this).parents('tr').children('td')[0].textContent 
+                    var time = $(this).parents('tr').children('td')[1].textContent 
+                    var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                    var address = $(this).parents('tr').children('td')[4].textContent 
+                    var mobile = $(this).parents('tr').children('td')[5].textContent 
+                    var work_type = $(this).parents('tr').children('td')[7].textContent 
+                    var GUI_number = $(this).parents('tr').children('td')[8].textContent 
+
+                    $.ajax({
+                        url:"{{ route('ht.StrokeManage.assistant.transfer',['organization'=>$organization]) }}", 
+                        method:"post",
+                        data:{
+                            '_token':'{{csrf_token()}}',
+                            'id':id,
+                            'name': CUSTKEY,
+                            'mobile': mobile,
+                            'GUI_number': GUI_number,
+                            'address': address,
+                            'work_type': work_type,
+                            'time': time,
+                        },
+                        dataType:'json',                 
+                        success:function(res){
+                            if(res.status == 200){
+                                alert('轉單成功')
+                            }
+                            else{
+                                alert('轉單失敗')
                             }
                         }
                     })

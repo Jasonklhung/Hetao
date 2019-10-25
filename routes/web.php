@@ -61,6 +61,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::post('/HT/{organization}/StrokeManage/assistant/updateStatus','HT\StrokeManage\AssistantController@updateStatus')->name('ht.StrokeManage.assistant.updateStatus');
 
+		Route::post('/HT/{organization}/StrokeManage/assistant/transfer','HT\StrokeManage\AssistantController@transfer')->name('ht.StrokeManage.assistant.transfer');
+
 		//行程管理-主管
 		Route::get('/HT/{organization}/StrokeManage/supervisor/index','HT\StrokeManage\SupervisorController@index')->name('ht.StrokeManage.supervisor.index');
 
@@ -72,12 +74,16 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::post('/HT/{organization}/StrokeManage/supervisor/updateStatus','HT\StrokeManage\SupervisorController@updateStatus')->name('ht.StrokeManage.supervisor.updateStatus');
 
+		Route::post('/HT/{organization}/StrokeManage/supervisor/transfer','HT\StrokeManage\SupervisorController@transfer')->name('ht.StrokeManage.supervisor.transfer');
+
 		//行程管理-員工
 		Route::get('/HT/{organization}/StrokeManage/staff/index','HT\StrokeManage\StaffController@index')->name('ht.StrokeManage.staff.index');
 
 		Route::get('/HT/{organization}/StrokeManage/staff/getData','HT\StrokeManage\StaffController@getData')->name('ht.StrokeManage.staff.getData');
 
 		Route::post('/HT/{organization}/StrokeManage/staff/updateStatus','HT\StrokeManage\StaffController@updateStatus')->name('ht.StrokeManage.staff.updateStatus');
+
+		Route::post('/HT/{organization}/StrokeManage/staff/transfer','HT\StrokeManage\StaffController@transfer')->name('ht.StrokeManage.staff.transfer');
 
 		//表單設定-線上預約
 		Route::get('/HT/{organization}/Form/reservation/index','HT\Form\ReservationController@index')->name('ht.Form.reservation.index');

@@ -66,25 +66,23 @@
                                                                     <th class="desktop">電話</th>
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
-                                                                    <th class="desktop">狀態</th>
                                                                     <th class="desktop">負責人</th>
-                                                                    <th class="desktop"></th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                @foreach($supervisor as $data)
                                                                 <tr>
-                                                                    <td>00000000</td>
-                                                                    <td>2019-08-06 10:30</td>
-                                                                    <td>楊梅國中</td>
-                                                                    <td>邱小姐</td>
-                                                                    <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
-                                                                    <td><a href="tel:5551234567">03-3322101</a></td>
-                                                                    <td>載清缸 宿舍1.3樓+教學1樓右邊</td>
-                                                                    <td>維修</td>
-                                                                    <td><span class="ing">執行中</span></td>
-                                                                    <td>Andy</td>
-                                                                    <td></td>
+                                                                    <td>{{ $data->case_id }}</td>
+                                                                    <td>{{ $data->time }}</td>
+                                                                    <td>{{ $data->cuskey }}</td>
+                                                                    <td>{{ $data->case_id }}</td>
+                                                                    <td><a href="https://www.google.com.tw/maps/place/{{ $data->address }}" target="_blank">{{ $data->address }}</a></td>
+                                                                    <td><a href="tel:{{ $data->mobile }}">{{ $data->mobile }}</a></td>
+                                                                    <td>{{ $data->reason }}</td>
+                                                                    <td>{{ $data->work_type }}</td>
+                                                                    <td>{{ $data->owner }}</td>
                                                                 </tr>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -144,7 +142,11 @@
                     var tt =  'GUI-number'
                     var itemtt = item['GUI-number']
 
-                    rows += "<tr>"
+                    if(item.status == 'F' || item.status == 'T'){
+
+                    }
+                    else{
+                        rows += "<tr>"
                               + "<td>" + item.id + "</td>"
                               + "<td>" + item.time + "</td>"
                               + "<td>" + item.CUSTKEY + "</td>"
@@ -156,6 +158,8 @@
                               + `<td hidden> ${itemtt}</td>`
                               + "<td><select class='form-control' name='assign' style='margin-right:28px;'><option selected value=''>待指派</option></select><input class='chkall hide' type='checkbox' value='' /></td>"
                          + "</tr>";
+                    }
+                    
                 });
                 $('#hetao-list-su tbody').append(rows);
                 $("#hetao-list-su").DataTable({
@@ -262,7 +266,8 @@
                     }
                 })
 
-                $("select[name='assign']").on('change',function(){
+
+                $('#hetao-list-su tbody').on('change', 'select[name="assign"]', function () {
 
                      var token = $("select[name='assign']").val()
                      var id = $(this).parents('tr').children('td')[0].textContent 
@@ -270,6 +275,7 @@
                      var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
                      var address = $(this).parents('tr').children('td')[4].textContent 
                      var mobile = $(this).parents('tr').children('td')[5].textContent 
+                     var reason = $(this).parents('tr').children('td')[6].textContent 
                      var work_type = $(this).parents('tr').children('td')[7].textContent 
                      var GUI_number = $(this).parents('tr').children('td')[8].textContent 
 
@@ -283,6 +289,7 @@
                             'mobile': mobile,
                             'GUI_number': GUI_number,
                             'address': address,
+                            'reason': reason,
                             'work_type': work_type,
                             'time': time,
                             'owner_boss': token,
@@ -290,7 +297,7 @@
                         dataType:'json',                 
                         success:function(res){
                             if(res.status == 200){
-                                alert(res.message)
+                                alert('工單更新成功,已指派員工');
                             }
                             else{
                                 alert('指派失敗')
@@ -437,7 +444,7 @@
                         dataType:'json',
                         success:function(response){
                             if(response.status == 200){
-                                alert(response.message);
+                               alert(response.message);
                             }
                             else{
                                 alert('狀態更新失敗')
@@ -466,6 +473,41 @@
                             }
                             else{
                                 alert('狀態更新失敗')
+                            }
+                        }
+                    })
+                })
+
+                $("#hetao-list-s-2").on("click", ".transfer", function(){
+
+                    var id = $(this).parents('tr').children('td')[0].textContent 
+                    var time = $(this).parents('tr').children('td')[1].textContent 
+                    var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                    var address = $(this).parents('tr').children('td')[4].textContent 
+                    var mobile = $(this).parents('tr').children('td')[5].textContent 
+                    var work_type = $(this).parents('tr').children('td')[7].textContent 
+                    var GUI_number = $(this).parents('tr').children('td')[8].textContent 
+
+                    $.ajax({
+                        url:"{{ route('ht.StrokeManage.supervisor.transfer',['organization'=>$organization]) }}", 
+                        method:"post",
+                        data:{
+                            '_token':'{{csrf_token()}}',
+                            'id':id,
+                            'name': CUSTKEY,
+                            'mobile': mobile,
+                            'GUI_number': GUI_number,
+                            'address': address,
+                            'work_type': work_type,
+                            'time': time,
+                        },
+                        dataType:'json',                 
+                        success:function(res){
+                            if(res.status == 200){
+                                alert('轉單成功')
+                            }
+                            else{
+                                alert('轉單失敗')
                             }
                         }
                     })

@@ -224,6 +224,41 @@ $(document).ready(function(){
                         }
                     })
                 })
+
+                $("#hetao-list-s-2").on("click", ".transfer", function(){
+
+                    var id = $(this).parents('tr').children('td')[0].textContent 
+                    var time = $(this).parents('tr').children('td')[1].textContent 
+                    var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                    var address = $(this).parents('tr').children('td')[4].textContent 
+                    var mobile = $(this).parents('tr').children('td')[5].textContent 
+                    var work_type = $(this).parents('tr').children('td')[7].textContent 
+                    var GUI_number = $(this).parents('tr').children('td')[8].textContent 
+
+                    $.ajax({
+                        url:"{{ route('ht.StrokeManage.staff.transfer',['organization'=>$organization]) }}", 
+                        method:"post",
+                        data:{
+                            '_token':'{{csrf_token()}}',
+                            'id':id,
+                            'name': CUSTKEY,
+                            'mobile': mobile,
+                            'GUI_number': GUI_number,
+                            'address': address,
+                            'work_type': work_type,
+                            'time': time,
+                        },
+                        dataType:'json',                 
+                        success:function(res){
+                            if(res.status == 200){
+                                alert('轉單成功')
+                            }
+                            else{
+                                alert('轉單失敗')
+                            }
+                        }
+                    })
+                })
             }
         })
     })

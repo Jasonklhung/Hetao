@@ -75,11 +75,21 @@
                                                                 </ul>
                                                             </div>
                                                         </div>
+
                                                         <!-- 感謝頁 開頭-->
                                                         @if($reservation->isNotEmpty())
                                                             @foreach($reservation as $k => $data)
                                                                 @php
                                                                     $form = json_decode($data->form);
+
+                                                                    $testArr = array();
+                                                                    $number = 0;
+                                                                    $numberSel = 0;
+
+                                                                    foreach($form as $abc){
+
+                                                                        array_push($testArr,$abc->name);
+                                                                    }
 
                                                                     foreach($form as $test){
                                                                         if(preg_match("/^radio+[0-9]+Href+$/", $test->name)){
@@ -113,7 +123,23 @@
                                                                                                         <hr><input type="hidden" name="{{$value->name}}"><button class="close" type="button"><i class="far fa-trash-alt"></i></button>
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^radio+[0-9]+$/", $value->name))
-                                                                                                    @foreach($form as $follows)
+                                                                                                    @foreach($form as $fo => $follows)
+                                                                                                        @php
+                                                                                                            if(preg_match("/^radio+[0-9]+$/", $value->name)){
+
+                                                                                                            $num = explode('radio',$value->name)[1];
+                                                                                                            $folw = $value->name.'follow1'.$num;
+
+                                                                                                                if(in_array($folw,$testArr)){
+                                                                                                                    $radioF = 'Y';
+                                                                                                                }
+                                                                                                                else{
+                                                                                                                    $radioF = 'N';
+                                                                                                                    $number = $fo;
+                                                                                                                }
+                                                                                                            }
+                                                                                                        @endphp
+                                                                                                        @if($radioF == 'Y')
                                                                                                         @if(preg_match("/^radio+[0-9]+follow+[0-9]+$/", $follows->name))
                                                                                                             @if(explode('follow',$follows->name)[0] == $value->name)
                                                                                                                 @if($follows->value == 'on')
@@ -122,6 +148,9 @@
                                                                                                         <div class="pd-l item">
                                                                                                                 @endif
                                                                                                             @endif
+                                                                                                        @endif
+                                                                                                        @elseif($radioF == 'N' && $number == $v)
+                                                                                                        <div class="pd-l item">
                                                                                                         @endif
                                                                                                     @endforeach
                                                                                                         <p class="title-deco">
@@ -181,6 +210,21 @@
                                                                                                                 <i class="far fa-trash-alt"></i>
                                                                                                             </button>
                                                                                                             @foreach($form as $c => $ccc)
+                                                                                                                @php
+                                                                                                                if(preg_match("/^radio+[0-9]+$/", $value->name)){
+
+                                                                                                                $folw = $value->name.'Req';
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $radioF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $radioF = 'N';
+                                                                                                                        $number = $c;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                @endphp
+                                                                                                                @if($radioF == 'Y')
                                                                                                                 @if(preg_match("/^radio+[0-9]+Req+$/", $ccc->name))
                                                                                                                     @if(explode('Req',$ccc->name)[0] == $value->name)
                                                                                                                         @if($ccc->value == 'on')
@@ -196,8 +240,30 @@
                                                                                                                         @endif
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                <label class="switch">
+                                                                                                                    <input type="checkbox" name="{{$ccc->name}}">
+                                                                                                                    <span class="slider round"></span>
+                                                                                                                </label>
+                                                                                                                @endif
                                                                                                             @endforeach
                                                                                                             @foreach($form as $x => $xxx)
+                                                                                                                @php
+                                                                                                                if(preg_match("/^radio+[0-9]+$/", $value->name)){
+
+                                                                                                                $num = explode('radio',$value->name)[1];
+                                                                                                                $folw = $value->name.'follow1'.$num;
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $radioF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $radioF = 'N';
+                                                                                                                        $number = $x;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                @endphp
+                                                                                                            @if($radioF == 'Y')
                                                                                                                 @if(preg_match("/^radio+[0-9]+follow+[0-9]+$/", $xxx->name))
                                                                                                                     @if(explode('follow',$xxx->name)[0] == $value->name)
                                                                                                                         @if($xxx->value == 'on')
@@ -208,6 +274,10 @@
                                                                                                             <label class="followanswer" for="{{explode('follow',$xxx->name)[1]}}">依答案至相關頁面</label>
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                            @elseif($radioF == 'N' && $number == $v)
+                                                                                                            <input class="followw" name="{{$xxx->name}}follow1{{$num}}" id="follow1{{$num}}" type="checkbox">
+                                                                                                            <label class="followanswer" for="follow1{{$num}}">依答案至相關頁面</label>
+                                                                                                            @endif
                                                                                                             @endforeach
                                                                                                         </div>
                                                                                                     </div>
@@ -260,7 +330,23 @@
                                                                                                                 </div>
                                                                                                         </div>
                                                                                                 @elseif(preg_match("/^select+[0-9]+$/", $value->name))
-                                                                                                    @foreach($form as $followS)
+                                                                                                    @foreach($form as $fol => $followS)
+                                                                                                        @php
+                                                                                                            if(preg_match("/^select+[0-9]+$/", $value->name)){
+
+                                                                                                            $num = explode('select',$value->name)[1];
+                                                                                                            $folw = $value->name.'follow3'.$num;
+
+                                                                                                                if(in_array($folw,$testArr)){
+                                                                                                                    $selectF = 'Y';
+                                                                                                                }
+                                                                                                                else{
+                                                                                                                    $selectF = 'N';
+                                                                                                                    $numberSel = $fol;
+                                                                                                                }
+                                                                                                            }
+                                                                                                        @endphp
+                                                                                                        @if($selectF = 'Y')
                                                                                                         @if(preg_match("/^select+[0-9]+follow+[0-9]+$/", $followS->name))
                                                                                                             @if(explode('follow',$followS->name)[0] == $value->name)
                                                                                                                 @if($followS->value == 'on')
@@ -269,6 +355,9 @@
                                                                                                     <div class="pd-l item">
                                                                                                                 @endif
                                                                                                             @endif
+                                                                                                        @endif
+                                                                                                        @elseif($selectF == 'N' && $numberSel == $v)
+                                                                                                    <div class="pd-l item">
                                                                                                         @endif
                                                                                                     @endforeach
                                                                                                         <p class="title-deco">
@@ -326,6 +415,21 @@
                                                                                                                 </i>
                                                                                                             </button>
                                                                                                         @foreach($form as $g => $ggg)
+                                                                                                                @php
+                                                                                                                    if(preg_match("/^select+[0-9]+$/", $value->name)){
+
+                                                                                                                    $folw = $value->name.'Req';
+
+                                                                                                                        if(in_array($folw,$testArr)){
+                                                                                                                            $selectF = 'Y';
+                                                                                                                        }
+                                                                                                                        else{
+                                                                                                                            $selectF = 'N';
+                                                                                                                            $numberSel = $g;
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                @endphp
+                                                                                                            @if($selectF == 'Y')
                                                                                                             @if(preg_match("/^select+[0-9]+Req+$/", $ggg->name))
                                                                                                                 @if(explode('Req',$ggg->name)[0] == $value->name)
                                                                                                                     @if($ggg->value == 'on')
@@ -345,8 +449,32 @@
                                                                                                                     @endif
                                                                                                                 @endif
                                                                                                             @endif
+                                                                                                            @elseif($selectF == 'N' && $numberSel == $v)
+                                                                                                                <label class="switch">
+                                                                                                                    <input type="checkbox" name="{{$ggg->name}}">
+                                                                                                                    <span class="slider round">
+                                                                                                                        
+                                                                                                                    </span>
+                                                                                                                </label>
+                                                                                                            @endif
                                                                                                         @endforeach
                                                                                                         @foreach($form as $y => $yyy)
+                                                                                                            @php
+                                                                                                                if(preg_match("/^select+[0-9]+$/", $value->name)){
+
+                                                                                                                $num = explode('select',$value->name)[1];
+                                                                                                                $folw = $value->name.'follow3'.$num;
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $selectF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $selectF = 'N';
+                                                                                                                        $numberSel = $y;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            @endphp
+                                                                                                            @if($selectF = 'Y')
                                                                                                                 @if(preg_match("/^select+[0-9]+follow+[0-9]+$/", $yyy->name))
                                                                                                                     @if(explode('follow',$yyy->name)[0] == $value->name)
                                                                                                                         @if($yyy->value == 'on')
@@ -357,6 +485,10 @@
                                                                                                             <label class="followanswer" for="{{explode('follow',$yyy->name)[1]}}">依答案至相關頁面</label>
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                            @elseif($selectF = 'N' && $numberSel == $v)
+                                                                                                            <input class="followw" name="{{$yyy->name}}follow3{{$num}}" id="follow3{{$num}}" type="checkbox">
+                                                                                                            <label class="followanswer" for="follow3{{$num}}">
+                                                                                                            @endif
                                                                                                         @endforeach
                                                                                                         </div>
                                                                                                     </div>
@@ -373,7 +505,7 @@
                                                                                                             </button>
                                                                                                             @foreach($form as $i => $iii)
                                                                                                                 @if(preg_match("/^qa+[0-9]+Req+$/", $iii->name))
-                                                                                                                    @if($iii->name == 'on')
+                                                                                                                    @if($iii->value == 'on')
                                                                                                                 <label class="switch">
                                                                                                                     <input type="checkbox" name="{{$iii->name}}" checked="">
                                                                                                                     <span class="slider round">
@@ -405,7 +537,7 @@
                                                                                                             </button>
                                                                                                             @foreach($form as $j => $jjj)
                                                                                                                 @if(preg_match("/^part+[0-9]+Req+$/", $jjj->name))
-                                                                                                                    @if($jjj->name == 'on')
+                                                                                                                    @if($jjj->value == 'on')
                                                                                                                 <label class="switch">
                                                                                                                     <input type="checkbox" name="{{$jjj->name}}" checked="">
                                                                                                                     <span class="slider round">
@@ -439,7 +571,7 @@
                                                                                                             </button>
                                                                                                             @foreach($form as $k => $kkk)
                                                                                                                 @if(preg_match("/^date+[0-9]+Req+$/", $kkk->name))
-                                                                                                                    @if($kkk->name == 'on')
+                                                                                                                    @if($kkk->value == 'on')
                                                                                                                 <label class="switch">
                                                                                                                     <input type="checkbox" name="{{$kkk->name}}" checked="">
                                                                                                                     <span class="slider round">
@@ -473,7 +605,7 @@
                                                                                                             </button>
                                                                                                             @foreach($form as $l => $lll)
                                                                                                                 @if(preg_match("/^date+[0-9]+Req+$/", $lll->name))
-                                                                                                                    @if($lll->name == 'on')
+                                                                                                                    @if($lll->value == 'on')
                                                                                                                 <label class="switch">
                                                                                                                     <input type="checkbox" name="{{$lll->name}}" checked="">
                                                                                                                     <span class="slider round">
@@ -497,7 +629,6 @@
                                                                                                     </textarea>
                                                                                                 @endif
                                                                                            @endforeach
-                                                                                        </div>
                                                                                         </div>
                                                                                     </form>   
                                                                                 </div>
@@ -526,7 +657,23 @@
                                                                                                         <hr><input type="hidden" name="{{$value->name}}"><button class="close" type="button"><i class="far fa-trash-alt"></i></button>
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^radio+[0-9]+$/", $value->name))
-                                                                                                    @foreach($form as $follows)
+                                                                                                    @foreach($form as $fo => $follows)
+                                                                                                        @php
+                                                                                                            if(preg_match("/^radio+[0-9]+$/", $value->name)){
+
+                                                                                                            $num = explode('radio',$value->name)[1];
+                                                                                                            $folw = $value->name.'follow1'.$num;
+
+                                                                                                                if(in_array($folw,$testArr)){
+                                                                                                                    $radioF = 'Y';
+                                                                                                                }
+                                                                                                                else{
+                                                                                                                    $radioF = 'N';
+                                                                                                                    $number = $fo;
+                                                                                                                }
+                                                                                                            }
+                                                                                                        @endphp
+                                                                                                        @if($radioF == 'Y')
                                                                                                         @if(preg_match("/^radio+[0-9]+follow+[0-9]+$/", $follows->name))
                                                                                                             @if(explode('follow',$follows->name)[0] == $value->name)
                                                                                                                 @if($follows->value == 'on')
@@ -535,6 +682,9 @@
                                                                                                         <div class="pd-l item">
                                                                                                                 @endif
                                                                                                             @endif
+                                                                                                        @endif
+                                                                                                        @elseif($radioF == 'N' && $number == $v)
+                                                                                                        <div class="pd-l item">
                                                                                                         @endif
                                                                                                     @endforeach
                                                                                                         <p class="title-deco">
@@ -594,6 +744,21 @@
                                                                                                                 <i class="far fa-trash-alt"></i>
                                                                                                             </button>
                                                                                                             @foreach($form as $c => $ccc)
+                                                                                                                @php
+                                                                                                                if(preg_match("/^radio+[0-9]+$/", $value->name)){
+
+                                                                                                                $folw = $value->name.'Req';
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $radioF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $radioF = 'N';
+                                                                                                                        $number = $c;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                @endphp
+                                                                                                                @if($radioF == 'Y')
                                                                                                                 @if(preg_match("/^radio+[0-9]+Req+$/", $ccc->name))
                                                                                                                     @if(explode('Req',$ccc->name)[0] == $value->name)
                                                                                                                         @if($ccc->value == 'on')
@@ -609,8 +774,30 @@
                                                                                                                         @endif
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                <label class="switch">
+                                                                                                                    <input type="checkbox" name="{{$ccc->name}}">
+                                                                                                                    <span class="slider round"></span>
+                                                                                                                </label>
+                                                                                                                @endif
                                                                                                             @endforeach
                                                                                                             @foreach($form as $x => $xxx)
+                                                                                                                @php
+                                                                                                                if(preg_match("/^radio+[0-9]+$/", $value->name)){
+
+                                                                                                                $num = explode('radio',$value->name)[1];
+                                                                                                                $folw = $value->name.'follow1'.$num;
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $radioF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $radioF = 'N';
+                                                                                                                        $number = $x;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                @endphp
+                                                                                                            @if($radioF == 'Y')
                                                                                                                 @if(preg_match("/^radio+[0-9]+follow+[0-9]+$/", $xxx->name))
                                                                                                                     @if(explode('follow',$xxx->name)[0] == $value->name)
                                                                                                                         @if($xxx->value == 'on')
@@ -621,6 +808,10 @@
                                                                                                             <label class="followanswer" for="{{explode('follow',$xxx->name)[1]}}">依答案至相關頁面</label>
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                            @elseif($radioF == 'N' && $number == $v)
+                                                                                                            <input class="followw" name="{{$xxx->name}}follow1{{$num}}" id="follow1{{$num}}" type="checkbox">
+                                                                                                            <label class="followanswer" for="follow1{{$num}}">依答案至相關頁面</label>
+                                                                                                            @endif
                                                                                                             @endforeach
                                                                                                         </div>
                                                                                                     </div>
@@ -673,7 +864,23 @@
                                                                                                                 </div>
                                                                                                         </div>
                                                                                                 @elseif(preg_match("/^select+[0-9]+$/", $value->name))
-                                                                                                    @foreach($form as $followS)
+                                                                                                    @foreach($form as $fol => $followS)
+                                                                                                        @php
+                                                                                                            if(preg_match("/^select+[0-9]+$/", $value->name)){
+
+                                                                                                            $num = explode('select',$value->name)[1];
+                                                                                                            $folw = $value->name.'follow3'.$num;
+
+                                                                                                                if(in_array($folw,$testArr)){
+                                                                                                                    $selectF = 'Y';
+                                                                                                                }
+                                                                                                                else{
+                                                                                                                    $selectF = 'N';
+                                                                                                                    $numberSel = $fol;
+                                                                                                                }
+                                                                                                            }
+                                                                                                        @endphp
+                                                                                                        @if($selectF = 'Y')
                                                                                                         @if(preg_match("/^select+[0-9]+follow+[0-9]+$/", $followS->name))
                                                                                                             @if(explode('follow',$followS->name)[0] == $value->name)
                                                                                                                 @if($followS->value == 'on')
@@ -683,6 +890,10 @@
                                                                                                                 @endif
                                                                                                             @endif
                                                                                                         @endif
+                                                                                                        @elseif($selectF == 'N' && $numberSel == $v)
+                                                                                                    <div class="pd-l item">
+                                                                                                        @endif
+                                                                                                        <div class="pd-l item">
                                                                                                     @endforeach
                                                                                                         <p class="title-deco">
                                                                                                             <input class="form-control" name="{{$value->name}}" value="{{$value->value}}" type="text" placeholder="未命名的問題">
@@ -739,6 +950,21 @@
                                                                                                                 </i>
                                                                                                             </button>
                                                                                                         @foreach($form as $g => $ggg)
+                                                                                                                @php
+                                                                                                                    if(preg_match("/^select+[0-9]+$/", $value->name)){
+
+                                                                                                                    $folw = $value->name.'Req';
+
+                                                                                                                        if(in_array($folw,$testArr)){
+                                                                                                                            $selectF = 'Y';
+                                                                                                                        }
+                                                                                                                        else{
+                                                                                                                            $selectF = 'N';
+                                                                                                                            $numberSel = $g;
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                @endphp
+                                                                                                            @if($selectF == 'Y')
                                                                                                             @if(preg_match("/^select+[0-9]+Req+$/", $ggg->name))
                                                                                                                 @if(explode('Req',$ggg->name)[0] == $value->name)
                                                                                                                     @if($ggg->value == 'on')
@@ -758,8 +984,32 @@
                                                                                                                     @endif
                                                                                                                 @endif
                                                                                                             @endif
+                                                                                                            @elseif($selectF == 'N' && $numberSel == $v)
+                                                                                                                <label class="switch">
+                                                                                                                    <input type="checkbox" name="{{$ggg->name}}">
+                                                                                                                    <span class="slider round">
+                                                                                                                        
+                                                                                                                    </span>
+                                                                                                                </label>
+                                                                                                            @endif
                                                                                                         @endforeach
                                                                                                         @foreach($form as $y => $yyy)
+                                                                                                            @php
+                                                                                                                if(preg_match("/^select+[0-9]+$/", $value->name)){
+
+                                                                                                                $num = explode('select',$value->name)[1];
+                                                                                                                $folw = $value->name.'follow3'.$num;
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $selectF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $selectF = 'N';
+                                                                                                                        $numberSel = $y;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            @endphp
+                                                                                                            @if($selectF = 'Y')
                                                                                                                 @if(preg_match("/^select+[0-9]+follow+[0-9]+$/", $yyy->name))
                                                                                                                     @if(explode('follow',$yyy->name)[0] == $value->name)
                                                                                                                         @if($yyy->value == 'on')
@@ -770,6 +1020,10 @@
                                                                                                             <label class="followanswer" for="{{explode('follow',$yyy->name)[1]}}">依答案至相關頁面</label>
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                            @elseif($selectF = 'N' && $numberSel == $v)
+                                                                                                            <input class="followw" name="{{$yyy->name}}follow3{{$num}}" id="follow3{{$num}}" type="checkbox">
+                                                                                                            <label class="followanswer" for="follow3{{$num}}">
+                                                                                                            @endif
                                                                                                         @endforeach
                                                                                                         </div>
                                                                                                     </div>

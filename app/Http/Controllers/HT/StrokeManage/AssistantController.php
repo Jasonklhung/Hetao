@@ -5,11 +5,13 @@ namespace App\Http\Controllers\HT\StrokeManage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use DB;
 
 use App\Organization;
 use App\WorkCase;
 use App\User;
 use App\Department;
+use App\TransferCase;
 
 use GuzzleHttp\Client;
 
@@ -116,6 +118,20 @@ class AssistantController extends Controller
 
     	$dept_name = $dept_name[0]['name']; //取得部門名稱
 
+        
+        $case = TransferCase::where('case_id',$request->id)->get();
+
+        if($case->isNotEmpty()){
+            DB::table('transfer_cases')
+                ->where('case_id',$id)
+                ->update(['id' => Auth::user()->id]);
+        }else{
+            $transfer = new TransferCase;
+            $transfer->user_id = Auth::user()->id;
+            $transfer->case_id = $request->id;
+            $transfer->save();
+        }
+
     	//api
     	$client = new \GuzzleHttp\Client();
     	$response = $client->post('http://60.251.216.90:8855/api_/assign-case-boss', [
@@ -128,7 +144,7 @@ class AssistantController extends Controller
     			'address' => $request->address,
     			'work_type' => $request->work_type,
     			'time' => $request->time,
-    			'owner_boss' => 'Z8564d5737a4ba80b8e7921e882e506ea',//$request->remarks,
+    			'owner_boss' => 'B20191002',//$request->remarks,
     			'DEPT' => 'H026',//$dept_name,
     		])
     	]);
@@ -151,6 +167,36 @@ class AssistantController extends Controller
                 'id' => $request->id,
                 'status'=> $request->status,
                 'DEPT' => $request->DEPT
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        return $response;
+    }
+
+    public function transfer(Organization $organization,Request $request)
+    {
+        $name = TransferCase::where('case_id',$request->id)->get();
+
+        $user_id = $name[0]['id'];
+
+        $user = User::where('id',$user_id);
+
+        //api
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/assign-case-boss', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'id' => $request->id,
+                'name' => $request->name,
+                'mobile'=> $request->mobile,
+                'GUI_number' => $request->GUI_number,
+                'address' => $request->address,
+                'work_type' => $request->work_type,
+                'time' => $request->time,
+                'owner_boss' => 'B20191002',//$user[0]['token'],
+                'DEPT' => 'H026',//$user[0]['department_id'],
             ])
         ]);
 

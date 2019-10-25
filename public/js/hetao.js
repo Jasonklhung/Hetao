@@ -405,7 +405,7 @@ $("#hetao-list-su-2").DataTable({
     }],
     "order": [],
     "columnDefs": [{
-        "targets": [9],
+        "targets": [],
         "orderable": false,
     }],
     "responsive": {

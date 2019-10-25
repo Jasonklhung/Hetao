@@ -859,6 +859,13 @@ input:checked+.slider:before {
         top: 1px;
         font-size: 12px;
     }
+    .nav-tabs {
+      display:flex;
+      justify-content: space-between;
+  }
+  .nav>li>a {
+      padding: 4px;
+  }
 }
 
 
@@ -1551,4 +1558,11 @@ input[class^=follow]:checked+.followanswer:before {
     font-weight: 900;
     color: #464646;
     margin-right: 6px;
+}
+
+ .dtr-details tr td:nth-child(2) {
+    word-break: normal;
+    line-height: 1.5;
+    padding: 0 16px;
+
 }

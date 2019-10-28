@@ -25,3 +25,5 @@ use Illuminate\Http\Request;
 Route::get('getResData','Api\ReservationController@index');
 
 Route::get('getContactData','Api\ContactController@index');
+
+Route::get('getSatiData','Api\SatisfactionController@index');

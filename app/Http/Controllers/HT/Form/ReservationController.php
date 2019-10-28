@@ -13,11 +13,14 @@ class ReservationController extends Controller
     {
         $reservation = Reservation::all();
 
-    	return view('ht.Form.reservation.index',compact('organization','reservation'));
+        $count = Reservation::all()->count();
+
+    	return view('ht.Form.reservation.index',compact('organization','reservation','count'));
     }
 
     public function store(Organization $organization,Request $request)
     {
+        $reservation = Reservation::all();
 
     	$form = array();
 
@@ -29,12 +32,25 @@ class ReservationController extends Controller
     		}
     	}
 
-    	foreach ($form as $k => $v) {
-    		$res = new Reservation;
-    		$res->name = $k;
-    		$res->form = json_encode($v);
-    		$res->save();	
-    	}
+        if($reservation->isNotEmpty()){
+            Reservation::truncate();
+
+            foreach ($form as $k => $v) {
+                $res = new Reservation;
+                $res->name = $k;
+                $res->form = json_encode($v);
+                $res->save();   
+            }
+        }
+        else{
+
+            foreach ($form as $k => $v) {
+                $res = new Reservation;
+                $res->name = $k;
+                $res->form = json_encode($v);
+                $res->save();   
+            }
+        }
 
     	return response()->json(['success'=>['ok']]);
     }

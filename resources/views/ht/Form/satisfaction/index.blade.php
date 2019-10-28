@@ -33,21 +33,23 @@
                                                             @if($satisfaction->isNotEmpty())
                                                                 @foreach($satisfaction as $key => $data)
                                                                     @if($data->name == '感謝頁')
-                                                                        <div class="sec02 section mr-s active">
-                                                                            <label for="sec02">
+                                                                        <div class="sec0{{$key}} section mr-s active">
+                                                                            <label for="sec0{{$key}}">
                                                                                 <i class="fas fa-check-circle fa-fw"></i>
                                                                                 <a class="thx" data-toggle="tab" href="#{{$data->name}}">
                                                                                 <input class="form-control formName" type="text" value="{{$data->name}}" disabled=""></a>
-                                                                                <input type="checkbox" id="sec02" class="form-sec-btn">
+                                                                                <input type="checkbox" id="sec0{{$key}}" class="form-sec-btn">
+                                                                                <button class="close"type="button">&times;</button>
                                                                             </label>
                                                                         </div>
                                                                     @else
-                                                                         <div class="sec02 section mr-s">
-                                                                            <label for="sec02">
+                                                                         <div class="sec0{{$key}} section mr-s">
+                                                                            <label for="sec0{{$key}}">
                                                                                 <i class="fas fa-check-circle fa-fw"></i>
                                                                                 <a class="thx" data-toggle="tab" href="#{{$data->name}}">
                                                                                 <input class="form-control formName" type="text" value="{{$data->name}}"></a>
-                                                                                <input type="checkbox" id="sec02" class="form-sec-btn">
+                                                                                <input type="checkbox" id="sec0{{$key}}" class="form-sec-btn">
+                                                                                <button class="close"type="button">&times;</button>
                                                                             </label>
                                                                         </div>
                                                                     @endif
@@ -81,6 +83,15 @@
                                                                 @php
                                                                     $form = json_decode($data->form);
 
+                                                                    $testArr = array();
+                                                                    $number = 0;
+                                                                    $numberSel = 0;
+
+                                                                    foreach($form as $abc){
+
+                                                                        array_push($testArr,$abc->name);
+                                                                    }
+
                                                                     foreach($form as $test){
                                                                         if(preg_match("/^radio+[0-9]+Href+$/", $test->name)){
                                                                             $radioHrefY = true;
@@ -91,8 +102,8 @@
                                                                     }
                                                                 @endphp
 
-                                                               @if($data->name == '感謝頁')
-                                                                    <div class="tab-pane fade in active"  id="{{$data->name}}">
+                                                                @if($data->name == '感謝頁')
+                                                                    <div class="tab-pane fade in active" id="{{$data->name}}">
                                                                         <div class="panel panel-default panel-type page">
                                                                             <div class="panel-heading text-center font-l font-r">線上預約表單</div>
                                                                             <div class="panel-body font-sm pdx-0">
@@ -102,15 +113,15 @@
                                                                                            @foreach($form as $v => $value)
                                                                                                 @if(preg_match("/^title+[0-9]+$/", $value->name))
                                                                                                     <div class="tp-title pd-l">
-                                                                                                        <button class="close" type="button"><i class="far fa-trash-alt"></i></button><input class="form-control" name="{{$value->name}}" type="text" value="{{$value->value}}" placeholder="填寫標題">
+                                                                                                        <button class="close" type="button"><i class="far fa-trash-alt"></i></button><input class="form-control title" name="{{$value->name}}" type="text" value="{{$value->value}}" placeholder="填寫標題">
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^article+[0-9]+$/", $value->name))
                                                                                                     <div class="form-group mgy-sm pd-l">
-                                                                                                        <button class="close" type="button"><i class="far fa-trash-alt"></i></button><input type="text" name="{{$value->name}}" class="form-control" placeholder="輸入文字" value="{{$value->value}}">
+                                                                                                        <button class="close" type="button"><i class="far fa-trash-alt"></i></button><input type="text" name="{{$value->name}}" class="form-control article" placeholder="輸入文字" value="{{$value->value}}">
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^line+[0-9]+$/", $value->name))
                                                                                                     <div class="pd-l">
-                                                                                                        <hr><input type="hidden" name="{{$value->name}}"><button class="close" type="button"><i class="far fa-trash-alt"></i></button>
+                                                                                                        <hr><input type="hidden" class="line" name="{{$value->name}}"><button class="close" type="button"><i class="far fa-trash-alt"></i></button>
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^radio+[0-9]+$/", $value->name))
                                                                                                     @foreach($form as $fo => $follows)
@@ -129,29 +140,47 @@
                                                                                                                 }
                                                                                                             }
                                                                                                         @endphp
+
                                                                                                         @if($radioF == 'Y')
                                                                                                         @if(preg_match("/^radio+[0-9]+follow+[0-9]+$/", $follows->name))
                                                                                                             @if(explode('follow',$follows->name)[0] == $value->name)
                                                                                                                 @if($follows->value == 'on')
-                                                                                                        <div class="pd-l item link">
+                                                                                                    <div class="pd-l item link">
                                                                                                                 @else
-                                                                                                        <div class="pd-l item">
+                                                                                                    <div class="pd-l item">
                                                                                                                 @endif
                                                                                                             @endif
                                                                                                         @endif
                                                                                                         @elseif($radioF == 'N' && $number == $v)
-                                                                                                        <div class="pd-l item">
+                                                                                                    <div class="pd-l item">
                                                                                                         @endif
                                                                                                     @endforeach
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" name="{{$value->name}}" value="{{$value->value}}" type="text" placeholder="未命名的問題">
+                                                                                                            <input class="form-control radio" name="{{$value->name}}" value="{{$value->value}}" type="text" placeholder="未命名的問題">
                                                                                                         </p>
                                                                                                         <div class="select-con">
-                                                                                                            @foreach($form as $a => $aaa)
-                                                                                                                @if(isset($radioHrefY))
-                                                                                                                    @if(preg_match("/^radio+[0-9]+Opt+$/", $aaa->name))
-                                                                                                                <div class="mb-s">
-                                                                                                                    @if(explode('Opt',$aaa->name)[0] ==$value->name)
+                                                                                                        @foreach($form as $a => $aaa)
+
+                                                                                                                @php
+                                                                                                                    if(preg_match("/^radio+[0-9]+$/", $value->name)){
+
+                                                                                                                    $folw = $value->name.'Href';
+
+                                                                                                                        if(in_array($folw,$testArr)){
+                                                                                                                            $radioF = 'Y';
+                                                                                                                        }
+                                                                                                                        else{
+                                                                                                                            $radioF = 'N';
+                                                                                                                            $number = $a;
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                @endphp
+                                                                                                                
+                                                                                                            @if($radioF == 'Y')
+
+                                                                                                                @if(preg_match("/^radio+[0-9]+Opt+$/", $aaa->name))
+                                                                                                                @if(explode('Opt',$aaa->name)[0] == $value->name)
+                                                                                                            <div class="mb-s">    
                                                                                                                     <button class="close" type="button">×</button>
                                                                                                                     <div class="out mr-s">
 
@@ -159,22 +188,24 @@
                                                                                                                     <input type="text" name="{{$aaa->name}}" value="{{$aaa->value}}" placeholder="填寫選項文字">
                                                                                                                     <select class="form-control" name="{{explode('Opt',$aaa->name)[0]}}Href">
                                                                                                                     @endif
-                                                                                                                    @elseif(preg_match("/^radio+[0-9]+Href+$/", $aaa->name))
-                                                                                                                    @if(explode('Href',$aaa->name)[0] ==$value->name)
+                                                                                                                @elseif(preg_match("/^radio+[0-9]+Href+$/", $aaa->name))
+                                                                                                                    @if(explode('Href',$aaa->name)[0] == $value->name)
                                                                                                                     <option value="">請選擇</option>
                                                                                                                         @foreach($satisfaction as $r => $res)
                                                                                                                             @if($aaa->value == $res->name)
                                                                                                                     <option value="{{$res->name}}" selected="">{{$res->name}}</option>
                                                                                                                             @else
                                                                                                                     <option value="{{$res->name}}">{{$res->name}}</option>
-                                                                                                                            @endif
-                                                                                                                        @endforeach
-                                                                                                                    @endif
+                                                                                                                         @endif
+                                                                                                                    @endforeach
                                                                                                                 </select>
                                                                                                             </div>
-                                                                                                                    @endif
-                                                                                                                @else
+                                                                                                                @endif
+                                                                                                                @endif
+                                                                                                            @elseif($radioF == 'N' && $number == $v)
+                                                                                                                @foreach($form as $a => $aaa)
                                                                                                                     @if(preg_match("/^radio+[0-9]+Opt+$/", $aaa->name))
+                                                                                                                        @if(explode('Opt',$aaa->name)[0] ==$value->name)
                                                                                                                 <div class="mb-s">
                                                                                                                     <button class="close" type="button">×</button>
                                                                                                                     <div class="out mr-s">
@@ -191,6 +222,8 @@
                                                                                                                     @endif
                                                                                                                 @endif
                                                                                                             @endforeach
+                                                                                                            @endif
+                                                                                                        @endforeach
                                                                                                         </div>
                                                                                                         <a href="javascript:void(0)" class="select-fun">
                                                                                                             <div class="out mr-s"></div>新增選項
@@ -274,10 +307,11 @@
                                                                                                 @elseif(preg_match("/^multi+[0-9]+$/", $value->name))
                                                                                                     <div class="pd-l item">
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題"></p>
+                                                                                                            <input class="form-control multi" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題"></p>
                                                                                                             <div class="multi-con">
                                                                                                                 @foreach($form as $d => $ddd)
                                                                                                                     @if(preg_match("/^multi+[0-9]+Opt+$/", $ddd->name))
+                                                                                                                    @if(explode('Opt',$ddd->name)[0] == $value->name)
                                                                                                                 <div class="mb-s">
                                                                                                                     <button class="close" type="button">×</button>
                                                                                                                     <div class="shape mr-s">
@@ -288,6 +322,7 @@
                                                                                                                         
                                                                                                                     </select>
                                                                                                                 </div>
+                                                                                                                    @endif
                                                                                                                     @endif
                                                                                                                 @endforeach
                                                                                                             </div>
@@ -303,7 +338,23 @@
                                                                                                                         </i>
                                                                                                                     </button>
                                                                                                                 @foreach($form as $e => $eee)
+                                                                                                                    @php
+                                                                                                                        if(preg_match("/^multi+[0-9]+$/", $value->name)){
+
+                                                                                                                        $folw = $value->name.'Req';
+
+                                                                                                                            if(in_array($folw,$testArr)){
+                                                                                                                                $radioF = 'Y';
+                                                                                                                            }
+                                                                                                                            else{
+                                                                                                                                $radioF = 'N';
+                                                                                                                                $number = $e;
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    @endphp
+                                                                                                                @if($radioF == 'Y')
                                                                                                                     @if(preg_match("/^multi+[0-9]+Req+$/", $eee->name))
+                                                                                                                    @if(explode('Req',$eee->name)[0] == $value->name)
                                                                                                                         @if($eee->value == 'on')
                                                                                                                     <label class="switch">
                                                                                                                         <input type="checkbox" name="{{$eee->name}}" checked="">
@@ -311,11 +362,18 @@
                                                                                                                     </label>
                                                                                                                         @else
                                                                                                                     <label class="switch">
-                                                                                                                        <input type="checkbox" name="multi1Req">
+                                                                                                                        <input type="checkbox" name="{{$eee->name}}">
                                                                                                                         <span class="slider round"></span>
                                                                                                                     </label>    
                                                                                                                         @endif
                                                                                                                     @endif
+                                                                                                                    @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                    <label class="switch">
+                                                                                                                        <input type="checkbox" name="{{$eee->name}}">
+                                                                                                                        <span class="slider round"></span>
+                                                                                                                    </label>
+                                                                                                                @endif
                                                                                                                 @endforeach
                                                                                                                 </div>
                                                                                                         </div>
@@ -336,7 +394,7 @@
                                                                                                                 }
                                                                                                             }
                                                                                                         @endphp
-                                                                                                        @if($selectF = 'Y')
+                                                                                                        @if($selectF == 'Y')
                                                                                                         @if(preg_match("/^select+[0-9]+follow+[0-9]+$/", $followS->name))
                                                                                                             @if(explode('follow',$followS->name)[0] == $value->name)
                                                                                                                 @if($followS->value == 'on')
@@ -351,11 +409,26 @@
                                                                                                         @endif
                                                                                                     @endforeach
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" name="{{$value->name}}" value="{{$value->value}}" type="text" placeholder="未命名的問題">
+                                                                                                            <input class="form-control select" name="{{$value->name}}" value="{{$value->value}}" type="text" placeholder="未命名的問題">
                                                                                                         </p>
                                                                                                         <ol class="drop-con">
                                                                                                             @foreach($form as $f => $fff)
-                                                                                                                @if(isset($selectHrefY))
+                                                                                                               @php
+                                                                                                                    if(preg_match("/^select+[0-9]+$/", $value->name)){
+
+                                                                                                                    $folw = $value->name.'Href';
+
+                                                                                                                        if(in_array($folw,$testArr)){
+                                                                                                                            $radioF = 'Y';
+                                                                                                                        }
+                                                                                                                        else{
+                                                                                                                            $radioF = 'N';
+                                                                                                                            $number = $f;
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                @endphp
+                                                                                                                
+                                                                                                                @if($radioF == 'Y')
                                                                                                                     @if(preg_match("/^select+[0-9]+Opt+$/", $fff->name))
                                                                                                                         @if(explode('Opt',$fff->name)[0] == $value->name)
                                                                                                                 <li class="mb-s">
@@ -374,12 +447,15 @@
                                                                                                                                     <option value="{{$rres->name}}">{{$rres->name}}</option>
                                                                                                                                 @endif
                                                                                                                             @endforeach
-                                                                                                                    @endif
+                                                                                                                    
                                                                                                                     </select>
                                                                                                                 </li>
                                                                                                                     @endif
-                                                                                                                @else
+                                                                                                                    @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                    @foreach($form as $f=> $fff)
                                                                                                                     @if(preg_match("/^select+[0-9]+Opt+$/", $fff->name))
+                                                                                                                        @if(explode('Opt',$fff->name)[0] == $value->name)
                                                                                                                 <li class="mb-s">
                                                                                                                     <button class="close" type="button">×</button>
                                                                                                                     <input type="text" name="{{$fff->name}}" value="{{$fff->value}}" placeholder="選項文字">
@@ -392,6 +468,8 @@
                                                                                                                 </li>
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                            @endforeach
+                                                                                                            @endif
                                                                                                             @endforeach
                                                                                                             <li class="mb-s drop-fun-dot">
                                                                                                                 <a href="javascript:void(0)" class="drop-fun">新增選項
@@ -485,7 +563,7 @@
                                                                                                 @elseif(preg_match("/^qa+[0-9]+$/", $value->name))
                                                                                                     <div class="pd-l item">
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
+                                                                                                            <input class="form-control qa" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
                                                                                                         </p>
                                                                                                         <input class="lock" type="text" value="簡答文字" disabled=""><div class="itemfoot">
                                                                                                             <button class="ml-s close" type="button">
@@ -494,7 +572,23 @@
                                                                                                                 </i>
                                                                                                             </button>
                                                                                                             @foreach($form as $i => $iii)
+                                                                                                                @php
+                                                                                                                if(preg_match("/^qa+[0-9]+$/", $value->name)){
+
+                                                                                                                $folw = $value->name.'Req';
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $radioF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $radioF = 'N';
+                                                                                                                        $number = $i;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                @endphp
+                                                                                                                @if($radioF == 'Y')
                                                                                                                 @if(preg_match("/^qa+[0-9]+Req+$/", $iii->name))
+                                                                                                                    @if(explode('Req',$iii->name)[0] == $value->name)
                                                                                                                     @if($iii->value == 'on')
                                                                                                                 <label class="switch">
                                                                                                                     <input type="checkbox" name="{{$iii->name}}" checked="">
@@ -511,13 +605,22 @@
                                                                                                                 </label>
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                                @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                <label class="switch">
+                                                                                                                    <input type="checkbox" name="{{$iii->name}}">
+                                                                                                                    <span class="slider round">
+                                                                                                                        
+                                                                                                                    </span>
+                                                                                                                </label>
+                                                                                                                @endif
                                                                                                             @endforeach
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^part+[0-9]+$/", $value->name))
                                                                                                     <div class="pd-l item">
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
+                                                                                                            <input class="form-control part" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
                                                                                                         </p>
                                                                                                         <input class="lock" type="text" value="詳答文字" disabled=""><div class="itemfoot">
                                                                                                             <button class="ml-s close" type="button">
@@ -526,7 +629,23 @@
                                                                                                                 </i>
                                                                                                             </button>
                                                                                                             @foreach($form as $j => $jjj)
+                                                                                                                @php
+                                                                                                                if(preg_match("/^part+[0-9]+$/", $value->name)){
+
+                                                                                                                $folw = $value->name.'Req';
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $radioF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $radioF = 'N';
+                                                                                                                        $number = $j;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                @endphp
+                                                                                                                @if($radioF == 'Y')
                                                                                                                 @if(preg_match("/^part+[0-9]+Req+$/", $jjj->name))
+                                                                                                                @if(explode('Req',$jjj->name)[0] == $value->name)
                                                                                                                     @if($jjj->value == 'on')
                                                                                                                 <label class="switch">
                                                                                                                     <input type="checkbox" name="{{$jjj->name}}" checked="">
@@ -543,13 +662,22 @@
                                                                                                                 </label>
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                                @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                <label class="switch">
+                                                                                                                    <input type="checkbox" name="{{$jjj->name}}">
+                                                                                                                    <span class="slider round">
+                                                                                                                        
+                                                                                                                    </span>
+                                                                                                                </label>
+                                                                                                                @endif
                                                                                                             @endforeach
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^date+[0-9]+$/", $value->name))
                                                                                                     <div class="pd-l item">
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
+                                                                                                            <input class="form-control date" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
                                                                                                         </p>
                                                                                                         <input class="lock datime" type="text" value="年/月/日" disabled="">
                                                                                                         <span class="glyphicon glyphicon-calendar date-icon" aria-hidden="true"></span>
@@ -560,7 +688,23 @@
                                                                                                                 </i>
                                                                                                             </button>
                                                                                                             @foreach($form as $k => $kkk)
+                                                                                                                @php
+                                                                                                                if(preg_match("/^date+[0-9]+$/", $value->name)){
+
+                                                                                                                $folw = $value->name.'Req';
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $radioF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $radioF = 'N';
+                                                                                                                        $number = $k;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                @endphp
+                                                                                                                @if($radioF == 'Y')
                                                                                                                 @if(preg_match("/^date+[0-9]+Req+$/", $kkk->name))
+                                                                                                                    @if(explode('Req',$kkk->name)[0] == $value->name)
                                                                                                                     @if($kkk->value == 'on')
                                                                                                                 <label class="switch">
                                                                                                                     <input type="checkbox" name="{{$kkk->name}}" checked="">
@@ -577,13 +721,22 @@
                                                                                                                 </label>
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                                @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                <label class="switch">
+                                                                                                                    <input type="checkbox" name="{{$kkk->name}}">
+                                                                                                                    <span class="slider round">
+                                                                                                                        
+                                                                                                                    </span>
+                                                                                                                </label>
+                                                                                                                @endif
                                                                                                             @endforeach
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^time+[0-9]+$/", $value->name))
                                                                                                     <div class="pd-l item">
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
+                                                                                                            <input class="form-control time" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
                                                                                                         </p>
                                                                                                         <input class="lock datime" type="text" value="時：分" disabled="">
                                                                                                         <span class="glyphicon glyphicon-time time-icon" aria-hidden="true"></span>
@@ -594,7 +747,23 @@
                                                                                                                 </i>
                                                                                                             </button>
                                                                                                             @foreach($form as $l => $lll)
-                                                                                                                @if(preg_match("/^date+[0-9]+Req+$/", $lll->name))
+                                                                                                                @php
+                                                                                                                if(preg_match("/^time+[0-9]+$/", $value->name)){
+
+                                                                                                                $folw = $value->name.'Req';
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $radioF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $radioF = 'N';
+                                                                                                                        $number = $l;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                @endphp
+                                                                                                                @if($radioF == 'Y')
+                                                                                                                @if(preg_match("/^time+[0-9]+Req+$/", $lll->name))
+                                                                                                                    @if(explode('Req',$lll->name)[0] == $value->name)
                                                                                                                     @if($lll->value == 'on')
                                                                                                                 <label class="switch">
                                                                                                                     <input type="checkbox" name="{{$lll->name}}" checked="">
@@ -610,6 +779,15 @@
                                                                                                                     </span>
                                                                                                                 </label>
                                                                                                                     @endif
+                                                                                                                @endif
+                                                                                                                @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                    <label class="switch">
+                                                                                                                    <input type="checkbox" name="{{$lll->name}}">
+                                                                                                                    <span class="slider round">
+                                                                                                                        
+                                                                                                                    </span>
+                                                                                                                </label>
                                                                                                                 @endif
                                                                                                             @endforeach
                                                                                                         </div>
@@ -636,15 +814,15 @@
                                                                                            @foreach($form as $v => $value)
                                                                                                 @if(preg_match("/^title+[0-9]+$/", $value->name))
                                                                                                     <div class="tp-title pd-l">
-                                                                                                        <button class="close" type="button"><i class="far fa-trash-alt"></i></button><input class="form-control" name="{{$value->name}}" type="text" value="{{$value->value}}" placeholder="填寫標題">
+                                                                                                        <button class="close" type="button"><i class="far fa-trash-alt"></i></button><input class="form-control title" name="{{$value->name}}" type="text" value="{{$value->value}}" placeholder="填寫標題">
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^article+[0-9]+$/", $value->name))
                                                                                                     <div class="form-group mgy-sm pd-l">
-                                                                                                        <button class="close" type="button"><i class="far fa-trash-alt"></i></button><input type="text" name="{{$value->name}}" class="form-control" placeholder="輸入文字" value="{{$value->value}}">
+                                                                                                        <button class="close" type="button"><i class="far fa-trash-alt"></i></button><input type="text" name="{{$value->name}}" class="form-control article" placeholder="輸入文字" value="{{$value->value}}">
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^line+[0-9]+$/", $value->name))
                                                                                                     <div class="pd-l">
-                                                                                                        <hr><input type="hidden" name="{{$value->name}}"><button class="close" type="button"><i class="far fa-trash-alt"></i></button>
+                                                                                                        <hr><input type="hidden" class="line" name="{{$value->name}}"><button class="close" type="button"><i class="far fa-trash-alt"></i></button>
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^radio+[0-9]+$/", $value->name))
                                                                                                     @foreach($form as $fo => $follows)
@@ -663,29 +841,47 @@
                                                                                                                 }
                                                                                                             }
                                                                                                         @endphp
+
                                                                                                         @if($radioF == 'Y')
                                                                                                         @if(preg_match("/^radio+[0-9]+follow+[0-9]+$/", $follows->name))
                                                                                                             @if(explode('follow',$follows->name)[0] == $value->name)
                                                                                                                 @if($follows->value == 'on')
-                                                                                                        <div class="pd-l item link">
+                                                                                                    <div class="pd-l item link">
                                                                                                                 @else
-                                                                                                        <div class="pd-l item">
+                                                                                                    <div class="pd-l item">
                                                                                                                 @endif
                                                                                                             @endif
                                                                                                         @endif
                                                                                                         @elseif($radioF == 'N' && $number == $v)
-                                                                                                        <div class="pd-l item">
+                                                                                                    <div class="pd-l item">
                                                                                                         @endif
                                                                                                     @endforeach
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" name="{{$value->name}}" value="{{$value->value}}" type="text" placeholder="未命名的問題">
+                                                                                                            <input class="form-control radio" name="{{$value->name}}" value="{{$value->value}}" type="text" placeholder="未命名的問題">
                                                                                                         </p>
                                                                                                         <div class="select-con">
-                                                                                                            @foreach($form as $a => $aaa)
-                                                                                                                @if(isset($radioHrefY))
-                                                                                                                    @if(preg_match("/^radio+[0-9]+Opt+$/", $aaa->name))
-                                                                                                                <div class="mb-s">
-                                                                                                                    @if(explode('Opt',$aaa->name)[0] ==$value->name)
+                                                                                                        @foreach($form as $a => $aaa)
+
+                                                                                                                @php
+                                                                                                                    if(preg_match("/^radio+[0-9]+$/", $value->name)){
+
+                                                                                                                    $folw = $value->name.'Href';
+
+                                                                                                                        if(in_array($folw,$testArr)){
+                                                                                                                            $radioF = 'Y';
+                                                                                                                        }
+                                                                                                                        else{
+                                                                                                                            $radioF = 'N';
+                                                                                                                            $number = $a;
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                @endphp
+                                                                                                                
+                                                                                                            @if($radioF == 'Y')
+
+                                                                                                                @if(preg_match("/^radio+[0-9]+Opt+$/", $aaa->name))
+                                                                                                                @if(explode('Opt',$aaa->name)[0] == $value->name)
+                                                                                                            <div class="mb-s">    
                                                                                                                     <button class="close" type="button">×</button>
                                                                                                                     <div class="out mr-s">
 
@@ -693,22 +889,24 @@
                                                                                                                     <input type="text" name="{{$aaa->name}}" value="{{$aaa->value}}" placeholder="填寫選項文字">
                                                                                                                     <select class="form-control" name="{{explode('Opt',$aaa->name)[0]}}Href">
                                                                                                                     @endif
-                                                                                                                    @elseif(preg_match("/^radio+[0-9]+Href+$/", $aaa->name))
-                                                                                                                    @if(explode('Href',$aaa->name)[0] ==$value->name)
+                                                                                                                @elseif(preg_match("/^radio+[0-9]+Href+$/", $aaa->name))
+                                                                                                                    @if(explode('Href',$aaa->name)[0] == $value->name)
                                                                                                                     <option value="">請選擇</option>
                                                                                                                         @foreach($satisfaction as $r => $res)
                                                                                                                             @if($aaa->value == $res->name)
                                                                                                                     <option value="{{$res->name}}" selected="">{{$res->name}}</option>
                                                                                                                             @else
                                                                                                                     <option value="{{$res->name}}">{{$res->name}}</option>
-                                                                                                                            @endif
-                                                                                                                        @endforeach
-                                                                                                                    @endif
+                                                                                                                         @endif
+                                                                                                                    @endforeach
                                                                                                                 </select>
                                                                                                             </div>
-                                                                                                                    @endif
-                                                                                                                @else
+                                                                                                                @endif
+                                                                                                                @endif
+                                                                                                            @elseif($radioF == 'N' && $number == $v)
+                                                                                                                @foreach($form as $a => $aaa)
                                                                                                                     @if(preg_match("/^radio+[0-9]+Opt+$/", $aaa->name))
+                                                                                                                        @if(explode('Opt',$aaa->name)[0] ==$value->name)
                                                                                                                 <div class="mb-s">
                                                                                                                     <button class="close" type="button">×</button>
                                                                                                                     <div class="out mr-s">
@@ -725,6 +923,8 @@
                                                                                                                     @endif
                                                                                                                 @endif
                                                                                                             @endforeach
+                                                                                                            @endif
+                                                                                                        @endforeach
                                                                                                         </div>
                                                                                                         <a href="javascript:void(0)" class="select-fun">
                                                                                                             <div class="out mr-s"></div>新增選項
@@ -808,10 +1008,11 @@
                                                                                                 @elseif(preg_match("/^multi+[0-9]+$/", $value->name))
                                                                                                     <div class="pd-l item">
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題"></p>
+                                                                                                            <input class="form-control multi" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題"></p>
                                                                                                             <div class="multi-con">
                                                                                                                 @foreach($form as $d => $ddd)
                                                                                                                     @if(preg_match("/^multi+[0-9]+Opt+$/", $ddd->name))
+                                                                                                                    @if(explode('Opt',$ddd->name)[0] == $value->name)
                                                                                                                 <div class="mb-s">
                                                                                                                     <button class="close" type="button">×</button>
                                                                                                                     <div class="shape mr-s">
@@ -822,6 +1023,7 @@
                                                                                                                         
                                                                                                                     </select>
                                                                                                                 </div>
+                                                                                                                    @endif
                                                                                                                     @endif
                                                                                                                 @endforeach
                                                                                                             </div>
@@ -837,7 +1039,23 @@
                                                                                                                         </i>
                                                                                                                     </button>
                                                                                                                 @foreach($form as $e => $eee)
+                                                                                                                    @php
+                                                                                                                        if(preg_match("/^multi+[0-9]+$/", $value->name)){
+
+                                                                                                                        $folw = $value->name.'Req';
+
+                                                                                                                            if(in_array($folw,$testArr)){
+                                                                                                                                $radioF = 'Y';
+                                                                                                                            }
+                                                                                                                            else{
+                                                                                                                                $radioF = 'N';
+                                                                                                                                $number = $e;
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    @endphp
+                                                                                                                @if($radioF == 'Y')
                                                                                                                     @if(preg_match("/^multi+[0-9]+Req+$/", $eee->name))
+                                                                                                                    @if(explode('Req',$eee->name)[0] == $value->name)
                                                                                                                         @if($eee->value == 'on')
                                                                                                                     <label class="switch">
                                                                                                                         <input type="checkbox" name="{{$eee->name}}" checked="">
@@ -845,11 +1063,18 @@
                                                                                                                     </label>
                                                                                                                         @else
                                                                                                                     <label class="switch">
-                                                                                                                        <input type="checkbox" name="multi1Req">
+                                                                                                                        <input type="checkbox" name="{{$eee->name}}">
                                                                                                                         <span class="slider round"></span>
                                                                                                                     </label>    
                                                                                                                         @endif
                                                                                                                     @endif
+                                                                                                                    @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                    <label class="switch">
+                                                                                                                        <input type="checkbox" name="{{$eee->name}}">
+                                                                                                                        <span class="slider round"></span>
+                                                                                                                    </label>
+                                                                                                                @endif
                                                                                                                 @endforeach
                                                                                                                 </div>
                                                                                                         </div>
@@ -870,7 +1095,7 @@
                                                                                                                 }
                                                                                                             }
                                                                                                         @endphp
-                                                                                                        @if($selectF = 'Y')
+                                                                                                        @if($selectF == 'Y')
                                                                                                         @if(preg_match("/^select+[0-9]+follow+[0-9]+$/", $followS->name))
                                                                                                             @if(explode('follow',$followS->name)[0] == $value->name)
                                                                                                                 @if($followS->value == 'on')
@@ -885,11 +1110,26 @@
                                                                                                         @endif
                                                                                                     @endforeach
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" name="{{$value->name}}" value="{{$value->value}}" type="text" placeholder="未命名的問題">
+                                                                                                            <input class="form-control select" name="{{$value->name}}" value="{{$value->value}}" type="text" placeholder="未命名的問題">
                                                                                                         </p>
                                                                                                         <ol class="drop-con">
                                                                                                             @foreach($form as $f => $fff)
-                                                                                                                @if(isset($selectHrefY))
+                                                                                                               @php
+                                                                                                                    if(preg_match("/^select+[0-9]+$/", $value->name)){
+
+                                                                                                                    $folw = $value->name.'Href';
+
+                                                                                                                        if(in_array($folw,$testArr)){
+                                                                                                                            $radioF = 'Y';
+                                                                                                                        }
+                                                                                                                        else{
+                                                                                                                            $radioF = 'N';
+                                                                                                                            $number = $f;
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                @endphp
+                                                                                                                
+                                                                                                                @if($radioF == 'Y')
                                                                                                                     @if(preg_match("/^select+[0-9]+Opt+$/", $fff->name))
                                                                                                                         @if(explode('Opt',$fff->name)[0] == $value->name)
                                                                                                                 <li class="mb-s">
@@ -908,12 +1148,15 @@
                                                                                                                                     <option value="{{$rres->name}}">{{$rres->name}}</option>
                                                                                                                                 @endif
                                                                                                                             @endforeach
-                                                                                                                    @endif
+                                                                                                                    
                                                                                                                     </select>
                                                                                                                 </li>
                                                                                                                     @endif
-                                                                                                                @else
+                                                                                                                    @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                    @foreach($form as $f=> $fff)
                                                                                                                     @if(preg_match("/^select+[0-9]+Opt+$/", $fff->name))
+                                                                                                                        @if(explode('Opt',$fff->name)[0] == $value->name)
                                                                                                                 <li class="mb-s">
                                                                                                                     <button class="close" type="button">×</button>
                                                                                                                     <input type="text" name="{{$fff->name}}" value="{{$fff->value}}" placeholder="選項文字">
@@ -926,6 +1169,8 @@
                                                                                                                 </li>
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                            @endforeach
+                                                                                                            @endif
                                                                                                             @endforeach
                                                                                                             <li class="mb-s drop-fun-dot">
                                                                                                                 <a href="javascript:void(0)" class="drop-fun">新增選項
@@ -1019,7 +1264,7 @@
                                                                                                 @elseif(preg_match("/^qa+[0-9]+$/", $value->name))
                                                                                                     <div class="pd-l item">
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
+                                                                                                            <input class="form-control qa" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
                                                                                                         </p>
                                                                                                         <input class="lock" type="text" value="簡答文字" disabled=""><div class="itemfoot">
                                                                                                             <button class="ml-s close" type="button">
@@ -1028,7 +1273,23 @@
                                                                                                                 </i>
                                                                                                             </button>
                                                                                                             @foreach($form as $i => $iii)
+                                                                                                                @php
+                                                                                                                if(preg_match("/^qa+[0-9]+$/", $value->name)){
+
+                                                                                                                $folw = $value->name.'Req';
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $radioF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $radioF = 'N';
+                                                                                                                        $number = $i;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                @endphp
+                                                                                                                @if($radioF == 'Y')
                                                                                                                 @if(preg_match("/^qa+[0-9]+Req+$/", $iii->name))
+                                                                                                                    @if(explode('Req',$iii->name)[0] == $value->name)
                                                                                                                     @if($iii->value == 'on')
                                                                                                                 <label class="switch">
                                                                                                                     <input type="checkbox" name="{{$iii->name}}" checked="">
@@ -1045,13 +1306,22 @@
                                                                                                                 </label>
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                                @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                <label class="switch">
+                                                                                                                    <input type="checkbox" name="{{$iii->name}}">
+                                                                                                                    <span class="slider round">
+                                                                                                                        
+                                                                                                                    </span>
+                                                                                                                </label>
+                                                                                                                @endif
                                                                                                             @endforeach
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^part+[0-9]+$/", $value->name))
                                                                                                     <div class="pd-l item">
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
+                                                                                                            <input class="form-control part" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
                                                                                                         </p>
                                                                                                         <input class="lock" type="text" value="詳答文字" disabled=""><div class="itemfoot">
                                                                                                             <button class="ml-s close" type="button">
@@ -1060,7 +1330,23 @@
                                                                                                                 </i>
                                                                                                             </button>
                                                                                                             @foreach($form as $j => $jjj)
+                                                                                                                @php
+                                                                                                                if(preg_match("/^part+[0-9]+$/", $value->name)){
+
+                                                                                                                $folw = $value->name.'Req';
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $radioF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $radioF = 'N';
+                                                                                                                        $number = $j;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                @endphp
+                                                                                                                @if($radioF == 'Y')
                                                                                                                 @if(preg_match("/^part+[0-9]+Req+$/", $jjj->name))
+                                                                                                                @if(explode('Req',$jjj->name)[0] == $value->name)
                                                                                                                     @if($jjj->value == 'on')
                                                                                                                 <label class="switch">
                                                                                                                     <input type="checkbox" name="{{$jjj->name}}" checked="">
@@ -1077,13 +1363,22 @@
                                                                                                                 </label>
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                                @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                <label class="switch">
+                                                                                                                    <input type="checkbox" name="{{$jjj->name}}">
+                                                                                                                    <span class="slider round">
+                                                                                                                        
+                                                                                                                    </span>
+                                                                                                                </label>
+                                                                                                                @endif
                                                                                                             @endforeach
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^date+[0-9]+$/", $value->name))
                                                                                                     <div class="pd-l item">
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
+                                                                                                            <input class="form-control date" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
                                                                                                         </p>
                                                                                                         <input class="lock datime" type="text" value="年/月/日" disabled="">
                                                                                                         <span class="glyphicon glyphicon-calendar date-icon" aria-hidden="true"></span>
@@ -1094,7 +1389,23 @@
                                                                                                                 </i>
                                                                                                             </button>
                                                                                                             @foreach($form as $k => $kkk)
+                                                                                                                @php
+                                                                                                                if(preg_match("/^date+[0-9]+$/", $value->name)){
+
+                                                                                                                $folw = $value->name.'Req';
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $radioF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $radioF = 'N';
+                                                                                                                        $number = $k;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                @endphp
+                                                                                                                @if($radioF == 'Y')
                                                                                                                 @if(preg_match("/^date+[0-9]+Req+$/", $kkk->name))
+                                                                                                                    @if(explode('Req',$kkk->name)[0] == $value->name)
                                                                                                                     @if($kkk->value == 'on')
                                                                                                                 <label class="switch">
                                                                                                                     <input type="checkbox" name="{{$kkk->name}}" checked="">
@@ -1111,13 +1422,22 @@
                                                                                                                 </label>
                                                                                                                     @endif
                                                                                                                 @endif
+                                                                                                                @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                <label class="switch">
+                                                                                                                    <input type="checkbox" name="{{$kkk->name}}">
+                                                                                                                    <span class="slider round">
+                                                                                                                        
+                                                                                                                    </span>
+                                                                                                                </label>
+                                                                                                                @endif
                                                                                                             @endforeach
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 @elseif(preg_match("/^time+[0-9]+$/", $value->name))
                                                                                                     <div class="pd-l item">
                                                                                                         <p class="title-deco">
-                                                                                                            <input class="form-control" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
+                                                                                                            <input class="form-control time" type="text" name="{{$value->name}}" value="{{$value->value}}" placeholder="未命名的問題">
                                                                                                         </p>
                                                                                                         <input class="lock datime" type="text" value="時：分" disabled="">
                                                                                                         <span class="glyphicon glyphicon-time time-icon" aria-hidden="true"></span>
@@ -1128,7 +1448,23 @@
                                                                                                                 </i>
                                                                                                             </button>
                                                                                                             @foreach($form as $l => $lll)
-                                                                                                                @if(preg_match("/^date+[0-9]+Req+$/", $lll->name))
+                                                                                                                @php
+                                                                                                                if(preg_match("/^time+[0-9]+$/", $value->name)){
+
+                                                                                                                $folw = $value->name.'Req';
+
+                                                                                                                    if(in_array($folw,$testArr)){
+                                                                                                                        $radioF = 'Y';
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        $radioF = 'N';
+                                                                                                                        $number = $l;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                @endphp
+                                                                                                                @if($radioF == 'Y')
+                                                                                                                @if(preg_match("/^time+[0-9]+Req+$/", $lll->name))
+                                                                                                                    @if(explode('Req',$lll->name)[0] == $value->name)
                                                                                                                     @if($lll->value == 'on')
                                                                                                                 <label class="switch">
                                                                                                                     <input type="checkbox" name="{{$lll->name}}" checked="">
@@ -1144,6 +1480,15 @@
                                                                                                                     </span>
                                                                                                                 </label>
                                                                                                                     @endif
+                                                                                                                @endif
+                                                                                                                @endif
+                                                                                                                @elseif($radioF == 'N' && $number == $v)
+                                                                                                                    <label class="switch">
+                                                                                                                    <input type="checkbox" name="{{$lll->name}}">
+                                                                                                                    <span class="slider round">
+                                                                                                                        
+                                                                                                                    </span>
+                                                                                                                </label>
                                                                                                                 @endif
                                                                                                             @endforeach
                                                                                                         </div>
@@ -1198,15 +1543,38 @@
 @endif
 <!-- ▲本頁引用▲ -->
 <script type="text/javascript">
-    var j = 1
-    var b =1
-    $('body').on('click', '.add-section2', function(){
-        j++
-        b++
-        $(this).parent().children('.sec02').before('<div class="sec-2-'+ j +' section mr-s"><label for="sec-2-'+ j +'"><i class="fas fa-check-circle fa-fw"></i><a data-toggle="tab" href="#p-2-'+ j +'"><input class="form-control formName" type="text" placeholder="未命名"></a><input type="checkbox" id="sec-2-'+ j +'" class="form-sec-btn"></label><button class="close"type="button">&times;</button></div>');
-        $(this).parent().parent().children('#thankyou2').before('<div class="tab-pane fade" id="p-2-'+ j +'"><div class="panel panel-default panel-type page"><div class="panel-heading text-center font-l font-r">滿意度調查表表單</div><div class="panel-body font-sm pdx-0"><div class="last-page tab-content"><form class="form-content-0 classForm" id="FormId'+b+'"></form></div></div></div></div>');
-        $(".add-section2").parent().find('.thx').siblings(".section:last").click();
-    });
+
+    @if($satisfaction->isNotEmpty())
+        var j = '{{$count}}';
+        var b = '{{$count}}';
+        var c = b-1
+
+        if(b == 0){
+            var c = b-1
+        }
+        else{
+            var c = 0
+        }
+
+        $('body').on('click', '.add-section2', function(){
+            j++
+            b++
+            $(this).parent().children('.sec0'+c+'').before('<div class="sec-2-'+ j +' section mr-s"><label for="sec-2-'+ j +'"><i class="fas fa-check-circle fa-fw"></i><a data-toggle="tab" href="#p-2-'+ j +'"><input class="form-control formName" type="text" placeholder="未命名"></a><input type="checkbox" id="sec-2-'+ j +'" class="form-sec-btn"></label><button class="close"type="button">&times;</button></div>');
+            $(this).parent().parent().children('#thankyou2').before('<div class="tab-pane fade" id="p-2-'+ j +'"><div class="panel panel-default panel-type page"><div class="panel-heading text-center font-l font-r">滿意度調查表表單</div><div class="panel-body font-sm pdx-0"><div class="last-page tab-content"><form class="form-content-0 classForm" id="FormId'+b+'"></form></div></div></div></div>');
+            $(".add-section2").parent().find('.thx').siblings(".section:last").click();
+        });
+
+    @else
+        var j = 1
+        var b =1
+        $('body').on('click', '.add-section2', function(){
+            j++
+            b++
+            $(this).parent().children('.sec02').before('<div class="sec-2-'+ j +' section mr-s"><label for="sec-2-'+ j +'"><i class="fas fa-check-circle fa-fw"></i><a data-toggle="tab" href="#p-2-'+ j +'"><input class="form-control formName" type="text" placeholder="未命名"></a><input type="checkbox" id="sec-2-'+ j +'" class="form-sec-btn"></label><button class="close"type="button">&times;</button></div>');
+            $(this).parent().parent().children('#thankyou2').before('<div class="tab-pane fade" id="p-2-'+ j +'"><div class="panel panel-default panel-type page"><div class="panel-heading text-center font-l font-r">滿意度調查表表單</div><div class="panel-body font-sm pdx-0"><div class="last-page tab-content"><form class="form-content-0 classForm" id="FormId'+b+'"></form></div></div></div></div>');
+            $(".add-section2").parent().find('.thx').siblings(".section:last").click();
+        });
+    @endif
 </script>
 <script type="text/javascript">
     $('#save').on('click',function(){

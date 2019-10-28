@@ -13,11 +13,14 @@ class SatisfactionController extends Controller
     {
         $satisfaction = Satisfaction::all();
 
-    	return view('ht.Form.satisfaction.index',compact('organization','satisfaction'));
+        $count = satisfaction::all()->count();
+
+    	return view('ht.Form.satisfaction.index',compact('organization','satisfaction','count'));
     }
 
     public function store(Organization $organization,Request $request)
     {
+        $satisfaction = Satisfaction::all();
 
     	$form = array();
 
@@ -29,12 +32,26 @@ class SatisfactionController extends Controller
     		}
     	}
 
-    	foreach ($form as $k => $v) {
-    		$res = new Satisfaction;
-    		$res->name = $k;
-    		$res->form = json_encode($v);
-    		$res->save();	
-    	}
+        if($satisfaction->isNotEmpty()){
+            Satisfaction::truncate();
+
+            foreach ($form as $k => $v) {
+                $res = new Satisfaction;
+                $res->name = $k;
+                $res->form = json_encode($v);
+                $res->save();   
+            }
+
+        }
+        else{
+
+            foreach ($form as $k => $v) {
+                $res = new Satisfaction;
+                $res->name = $k;
+                $res->form = json_encode($v);
+                $res->save();   
+            }
+        }
 
     	return response()->json(['success'=>['ok']]);
     }

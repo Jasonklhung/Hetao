@@ -13,11 +13,15 @@ class ContactController extends Controller
     {
         $contact = Contact::all();
 
-    	return view('ht.Form.contact.index',compact('organization','contact'));
+        $count = contact::all()->count();
+
+    	return view('ht.Form.contact.index',compact('organization','contact','count'));
     }
 
     public function store(Organization $organization,Request $request)
     {
+
+        $contact = Contact::all();
 
     	$form = array();
 
@@ -29,12 +33,26 @@ class ContactController extends Controller
     		}
     	}
 
-    	foreach ($form as $k => $v) {
-    		$res = new Contact;
-    		$res->name = $k;
-    		$res->form = json_encode($v);
-    		$res->save();	
-    	}
+        if($contact->isNotEmpty()){
+            contact::truncate();
+
+            foreach ($form as $k => $v) {
+                $res = new Contact;
+                $res->name = $k;
+                $res->form = json_encode($v);
+                $res->save();   
+            }
+
+        }
+        else{
+
+            foreach ($form as $k => $v) {
+                $res = new Contact;
+                $res->name = $k;
+                $res->form = json_encode($v);
+                $res->save();   
+            }
+        }
 
     	return response()->json(['success'=>['ok']]);
     }

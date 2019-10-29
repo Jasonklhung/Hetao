@@ -88,6 +88,6 @@ class SatisfactionController extends Controller
     	$res->form = json_encode($form);
     	$res->save();   
 
-    	return 'ok';
+    	return $id[0]['id'];
     }
 }

@@ -29,4 +29,4 @@ Route::get('getContactData','Api\ContactController@index');
 Route::get('getSatiData','Api\SatisfactionController@index');
 
 //account
-Route::post('AccountStore','Api\AccountController@store');
+Route::post('accountStore','Api\AccountController@store');

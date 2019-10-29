@@ -23,8 +23,10 @@ use Illuminate\Http\Request;
 
 //表單
 Route::get('getResData','Api\ReservationController@index');
+Route::post('resStore','Api\ReservationController@store');
 
 Route::get('getContactData','Api\ContactController@index');
+Route::post('contactStore','Api\ContactController@store');
 
 Route::get('getSatiData','Api\SatisfactionController@index');
 Route::post('satiStore','Api\SatisfactionController@store');

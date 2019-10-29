@@ -29,6 +29,6 @@ class ContactController extends Controller
     	$res->form = json_encode($form);
     	$res->save();   
 
-    	return json_encode($form);
+    	return 'ok';
     }
 }

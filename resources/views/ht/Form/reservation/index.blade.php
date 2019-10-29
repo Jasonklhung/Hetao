@@ -253,12 +253,12 @@
                                                                                                                     @if(explode('Req',$ccc->name)[0] == $value->name)
                                                                                                                         @if($ccc->value == 'on')
                                                                                                                         <label class="switch">
-                                                                                                                            <input type="checkbox" checked="" name="{{$ccc->name}}">
+                                                                                                                            <input type="checkbox" checked="" name="{{$ccc->name}}Req">
                                                                                                                             <span class="slider round"></span>
                                                                                                                         </label>
                                                                                                                         @else
                                                                                                                         <label class="switch">
-                                                                                                                            <input type="checkbox" name="{{$ccc->name}}">
+                                                                                                                            <input type="checkbox" name="{{$ccc->name}}Req">
                                                                                                                             <span class="slider round"></span>
                                                                                                                         </label>
                                                                                                                         @endif
@@ -266,7 +266,7 @@
                                                                                                                 @endif
                                                                                                                 @elseif($radioF == 'N' && $number == $v)
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$ccc->name}}">
+                                                                                                                    <input type="checkbox" name="{{$ccc->name}}Req">
                                                                                                                     <span class="slider round"></span>
                                                                                                                 </label>
                                                                                                                 @endif
@@ -503,14 +503,14 @@
                                                                                                                 @if(explode('Req',$ggg->name)[0] == $value->name)
                                                                                                                     @if($ggg->value == 'on')
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$ggg->name}}" checked="">
+                                                                                                                    <input type="checkbox" name="{{$ggg->name}}Req" checked="">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
                                                                                                                 </label>
                                                                                                                     @else
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$ggg->name}}">
+                                                                                                                    <input type="checkbox" name="{{$ggg->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -520,7 +520,7 @@
                                                                                                             @endif
                                                                                                             @elseif($selectF == 'N' && $numberSel == $v)
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$ggg->name}}">
+                                                                                                                    <input type="checkbox" name="{{$ggg->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -543,7 +543,7 @@
                                                                                                                     }
                                                                                                                 }
                                                                                                             @endphp
-                                                                                                            @if($selectF = 'Y')
+                                                                                                            @if($selectF == 'Y')
                                                                                                                 @if(preg_match("/^select+[0-9]+follow+[0-9]+$/", $yyy->name))
                                                                                                                     @if(explode('follow',$yyy->name)[0] == $value->name)
                                                                                                                         @if($yyy->value == 'on')
@@ -554,9 +554,10 @@
                                                                                                             <label class="followanswer" for="{{explode('follow',$yyy->name)[1]}}">依答案至相關頁面</label>
                                                                                                                     @endif
                                                                                                                 @endif
-                                                                                                            @elseif($selectF = 'N' && $numberSel == $v)
+                                                                                                            @elseif($selectF == 'N' && $numberSel == $v)
                                                                                                             <input class="followw" name="{{$yyy->name}}follow3{{$num}}" id="follow3{{$num}}" type="checkbox">
                                                                                                             <label class="followanswer" for="follow3{{$num}}">
+                                                                                                                依答案至相關頁面</label>
                                                                                                             @endif
                                                                                                         @endforeach
                                                                                                         </div>
@@ -954,12 +955,12 @@
                                                                                                                     @if(explode('Req',$ccc->name)[0] == $value->name)
                                                                                                                         @if($ccc->value == 'on')
                                                                                                                         <label class="switch">
-                                                                                                                            <input type="checkbox" checked="" name="{{$ccc->name}}">
+                                                                                                                            <input type="checkbox" checked="" name="{{$ccc->name}}Req">
                                                                                                                             <span class="slider round"></span>
                                                                                                                         </label>
                                                                                                                         @else
                                                                                                                         <label class="switch">
-                                                                                                                            <input type="checkbox" name="{{$ccc->name}}">
+                                                                                                                            <input type="checkbox" name="{{$ccc->name}}Req">
                                                                                                                             <span class="slider round"></span>
                                                                                                                         </label>
                                                                                                                         @endif
@@ -967,7 +968,7 @@
                                                                                                                 @endif
                                                                                                                 @elseif($radioF == 'N' && $number == $v)
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$ccc->name}}">
+                                                                                                                    <input type="checkbox" name="{{$ccc->name}}Req">
                                                                                                                     <span class="slider round"></span>
                                                                                                                 </label>
                                                                                                                 @endif
@@ -1204,14 +1205,14 @@
                                                                                                                 @if(explode('Req',$ggg->name)[0] == $value->name)
                                                                                                                     @if($ggg->value == 'on')
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$ggg->name}}" checked="">
+                                                                                                                    <input type="checkbox" name="{{$ggg->name}}Req" checked="">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
                                                                                                                 </label>
                                                                                                                     @else
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$ggg->name}}">
+                                                                                                                    <input type="checkbox" name="{{$ggg->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -1221,7 +1222,7 @@
                                                                                                             @endif
                                                                                                             @elseif($selectF == 'N' && $numberSel == $v)
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$ggg->name}}">
+                                                                                                                    <input type="checkbox" name="{{$ggg->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -1244,7 +1245,7 @@
                                                                                                                     }
                                                                                                                 }
                                                                                                             @endphp
-                                                                                                            @if($selectF = 'Y')
+                                                                                                            @if($selectF == 'Y')
                                                                                                                 @if(preg_match("/^select+[0-9]+follow+[0-9]+$/", $yyy->name))
                                                                                                                     @if(explode('follow',$yyy->name)[0] == $value->name)
                                                                                                                         @if($yyy->value == 'on')
@@ -1255,9 +1256,10 @@
                                                                                                             <label class="followanswer" for="{{explode('follow',$yyy->name)[1]}}">依答案至相關頁面</label>
                                                                                                                     @endif
                                                                                                                 @endif
-                                                                                                            @elseif($selectF = 'N' && $numberSel == $v)
+                                                                                                            @elseif($selectF == 'N' && $numberSel == $v)
                                                                                                             <input class="followw" name="{{$yyy->name}}follow3{{$num}}" id="follow3{{$num}}" type="checkbox">
                                                                                                             <label class="followanswer" for="follow3{{$num}}">
+                                                                                                                依答案至相關頁面</label>
                                                                                                             @endif
                                                                                                         @endforeach
                                                                                                         </div>
@@ -1552,10 +1554,11 @@
         var b = a-1
 
         if(a == 0){
-            var b = a-1
+            var b = 0
         }
         else{
-            var b = 0
+
+            var b = a-1
         }
 
         $('body').on('click', '.add-section', function(){

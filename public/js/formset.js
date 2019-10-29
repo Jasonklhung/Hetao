@@ -222,7 +222,7 @@ $('.toolbar').on('click', '.t09', function() {
 //時間
 var timen = document.getElementsByClassName('time');
 
-if(timen == 0){
+if(timen.length == 0){
     var time = 0
 }
 else{

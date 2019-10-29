@@ -26,10 +26,6 @@ class SatisfactionController extends Controller
     	$form[] = ['b'=>'2'];
     	$form[] = ['c'=>'3'];
 
-    	foreach ($form as $key => $value) {
-    		$test[$key] = $value;
-    	}
-
     	// foreach ($request->form as $key => $value) {
 
     	// 	if(preg_match("/^radio+[0-9]+$/", $value->name)){ //radio
@@ -91,11 +87,11 @@ class SatisfactionController extends Controller
     	// }
 
 
-    	$id = Account::where('token',$request->token)->get();
+    	//$id = Account::where('token',$request->token)->get();
 
     	$res = new SatisfactionAnswer;
-    	$res->account_id = $id[0]['id'];
-    	$res->form = json_encode($test);
+    	$res->account_id = '1';
+    	$res->form = json_encode($form);
     	$res->save();   
 
     	return 'ok';

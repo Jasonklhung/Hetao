@@ -20,10 +20,15 @@ class SatisfactionController extends Controller
     public function store(Request $request)
     {
     	$form = array();
+    	$test = array();
 
     	$form[] = ['a'=>'1'];
     	$form[] = ['b'=>'2'];
     	$form[] = ['c'=>'3'];
+
+    	foreach ($form as $key => $value) {
+    		$test[$key] = $value;
+    	}
 
     	// foreach ($request->form as $key => $value) {
 
@@ -92,6 +97,6 @@ class SatisfactionController extends Controller
     	// $res->form = json_encode($form);
     	// $res->save();   
 
-    	return json_encode($form);
+    	return json_encode($test);
     }
 }

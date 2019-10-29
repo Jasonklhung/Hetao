@@ -21,9 +21,12 @@ use Illuminate\Http\Request;
 // 	
 // });
 
-
+//表單
 Route::get('getResData','Api\ReservationController@index');
 
 Route::get('getContactData','Api\ContactController@index');
 
 Route::get('getSatiData','Api\SatisfactionController@index');
+
+//account
+Route::get('AccountStore','Api\AccountController@store');

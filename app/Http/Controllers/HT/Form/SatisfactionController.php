@@ -11,6 +11,7 @@ class SatisfactionController extends Controller
 {
     public function index(Organization $organization)
     {
+
         $satisfaction = Satisfaction::all();
 
         $count = satisfaction::all()->count();

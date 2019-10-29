@@ -27,6 +27,7 @@ Route::get('getResData','Api\ReservationController@index');
 Route::get('getContactData','Api\ContactController@index');
 
 Route::get('getSatiData','Api\SatisfactionController@index');
+Route::post('satiStore','Api\SatisfactionController@store');
 
 //account
 Route::post('accountStore','Api\AccountController@store');

@@ -88,8 +88,6 @@ class SatisfactionController extends Controller
     	// $res->form = json_encode($form);
     	// $res->save();   
 
-    	$test = '123';
-
-    	return $test;
+    	return $request->token;
     }
 }

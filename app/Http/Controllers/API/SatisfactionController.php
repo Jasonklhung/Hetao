@@ -90,13 +90,14 @@ class SatisfactionController extends Controller
     	// 	}
     	// }
 
-    	// $id = Account::where('token',$request->token)->get();
 
-    	// $res = new SatisfactionAnswer;
-    	// $res->account_id = $id[0]['id'];
-    	// $res->form = json_encode($form);
-    	// $res->save();   
+    	$id = Account::where('token',$request->token)->get();
 
-    	return json_encode($test);
+    	$res = new SatisfactionAnswer;
+    	$res->account_id = $id[0]['id'];
+    	$res->form = json_encode($test);
+    	$res->save();   
+
+    	return 'ok';
     }
 }

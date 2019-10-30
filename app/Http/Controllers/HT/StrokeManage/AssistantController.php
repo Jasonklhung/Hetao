@@ -147,8 +147,8 @@ class AssistantController extends Controller
     			'address' => $request->address,
     			'work_type' => $request->work_type,
     			'time' => $request->time,
-    			'owner_boss' => 'B20191002',//$request->remarks,
-    			'DEPT' => 'H026',//$dept_name,
+    			'owner_boss' => $request->owner_boss,//$request->remarks,
+    			'DEPT' => Auth::user()->department->name,//$dept_name,
     		])
     	]);
 
@@ -184,7 +184,9 @@ class AssistantController extends Controller
 
         $user_id = $name[0]['id'];
 
-        $user = User::where('id',$user_id);
+        $user = User::where('id',$user_id)->get();
+
+        $dept = Department::where('id',$user[0]['department_id']);
 
         //api
         $client = new \GuzzleHttp\Client();
@@ -198,8 +200,8 @@ class AssistantController extends Controller
                 'address' => $request->address,
                 'work_type' => $request->work_type,
                 'time' => $request->time,
-                'owner_boss' => 'B20191002',//$user[0]['token'],
-                'DEPT' => 'H026',//$user[0]['department_id'],
+                'owner_boss' => $user[0]['token'],//$user[0]['token'],
+                'DEPT' => $dept[0]['name'],//$user[0]['department_id'],
             ])
         ]);
 

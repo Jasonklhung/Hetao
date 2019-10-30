@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Organization;
 use App\TransferCase;
 use App\User;
+use App\Department;
 
 use GuzzleHttp\Client;
 
@@ -56,9 +57,11 @@ class StaffController extends Controller
     {
         $name = TransferCase::where('case_id',$request->id)->get();
 
-        $user_id = $name[0]['id'];
+        $user_id = $name[0]['user_id'];
 
-        $user = User::where('id',$user_id);
+        $user = User::where('id',$user_id)->get();
+
+        $dept = Department::where('id',$user[0]['department_id']);
 
         //api
         $client = new \GuzzleHttp\Client();
@@ -72,8 +75,8 @@ class StaffController extends Controller
                 'address' => $request->address,
                 'work_type' => $request->work_type,
                 'time' => $request->time,
-                'owner_boss' => 'B20191002',//$user[0]['token'],
-                'DEPT' => 'H026',//$user[0]['department_id'],
+                'owner_boss' => $user[0]['token'],//$user[0]['token'],
+                'DEPT' => $dept[0]['name'],//$user[0]['department_id'],
             ])
         ]);
 

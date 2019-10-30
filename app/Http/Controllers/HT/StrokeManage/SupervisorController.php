@@ -41,7 +41,7 @@ class SupervisorController extends Controller
 
     public function getAssign(Organization $organization)
     {
-    	$data = User::where('organization_id',Auth::user()->organization_id)->where('department_id',Auth::user()->department_id)->where('job','員工')->get();
+    	$data = User::where('organization_id',Auth::user()->organization_id)->where('department_id',Auth::user()->department_id)->get();
 
     	return $data;
     }
@@ -95,8 +95,8 @@ class SupervisorController extends Controller
     			'address' => $request->address,
     			'work_type' => $request->work_type,
     			'time' => $request->time,
-    			'owner_boss' => 'Z8564d5737a4ba80b8e7921e882e506ea',//$request->owner_boss,
-    			'DEPT' => 'H026',//$dept_name,
+    			'owner_boss' => $request->owner_boss,//$request->owner_boss,
+    			'DEPT' => Auth::user()->department->name,//$dept_name,
     		])
     	]);
 
@@ -132,7 +132,9 @@ class SupervisorController extends Controller
 
         $user_id = $name[0]['id'];
 
-        $user = User::where('id',$user_id);
+        $user = User::where('id',$user_id)->get();
+
+        $dept = Department::where('id',$user[0]['department_id']);
 
         //api
         $client = new \GuzzleHttp\Client();
@@ -146,8 +148,8 @@ class SupervisorController extends Controller
                 'address' => $request->address,
                 'work_type' => $request->work_type,
                 'time' => $request->time,
-                'owner_boss' => 'A20191002',//$user[0]['token'],
-                'DEPT' => 'H026',//$user[0]['department_id'],
+                'owner_boss' => $user[0]['token'],//$user[0]['token'],
+                'DEPT' => $dept[0]['name'],//$user[0]['department_id'],
             ])
         ]);
 

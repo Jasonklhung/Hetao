@@ -17,7 +17,6 @@
                                         </div>
                                         <div class="panel-body">
                                             <div class="tabbable">
-
                                                     <!-- 派工單 -->
                                                     <div class="tab-pane" id="viewers-tab-02">
                                                         <table class="table table-hover dt-responsive table-striped" id="hetao-list-s-2">
@@ -60,8 +59,8 @@ $(document).ready(function(){
             method:'get',
             url:'{{ route('ht.StrokeManage.staff.getData',['organization'=>$organization]) }}',
             data:{
-                "token": "Z8564d5737a4ba80b8e7921e882e506ea",
-                "DEPT": "H026"
+                "token": '{{Auth::user()->token}}',
+                "DEPT": '{{Auth::user()->department->name}}'
             },
             dataType:'json',
             success:function(response){
@@ -184,10 +183,10 @@ $(document).ready(function(){
                         url:'{{ route('ht.StrokeManage.staff.updateStatus',['organization'=>$organization]) }}',
                         data:{
                             '_token':'{{csrf_token()}}',
-                            "token": "Z8564d5737a4ba80b8e7921e882e506ea",//'{{Auth::user()->token}}'
+                            "token": "{{Auth::user()->token}}",//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'T',
-                            "DEPT": "H026" //'{{Auth::user()->department_id}}'
+                            "DEPT": "{{Auth::user()->department->name}}" //'{{Auth::user()->department->name}}'
                         },
                         dataType:'json',
                         success:function(response){
@@ -209,10 +208,10 @@ $(document).ready(function(){
                         url:'{{ route('ht.StrokeManage.staff.updateStatus',['organization'=>$organization]) }}',
                         data:{
                             '_token':'{{csrf_token()}}',
-                            "token": "Z8564d5737a4ba80b8e7921e882e506ea",//'{{Auth::user()->token}}'
+                            "token": "{{Auth::user()->token}}",//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'F',
-                            "DEPT": "H026" //'{{Auth::user()->department_id}}'
+                            "DEPT": "{{Auth::user()->department->name}}" //'{{Auth::user()->department_id}}'
                         },
                         dataType:'json',
                         success:function(response){

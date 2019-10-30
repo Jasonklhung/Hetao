@@ -8,6 +8,7 @@ use App\Organization;
 use App\User;
 use App\Permission;
 use App\Department;
+use Auth;
 
 class PermissionController extends Controller
 {
@@ -77,6 +78,7 @@ class PermissionController extends Controller
 
     public function update(Organization $organization,Request $request)
     {
+
     	$user = User::find($request->id);
         $user->organization_id = $request->company;
     	$user->department_id = $request->dept;
@@ -99,6 +101,42 @@ class PermissionController extends Controller
     	(isset($request->permission))? $permission->permission = 'Y' : $permission->permission = 'N';
     	$permission->save();
 
+        //line api
+        if($request->job == '員工'){
+
+            $userId = Auth::user()->token;
+            $richmenuId = 'richmenu-378a6d5027112cad45cbb8c9964d42e4' ;
+            $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
+
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('https://api.line.me/v2/bot/user/'.$userId.'/richmenu/'.$richmenuId, [
+                'headers' => ['Content-Length' => '0','Authorization' => 'Bearer '.$channel],
+            ]);
+        }
+        elseif($request->job == '助理'){
+
+            $userId = Auth::user()->token;
+            $richmenuId = 'richmenu-0b9890f50d5cd767db86c87dec17ebdd' ;
+            $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
+
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('https://api.line.me/v2/bot/user/'.$userId.'/richmenu/'.$richmenuId, [
+                'headers' => ['Content-Length' => '0','Authorization' => 'Bearer '.$channel],
+            ]);
+        }
+        elseif($request->job == '主管'){
+
+            $userId = Auth::user()->token;
+            $richmenuId = 'richmenu-0b9890f50d5cd767db86c87dec17ebdd' ;
+            $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
+
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('https://api.line.me/v2/bot/user/'.$userId.'/richmenu/'.$richmenuId, [
+                'headers' => ['Content-Length' => '0','Authorization' => 'Bearer '.$channel],
+            ]);
+        }
+
+
     	return redirect()->route('ht.Permission.index',compact('organization'))->with('success','修改成功');
     }
 
@@ -115,9 +153,26 @@ class PermissionController extends Controller
 
     public function destroy(Request $request,Organization $organization,User $user)
     {
-    	$user = User::find($request->id);
+    	// $user = User::find($request->id);
 
-    	$user->delete();
+    	// $user->delete();
+
+        $userId = Auth::user()->token;
+        $richmenuId = 'richmenu-183e75de1b54741099d3b3c6952c21b0' ;
+        $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('https://api.line.me/v2/bot/user/'.$userId.'/richmenu/'.$richmenuId, [
+            'headers' => ['Content-Length' => '0','Authorization' => 'Bearer '.$channel],
+        ]);
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('https://linebotclient.azurewebsites.net/line/1608443818/liff/api/updateSet.php', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'userId' => Auth::user()->token,
+            ])
+        ]);
 
     	return redirect()->route('ht.Permission.index',compact('organization'))->with('success','刪除成功');
     }

@@ -139,8 +139,8 @@
             method:'get',
             url:'{{ route('ht.StrokeManage.assistant.getData',['organization'=>$organization]) }}',
             data:{
-                "token": "A20191002",
-                "DEPT": "H026"
+                "token": '{{Auth::user()->token}}',
+                "DEPT": '{{Auth::user()->department->name}}'
             },
             dataType:'json',
             success:function(response){
@@ -291,30 +291,32 @@
                      var work_type = $(this).parents('tr').children('td')[7].textContent 
                      var GUI_number = $(this).parents('tr').children('td')[8].textContent 
 
-                     $.ajax({
-                        url:"{{ route('ht.StrokeManage.assistant.assignCaseBoss',['organization'=>$organization]) }}", 
-                        method:"post",
-                        data:{
-                            '_token':'{{csrf_token()}}',
-                            'id':id,
-                            'name': CUSTKEY,
-                            'mobile': mobile,
-                            'GUI_number': GUI_number,
-                            'address': address,
-                            'work_type': work_type,
-                            'time': time,
-                            'owner_boss': token,
-                        },
-                        dataType:'json',                 
-                        success:function(res){
-                            if(res.status == 200){
-                                alert(res.message)
+                     if (confirm('是否指派？') == true) {
+                         $.ajax({
+                            url:"{{ route('ht.StrokeManage.assistant.assignCaseBoss',['organization'=>$organization]) }}", 
+                            method:"post",
+                            data:{
+                                '_token':'{{csrf_token()}}',
+                                'id':id,
+                                'name': CUSTKEY,
+                                'mobile': mobile,
+                                'GUI_number': GUI_number,
+                                'address': address,
+                                'work_type': work_type,
+                                'time': time,
+                                'owner_boss': token,
+                            },
+                            dataType:'json',                 
+                            success:function(res){
+                                if(res.status == 200){
+                                    alert(res.message)
+                                }
+                                else{
+                                    alert('指派失敗')
+                                }
                             }
-                            else{
-                                alert('指派失敗')
-                            }
-                        }
-                    })
+                        })
+                    }
 
                  })
 
@@ -340,8 +342,8 @@
             method:'get',
             url:'{{ route('ht.StrokeManage.assistant.getData',['organization'=>$organization]) }}',
             data:{
-                "token": "A20191002",
-                "DEPT": "H026"
+                "token": '{{Auth::user()->token}}',
+                "DEPT": '{{Auth::user()->department->name}}'
             },
             dataType:'json',
             success:function(response){
@@ -464,10 +466,10 @@
                         url:'{{ route('ht.StrokeManage.assistant.updateStatus',['organization'=>$organization]) }}',
                         data:{
                             '_token':'{{csrf_token()}}',
-                            "token": "A20191002",//'{{Auth::user()->token}}'
+                            "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'T',
-                            "DEPT": "H026" //'{{Auth::user()->department_id}}'
+                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
                         },
                         dataType:'json',
                         success:function(response){
@@ -489,10 +491,10 @@
                         url:'{{ route('ht.StrokeManage.assistant.updateStatus',['organization'=>$organization]) }}',
                         data:{
                             '_token':'{{csrf_token()}}',
-                            "token": "A20191002",//'{{Auth::user()->token}}'
+                            "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'F',
-                            "DEPT": "H026" //'{{Auth::user()->department_id}}'
+                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
                         },
                         dataType:'json',
                         success:function(response){

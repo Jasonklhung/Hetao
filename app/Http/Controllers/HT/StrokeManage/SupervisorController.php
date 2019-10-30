@@ -18,7 +18,7 @@ class SupervisorController extends Controller
 {
     public function index(Organization $organization)
     {
-    	$supervisor = SupervisorCase::where('user_id',Auth::user()->id);
+    	$supervisor = SupervisorCase::where('user_id',Auth::user()->id)->get();
 
     	return view('ht.StrokeManage.supervisor.index',compact('organization','supervisor'));
     }

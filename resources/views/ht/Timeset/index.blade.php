@@ -18,6 +18,7 @@
                                         </div>
                                         <div class="panel-body">
                                             <div class="tabbable">
+                                                @if($timeset->isNotEmpty())
                                                 <form class="setting" method="post" action="{{ route('ht.Timeset.store',['organization'=>$organization]) }}">
                                                     @csrf
                                                     <div class="form-item">
@@ -97,6 +98,71 @@
                                                         <button type="submit" class="btn btn-primary">儲存</button>
                                                     </div>
                                                 </form>
+                                                @else
+                                                <form class="setting" method="post" action="{{ route('ht.Timeset.store',['organization'=>$organization]) }}">
+                                                    @csrf
+                                                    <div class="form-item">
+                                                        <label class="d-block title-deco">線上預約完成推播時間
+                                                            <label class="switch">
+                                                                <input type="checkbox" name="online">
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </label>            
+                                                        <div class="form-inline mr-l">
+                                                            預約完成後，隔<input class="form-control mx-s dayy" type="number" name="onlineDay" value="" min="0">日
+                                                            <div class="input-group date time-select">
+                                                                <input class="form-control mx-s" placeholder="" type="text" name="onlineTime" value=""> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                            </div>
+                                                            推播
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="d-block title-deco">預約前一日通知推播時間
+                                                            <label class="switch">
+                                                                <input type="checkbox" name="reservation">
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </label>
+                                                        <div class="form-inline mr-l">
+                                                            <div class="input-group date time-select">
+                                                                <input class="form-control" placeholder="" type="text" name="reservationTime" value=""> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="d-block title-deco">滿意度調查推播時間
+                                                            <label class="switch">
+                                                                <input type="checkbox" name="satisfaction">
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </label>
+                                                        <div class="form-inline mr-l">
+                                                            工單完成後，隔<input class="form-control mx-s dayy" type="number" name="satisfactionDay" value="" min="0">日
+                                                            <div class="input-group date time-select">
+                                                                <input class="form-control mx-s" placeholder="" type="text" name="satisfactionTime" value=""> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                            </div>
+                                                            推播
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="d-block title-deco">通知主管指派項目
+                                                            <label class="switch">
+                                                                <input type="checkbox" name="assign">
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </label>
+                                                        <div class="form-inline mr-l">
+                                                            每天
+                                                            <div class="input-group date time-select">
+                                                                <input class="form-control mx-s" placeholder="" type="text" name="assignTime" value=""> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-primary">儲存</button>
+                                                    </div>
+                                                </form>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

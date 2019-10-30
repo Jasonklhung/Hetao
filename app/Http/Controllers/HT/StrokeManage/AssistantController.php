@@ -12,6 +12,7 @@ use App\WorkCase;
 use App\User;
 use App\Department;
 use App\TransferCase;
+use App\ReservationAnswer;
 
 use GuzzleHttp\Client;
 
@@ -19,6 +20,8 @@ class AssistantController extends Controller
 {
     public function index(Organization $organization)
     {
+        $reservation = ReservationAnswer::all();
+
     	return view('ht.StrokeManage.assistant.index',compact('organization'));
     }
 

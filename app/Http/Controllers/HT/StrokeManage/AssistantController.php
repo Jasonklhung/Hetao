@@ -123,7 +123,7 @@ class AssistantController extends Controller
 
         if($case->isNotEmpty()){
             DB::table('transfer_cases')
-                ->where('case_id',$id)
+                ->where('case_id',$request->id)
                 ->update(['id' => Auth::user()->id]);
         }else{
             $transfer = new TransferCase;

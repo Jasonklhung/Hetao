@@ -12,6 +12,7 @@ use App\Department;
 use App\SupervisorCase;
 use App\TransferCase;
 use Auth;
+use DB;
 
 class SupervisorController extends Controller
 {
@@ -73,7 +74,7 @@ class SupervisorController extends Controller
 
     	if($case->isNotEmpty()){
             DB::table('transfer_cases')
-                ->where('case_id',$id)
+                ->where('case_id',$request->id)
                 ->update(['id' => Auth::user()->id]);
         }else{
             $transfer = new TransferCase;
@@ -94,7 +95,7 @@ class SupervisorController extends Controller
     			'address' => $request->address,
     			'work_type' => $request->work_type,
     			'time' => $request->time,
-    			'owner_boss' => 'Z8564d5737a4ba80b8e7921e882e506ea',//$request->remarks,
+    			'owner_boss' => 'Z8564d5737a4ba80b8e7921e882e506ea',//$request->owner_boss,
     			'DEPT' => 'H026',//$dept_name,
     		])
     	]);

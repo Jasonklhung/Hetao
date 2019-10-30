@@ -326,8 +326,8 @@
                     var tt =  'GUI-number'
                     var itemtt = item['GUI-number']
 
-                    if(item.status == 'T'){
-                        rows += "<tr class='past'>"
+                    if(item.status == '' || item.status == null){
+                        rows += "<tr>"
                               + "<td>" + item.id + "</td>"
                               + "<td>" + item.time + "</td>"
                               + "<td>" + item.CUSTKEY + "</td>"
@@ -337,7 +337,7 @@
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
-                              + "<td>已完成</td>"
+                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
                          + "</tr>";
                     }
                     else if(item.status == 'F'){
@@ -354,8 +354,9 @@
                               + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
                          + "</tr>";
                     }
-                    else{
-                        rows += "<tr>"
+                    else if(item.status == 'T'){
+
+                        rows += "<tr class='past'>"
                               + "<td>" + item.id + "</td>"
                               + "<td>" + item.time + "</td>"
                               + "<td>" + item.CUSTKEY + "</td>"
@@ -365,7 +366,7 @@
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
-                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
+                              + "<td>已完成</td>"
                          + "</tr>";
                     }
                     

@@ -176,6 +176,8 @@ class PermissionController extends Controller
 
         $response = $response->getBody()->getContents();
 
+        dd($response);
+
     	return redirect()->route('ht.Permission.index',compact('organization'))->with('success','刪除成功');
     }
 }

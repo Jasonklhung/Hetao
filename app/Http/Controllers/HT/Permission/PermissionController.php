@@ -157,14 +157,14 @@ class PermissionController extends Controller
 
     	// $user->delete();
 
-        $userId = Auth::user()->token;
-        $richmenuId = 'richmenu-183e75de1b54741099d3b3c6952c21b0' ;
-        $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
+        // $userId = Auth::user()->token;
+        // $richmenuId = 'richmenu-183e75de1b54741099d3b3c6952c21b0' ;
+        // $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
 
-        $client = new \GuzzleHttp\Client();
-        $response = $client->post('https://api.line.me/v2/bot/user/'.$userId.'/richmenu/'.$richmenuId, [
-            'headers' => ['Content-Length' => '0','Authorization' => 'Bearer '.$channel],
-        ]);
+        // $client = new \GuzzleHttp\Client();
+        // $response = $client->post('https://api.line.me/v2/bot/user/'.$userId.'/richmenu/'.$richmenuId, [
+        //     'headers' => ['Content-Length' => '0','Authorization' => 'Bearer '.$channel],
+        // ]);
 
         $client = new \GuzzleHttp\Client();
         $response = $client->post('https://linebotclient.azurewebsites.net/line/1608443818/liff/api/updateSet.php', [
@@ -173,6 +173,8 @@ class PermissionController extends Controller
                 'userId' => Auth::user()->token,
             ])
         ]);
+
+        $response = $response->getBody()->getContents();
 
     	return redirect()->route('ht.Permission.index',compact('organization'))->with('success','刪除成功');
     }

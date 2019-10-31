@@ -135,6 +135,8 @@
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function(){
+
+        //派工單
         $.ajax({
             method:'get',
             url:'{{ route('ht.StrokeManage.assistant.getData',['organization'=>$organization]) }}',
@@ -145,6 +147,8 @@
             dataType:'json',
             success:function(response){
 
+                console.log(Object.keys(response.data).length)
+
                 var rows;
                 $('#hetao-list-a-2').DataTable().destroy();
 
@@ -152,10 +156,7 @@
                     var tt =  'GUI-number'
                     var itemtt = item['GUI-number']
 
-                    if(item.status == 'F' || item.status == 'T'){
-                        
-                    }
-                    else{
+                    if(item.owner == '' || item.owner == null){
                         rows += "<tr>"
                               + "<td>" + item.id + "</td>"
                               + "<td>" + item.time + "</td>"
@@ -213,14 +214,14 @@
                     "<div class='form-group'>" +
                     "<div class='datetime'>" +
                     "<div class='input-group date date-select'>" +
-                    "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
+                    "<input class='form-control' id='startDate' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
                     "<div class='input-group date date-select mr-s'>" +
-                    "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
+                    "<input class='form-control' id='endDate' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
                     "</div>" +
                     "</div>" +
                     "</div>" +
                     "<div class='btn-wrap'>" +
-                    "<button class='mr-s' href=''>確認送出</button>" +
+                    "<button class='mr-s' id='dateSelect'>確認送出</button>" +
                     "<button class='mr-s' href=''>重新設定時間</button>" +
                     "<a href='{{ route('ht.StrokeManage.assistant.create',['organization'=>$organization]) }}'><button type='button' class='mr-s btn-bright' type='button'>新增派工單</button></a>" +
                     "<div class='batchwrap'><div class='form-group mr-s hide batch-select'><select class='form-control' name='allassign' id='sel1'><option selected hidden disabled>請指派負責主管</option><option>Ricky</option><option>Eva</option><option>Apple</option><option>Banana</option></select></div>" +
@@ -230,6 +231,21 @@
                     "</form>" +
                     "</div>"
                     );
+
+                $(function() {
+                    $('.day-select').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+                $(function() {
+                    $('.date-select').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
 
                 //批次指派
                 $('.sall').addClass('hide');
@@ -317,8 +333,13 @@
                             }
                         })
                     }
-
                  })
+
+                $('#dateSelect').on('click',function(){
+                    var start = $('#startDate').val()
+                    var end = $('#startDate').val()
+                })
+
 
                 $('.batch-finish').on('click',function(){
                     var token = $('#sel1').val()
@@ -337,10 +358,12 @@
                 })
             }
         })
+        //end
 
+        //行程回報
         $.ajax({
             method:'get',
-            url:'{{ route('ht.StrokeManage.assistant.getData',['organization'=>$organization]) }}',
+            url:'{{ route('ht.StrokeManage.assistant.schedule',['organization'=>$organization]) }}',
             data:{
                 "token": '{{Auth::user()->token}}',
                 "DEPT": '{{Auth::user()->department->name}}'
@@ -458,6 +481,28 @@
                     "</div>"
                 );
 
+                $(function() {
+                    $('.day-select').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+                $(function() {
+                    $('.date-select').datetimepicker({
+                        format: 'YYYY-MM-DD HH:mm',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+                $(function() {
+                    $('.time-select').datetimepicker({
+                        format: 'HH:mm',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+
                 $("#hetao-list-s-2").on("click", ".finish", function(){
                     var id = $(this).parents('tr').children('td')[0].textContent
 
@@ -466,10 +511,10 @@
                         url:'{{ route('ht.StrokeManage.assistant.updateStatus',['organization'=>$organization]) }}',
                         data:{
                             '_token':'{{csrf_token()}}',
-                            "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
+                            "token": "A20191002",//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'T',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": "H026" //'{{Auth::user()->department_id}}'
                         },
                         dataType:'json',
                         success:function(response){
@@ -491,10 +536,10 @@
                         url:'{{ route('ht.StrokeManage.assistant.updateStatus',['organization'=>$organization]) }}',
                         data:{
                             '_token':'{{csrf_token()}}',
-                            "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
+                            "token": "A20191002",//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'F',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": "H026" //'{{Auth::user()->department_id}}'
                         },
                         dataType:'json',
                         success:function(response){
@@ -544,6 +589,7 @@
                 })
             }
         })
+        //end
 })
 </script>
 <script type="text/javascript">
@@ -591,7 +637,7 @@
         );
 </script>
 <script type="text/javascript">
-    $('#hetao-list-su').on( 'page.dt', function () {
+    $('#hetao-list-a-2').on( 'page.dt', function () {
         $.ajax({
             url:"{{ route('ht.StrokeManage.assistant.getSupervisor',['organization'=>$organization]) }}", 
             method:"get",

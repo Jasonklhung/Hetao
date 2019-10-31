@@ -448,7 +448,6 @@ $('#hetao-list-su_filter').append(
 $('#hetao-list-su-2_filter').append(
     "<div class='coupon'>" +
     "<form class='form-inline'>" +
-    "<div class='form-group mr-s'><select class='form-control'><option selected>所有狀態</option><option>執行中</option><option>延後</option><option>已完成</option></select></div>" +
     "<div class='form-group'>" +
     "<div class='datetime'>" +
     "<div class='input-group date date-select'>" +

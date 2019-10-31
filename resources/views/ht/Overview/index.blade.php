@@ -84,29 +84,18 @@
         <div class="modal-content modal-sm">
             <div class="modal-body">
                 <div>
-                    <select class='form-control mb-s company'>
+                    <select class='form-control mb-s company' name="company">
                         <option selected disabled hidden>分公司</option>
-                        <option>台北</option>
-                        <option>新北</option>
-                        <option>桃園</option>
-                        <option>台中</option>
-                        <option>台南</option>
-                        <option>高雄</option>
                     </select>
-                    <select class='form-control mb-s role' disabled="disabled">
+                    <select class='form-control mb-s role' disabled="disabled" name="job">
                         <option selected disabled hidden>職稱</option>
                         <option value="助理">助理</option>
                         <option value="主管">主管</option>
                         <option value="員工">員工</option>
+                        <option value="其他">其他</option>
                     </select>
-                    <select class='form-control mb-s staffname' disabled="disabled">
+                    <select class='form-control mb-s staffname' disabled="disabled" name="name">
                         <option selected disabled hidden>員工名稱</option>
-                        <option value="小美">小美</option>
-                        <option value="小王">小王</option>
-                        <option value="小名">小名</option>
-                        <option value="小強">小強</option>
-                        <option value="小花">小花</option>
-                        <option value="小白">小白</option>
                     </select>
                     <div class="memberwrap">
                     </div>    
@@ -133,71 +122,6 @@
             <li class="mb-s" id="position"><i class="fas fa-map-marker-alt fa-fw"></i><span>XXXXX會議室</span></li>
             <li class="mb-s" id="people"><i class="fas fa-users fa-fw"></i><span>Vicky, Andy, Luna</span></li>
             <li class="mb-s" id="description"><i class="fas fa-align-left fa-fw"></i><span>記得要下班</span></li>
-            <li class="mb-s mt-m text-center"><div class="coupon"><button type="button" class="btn" data-dismiss="modal">關閉</button></div></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal 工單內容(多個)-->
-<div id="job" class="modal fade" role="dialog">
-  <div class="modal-dialog meeting">
-    <!-- Modal content-->
-    <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <div class="modal-body">
-        <ul class="add-ul">
-            <li class="mb-s">
-                <ul>
-                    <li><span>派工類型 </span>維修</li>
-                    <li><span>客戶代碼 </span>楊梅國中</li>
-                    <li><span>地址 </span><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></li>
-                    <li><span>電話 </span><a href="tel:5551234567">03-3322101</a></li>
-                    <li><span>派工原因 </span>載清缸 宿舍1.3樓+教學1樓右邊</li>
-                    <li><span>承辦人員 </span>邱小姐</li>
-                    <li><span>工單編號 </span>00000000</li>
-                    <li><span>工單日期 </span>2019-08-06 10:30</li>
-                    <li><span>狀態 </span>執行中</li>
-                </ul>
-                <ul>
-                    <li><span>派工類型 </span>維修</li>
-                    <li><span>客戶代碼 </span>楊梅國中</li>
-                    <li><span>地址 </span><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></li>
-                    <li><span>電話 </span><a href="tel:5551234567">03-3322101</a></li>
-                    <li><span>派工原因 </span>載清缸 宿舍1.3樓+教學1樓右邊</li>
-                    <li><span>承辦人員 </span>邱小姐</li>
-                    <li><span>工單編號 </span>00000000</li>
-                    <li><span>工單日期 </span>2019-08-06 10:30</li>
-                    <li><span>狀態 </span>執行中</li>
-                </ul>
-            </li>
-            <li class="mb-s mt-m text-center"><div class="coupon"><button type="button" class="btn" data-dismiss="modal">關閉</button></div></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal 工單內容(單個)-->
-<div id="job1" class="modal fade" role="dialog">
-  <div class="modal-dialog meeting">
-    <!-- Modal content-->
-    <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <div class="modal-body">
-        <ul class="add-ul">
-            <li class="mb-s">
-                <ul>
-                    <li id="type"><span>派工類型 </span>維修</li>
-                    <li id="custkey"><span>客戶代碼 </span>楊梅國中</li>
-                    <li id="address"><span>地址 </span><a href="https://www.google.com.tw/maps/place/桃園市楊梅區秀才路919號" target="_blank">楊梅區秀才路919號</a></li>
-                    <li id="mobile"><span>電話 </span><a href="tel:5551234567">03-3322101</a></li>
-                    <li id="reason"><span>派工原因 </span>載清缸 宿舍1.3樓+教學1樓右邊</li>
-                    <li id="owner"><span>承辦人員 </span>邱小姐</li>
-                    <li id="id"><span>工單編號 </span>00000000</li>
-                    <li id="date"><span>工單日期 </span>2019-08-06 10:30</li>
-                    <li id="status"><span>狀態 </span>執行中</li>
-                </ul>
-            </li>
             <li class="mb-s mt-m text-center"><div class="coupon"><button type="button" class="btn" data-dismiss="modal">關閉</button></div></li>
         </ul>
       </div>
@@ -390,6 +314,49 @@
             "</div>" +
             "</form>" +
             "</div>");
+
+
+        $.ajax({
+            url:"{{ route('ht.Overview.getCompany',['organization'=>$organization]) }}", 
+            method:"get",
+            dataType:'json',                 
+            success:function(res){
+                var selOpts = "<option selected disabled hidden>分公司</option>";
+                $.each(res, function (i, item) {
+                    selOpts += "<option value='"+item.name+"'>"+item.name+"</option>";
+                })
+
+                $("select[name='company']").empty();
+                $("select[name='company']").append(selOpts);
+            }
+        })
+
+        $("select[name='job']").on('change',function(){
+
+            var company = $("select[name='company']").val();
+            var job = $("select[name='job']").val();
+
+            $.ajax({
+                url:"{{ route('ht.Overview.getName',['organization'=>$organization]) }}", 
+                method:"post",
+                dataType:'json',
+                data:{
+                    '_token':'{{csrf_token()}}',
+                    'company':company,
+                    'job':job
+                },              
+                success:function(res){
+                    var selOpts = "<option selected disabled hidden>員工名稱</option>";
+                    $.each(res, function (i, item) {
+                        selOpts += "<option value='"+item.name+"'>"+item.name+"</option>";
+                    })
+
+                    $("select[name='name']").empty();
+                    $("select[name='name']").append(selOpts);
+                }
+            })
+        });
+
     });
     </script>
 @endsection

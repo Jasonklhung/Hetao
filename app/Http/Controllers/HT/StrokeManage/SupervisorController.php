@@ -39,6 +39,22 @@ class SupervisorController extends Controller
         return $response;
     }
 
+    public function schedule(Organization $organization,Request $request)
+    {
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => $request->token,
+                'DEPT' => $request->DEPT
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        return $response;
+    }
+
     public function getAssign(Organization $organization)
     {
     	$data = User::where('organization_id',Auth::user()->organization_id)->where('department_id',Auth::user()->department_id)->get();

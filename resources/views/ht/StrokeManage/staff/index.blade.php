@@ -175,6 +175,28 @@ $(document).ready(function(){
                     "</div>"
                 );
 
+                $(function() {
+                    $('.day-select').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+                $(function() {
+                    $('.date-select').datetimepicker({
+                        format: 'YYYY-MM-DD HH:mm',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+                $(function() {
+                    $('.time-select').datetimepicker({
+                        format: 'HH:mm',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+
                 $('#hetao-list-s-2').on('click',".finish",function(){
                     var id = $(this).parents('tr').children('td')[0].textContent
 

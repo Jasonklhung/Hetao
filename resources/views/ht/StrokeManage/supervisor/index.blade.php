@@ -125,6 +125,8 @@
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function(){
+
+        //待指派
         $.ajax({
             method:'get',
             url:'{{ route('ht.StrokeManage.supervisor.getData',['organization'=>$organization]) }}',
@@ -142,10 +144,7 @@
                     var tt =  'GUI-number'
                     var itemtt = item['GUI-number']
 
-                    if(item.status == 'F' || item.status == 'T'){
-
-                    }
-                    else{
+                    if(item.owner == '' || item.owner == null){
                         rows += "<tr>"
                               + "<td>" + item.id + "</td>"
                               + "<td>" + item.time + "</td>"
@@ -218,6 +217,29 @@
                     "</form>" +
                     "</div>"
                 );
+
+                $(function() {
+                    $('.day-select').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+                $(function() {
+                    $('.date-select').datetimepicker({
+                        format: 'YYYY-MM-DD HH:mm',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+                $(function() {
+                    $('.time-select').datetimepicker({
+                        format: 'HH:mm',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+
                 $('.sall').addClass('hide');
                 $('.batch').on('click', function() {
                     $('.batch-select').removeClass('hide');
@@ -310,10 +332,12 @@
                  })
             }
         })
+        //end
 
+        //行程回報
         $.ajax({
             method:'get',
-            url:'{{ route('ht.StrokeManage.assistant.getData',['organization'=>$organization]) }}',
+            url:'{{ route('ht.StrokeManage.assistant.schedule',['organization'=>$organization]) }}',
             data:{
                 "token": '{{Auth::user()->token}}',
                 "DEPT": '{{Auth::user()->department->name}}',
@@ -431,6 +455,28 @@
                     "</div>"
                 );
 
+                $(function() {
+                    $('.day-select').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+                $(function() {
+                    $('.date-select').datetimepicker({
+                        format: 'YYYY-MM-DD HH:mm',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+                $(function() {
+                    $('.time-select').datetimepicker({
+                        format: 'HH:mm',
+                        ignoreReadonly: true,
+                        allowInputToggle: true
+                    });
+                });
+
                 $('#hetao-list-s-2').on('click',".finish",function(){
                     var id = $(this).parents('tr').children('td')[0].textContent
 
@@ -517,6 +563,7 @@
                 })
             }
         })
+        //end
     })
 </script>
 <script type="text/javascript">

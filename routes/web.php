@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/Overview/store','HT\Overview\OverviewController@store')->name('ht.Overview.store');
 		Route::get('/HT/{organization}/Overview/show','HT\Overview\OverviewController@show')->name('ht.Overview.show');
 		Route::get('/HT/{organization}/Overview/getData','HT\Overview\OverviewController@getData')->name('ht.Overview.getData');
+		Route::get('/HT/{organization}/Overview/getCompany','HT\Overview\OverviewController@getCompany')->name('ht.Overview.getCompany');
+		Route::post('/HT/{organization}/Overview/getName','HT\Overview\OverviewController@getName')->name('ht.Overview.getName');
 
 		//行程管理-助理
 		Route::get('/HT/{organization}/StrokeManage/assistant/index','HT\StrokeManage\AssistantController@index')->name('ht.StrokeManage.assistant.index');
@@ -52,6 +54,8 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/HT/{organization}/StrokeManage/assistant/edit','HT\StrokeManage\AssistantController@edit')->name('ht.StrokeManage.assistant.edit');
 
 		Route::post('/HT/{organization}/StrokeManage/assistant/update','HT\StrokeManage\AssistantController@update')->name('ht.StrokeManage.assistant.update');
+
+		Route::get('/HT/{organization}/StrokeManage/assistant/schedule','HT\StrokeManage\AssistantController@schedule')->name('ht.StrokeManage.assistant.schedule');
 
 		Route::get('/HT/{organization}/StrokeManage/assistant/getData','HT\StrokeManage\AssistantController@getData')->name('ht.StrokeManage.assistant.getData');
 
@@ -67,6 +71,8 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/HT/{organization}/StrokeManage/supervisor/index','HT\StrokeManage\SupervisorController@index')->name('ht.StrokeManage.supervisor.index');
 
 		Route::get('/HT/{organization}/StrokeManage/supervisor/getData','HT\StrokeManage\SupervisorController@getData')->name('ht.StrokeManage.supervisor.getData');
+
+		Route::get('/HT/{organization}/StrokeManage/supervisor/schedule','HT\StrokeManage\SupervisorController@schedule')->name('ht.StrokeManage.supervisor.schedule');
 
 		Route::get('/HT/{organization}/StrokeManage/supervisor/getAssign','HT\StrokeManage\SupervisorController@getAssign')->name('ht.StrokeManage.supervisor.getAssign');
 

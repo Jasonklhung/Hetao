@@ -147,8 +147,6 @@
             dataType:'json',
             success:function(response){
 
-                console.log(Object.keys(response.data).length)
-
                 var rows;
                 $('#hetao-list-a-2').DataTable().destroy();
 

@@ -42,7 +42,7 @@ class PermissionController extends Controller
     {
     	$user = new User;
     	$user->organization_id = $request->company;
-    	$user->department_id = $request->dept;
+    	$user->department_id = $request->company;
     	$user->name = $request->name;
     	$user->ID_number = $request->ID_number;
     	$user->mobile = $request->mobile;
@@ -81,7 +81,7 @@ class PermissionController extends Controller
 
     	$user = User::find($request->id);
         $user->organization_id = $request->company;
-    	$user->department_id = $request->dept;
+    	$user->department_id = $request->company;
     	$user->name = $request->name;
     	$user->ID_number = $request->ID_number;
     	$user->mobile = $request->mobile;

@@ -54,7 +54,7 @@
                                                             @endforeach
                                                             </select></div>
                                                     </div>
-                                                    <div class="form-item">
+                                                    <!-- <div class="form-item">
                                                         <label class="d-block title-deco">人員部門</label>
                                                         <div class='form-group batch-select'><select class='form-control' name="dept" id="dept" required="">
                                                              <option value="" selected disabled="true">請選擇部門</option>
@@ -62,7 +62,7 @@
                                                              <option value="{{$dept->id}}">{{$dept->name}}</option>
                                                              @endforeach
                                                             </select></div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">預設權限</label>
                                                         <div class="form-control authority">
@@ -237,12 +237,12 @@
                     }
                 }
 
-                var dept = $("#dept").find("option");
-                for (var j = 1; j < dept.length; j++) {
-                    if ($(dept[j]).val() == data[2].id) {
-                        $(dept[j]).attr("selected", "selected");
-                    }
-                }
+                // var dept = $("#dept").find("option");
+                // for (var j = 1; j < dept.length; j++) {
+                //     if ($(dept[j]).val() == data[2].id) {
+                //         $(dept[j]).attr("selected", "selected");
+                //     }
+                // }
             }
         })
 

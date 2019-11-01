@@ -15,7 +15,6 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('organization_id')->comment('組織id');
             $table->string('name')->comment('表單名稱');
             $table->json('form')->comment('整包表單內容');
             $table->json('node')->nullable()->comment('跳轉節點');

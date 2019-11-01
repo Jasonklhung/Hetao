@@ -592,7 +592,7 @@
                                                                                                                 </label>
                                                                                                                     @else
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$iii->name}}">
+                                                                                                                    <input type="checkbox" name="{{$iii->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -602,7 +602,7 @@
                                                                                                                 @endif
                                                                                                                 @elseif($radioF == 'N' && $number == $v)
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$iii->name}}">
+                                                                                                                    <input type="checkbox" name="{{$iii->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -649,7 +649,7 @@
                                                                                                                 </label>
                                                                                                                     @else
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$jjj->name}}">
+                                                                                                                    <input type="checkbox" name="{{$jjj->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -659,7 +659,7 @@
                                                                                                                 @endif
                                                                                                                 @elseif($radioF == 'N' && $number == $v)
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$jjj->name}}">
+                                                                                                                    <input type="checkbox" name="{{$jjj->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -708,7 +708,7 @@
                                                                                                                 </label>
                                                                                                                     @else
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$kkk->name}}">
+                                                                                                                    <input type="checkbox" name="{{$kkk->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -718,7 +718,7 @@
                                                                                                                 @endif
                                                                                                                 @elseif($radioF == 'N' && $number == $v)
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$kkk->name}}">
+                                                                                                                    <input type="checkbox" name="{{$kkk->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -767,7 +767,7 @@
                                                                                                                 </label>
                                                                                                                     @else
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$lll->name}}">
+                                                                                                                    <input type="checkbox" name="{{$lll->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -777,7 +777,7 @@
                                                                                                                 @endif
                                                                                                                 @elseif($radioF == 'N' && $number == $v)
                                                                                                                     <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$lll->name}}">
+                                                                                                                    <input type="checkbox" name="{{$lll->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -1054,7 +1054,7 @@
                                                                                                                     </label>
                                                                                                                         @else
                                                                                                                     <label class="switch">
-                                                                                                                        <input type="checkbox" name="{{$eee->name}}">
+                                                                                                                        <input type="checkbox" name="{{$eee->name}}Req">
                                                                                                                         <span class="slider round"></span>
                                                                                                                     </label>    
                                                                                                                         @endif
@@ -1062,7 +1062,7 @@
                                                                                                                     @endif
                                                                                                                 @elseif($radioF == 'N' && $number == $v)
                                                                                                                     <label class="switch">
-                                                                                                                        <input type="checkbox" name="{{$eee->name}}">
+                                                                                                                        <input type="checkbox" name="{{$eee->name}}Req">
                                                                                                                         <span class="slider round"></span>
                                                                                                                     </label>
                                                                                                                 @endif
@@ -1288,7 +1288,7 @@
                                                                                                                 </label>
                                                                                                                     @else
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$iii->name}}">
+                                                                                                                    <input type="checkbox" name="{{$iii->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -1298,7 +1298,7 @@
                                                                                                                 @endif
                                                                                                                 @elseif($radioF == 'N' && $number == $v)
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$iii->name}}">
+                                                                                                                    <input type="checkbox" name="{{$iii->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -1345,7 +1345,7 @@
                                                                                                                 </label>
                                                                                                                     @else
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$jjj->name}}">
+                                                                                                                    <input type="checkbox" name="{{$jjj->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -1355,7 +1355,7 @@
                                                                                                                 @endif
                                                                                                                 @elseif($radioF == 'N' && $number == $v)
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$jjj->name}}">
+                                                                                                                    <input type="checkbox" name="{{$jjj->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -1404,7 +1404,7 @@
                                                                                                                 </label>
                                                                                                                     @else
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$kkk->name}}">
+                                                                                                                    <input type="checkbox" name="{{$kkk->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -1414,7 +1414,7 @@
                                                                                                                 @endif
                                                                                                                 @elseif($radioF == 'N' && $number == $v)
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$kkk->name}}">
+                                                                                                                    <input type="checkbox" name="{{$kkk->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -1463,7 +1463,7 @@
                                                                                                                 </label>
                                                                                                                     @else
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$lll->name}}">
+                                                                                                                    <input type="checkbox" name="{{$lll->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -1473,7 +1473,7 @@
                                                                                                                 @endif
                                                                                                                 @elseif($radioF == 'N' && $number == $v)
                                                                                                                     <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$lll->name}}">
+                                                                                                                    <input type="checkbox" name="{{$lll->name}}Req">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>

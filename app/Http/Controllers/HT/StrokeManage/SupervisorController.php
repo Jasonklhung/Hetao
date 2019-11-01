@@ -57,7 +57,7 @@ class SupervisorController extends Controller
 
     public function getAssign(Organization $organization)
     {
-    	$data = User::where('organization_id',Auth::user()->organization_id)->where('department_id',Auth::user()->department_id)->get();
+    	$data = User::where('organization_id',Auth::user()->organization_id)->get();
 
     	return $data;
     }

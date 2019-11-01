@@ -165,7 +165,7 @@ $(document).ready(function(){
                         "responsive": {
                             "breakpoints": [
                             { name: 'desktop', width: Infinity},
-                            { name: 'tablet',  width: 1300},
+                            { name: 'tablet',  width: 1700},
                             ],
                             "details": {
                                 "display": $.fn.dataTable.Responsive.display.childRowImmediate,
@@ -371,7 +371,7 @@ $(document).ready(function(){
                         "responsive": {
                             "breakpoints": [
                             { name: 'desktop', width: Infinity},
-                            { name: 'tablet',  width: 1300},
+                            { name: 'tablet',  width: 1700},
                             ],
                             "details": {
                                 "display": $.fn.dataTable.Responsive.display.childRowImmediate,

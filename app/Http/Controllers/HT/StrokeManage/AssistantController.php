@@ -164,7 +164,7 @@ class AssistantController extends Controller
 
     public function getSupervisor(Organization $organization)
     {
-    	$data = User::where('organization_id',Auth::user()->organization_id)->where('department_id',Auth::user()->department_id)->get();
+    	$data = User::where('organization_id',Auth::user()->organization_id)->get();
 
     	return $data;
     }

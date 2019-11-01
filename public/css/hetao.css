@@ -638,7 +638,7 @@ h4.title-deco {
     }*/
 }
 
-@media screen and (max-width: 1317px) {
+@media screen and (max-width: 1700px) {
     .rwdhide {
         visibility: hidden;
     }
@@ -665,7 +665,7 @@ h4.title-deco {
         width: 40%;
     }
 }
-@media screen and (max-width: 1334px) {
+@media screen and (max-width: 1700px) {
     #hetao-list-a .rwdhide {
         visibility: hidden;
     }
@@ -688,7 +688,7 @@ h4.title-deco {
         width: 40%;
     }
 }
-@media screen and (max-width: 1370px) {
+@media screen and (max-width: 1700px) {
     #hetao-list-a-2 .rwdhide {
         visibility: hidden;
     }

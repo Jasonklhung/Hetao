@@ -308,7 +308,7 @@
         "responsive": {
             "breakpoints": [
             { name: 'desktop', width: Infinity},
-            { name: 'tablet',  width: 1300},
+            { name: 'tablet',  width: 1700},
             ],
             "details": {
                 "display": $.fn.dataTable.Responsive.display.childRowImmediate,
@@ -366,7 +366,7 @@
         "responsive": {
             "breakpoints": [
             { name: 'desktop', width: Infinity},
-            { name: 'tablet',  width: 1300},
+            { name: 'tablet',  width: 1700},
             ],
             "details": {
                 "display": $.fn.dataTable.Responsive.display.childRowImmediate,
@@ -388,8 +388,8 @@
             method:'get',
             url:'{{ route('ht.StrokeManage.assistant.getData',['organization'=>$organization]) }}',
             data:{
-                "token": 'U2f6ef40c08eb97d124a67970ec337822',
-                "DEPT": 'H026'
+                "token": '{{Auth::user()->token}}',
+                "DEPT": '{{Auth::user()->department->name}}'
             },
             dataType:'json',
             success:function(response){
@@ -873,7 +873,7 @@
                         "responsive": {
                             "breakpoints": [
                             { name: 'desktop', width: Infinity},
-                            { name: 'tablet',  width: 1300},
+                            { name: 'tablet',  width: 1700},
                             ],
                             "details": {
                                 "display": $.fn.dataTable.Responsive.display.childRowImmediate,
@@ -965,7 +965,7 @@
                     "responsive": {
                         "breakpoints": [
                         { name: 'desktop', width: Infinity},
-                        { name: 'tablet',  width: 1300},
+                        { name: 'tablet',  width: 1700},
                         ],
                         "details": {
                             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
@@ -1376,7 +1376,7 @@
                         "responsive": {
                             "breakpoints": [
                             { name: 'desktop', width: Infinity},
-                            { name: 'tablet',  width: 1300},
+                            { name: 'tablet',  width: 1700},
                             ],
                             "details": {
                                 "display": $.fn.dataTable.Responsive.display.childRowImmediate,
@@ -1392,6 +1392,14 @@
                 }
             }
         })
+    })
+</script>
+<script type="text/javascript">
+    $('#chkall').on('click',function(){
+        var chk_value =[];
+        $('input[name="oneforall"]:checked').each(function(){ 
+            chk_value.push($(this).val());
+        });
     })
 </script>
 @endsection

@@ -8,14 +8,15 @@ use App\Organization;
 use App\Contact;
 
 use Auth;
+use DB;
 
 class ContactController extends Controller
 {
     public function index(Organization $organization)
     {
-        $contact = Contact::where('organization_id',Auth::user()->organization_id)->get();
+        $contact = Contact::all();
 
-        $count = Contact::where('organization_id',Auth::user()->organization_id)->count();
+        $count = Contact::all()->count();
 
     	return view('ht.Form.contact.index',compact('organization','contact','count'));
     }
@@ -23,7 +24,7 @@ class ContactController extends Controller
     public function store(Organization $organization,Request $request)
     {
 
-        $contact = Contact::where('organization_id',Auth::user()->organization_id)->get();
+        $contact = Contact::all();
 
     	$form = array();
 
@@ -37,12 +38,12 @@ class ContactController extends Controller
 
         if($contact->isNotEmpty()){
 
-            $contact = Contact::where('organization_id',Auth::user()->organization_id)->delete();
+            DB::table('contacts')->truncate();
+
 
             foreach ($form as $k => $v) {
 
                 $res = new Contact;
-                $res->organization_id = Auth::user()->organization_id;
                 $res->name = $k;
                 $res->form = json_encode($v);
                 $res->save();   
@@ -53,7 +54,6 @@ class ContactController extends Controller
 
             foreach ($form as $k => $v) {
                 $res = new Contact;
-                $res->organization_id = Auth::user()->organization_id;
                 $res->name = $k;
                 $res->form = json_encode($v);
                 $res->save();   

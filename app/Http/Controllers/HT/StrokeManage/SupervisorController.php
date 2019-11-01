@@ -64,6 +64,8 @@ class SupervisorController extends Controller
 
     public function assignCaseBoss(Organization $organization,Request $request)
     {
+        dd($request->all());
+
     	$dept = User::where('token',$request->owner_boss)->get();
 
     	$dept_id = $dept[0]['department_id'];

@@ -106,7 +106,7 @@
                                                                         <div class='form-group mr-s hide batch-select'><select class='form-control' name="sel1" id='sel1'>
                                                                                 <option selected hidden disabled>請指派負責主管</option>
                                                                             </select></div>
-                                                                        <button type='button' class='btn-bright hide batch-finish'>完成</button><label for='chkall' class='sall'>全選</label><input id='chkall' type='checkbox' value='' />
+                                                                        <button type='button' id="allFinish" class='btn-bright hide batch-finish'>完成</button><label for='chkall' class='sall'>全選</label><input id='chkall' type='checkbox' value='' />
                                                                         <button type='button' class='btn-bright batch' href=''>批次指派</button>
                                                                     </div>
                                                                 </div>
@@ -515,22 +515,6 @@
                         })
                     }
                  })
-
-                $('.batch-finish').on('click',function(){
-                    var token = $('#sel1').val()
-
-                    var c=[];
-                    $("input[type=checkbox]:checked").each(function () {
-                        var id = $(this).parents('tr').children('td')[0].textContent
-                        console.log(id)
-                        c.push(id);
-
-                    });
-                    result = c.toString();
-
-                    console.log(result)
-                                    
-                })
             }
         })
         //end
@@ -1395,11 +1379,45 @@
     })
 </script>
 <script type="text/javascript">
-    $('#chkall').on('click',function(){
-        var chk_value =[];
-        $('input[name="oneforall"]:checked').each(function(){ 
-            chk_value.push($(this).val());
-        });
+    $('#allFinish').on('click',function(){
+
+        if (confirm('是否全部指派？') == true) {
+
+            $('input[name="oneforall"]:checked').each(function(){  
+
+                var token = $("select[name='sel1']").val()
+                var id = $(this).parents('tr').children('td')[0].textContent 
+                var time = $(this).parents('tr').children('td')[1].textContent 
+                var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                var address = $(this).parents('tr').children('td')[4].textContent 
+                var mobile = $(this).parents('tr').children('td')[5].textContent 
+                var work_type = $(this).parents('tr').children('td')[7].textContent 
+                var GUI_number = $(this).parents('tr').children('td')[8].textContent 
+
+                $.ajax({
+                    url:"{{ route('ht.StrokeManage.assistant.assignCaseBoss',['organization'=>$organization]) }}", 
+                    method:"post",
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'id':id,
+                        'name': CUSTKEY,
+                        'mobile': mobile,
+                        'GUI_number': GUI_number,
+                        'address': address,
+                        'work_type': work_type,
+                        'time': time,
+                        'owner_boss': token,
+                    },
+                    dataType:'json',                 
+                    success:function(res){
+                        if(res.status == 200){
+                        }
+                        else{
+                        }
+                    }
+                })
+            });
+        }
     })
 </script>
 @endsection

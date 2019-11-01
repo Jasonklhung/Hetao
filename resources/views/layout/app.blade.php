@@ -50,6 +50,7 @@
     <script src="{{ asset('js/sidebarrwd.js') }}"></script>
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('js/zh-tw.js') }}"></script>
     @yield('scripts')
 </body>
 

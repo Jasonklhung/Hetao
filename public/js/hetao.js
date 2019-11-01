@@ -60,223 +60,117 @@ $(document).ready(function() {
         $('.day-select').datetimepicker({
             format: 'YYYY-MM-DD',
             ignoreReadonly: true,
-            allowInputToggle: true
+            allowInputToggle: true,
+            locale: 'ZH-TW',
         });
     });
     $(function() {
         $('.date-select').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm',
+            format: 'YYYY-MM-DD',
             ignoreReadonly: true,
-            allowInputToggle: true
+            allowInputToggle: true,
+            locale: 'ZH-TW',
         });
     });
-    $(function() {
-        $('.time-select').datetimepicker({
-            format: 'HH:mm',
-            ignoreReadonly: true,
-            allowInputToggle: true
-        });
-    });
+    // $(function() {
+    //     $('.time-select').datetimepicker({
+    //         format: 'HH:mm',
+    //         ignoreReadonly: true,
+    //         allowInputToggle: true
+    //     });
+    // });
 });
 
 /*-----------------------------------/
   datatables設定
 /*----------------------------------*/
+
 $.fn.dataTable.Responsive.defaults
 //助理-預約表單
-$("#hetao-list-a").DataTable({
-    "bPaginate": true,
-    "searching": true,
-    "info": false,
-    "bLengthChange": false,
-    "bServerSide": false,
-    "language": {
-        "search": "",
-        "searchPlaceholder": "請輸入關鍵字",
-        "paginate": { "previous": "上一頁", "next": "下一頁" },
-    },
-    "dom": "Bfrtip",
-    "buttons": [{
-        "extend": 'colvis',
-        "collectionLayout": 'fixed two-column'
-    }],
-    "order": [],
-    "columnDefs": [{
-        "targets": [0],
-        "orderable": false,
-    }],
-    "responsive": {
-        "breakpoints": [
-        { name: 'desktop', width: Infinity},
-        { name: 'tablet',  width: 1300},
-        ],
-        "details": {
-            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-            "type": 'none',
-            renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
-            "target": ''
-        }
-    },
-});
+// var table_a = $("#hetao-list-a").DataTable({
+//     "bPaginate": true,
+//     "searching": true,
+//     "info": false,
+//     "bLengthChange": false,
+//     "bServerSide": false,
+//     "language": {
+//         "search": "",
+//         "searchPlaceholder": "請輸入關鍵字",
+//         "paginate": { "previous": "上一頁", "next": "下一頁" },
+//     },
+//     "dom": "Bfrtip",
+//     "buttons": [{
+//         "extend": 'colvis',
+//         "collectionLayout": 'fixed two-column'
+//     }],
+//     "order": [],
+//     "columnDefs": [{
+//         "targets": [5],
+//         "orderable": false,
+//     }],
+//     "responsive": {
+//         "breakpoints": [
+//         { name: 'desktop', width: Infinity},
+//         { name: 'tablet',  width: 1300},
+//         ],
+//         "details": {
+//             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+//             "type": 'none',
+//             renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
+//             "target": ''
+//         }
+//     },
+// });
+// $(".searchInput_a").on("keyup", function() {
+//     table_a.search(this.value).draw();
+// });
 //助理-派工單
-$("#hetao-list-a-2").DataTable({
-    "bPaginate": true,
-    "searching": true,
-    "info": false,
-    "bLengthChange": false,
-    "bServerSide": false,
-    "language": {
-        "search": "",
-        "searchPlaceholder": "請輸入關鍵字",
-        "paginate": { "previous": "上一頁", "next": "下一頁" },
-    },
-    "dom": "Bfrtip",
-    "buttons": [{
-        "extend": "colvis",
-        "collectionLayout": "fixed two-column"
-    }],
-    "order": [],
-    "columnDefs": [{
-        "targets": [9],
-        "orderable": false,
-    }],
-    "responsive": {
-        "breakpoints": [
-        { name: 'desktop', width: Infinity},
-        { name: 'tablet',  width: 1300},
-        ],
-        "details": {
-            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-            "type": 'none',
-            renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
-            "target": ''
-        }
-    },
-});
-//助理-與我聯繫
-$("#hetao-list-ab").DataTable({
-    "bPaginate": true,
-    "searching": true,
-    "info": false,
-    "bLengthChange": false,
-    "bServerSide": false,
-    "language": {
-        "search": "",
-        "searchPlaceholder": "請輸入關鍵字",
-        "paginate": { "previous": "上一頁", "next": "下一頁" },
-    },
-    "dom": "Bfrtip",
-    "buttons": [{
-        "extend": 'colvis',
-        "collectionLayout": 'fixed two-column'
-    }],
-    "order": [],
-    "columnDefs": [{
-        "targets": [0],
-        "orderable": false,
-    }],
-    "responsive": {
-        "breakpoints": [
-        { name: 'desktop', width: Infinity},
-        { name: 'tablet',  width: 1300},
-        ],
-        "details": {
-            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-            "type": 'none',
-            renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
-            "target": ''
-        }
-    },
-});
-//助理-預約表單filter
-// $('#hetao-list-a_filter').append(
-//     "<div class='coupon'>" +
-//     "<form class='form-inline'>" +
-//     "<div class='form-group'>" +
-//     "<div class='datetime'>" +
-//     "<div class='input-group date date-select'>" +
-//     "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
-//     "<div class='input-group date date-select mr-s'>" +
-//     "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
-//     "</div>" +
-//     "</div>" +
-//     "</div>" +
-//     "<div class='btn-wrap'>" +
-//     "<button class='mr-s' href=''>確認送出</button>" +
-//     "<button class='mr-s' href=''>重新設定時間</button>" +
-//     "<a href='dispatch.html'><button class='btn-bright' type='button'>新增派工單</button></a>" +
-//     "</div>" +
-//     "</form>" +
-//     "</div>"
-// );
+// var table_a2 = $("#hetao-list-a-2").DataTable({
+//     "bPaginate": true,
+//     "searching": true,
+//     "info": false,
+//     "bLengthChange": false,
+//     "bServerSide": false,
+//     "language": {
+//         "search": "",
+//         "searchPlaceholder": "請輸入關鍵字",
+//         "paginate": { "previous": "上一頁", "next": "下一頁" },
+//     },
+//     "dom": "Bfrtip",
+//     "buttons": [{
+//         "extend": "colvis",
+//         "collectionLayout": "fixed two-column"
+//     }],
+//     "order": [],
+//     "columnDefs": [{
+//         "targets": [9],
+//         "orderable": false,
+//     }],
+//     "responsive": {
+//         "breakpoints": [
+//         { name: 'desktop', width: Infinity},
+//         { name: 'tablet',  width: 1370},
+//         ],
+//         "details": {
+//             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+//             "type": 'none',
+//             renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
+//             "target": ''
+//         }
+//     },
+// });
+// $(".searchInput_a2").on("keyup", function() {
+//     table_a2.search(this.value).draw();
+// });
+
 //助理-預約表單rwd的頁面連結
 $(document).ready(function(){
     $('#hetao-list-a .child').attr("onclick","javascript:location.href='detail.html'")
 });
-//助理-派工單filter
-// $('#hetao-list-a-2_filter').append(
-//     "<div class='coupon'>" +
-//     "<form class='form-inline'>" +
-//     "<div class='form-group'>" +
-//     "<div class='datetime'>" +
-//     "<div class='input-group date date-select'>" +
-//     "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
-//     "<div class='input-group date date-select mr-s'>" +
-//     "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
-//     "</div>" +
-//     "</div>" +
-//     "</div>" +
-//     "<div class='btn-wrap'>" +
-//     "<button class='mr-s' href=''>確認送出</button>" +
-//     "<button class='mr-s' href=''>重新設定時間</button>" +
-//     "<a href='dispatch.html'><button type='button' class='mr-s btn-bright' type='button'>新增派工單</button></a>" +
-//     "<div class='batchwrap'><div class='form-group mr-s hide batch-select'><select class='form-control' id='sel1'><option selected hidden disabled>請指派負責主管</option><option>Ricky</option><option>Eva</option><option>Apple</option><option>Banana</option></select></div>" +
-//     "<button type='button' class='btn-bright hide batch-finish'>完成</button><label for='chkall' class='sall'>全選</label><input id='chkall' type='checkbox' value='' />" +
-//     "<button type='button' class='btn-bright batch' href=''>批次指派</button></div>" +
-//     "</div>" +
-//     "</form>" +
-//     "</div>"
-// );
 
 
-
-
-//員工-待處理
-$("#hetao-list-s").DataTable({
-    "bPaginate": true,
-    "searching": true,
-    "info": false,
-    "bLengthChange": false,
-    "bServerSide": false,
-    "language": {
-        "search": "",
-        "searchPlaceholder": "請輸入關鍵字",
-        "paginate": { "previous": "上一頁", "next": "下一頁" },
-    },
-    "dom": "Bfrtip",
-    "buttons": [{
-        "extend": 'colvis',
-        "collectionLayout": 'fixed two-column'
-    }],
-    "order": [],
-    "columnDefs": [{
-        "targets": [8],
-        "orderable": false,
-    }],
-    "responsive": {
-        "breakpoints": [
-        { name: 'desktop', width: Infinity},
-        { name: 'tablet',  width: 1300},
-        ],
-        "details": {
-            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-            "type": 'none',
-            "target": ''
-        }
-    },
-});
 //員工-已接受的工單
-$("#hetao-list-s-2").DataTable({
+var table_s2 = $("#hetao-list-s-2").DataTable({
     "bPaginate": true,
     "searching": true,
     "info": false,
@@ -296,7 +190,10 @@ $("#hetao-list-s-2").DataTable({
     "columnDefs": [{
         "targets": [],
         "orderable": false,
-    }],
+    },{ 
+        "width": "80px", 
+        "targets": 8 }
+    ],
     "responsive": {
         "breakpoints": [
         { name: 'desktop', width: Infinity},
@@ -310,166 +207,112 @@ $("#hetao-list-s-2").DataTable({
         }
     },
 });
-//員工-預約表單filter
-$('#hetao-list-s_filter').append(
-    "<div class='coupon'>" +
-    "<form class='form-inline'>" +
-    "<div class='form-group'>" +
-    "<div class='datetime'>" +
-    "<div class='input-group date date-select'>" +
-    "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
-    "<div class='input-group date date-select mr-s'>" +
-    "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
-    "</div>" +
-    "</div>" +
-    "</div>" +
-    "<div class='btn-wrap'>" +
-    "<button class='mr-s' href=''>確認送出</button>" +
-    "<button class='mr-s' href=''>重新設定時間</button>" +
-    "</div>" +
-    "</form>" +
-    "</div>"
-);
+$(".searchInput_s2").on("keyup", function() {
+    table_s2.search(this.value).draw();
+});
+
 //員工-派工單filter
-$('#hetao-list-s-2_filter').append(
+// $('#hetao-list-s-2_filter').append(
     // "<div class='form-group mr-s batch-select'><select class='form-control' id='sel1'><option selected>所有狀態</option><option>執行中</option><option>延後</option><option>已完成</option></select></div>"+
-    "<div class='coupon'>" +
-    "<form class='form-inline'>" +
-    "<div class='form-group'>" +
-    "<div class='datetime'>" +
-    "<div class='input-group date date-select'>" +
-    "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
-    "<div class='input-group date date-select mr-s'>" +
-    "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
-    "</div>" +
-    "</div>" +
-    "</div>" +
-    "<div class='btn-wrap'>" +
-    "<button class='mr-s' href=''>確認送出</button>" +
-    "<button class='mr-s' href=''>重新設定時間</button>" +
-    "</div>" +
-    "</form>" +
-    "</div>"
-);
+//     "<div class='coupon'>" +
+//     "<form class='form-inline'>" +
+//     "<div class='form-group'>" +
+//     "<div class='datetime'>" +
+//     "<div class='input-group date date-select'>" +
+//     "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
+//     "<div class='input-group date date-select mr-s'>" +
+//     "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
+//     "</div>" +
+//     "</div>" +
+//     "</div>" +
+//     "<div class='btn-wrap'>" +
+//     "<button class='mr-s' href=''>確認送出</button>" +
+//     "<button class='mr-s' href=''>重新設定時間</button>" +
+//     "</div>" +
+//     "</form>" +
+//     "</div>"
+// );
 
-$("#hetao-list-su").DataTable({
-    "bPaginate": true,
-    "searching": true,
-    "info": false,
-    "bLengthChange": false,
-    "bServerSide": false,
-    "language": {
-        "search": "",
-        "searchPlaceholder": "請輸入關鍵字",
-        "paginate": { "previous": "上一頁", "next": "下一頁" },
-    },
-    "dom": "Bfrtip",
-    "buttons": [{
-        "extend": 'colvis',
-        "collectionLayout": 'fixed two-column'
-    }],
-    "order": [],
-    "columnDefs": [{
-        "targets": [8],
-        "orderable": false,
-    }],
-    "responsive": {
-        "breakpoints": [
-        { name: 'desktop', width: Infinity},
-        { name: 'tablet',  width: 1300},
-        ],
-        "details": {
-            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-            "type": 'none',
-            renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
-            "target": ''
-        }
-    },
-});
+// var table_su = $("#hetao-list-su").DataTable({
+//     "bPaginate": true,
+//     "searching": true,
+//     "info": false,
+//     "bLengthChange": false,
+//     "bServerSide": false,
+//     "language": {
+//         "search": "",
+//         "searchPlaceholder": "請輸入關鍵字",
+//         "paginate": { "previous": "上一頁", "next": "下一頁" },
+//     },
+//     "dom": "Bfrtip",
+//     "buttons": [{
+//         "extend": 'colvis',
+//         "collectionLayout": 'fixed two-column'
+//     }],
+//     "order": [],
+//     "columnDefs": [{
+//         "targets": [8],
+//         "orderable": false,
+//     }],
+//     "responsive": {
+//         "breakpoints": [
+//         { name: 'desktop', width: Infinity},
+//         { name: 'tablet',  width: 1300},
+//         ],
+//         "details": {
+//             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+//             "type": 'none',
+//             renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
+//             "target": ''
+//         }
+//     },
+// });
+// $(".searchInput_su").on("keyup", function() {
+//     table_su.search(this.value).draw();
+// });
+
 //主管-已指派工單
-$("#hetao-list-su-2").DataTable({
-    "bPaginate": true,
-    "searching": true,
-    "info": false,
-    "bLengthChange": false,
-    "bServerSide": false,
-    "language": {
-        "search": "",
-        "searchPlaceholder": "請輸入關鍵字",
-        "paginate": { "previous": "上一頁", "next": "下一頁" },
-    },
-    "dom": "Bfrtip",
-    "buttons": [{
-        "extend": "colvis",
-        "collectionLayout": "fixed two-column"
-    }],
-    "order": [],
-    "columnDefs": [{
-        "targets": [],
-        "orderable": false,
-    }],
-    "responsive": {
-        "breakpoints": [
-        { name: 'desktop', width: Infinity},
-        { name: 'tablet',  width: 1300},
-        ],
-        "details": {
-            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-            "type": 'none',
-            renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
-            "target": ''
-        }
-    },
-});
-//主管-待指派工單filter
-$('#hetao-list-su_filter').append(
-    "<div class='coupon'>" +
-    "<form class='form-inline'>" +
-    "<div class='form-group'>" +
-    "<div class='datetime'>" +
-    "<div class='input-group date date-select'>" +
-    "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
-    "<div class='input-group date date-select mr-s'>" +
-    "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
-    "</div>" +
-    "</div>" +
-    "</div>" +
-    "<div class='btn-wrap'>" +
-    "<button class='mr-s' href=''>確認送出</button>" +
-    "<button class='mr-s' href=''>重新設定時間</button>" +
-    "<div class='batchwrap'><div class='form-group mr-s hide batch-select'><select class='form-control' id='sel1'><option selected hidden disabled>請指派負責主管</option><option>Ricky</option><option>Eva</option><option>Apple</option><option>Banana</option></select></div>" +
-    "<button type='button' class='btn-bright hide batch-finish'>完成</button><label for='chkall' class='sall'>全選</label><input id='chkall' type='checkbox' value='' />" +
-    "<button type='button' class='btn-bright batch' href=''>批次指派</button></div>" +
-    "</div>" +
-    "</form>" +
-    "</div>"
-);
-//主管-已指派工單filter
-$('#hetao-list-su-2_filter').append(
-    "<div class='coupon'>" +
-    "<form class='form-inline'>" +
-    "<div class='form-group'>" +
-    "<div class='datetime'>" +
-    "<div class='input-group date date-select'>" +
-    "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
-    "<div class='input-group date date-select mr-s'>" +
-    "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
-    "</div>" +
-    "</div>" +
-    "</div>" +
-    "<div class='btn-wrap'>" +
-    "<button class='mr-s' href=''>確認送出</button>" +
-    "<button class='mr-s' href=''>重新設定時間</button>" +
-    "</div>" +
-    "</form>" +
-    "</div>"
-);
-
-
+// var table_su2 = $("#hetao-list-su-2").DataTable({
+//     "bPaginate": true,
+//     "searching": true,
+//     "info": false,
+//     "bLengthChange": false,
+//     "bServerSide": false,
+//     "language": {
+//         "search": "",
+//         "searchPlaceholder": "請輸入關鍵字",
+//         "paginate": { "previous": "上一頁", "next": "下一頁" },
+//     },
+//     "dom": "Bfrtip",
+//     "buttons": [{
+//         "extend": "colvis",
+//         "collectionLayout": "fixed two-column"
+//     }],
+//     "order": [],
+//     "columnDefs": [{
+//         "targets": [9],
+//         "orderable": false,
+//     }],
+//     "responsive": {
+//         "breakpoints": [
+//         { name: 'desktop', width: Infinity},
+//         { name: 'tablet',  width: 1300},
+//         ],
+//         "details": {
+//             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+//             "type": 'none',
+//             renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
+//             "target": ''
+//         }
+//     },
+// });
+// $(".searchInput_su2").on("keyup", function() {
+//     table_su2.search(this.value).draw();
+// });
 
 
 //權限管理
-$("#hetao-list-authority").DataTable({
+var table_authority = $("#hetao-list-authority").DataTable({
     "bPaginate": true,
     "searching": true,
     "info": false,
@@ -491,14 +334,25 @@ $("#hetao-list-authority").DataTable({
         "orderable": false,
     }],
     "responsive": {
+        "breakpoints": [
+        { name: 'desktop', width: Infinity},
+        { name: 'tablet',  width: 1300},
+        ],
         "details": {
             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
             "type": 'none',
-            renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
+            "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
             "target": ''
         }
     },
 });
+$(".searchInput_authority").on("keyup", function() {
+    table_authority.search(this.value).draw();
+});
+
+//權限管理filter
+//權限管理
+
 
 
 //切換tab重新抓取寬度
@@ -543,24 +397,10 @@ $('input#chkall').change(function() {
 /*-----------------------------------/
   執行中/延後/已完成 狀態切換
 /*----------------------------------*/
-// $('.table').on('click', '.btn.status', function(){
-//     $(this).parent().find('.btn.status').removeClass('btn-primary');
-//     $(this).addClass('btn-primary');
-// });
-
 $('.table').on('click', '.btn.status', function(){
-    if (!$(this).hasClass('btn-primary')){
-        $(this).parent().find('.btn.status').removeClass('btn-primary');
-        $(this).addClass('btn-primary');
-    }else {
-        $(this).removeClass('btn-primary');
-    } 
+    $(this).parent().find('.btn.status').removeClass('btn-primary');
+    $(this).addClass('btn-primary');
 });
-
-
-// $('.table').on('click','.btn-primary', function(){
-//     $(this).removeClass('btn-primary');
-// });
 
 /*-----------------------------------/
   總覽-新增日曆設定
@@ -584,8 +424,7 @@ $('body').on('change', '.allday input[type="checkbox"]', function(){
 $('body').on('click', '#newalert button', function(){
     var unit = $("input[name='t']:checked").val()
     var num = $("#newalert input[type='number']").val()
-    //$('.o1').attr('data-target', '#newalert').html(num+unit);
-    $("input[name='notice']").val(num+unit);
+    $('.o1').attr('data-target', '#newalert').html(num+unit);
 });
 /*"會議對象"*/
 $('body').on('click', '#person .add-member', function(){
@@ -616,10 +455,9 @@ $('body').on('change', '.role', function(){
 /*會議對象按下完成*/
 $('body').on('click', '.finish', function(){
     var member = $('.tag').text()
-    var noxx = member.replace(/\×/g, ',')
+    var noxx = member.replace(/\×/g, ', ')
     if($('.memberwrap span').hasClass('tag')) {
-        //$('.o2').text(noxx);
-        $("input[name='meeting']").val(noxx);
+        $('.o2').text(noxx);
     }else {
         $('.o2').text('會議對象');
     }

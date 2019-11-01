@@ -21,15 +21,24 @@
 
                                                     <!-- 派工單 -->
                                                     <div class="tab-pane" id="viewers-tab-02">
+                                                        <div class='coupon'>
+                                                            <form class='form-inline'>
+                                                                <input type="text" class="form-control mr-s searchInput searchInput_authority" placeholder="請輸入關鍵字">
+                                                                <div class='btn-wrap'>
+                                                                    <a href='{{ route('ht.Permission.create',['organization'=>$organization]) }}'><button class='btn-bright' type='button'>新增人員</button></a>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+
                                                         <table class="table table-hover dt-responsive table-striped" id="hetao-list-authority">
                                                             <thead class="rwdhide">
                                                                 <tr>
-                                                                    <th>人員職稱</th>
-                                                                    <th>人員名稱</th>
-                                                                    <th>分公司</th>
-                                                                    <th>電話</th>
-                                                                    <th>最後登入時間</th>
-                                                                    <th></th>
+                                                                    <th class="desktop">人員職稱</th>
+                                                                    <th class="desktop">人員名稱</th>
+                                                                    <th class="desktop">分公司</th>
+                                                                    <th class="desktop">電話</th>
+                                                                    <th class="desktop">最後登入時間</th>
+                                                                    <th class="desktop"></th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -69,15 +78,6 @@
 
 @section('scripts')
 <script type="text/javascript">
-    //權限管理filter
-    $('#hetao-list-authority_filter').append(
-        "<div class='coupon'>" +
-        "<form class='form-inline'>" +
-        "<div class='btn-wrap'>" +
-        "<a href='{{ route('ht.Permission.create',['organization'=>$organization]) }}'><button class='btn-bright' type='button'>新增人員</button></a>" +
-        "</div>" +
-        "</form>" +
-        "</div>"
-    );
+
 </script>
 @endsection

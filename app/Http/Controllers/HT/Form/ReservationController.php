@@ -7,20 +7,23 @@ use App\Http\Controllers\Controller;
 use App\Organization;
 use App\Reservation;
 
+use Auth;
+
 class ReservationController extends Controller
 {
     public function index(Organization $organization,Request $request)
     {
-        $reservation = Reservation::all();
+        $reservation = Reservation::where('organization_id',Auth::user()->organization_id)->get();
 
-        $count = Reservation::all()->count();
+        $count = Reservation::where('organization_id',Auth::user()->organization_id)->count();
 
     	return view('ht.Form.reservation.index',compact('organization','reservation','count'));
     }
 
     public function store(Organization $organization,Request $request)
     {
-        $reservation = Reservation::all();
+
+        $reservation = Reservation::where('organization_id',Auth::user()->organization_id)->get();
 
     	$form = array();
 
@@ -33,10 +36,12 @@ class ReservationController extends Controller
     	}
 
         if($reservation->isNotEmpty()){
-            Reservation::truncate();
+
+            $reservation = Reservation::where('organization_id',Auth::user()->organization_id)->delete();
 
             foreach ($form as $k => $v) {
                 $res = new Reservation;
+                $res->organization_id = Auth::user()->organization_id;
                 $res->name = $k;
                 $res->form = json_encode($v);
                 $res->save();   
@@ -46,6 +51,7 @@ class ReservationController extends Controller
 
             foreach ($form as $k => $v) {
                 $res = new Reservation;
+                $res->organization_id = Auth::user()->organization_id;
                 $res->name = $k;
                 $res->form = json_encode($v);
                 $res->save();   

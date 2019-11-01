@@ -39,7 +39,6 @@
                                                                                 <a class="thx" data-toggle="tab" href="#{{$data->name}}">
                                                                                 <input class="form-control formName" type="text" value="{{$data->name}}" disabled=""></a>
                                                                                 <input type="checkbox" id="sec0{{$key}}" class="form-sec-btn">
-                                                                                <button class="close"type="button">&times;</button>
                                                                             </label>
                                                                         </div>
                                                                     @else
@@ -49,8 +48,8 @@
                                                                                 <a class="thx" data-toggle="tab" href="#{{$data->name}}">
                                                                                 <input class="form-control formName" type="text" value="{{$data->name}}"></a>
                                                                                 <input type="checkbox" id="sec0{{$key}}" class="form-sec-btn">
-                                                                                <button class="close"type="button">&times;</button>
                                                                             </label>
+                                                                            <button class="close"type="button">&times;</button>
                                                                         </div>
                                                                     @endif
                                                                 @endforeach
@@ -213,10 +212,7 @@
                                                                                                                     </div>
                                                                                                                     <input type="text" name="{{$aaa->name}}" placeholder="填寫選項文字" value="{{$aaa->value}}">
                                                                                                                     <select class="form-control" name="{{explode('Opt',$aaa->name)[0]}}Href">
-                                                                                                                        <option value="">請選擇</option>
-                                                                                                                        @foreach($contact as $r => $res)
-                                                                                                                        <option value="{{$res->name}}">{{$res->name}}</option>
-                                                                                                                        @endforeach
+                                                                                                                        
                                                                                                                     </select>
                                                                                                                 </div>
                                                                                                                     @endif
@@ -252,7 +248,7 @@
                                                                                                                     @if(explode('Req',$ccc->name)[0] == $value->name)
                                                                                                                         @if($ccc->value == 'on')
                                                                                                                         <label class="switch">
-                                                                                                                            <input type="checkbox" checked="" name="{{$ccc->name}}Req">
+                                                                                                                            <input type="checkbox" checked="" name="{{$ccc->name}}">
                                                                                                                             <span class="slider round"></span>
                                                                                                                         </label>
                                                                                                                         @else
@@ -460,10 +456,7 @@
                                                                                                                     <button class="close" type="button">×</button>
                                                                                                                     <input type="text" name="{{$fff->name}}" value="{{$fff->value}}" placeholder="選項文字">
                                                                                                                     <select class="form-control" name="{{explode('Opt',$fff->name)[0]}}Href">
-                                                                                                                        <option value="">請選擇</option>
-                                                                                                                            @foreach($contact as $rr => $rres)
-                                                                                                                                <option value="{{$rres->name}}">{{$rres->name}}</option>
-                                                                                                                            @endforeach
+                                                                                                                        
                                                                                                                     </select>
                                                                                                                 </li>
                                                                                                                     @endif
@@ -502,7 +495,7 @@
                                                                                                                 @if(explode('Req',$ggg->name)[0] == $value->name)
                                                                                                                     @if($ggg->value == 'on')
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$ggg->name}}Req" checked="">
+                                                                                                                    <input type="checkbox" name="{{$ggg->name}}" checked="">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>
@@ -915,10 +908,7 @@
                                                                                                                     </div>
                                                                                                                     <input type="text" name="{{$aaa->name}}" placeholder="填寫選項文字" value="{{$aaa->value}}">
                                                                                                                     <select class="form-control" name="{{explode('Opt',$aaa->name)[0]}}Href">
-                                                                                                                        <option value="">請選擇</option>
-                                                                                                                        @foreach($contact as $r => $res)
-                                                                                                                        <option value="{{$res->name}}">{{$res->name}}</option>
-                                                                                                                        @endforeach
+                                                                                                                        
                                                                                                                     </select>
                                                                                                                 </div>
                                                                                                                     @endif
@@ -954,7 +944,7 @@
                                                                                                                     @if(explode('Req',$ccc->name)[0] == $value->name)
                                                                                                                         @if($ccc->value == 'on')
                                                                                                                         <label class="switch">
-                                                                                                                            <input type="checkbox" checked="" name="{{$ccc->name}}Req">
+                                                                                                                            <input type="checkbox" checked="" name="{{$ccc->name}}">
                                                                                                                             <span class="slider round"></span>
                                                                                                                         </label>
                                                                                                                         @else
@@ -1162,10 +1152,7 @@
                                                                                                                     <button class="close" type="button">×</button>
                                                                                                                     <input type="text" name="{{$fff->name}}" value="{{$fff->value}}" placeholder="選項文字">
                                                                                                                     <select class="form-control" name="{{explode('Opt',$fff->name)[0]}}Href">
-                                                                                                                        <option value="">請選擇</option>
-                                                                                                                            @foreach($contact as $rr => $rres)
-                                                                                                                                <option value="{{$rres->name}}">{{$rres->name}}</option>
-                                                                                                                            @endforeach
+                                                                                                                        
                                                                                                                     </select>
                                                                                                                 </li>
                                                                                                                     @endif
@@ -1204,7 +1191,7 @@
                                                                                                                 @if(explode('Req',$ggg->name)[0] == $value->name)
                                                                                                                     @if($ggg->value == 'on')
                                                                                                                 <label class="switch">
-                                                                                                                    <input type="checkbox" name="{{$ggg->name}}Req" checked="">
+                                                                                                                    <input type="checkbox" name="{{$ggg->name}}" checked="">
                                                                                                                     <span class="slider round">
                                                                                                                         
                                                                                                                     </span>

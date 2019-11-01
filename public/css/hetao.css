@@ -633,9 +633,9 @@ h4.title-deco {
     div.dataTables_wrapper div.dataTables_filter label:not(.sall) {
         display: block;
     }
-    .btn-wrap {
+   /* .btn-wrap {
         margin: 6px 0;
-    }
+    }*/
 }
 
 @media screen and (max-width: 1317px) {
@@ -1565,4 +1565,42 @@ input[class^=follow]:checked+.followanswer:before {
     line-height: 1.5;
     padding: 0 16px;
 
+}
+/*20191031 表格搜尋列設定*/
+.dataTables_filter {
+    display: none;
+}
+.coupon {
+    margin: 20px 0;
+}
+.searchInput {
+    width: 180px;
+    background: url(../img/search-solid.svg);
+    background-size: 16px;
+    background-repeat: no-repeat;
+    background-position: right 6px center;    
+    margin-bottom: 15px;
+    display: block;
+}
+.coupon .datetime {
+    vertical-align: middle;
+    width: 180px;
+}
+.coupon .form-inline .form-group {
+    margin-bottom: 15px;
+}
+.btn-wrap {
+    vertical-align: text-bottom;
+}
+.coupon .form-inline .batchwrap .form-group {
+    margin-bottom: 0;
+}
+@media screen and (max-width: 767px) {
+    .searchInput, .coupon .datetime {
+        width: 100%;
+        margin-bottom: 12px;
+    }
+    .coupon .datetime .date-select, .coupon .form-inline .form-group {
+        margin-right: 0 !important;
+    }
 }

@@ -13,6 +13,7 @@ use App\User;
 use App\Department;
 use App\TransferCase;
 use App\ReservationAnswer;
+use App\ContactAnswer;
 
 use GuzzleHttp\Client;
 
@@ -20,9 +21,15 @@ class AssistantController extends Controller
 {
     public function index(Organization $organization)
     {
-        $reservation = ReservationAnswer::all();
+        $reservation = DB::table('reservation_answers')
+                        ->select('reservation_answers.id','accounts.cuskey','accounts.name','reservation_answers.created_at')
+                        ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
+                        ->where('reservation_answers.department_id',Auth::user()->department_id)
+                        ->get();
 
-    	return view('ht.StrokeManage.assistant.index',compact('organization'));
+        $contact = ContactAnswer::all();
+
+    	return view('ht.StrokeManage.assistant.index',compact('organization','reservation','contact'));
     }
 
     public function create(Organization $organization)
@@ -80,9 +87,45 @@ class AssistantController extends Controller
     	return view('ht.StrokeManage.assistant.edit',compact('organization'));
     }
 
-    public function show(Organization $organization)
+    public function show(Organization $organization,$id)
     {
-    	return view('ht.StrokeManage.assistant.show',compact('organization'));
+        $id = base64_decode($id);
+
+        $res = ReservationAnswer::where('id',$id)->get();
+
+    	return view('ht.StrokeManage.assistant.show',compact('organization','res'));
+    }
+
+    public function resSearch(Organization $organization,Request $request)
+    { 
+        $end = date("Y-m-d",strtotime("+1 day",strtotime($request->end)));
+
+        $data = DB::table('reservation_answers')
+                        ->select('reservation_answers.id','accounts.cuskey','accounts.name','reservation_answers.created_at')
+                        ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
+                        ->where('reservation_answers.department_id',Auth::user()->department_id)
+                        ->whereBetween('reservation_answers.created_at',[$request->start,$end])
+                        ->get();
+
+        return $data;
+    }
+
+    public function contactSearch(Organization $organization,Request $request)
+    { 
+        $end = date("Y-m-d",strtotime("+1 day",strtotime($request->end)));
+
+        $data = ContactAnswer::whereBetween('created_at',[$request->start,$end])->get();
+
+        return $data;
+    }
+
+    public function showContact(Organization $organization,$id)
+    {
+        $id = base64_decode($id);
+
+        $res = ContactAnswer::where('id',$id)->get();
+
+        return view('ht.StrokeManage.assistant.showContact',compact('organization','res'));
     }
 
     public function getData(Organization $organization,Request $request)

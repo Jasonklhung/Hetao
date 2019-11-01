@@ -286,7 +286,7 @@ $('body').on('change', '.followw', function() {
         $(this).closest('.item').addClass('link');
     } else {
         $(this).closest('.item').removeClass('link');
-        //$(this).parent().parent('.item').find('select option').remove();
+        $(this).parent().parent('.item').find('select option').remove();
     }
 });
 

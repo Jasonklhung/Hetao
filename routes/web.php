@@ -49,7 +49,13 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::post('/HT/{organization}/StrokeManage/assistant/store','HT\StrokeManage\AssistantController@store')->name('ht.StrokeManage.assistant.store');
 
-		Route::get('/HT/{organization}/StrokeManage/assistant/show','HT\StrokeManage\AssistantController@show')->name('ht.StrokeManage.assistant.show');
+		Route::get('/HT/{organization}/StrokeManage/assistant/show/{id}','HT\StrokeManage\AssistantController@show')->name('ht.StrokeManage.assistant.show');
+
+		Route::post('/HT/{organization}/StrokeManage/assistant/resSearch','HT\StrokeManage\AssistantController@resSearch')->name('ht.StrokeManage.assistant.resSearch');
+
+		Route::post('/HT/{organization}/StrokeManage/assistant/contactSearch','HT\StrokeManage\AssistantController@contactSearch')->name('ht.StrokeManage.assistant.contactSearch');
+
+		Route::get('/HT/{organization}/StrokeManage/assistant/showContact/{id}','HT\StrokeManage\AssistantController@showContact')->name('ht.StrokeManage.assistant.showContact');
 
 		Route::get('/HT/{organization}/StrokeManage/assistant/edit','HT\StrokeManage\AssistantController@edit')->name('ht.StrokeManage.assistant.edit');
 
@@ -81,6 +87,8 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/StrokeManage/supervisor/updateStatus','HT\StrokeManage\SupervisorController@updateStatus')->name('ht.StrokeManage.supervisor.updateStatus');
 
 		Route::post('/HT/{organization}/StrokeManage/supervisor/transfer','HT\StrokeManage\SupervisorController@transfer')->name('ht.StrokeManage.supervisor.transfer');
+
+		Route::post('/HT/{organization}/StrokeManage/supervisor/assignCase','HT\StrokeManage\SupervisorController@assignCase')->name('ht.StrokeManage.supervisor.assignCase');
 
 		//行程管理-員工
 		Route::get('/HT/{organization}/StrokeManage/staff/index','HT\StrokeManage\StaffController@index')->name('ht.StrokeManage.staff.index');

@@ -15,6 +15,7 @@ class CreateReservationAnswersTable extends Migration
     {
         Schema::create('reservation_answers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('department_id')->comment('部門id');
             $table->bigInteger('account_id')->comment('客戶 account id');
             $table->json('form')->comment('整包表單內容');
             $table->timestamps();

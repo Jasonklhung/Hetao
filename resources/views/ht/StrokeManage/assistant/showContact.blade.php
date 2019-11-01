@@ -13,7 +13,7 @@
 						<div class="col-md-12 wrap">
 							<div class="panel" id="manager">
 								<div class="panel-title">
-									<i class="fas fa-tasks"></i>線上預約表單
+									<i class="fas fa-tasks"></i>與我聯繫表單
 								</div>
 								<div class="panel-body">
 									<div class="tabbable">

@@ -26,7 +26,7 @@ class SupervisorController extends Controller
     public function getData(Organization $organization,Request $request)
     {
     	$client = new \GuzzleHttp\Client();
-        $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode([
                 'token' => $request->token,
@@ -172,5 +172,14 @@ class SupervisorController extends Controller
         $response = $response->getBody()->getContents();
 
         return $response;
+    }
+
+    public function assignCase(Organization $organization,Request $request)
+    {
+        $end = date("Y-m-d",strtotime("+1 day",strtotime($request->end)));
+
+        $supervisor = SupervisorCase::where('user_id',Auth::user()->id)->whereBetween('time',[$request->start,$end])->get();
+
+        return $supervisor;
     }
 }

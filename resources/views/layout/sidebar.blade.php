@@ -8,7 +8,7 @@
                 </nav>
                 <!-- 使用者 -->
                 <div class="hetao-user">
-                    <p class="show-login-option">賀桃，您好</p>
+                    <p class="show-login-option">{{Auth::user()->name}}，您好</p>
                 </div>
                 <nav>
                     <ul class="nav">

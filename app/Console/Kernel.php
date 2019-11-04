@@ -24,9 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            file_put_contents('aaa.txt', '123');
-        })->everyMinute();
+        // $schedule->call(function () {
+        //     file_put_contents('aaa.txt', '123');
+        // })->everyMinute();
     }
 
     /**

@@ -50,6 +50,8 @@ class OverviewController extends Controller
 
     public function store(Organization $organization,Request $request)
     {
+        //dd($request->all());
+
     	 $activity = new Activity;
          $activity->organization_id = $organization->id;
          $activity->user_id = Auth::user()->id;
@@ -70,6 +72,13 @@ class OverviewController extends Controller
     	$activity = Activity::where('organization_id',Auth::user()->organization_id)->get();
 
     	return $activity;
+    }
+
+    public function delete(Organization $organization,Request $request)
+    {
+        $activity = Activity::find($request->id)->delete();
+        
+        return redirect()->route('ht.Overview.index',compact('organization'))->with('success','刪除成功');
     }
 
     public function getData(Organization $organization,Request $request)

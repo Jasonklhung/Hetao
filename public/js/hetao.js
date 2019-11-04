@@ -424,7 +424,8 @@ $('body').on('change', '.allday input[type="checkbox"]', function(){
 $('body').on('click', '#newalert button', function(){
     var unit = $("input[name='t']:checked").val()
     var num = $("#newalert input[type='number']").val()
-    $('.o1').attr('data-target', '#newalert').html(num+unit);
+    //$('.o1').attr('data-target', '#newalert').html(num+unit);
+    $('input[name="notice"]').val(num+unit);
 });
 /*"會議對象"*/
 $('body').on('click', '#person .add-member', function(){
@@ -456,10 +457,11 @@ $('body').on('change', '.role', function(){
 $('body').on('click', '.finish', function(){
     var member = $('.tag').text()
     var noxx = member.replace(/\×/g, ', ')
-    if($('.memberwrap span').hasClass('tag')) {
-        $('.o2').text(noxx);
-    }else {
-        $('.o2').text('會議對象');
-    }
+    // if($('.memberwrap span').hasClass('tag')) {
+    //     $('.o2').text(noxx);
+    // }else {
+    //     $('.o2').text('會議對象');
+    // }
+    $('input[name="meeting"]').val(noxx);
 });
 

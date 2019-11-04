@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/HT/{organization}/Overview/index','HT\Overview\OverviewController@index')->name('ht.Overview.index');
 		Route::post('/HT/{organization}/Overview/store','HT\Overview\OverviewController@store')->name('ht.Overview.store');
 		Route::get('/HT/{organization}/Overview/show','HT\Overview\OverviewController@show')->name('ht.Overview.show');
+		Route::post('/HT/{organization}/Overview/delete','HT\Overview\OverviewController@delete')->name('ht.Overview.delete');
 		Route::get('/HT/{organization}/Overview/getData','HT\Overview\OverviewController@getData')->name('ht.Overview.getData');
 		Route::get('/HT/{organization}/Overview/getCompany','HT\Overview\OverviewController@getCompany')->name('ht.Overview.getCompany');
 		Route::post('/HT/{organization}/Overview/getName','HT\Overview\OverviewController@getName')->name('ht.Overview.getName');

@@ -19,14 +19,72 @@ class PermissionController extends Controller
     			->Leftjoin('organizations','users.organization_id','=','organizations.id')
     			->where('organization_id',$organization->id)->get();
 
-    	return view('ht.Permission.index',compact('organization','users'));
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $countArray = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+
+                foreach ($array as $k => $v) {
+                    if($v->owner == null || $v->owner == ''){
+                        array_push($countArray,$v);
+                    }
+                }
+            }
+        }
+
+        $caseCount = count($countArray);
+
+    	return view('ht.Permission.index',compact('organization','users','caseCount'));
     }
 
     public function create(Organization $organization)
     {
     	$company = Organization::all();
 
-    	return view('ht.Permission.create',compact('organization','company'));
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $countArray = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+
+                foreach ($array as $k => $v) {
+                    if($v->owner == null || $v->owner == ''){
+                        array_push($countArray,$v);
+                    }
+                }
+            }
+        }
+
+        $caseCount = count($countArray);
+
+    	return view('ht.Permission.create',compact('organization','company','caseCount'));
     }
 
     public function getCompany(Organization $organization,Request $request)
@@ -73,7 +131,36 @@ class PermissionController extends Controller
     	$company = Organization::all();
     	$dept = Organization::find($user->organization_id)->departments;
 
-    	return view('ht.Permission.edit',compact('organization','user','permission','company','dept'));
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $countArray = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+
+                foreach ($array as $k => $v) {
+                    if($v->owner == null || $v->owner == ''){
+                        array_push($countArray,$v);
+                    }
+                }
+            }
+        }
+
+        $caseCount = count($countArray);
+
+    	return view('ht.Permission.edit',compact('organization','user','permission','company','dept','caseCount'));
     }
 
     public function update(Organization $organization,Request $request)

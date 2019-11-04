@@ -16,8 +16,36 @@ class OverviewController extends Controller
 {
     public function index(Organization $organization)
     {
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+            ])
+        ]);
 
-    	return view('ht.Overview.index',compact('organization'));
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $countArray = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+
+                foreach ($array as $k => $v) {
+                    if($v->owner == null || $v->owner == ''){
+                        array_push($countArray,$v);
+                    }
+                }
+            }
+        }
+
+        $caseCount = count($countArray);
+
+    	return view('ht.Overview.index',compact('organization','caseCount'));
     }
 
     public function store(Organization $organization,Request $request)

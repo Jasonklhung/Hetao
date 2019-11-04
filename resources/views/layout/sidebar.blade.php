@@ -29,7 +29,7 @@
 
                     @else
                         <li class="c-l">
-                            <a class="collapsed" data-toggle="collapse" href="#sub-1"><i class="fas fa-angle-double-right"></i> <span>行程管理</span> <span class="float-right">+</span><span class="badge"></span></a>
+                            <a class="collapsed" data-toggle="collapse" href="#sub-1"><i class="fas fa-angle-double-right"></i> <span>行程管理</span> <span class="float-right">+</span><span class="badge">{{$caseCount}}</span></a>
                             <div class="collapse" id="sub-1">
                                 <ul class="nav">
 

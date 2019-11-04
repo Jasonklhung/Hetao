@@ -85,13 +85,13 @@ class StaffController extends Controller
 
     public function transfer(Organization $organization,Request $request)
     {
-        $name = TransferCase::where('case_id',$request->id)->get();
+        // $name = TransferCase::where('case_id',$request->id)->get();
 
-        $user_id = $name[0]['user_id'];
+        // $user_id = $name[0]['user_id'];
 
-        $user = User::where('id',$user_id)->get();
+        // $user = User::where('id',$user_id)->get();
 
-        $dept = Department::where('id',$user[0]['department_id']);
+        // $dept = Department::where('id',$user[0]['department_id']);
 
         //api
         $client = new \GuzzleHttp\Client();
@@ -105,8 +105,19 @@ class StaffController extends Controller
                 'address' => $request->address,
                 'work_type' => $request->work_type,
                 'time' => $request->time,
-                'owner_boss' => $user[0]['token'],//$user[0]['token'],
-                'DEPT' => $dept[0]['name'],//$user[0]['department_id'],
+                'owner_boss' => '',//$user[0]['token'],
+                'DEPT' => Auth::user()->department->name,//$user[0]['department_id'],
+            ])
+        ]);
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/update-case-status', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'id' => $request->id,
+                'status'=> '',
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name,
             ])
         ]);
 

@@ -1173,12 +1173,7 @@
                         },
                         dataType:'json',                 
                         success:function(res){
-                            if(res.status == 200){
-                                alert('轉單成功')
-                            }
-                            else{
-                                alert('轉單失敗')
-                            }
+                            alert('轉單成功')
                         }
                     })
                 })

@@ -14,7 +14,7 @@
                                 <div class="col-md-12 wrap">
                                     <div class="panel" id="manager">
                                         <div class="panel-title">
-                                            <i class="fas fa-tasks"></i>行程管理
+                                            <i class="fas fa-tasks"></i>行程管理{{Auth::user()->token}} {{Auth::user()->department->name}}
                                         </div>
                                         <div class="panel-body">
                                             <div class="tabbable">
@@ -681,15 +681,13 @@
                             'address': address,
                             'work_type': work_type,
                             'time': time,
+
+
                         },
                         dataType:'json',                 
                         success:function(res){
-                            if(res.status == 200){
-                                alert('轉單成功')
-                            }
-                            else{
-                                alert('轉單失敗')
-                            }
+
+                            alert('轉單成功')
                         }
                     })
                 })

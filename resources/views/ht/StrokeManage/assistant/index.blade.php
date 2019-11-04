@@ -524,8 +524,8 @@
             method:'get',
             url:'{{ route('ht.StrokeManage.assistant.schedule',['organization'=>$organization]) }}',
             data:{
-                "token": '{{Auth::user()->token}}',
-                "DEPT": '{{Auth::user()->department->name}}'
+                "token": 'U2f6ef40c08eb97d124a67970ec337822',
+                "DEPT": 'H026'
             },
             dataType:'json',
             success:function(response){
@@ -617,10 +617,10 @@
                         url:'{{ route('ht.StrokeManage.assistant.updateStatus',['organization'=>$organization]) }}',
                         data:{
                             '_token':'{{csrf_token()}}',
-                            "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
+                            "token": 'U2f6ef40c08eb97d124a67970ec337822',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'T',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": 'H026' //'{{Auth::user()->department_id}}'
                         },
                         dataType:'json',
                         success:function(response){
@@ -642,10 +642,10 @@
                         url:'{{ route('ht.StrokeManage.assistant.updateStatus',['organization'=>$organization]) }}',
                         data:{
                             '_token':'{{csrf_token()}}',
-                            "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
+                            "token": 'U2f6ef40c08eb97d124a67970ec337822',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'F',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": 'H026' //'{{Auth::user()->department_id}}'
                         },
                         dataType:'json',
                         success:function(response){

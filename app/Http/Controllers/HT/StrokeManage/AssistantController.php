@@ -116,7 +116,27 @@ class AssistantController extends Controller
 
     public function update(Organization $organization,Request $request)
     {
-        dd('api修改中');
+        //dd($request->all());
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/update-online-work', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'name' => $request->name,
+                'mobile' => $request->mobile,
+                'work_type' => $request->work_type,
+                'time' => $request->time,
+                'remarks' => $request->remarks,
+                'address' => $request->address,
+                'CUSTKEY' => $request->CUSTKEY,
+                'id' => $request->id,
+                'DEPT' => Auth::user()->department->name,
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        return redirect()->route('ht.StrokeManage.assistant.index',compact('organization'))->with('success','編輯成功');
     }
 
     public function show(Organization $organization,$id)

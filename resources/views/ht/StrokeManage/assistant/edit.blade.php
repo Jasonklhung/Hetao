@@ -24,6 +24,8 @@
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">派工類型</label>
                                                         <input type="text" name="work_type" class="form-control" placeholder="派工類型" value="{{$res->work_type}}">
+                                                        <input type="hidden" name="id" class="form-control" placeholder="工單編號" value="{{$res->id}}">
+                                                        <input type="hidden" name="name" class="form-control" placeholder="聯絡人" value="{{$res->name}}">
                                                     </div>
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">客戶代碼</label>

@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::get('/HT/{organization}/StrokeManage/assistant/showContact/{id}','HT\StrokeManage\AssistantController@showContact')->name('ht.StrokeManage.assistant.showContact');
 
-		Route::get('/HT/{organization}/StrokeManage/assistant/edit','HT\StrokeManage\AssistantController@edit')->name('ht.StrokeManage.assistant.edit');
+		Route::get('/HT/{organization}/StrokeManage/assistant/edit/{id}','HT\StrokeManage\AssistantController@edit')->name('ht.StrokeManage.assistant.edit');
 
 		Route::post('/HT/{organization}/StrokeManage/assistant/update','HT\StrokeManage\AssistantController@update')->name('ht.StrokeManage.assistant.update');
 

@@ -10,9 +10,9 @@ use App\ReservationAnswer;
 
 class ReservationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = Reservation::all();
+        $data = Reservation::where('organization_id',$request->organization_id)->get();
 
         return $data;
     }

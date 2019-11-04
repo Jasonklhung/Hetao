@@ -537,7 +537,7 @@
                     "responsive": {
                         "breakpoints": [
                         { name: 'desktop', width: Infinity},
-                        { name: 'tablet',  width: 1370},
+                        { name: 'tablet',  width: 1700},
                         ],
                         "details": {
                             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
@@ -701,7 +701,7 @@
                     "responsive": {
                         "breakpoints": [
                         { name: 'desktop', width: Infinity},
-                        { name: 'tablet',  width: 1370},
+                        { name: 'tablet',  width: 1700},
                         ],
                         "details": {
                             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
@@ -1084,7 +1084,7 @@
                     "responsive": {
                         "breakpoints": [
                         { name: 'desktop', width: Infinity},
-                        { name: 'tablet',  width: 1370},
+                        { name: 'tablet',  width: 1700},
                         ],
                         "details": {
                             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
@@ -1259,7 +1259,7 @@
                     "responsive": {
                         "breakpoints": [
                         { name: 'desktop', width: Infinity},
-                        { name: 'tablet',  width: 1370},
+                        { name: 'tablet',  width: 1700},
                         ],
                         "details": {
                             "display": $.fn.dataTable.Responsive.display.childRowImmediate,

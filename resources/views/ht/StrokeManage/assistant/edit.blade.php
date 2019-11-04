@@ -17,44 +17,41 @@
                                         </div>
                                         <div class="panel-body">
                                             <div class="tabbable">
-                                                <small>工單編號：190806001</small>
-                                                <form>
+
+                                                <small>工單編號：{{$res->id}}</small>
+                                                <form method="post" action="{{ route('ht.StrokeManage.assistant.update',['organization'=>$organization]) }}">
+                                                    @csrf
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">派工類型</label>
-                                                        <div class="d-inline mr-m"><input type="checkbox" name="type" class="mr-s" checked>採購飲用水設備</div>
-                                                        <div class="d-inline mr-m"><input type="checkbox" name="type" class="mr-s">採購桶裝水</div>
-                                                        <div class="d-inline mr-m"><input type="checkbox" name="type" class="mr-s">更換濾材配件</div>
-                                                        <div class="d-inline mr-m"><input type="checkbox" name="type" class="mr-s">維修飲水設備</div>
-                                                        <div class="d-inline mr-m"><input type="checkbox" name="type" class="mr-s">保養飲用水設備</div>
-                                                        <div class="d-inline mr-m"><input type="checkbox" name="type" class="mr-s">其它</div>
+                                                        <input type="text" name="work_type" class="form-control" placeholder="派工類型" value="{{$res->work_type}}">
                                                     </div>
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">客戶代碼</label>
-                                                        <input type="text" class="form-control" placeholder="客戶代碼" value="楊梅國中">
+                                                        <input type="text" name="CUSTKEY" class="form-control" placeholder="客戶代碼" value="{{$res->CUSTKEY}}">
                                                     </div>
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">聯絡地址</label>
-                                                        <input type="text" class="form-control" placeholder="客戶聯絡地址" value="楊梅區秀才路919號">
+                                                        <input type="text" name="address" class="form-control" placeholder="客戶聯絡地址" value="{{$res->address}}">
                                                     </div>
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">聯絡電話</label>
-                                                        <input type="text" class="form-control" placeholder="客戶聯絡電話" value="03-3322101">
+                                                        <input type="text" name="mobile" class="form-control" placeholder="客戶聯絡電話" value="{{$res->mobile}}">
                                                     </div>
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">派工原因</label>
-                                                        <input type="text" class="form-control" placeholder="派工原因" value="  載清缸 宿舍1.3樓+教學1樓右邊">
+                                                        <input type="text" name="remarks" class="form-control" placeholder="派工原因" value="{{$res->remarks}}">
                                                     </div>
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">工單日期</label>
                                                         <div class="datetime">
                                                             <div class="input-group date date-select">
-                                                                <input class="form-control" placeholder="請選擇日期" type="text" value="2019-10-11 10:05"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                <input class="form-control" name="time" placeholder="請選擇日期" type="text" value="{{$res->time}}"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <a href="assistant.html"><button type="button" class="btn btn-default">返回</button></a>
-                                                        <button type="button" class="btn btn-primary">儲存</button>
+                                                        <a href="{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization]) }}"><button type="button" class="btn btn-default">返回</button></a>
+                                                        <button type="submit" class="btn btn-primary">儲存</button>
                                                     </div>
                                                 </form>
                                             </div>

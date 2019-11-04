@@ -704,7 +704,6 @@ h4.title-deco {
     }
     .dataTables_wrapper table.dataTable#hetao-list-a-2 {
         position: relative;
-        top: -30px;
     }
     #hetao-list-a-2 .child .form-control {
         display: inline-block;
@@ -1603,4 +1602,8 @@ input[class^=follow]:checked+.followanswer:before {
     .coupon .datetime .date-select, .coupon .form-inline .form-group {
         margin-right: 0 !important;
     }
+}
+
+.dtr-details tr td:nth-child(odd) {
+    width: 80px;
 }

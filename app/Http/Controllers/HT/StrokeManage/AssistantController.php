@@ -82,9 +82,41 @@ class AssistantController extends Controller
     	return redirect()->route('ht.StrokeManage.assistant.index',compact('organization'))->with('success','新增成功');
     }
 
-    public function edit(Organization $organization)
+    public function edit(Organization $organization,$id)
     {
-    	return view('ht.StrokeManage.assistant.edit',compact('organization'));
+        $id = base64_decode($id);
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => 'U2f6ef40c08eb97d124a67970ec337822',
+                'DEPT' => 'H026'
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+
+                foreach ($array as $k => $v) {
+                    if($v->id == $id){
+                        $res = $v;
+                    }
+                }
+            }
+        }
+
+    	return view('ht.StrokeManage.assistant.edit',compact('organization','res'));
+    }
+
+    public function update(Organization $organization,Request $request)
+    {
+        dd('api修改中');
     }
 
     public function show(Organization $organization,$id)

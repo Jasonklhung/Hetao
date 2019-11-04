@@ -72,13 +72,13 @@ $(document).ready(function() {
             locale: 'ZH-TW',
         });
     });
-    // $(function() {
-    //     $('.time-select').datetimepicker({
-    //         format: 'HH:mm',
-    //         ignoreReadonly: true,
-    //         allowInputToggle: true
-    //     });
-    // });
+    $(function() {
+        $('.time-select').datetimepicker({
+            format: 'HH:mm',
+            ignoreReadonly: true,
+            allowInputToggle: true
+        });
+    });
 });
 
 /*-----------------------------------/

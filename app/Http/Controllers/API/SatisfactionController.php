@@ -10,28 +10,27 @@ use App\SatisfactionAnswer;
 
 class SatisfactionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = Satisfaction::all();
+        $data = Satisfaction::where('organization_id',$request->organization_id)->get();
 
         return $data;
     }
 
     public function store(Request $request)
     {
-        $dept = Department::where('name',$request->DEPT)->get();
 
     	$form = array();
 
     	foreach ($request->form as $key => $value) {
 
-             $form[$key] = $value;
+             $form[] = $value;
         }
 
     	$id = Account::where('token',$request->token)->get();
 
     	$res = new SatisfactionAnswer;
-        $res->department_id = $dept[0]['id'];
+        $res->department_id = $request->DEPT;
     	$res->account_id = $id[0]['id'];
     	$res->form = json_encode($form);
     	$res->save();   

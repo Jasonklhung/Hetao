@@ -9,6 +9,7 @@ use App\TransferCase;
 use App\User;
 use App\Department;
 
+use Auth;
 use GuzzleHttp\Client;
 
 class StaffController extends Controller

@@ -12,7 +12,7 @@ class ReservationController extends Controller
 {
     public function index(Request $request)
     {
-        
+
         $data = Reservation::where('organization_id',$request->organization_id)->get();
 
         return $data;
@@ -20,7 +20,6 @@ class ReservationController extends Controller
 
     public function store(Request $request)
     {
-        $dept = Department::where('name',$request->DEPT)->get();
 
     	$form = array();
 
@@ -32,7 +31,7 @@ class ReservationController extends Controller
     	$id = Account::where('token',$request->token)->get();
 
     	$res = new ReservationAnswer;
-        $res->department_id = $dept[0]['id'];
+        $res->department_id = $request->DEPT;
     	$res->account_id = $id[0]['id'];
     	$res->form = json_encode($form);
     	$res->save();   

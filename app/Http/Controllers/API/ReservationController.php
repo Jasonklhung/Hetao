@@ -25,7 +25,7 @@ class ReservationController extends Controller
 
     	foreach ($request->form as $key => $value) {
 
-             $form[$key] = $value;
+             $form = $value;
         }
 
     	$id = Account::where('token',$request->token)->get();

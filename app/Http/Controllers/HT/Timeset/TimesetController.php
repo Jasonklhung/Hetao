@@ -51,17 +51,17 @@ class TimesetController extends Controller
 
     	$Timeset = Timeset::updateOrCreate(
     		['organization_id' => $organization->id, 'name' => '線上預約完成推播時間'],
-    		['days' => '+'.$request->onlineDay, 'time' => $request->onlineTime , 'status' => ($request->online == 'on')? 'Y':'N']
+    		['days' => $request->onlineDay, 'time' => $request->onlineTime , 'status' => ($request->online == 'on')? 'Y':'N']
     	);
 
     	$Timeset = Timeset::updateOrCreate(
     		['organization_id' => $organization->id, 'name' => '預約前一日通知推播時間'],
-    		['days' => '-1', 'time' => $request->reservationTime , 'status' => ($request->reservation == 'on')? 'Y':'N']
+    		['days' => '1', 'time' => $request->reservationTime , 'status' => ($request->reservation == 'on')? 'Y':'N']
     	);
 
     	$Timeset = Timeset::updateOrCreate(
     		['organization_id' => $organization->id, 'name' => '滿意度調查推播時間'],
-    		['days' => '+'.$request->satisfactionDay, 'time' => $request->satisfactionTime , 'status' => ($request->satisfaction == 'on')? 'Y':'N']
+    		['days' => $request->satisfactionDay, 'time' => $request->satisfactionTime , 'status' => ($request->satisfaction == 'on')? 'Y':'N']
     	);
 
     	$Timeset = Timeset::updateOrCreate(

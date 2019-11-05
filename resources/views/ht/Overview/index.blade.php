@@ -60,7 +60,7 @@
 
 @section('modal')
 <!-- Modal 新增通知 -->
-<div id="newalert" class="modal fade" role="dialog">
+<div id="newalert" class="modal fade" role="dialog" style="z-index: 9999;">
     <div class="modal-dialog">
         <div class="modal-content modal-sm">
             <div class="modal-body">
@@ -79,7 +79,7 @@
     </div>
 </div>
 <!-- Modal 會議對象 -->
-<div id="person" class="modal fade" role="dialog">
+<div id="person" class="modal fade" role="dialog" style="z-index: 9999;">
     <div class="modal-dialog">
         <div class="modal-content modal-sm">
             <div class="modal-body">

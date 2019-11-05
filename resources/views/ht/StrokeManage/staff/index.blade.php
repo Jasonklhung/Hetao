@@ -90,7 +90,7 @@ $(document).ready(function(){
                     var tt =  'GUI-number'
                     var itemtt = item['GUI-number']
 
-                    if(item.status == '' || item.status == null){
+                    if(item.status == '' || item.status == null ||){
 
                         rows += "<tr>"
                               + "<td>" + item.id + "</td>"
@@ -231,30 +231,32 @@ $(document).ready(function(){
 
                 $("#hetao-list-s-2").on("click", ".transfer", function(){
 
-                    var id = $(this).parents('tr').children('td')[0].textContent 
-                    var time = $(this).parents('tr').children('td')[1].textContent 
-                    var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
-                    var address = $(this).parents('tr').children('td')[4].textContent 
-                    var mobile = $(this).parents('tr').children('td')[5].textContent 
-                    var work_type = $(this).parents('tr').children('td')[7].textContent 
-                    var GUI_number = $(this).parents('tr').children('td')[8].textContent 
+                    // var id = $(this).parents('tr').children('td')[0].textContent 
+                    // var time = $(this).parents('tr').children('td')[1].textContent 
+                    // var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                    // var address = $(this).parents('tr').children('td')[4].textContent 
+                    // var mobile = $(this).parents('tr').children('td')[5].textContent 
+                    // var work_type = $(this).parents('tr').children('td')[7].textContent 
+                    // var GUI_number = $(this).parents('tr').children('td')[8].textContent 
 
                     $.ajax({
                         url:"{{ route('ht.StrokeManage.staff.transfer',['organization'=>$organization]) }}", 
                         method:"post",
                         data:{
                             '_token':'{{csrf_token()}}',
-                            'id':id,
-                            'name': CUSTKEY,
-                            'mobile': mobile,
-                            'GUI_number': GUI_number,
-                            'address': address,
-                            'work_type': work_type,
-                            'time': time,
+                            "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
+                            "id":id,
+                            "status":'R',
+                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
                         },
-                        dataType:'json',                 
-                        success:function(res){
-                            alert('轉單成功')
+                        dataType:'json',
+                        success:function(response){
+                            if(response.status == 200){
+                                alert(response.message);
+                            }
+                            else{
+                                alert('狀態更新失敗')
+                            }
                         }
                     })
                 })
@@ -432,31 +434,28 @@ $(document).ready(function(){
 
                 $("#hetao-list-s-2").on("click", ".transfer", function(){
 
-                    var id = $(this).parents('tr').children('td')[0].textContent 
-                    var time = $(this).parents('tr').children('td')[1].textContent 
-                    var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
-                    var address = $(this).parents('tr').children('td')[4].textContent 
-                    var mobile = $(this).parents('tr').children('td')[5].textContent 
-                    var work_type = $(this).parents('tr').children('td')[7].textContent 
-                    var GUI_number = $(this).parents('tr').children('td')[8].textContent 
+                    // var id = $(this).parents('tr').children('td')[0].textContent 
+                    // var time = $(this).parents('tr').children('td')[1].textContent 
+                    // var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                    // var address = $(this).parents('tr').children('td')[4].textContent 
+                    // var mobile = $(this).parents('tr').children('td')[5].textContent 
+                    // var work_type = $(this).parents('tr').children('td')[7].textContent 
+                    // var GUI_number = $(this).parents('tr').children('td')[8].textContent 
 
                     $.ajax({
                         url:"{{ route('ht.StrokeManage.staff.transfer',['organization'=>$organization]) }}", 
                         method:"post",
                         data:{
                             '_token':'{{csrf_token()}}',
-                            'id':id,
-                            'name': CUSTKEY,
-                            'mobile': mobile,
-                            'GUI_number': GUI_number,
-                            'address': address,
-                            'work_type': work_type,
-                            'time': time,
+                            "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
+                            "id":id,
+                            "status":'R',
+                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
                         },
-                        dataType:'json',                 
-                        success:function(res){
-                            if(res.status == 200){
-                                alert('轉單成功')
+                        dataType:'json',
+                        success:function(response){
+                            if(response.status == 200){
+                                alert('轉單成功');
                             }
                             else{
                                 alert('轉單失敗')

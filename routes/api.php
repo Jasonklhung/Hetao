@@ -33,3 +33,7 @@ Route::post('satiStore','Api\SatisfactionController@store');
 
 //account
 Route::post('accountStore','Api\AccountController@store');
+
+
+//crontab
+Route::get('reservationFinish','Api\CrontabController@reservationFinish');

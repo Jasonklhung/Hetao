@@ -159,7 +159,7 @@
 
             @else
             <sb-menu open>
-                <sb-menu-title><i class="fas fa-angle-double-right fa-fw"></i> <span> 行程管理</span><span class="badge">5</span></sb-menu-title>
+                <sb-menu-title><i class="fas fa-angle-double-right fa-fw"></i> <span> 行程管理</span><span class="badge">{{$caseCount}}</span></sb-menu-title>
 
                 @if(Auth::user()->permission->assistant == 'Y')
                 <sb-item class="selected" onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization]) }}'">助理</sb-item>
@@ -179,7 +179,7 @@
 
             @else
             <sb-menu2>
-                <sb-menu-title2><i class="fas fa-angle-double-right fa-fw"></i> <span> 表單設定</span><span class="badge">5</span></sb-menu-title2>
+                <sb-menu-title2><i class="fas fa-angle-double-right fa-fw"></i> <span> 表單設定</span><span class="badge"></span></sb-menu-title2>
 
                 @if(Auth::user()->permission->reservation == 'Y')
                 <sb-item2 onclick="javascript:location.href='{{ route('ht.Form.reservation.index',['organization'=>$organization]) }}'">線上預約</sb-item2>

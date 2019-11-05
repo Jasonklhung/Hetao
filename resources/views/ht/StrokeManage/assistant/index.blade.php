@@ -479,14 +479,16 @@
 
                 $('#hetao-list-a-2 tbody').on('change', 'select[name="assign"]', function () {
 
+                    console.log($(this).parents('tr').children('td'));
+
                      var token = $("select[name='assign']").val()
-                     var id = $(this).parents('tr').children('td')[0].textContent 
-                     var time = $(this).parents('tr').children('td')[1].textContent 
-                     var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
-                     var address = $(this).parents('tr').children('td')[4].textContent 
-                     var mobile = $(this).parents('tr').children('td')[5].textContent 
-                     var work_type = $(this).parents('tr').children('td')[7].textContent 
-                     var GUI_number = $(this).parents('tr').children('td')[8].textContent 
+                     var id = $(this).parents('tr').children('td')[0].innerText 
+                     var time = $(this).parents('tr').children('td')[1].innerText 
+                     var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
+                     var address = $(this).parents('tr').children('td')[4].innerText 
+                     var mobile = $(this).parents('tr').children('td')[5].innerText 
+                     var work_type = $(this).parents('tr').children('td')[7].innerText 
+                     var GUI_number = $(this).parents('tr').children('td')[8].innerText 
 
                      if (confirm('是否指派？') == true) {
                          $.ajax({
@@ -610,7 +612,7 @@
                 });
 
                 $("#hetao-list-s-2").on("click", ".finish", function(){
-                    var id = $(this).parents('tr').children('td')[0].textContent
+                    var id = $(this).parents('tr').children('td')[0].innerText
 
                     $.ajax({
                         method:'post',
@@ -635,7 +637,7 @@
                 })
 
                 $("#hetao-list-s-2").on("click", ".late", function(){
-                    var id = $(this).parents('tr').children('td')[0].textContent
+                    var id = $(this).parents('tr').children('td')[0].innerText
 
                     $.ajax({
                         method:'post',
@@ -661,13 +663,13 @@
 
                 $("#hetao-list-s-2").on("click", ".transfer", function(){
 
-                    // var id = $(this).parents('tr').children('td')[0].textContent 
-                    // var time = $(this).parents('tr').children('td')[1].textContent 
-                    // var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
-                    // var address = $(this).parents('tr').children('td')[4].textContent 
-                    // var mobile = $(this).parents('tr').children('td')[5].textContent 
-                    // var work_type = $(this).parents('tr').children('td')[7].textContent 
-                    // var GUI_number = $(this).parents('tr').children('td')[8].textContent 
+                    // var id = $(this).parents('tr').children('td')[0].innerText 
+                    // var time = $(this).parents('tr').children('td')[1].innerText 
+                    // var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
+                    // var address = $(this).parents('tr').children('td')[4].innerText 
+                    // var mobile = $(this).parents('tr').children('td')[5].innerText 
+                    // var work_type = $(this).parents('tr').children('td')[7].innerText 
+                    // var GUI_number = $(this).parents('tr').children('td')[8].innerText 
 
                     $.ajax({
                         method:'post',
@@ -981,13 +983,13 @@
                 $('#hetao-list-a-2 tbody').on('change', 'select[name="assign"]', function () {
 
                      var token = $("select[name='assign']").val()
-                     var id = $(this).parents('tr').children('td')[0].textContent 
-                     var time = $(this).parents('tr').children('td')[1].textContent 
-                     var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
-                     var address = $(this).parents('tr').children('td')[4].textContent 
-                     var mobile = $(this).parents('tr').children('td')[5].textContent 
-                     var work_type = $(this).parents('tr').children('td')[7].textContent 
-                     var GUI_number = $(this).parents('tr').children('td')[8].textContent 
+                     var id = $(this).parents('tr').children('td')[0].innerText 
+                     var time = $(this).parents('tr').children('td')[1].innerText 
+                     var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
+                     var address = $(this).parents('tr').children('td')[4].innerText 
+                     var mobile = $(this).parents('tr').children('td')[5].innerText 
+                     var work_type = $(this).parents('tr').children('td')[7].innerText 
+                     var GUI_number = $(this).parents('tr').children('td')[8].innerText 
 
                      if (confirm('是否指派？') == true) {
                          $.ajax({
@@ -1122,7 +1124,7 @@
                 });
 
                 $("#hetao-list-s-2").on("click", ".finish", function(){
-                    var id = $(this).parents('tr').children('td')[0].textContent
+                    var id = $(this).parents('tr').children('td')[0].innerText
 
                     $.ajax({
                         method:'post',
@@ -1147,7 +1149,7 @@
                 })
 
                 $("#hetao-list-s-2").on("click", ".late", function(){
-                    var id = $(this).parents('tr').children('td')[0].textContent
+                    var id = $(this).parents('tr').children('td')[0].innerText
 
                     $.ajax({
                         method:'post',
@@ -1173,13 +1175,13 @@
 
                 $("#hetao-list-s-2").on("click", ".transfer", function(){
 
-                    // var id = $(this).parents('tr').children('td')[0].textContent 
-                    // var time = $(this).parents('tr').children('td')[1].textContent 
-                    // var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
-                    // var address = $(this).parents('tr').children('td')[4].textContent 
-                    // var mobile = $(this).parents('tr').children('td')[5].textContent 
-                    // var work_type = $(this).parents('tr').children('td')[7].textContent 
-                    // var GUI_number = $(this).parents('tr').children('td')[8].textContent 
+                    // var id = $(this).parents('tr').children('td')[0].innerText 
+                    // var time = $(this).parents('tr').children('td')[1].innerText 
+                    // var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
+                    // var address = $(this).parents('tr').children('td')[4].innerText 
+                    // var mobile = $(this).parents('tr').children('td')[5].innerText 
+                    // var work_type = $(this).parents('tr').children('td')[7].innerText 
+                    // var GUI_number = $(this).parents('tr').children('td')[8].innerText 
 
                     $.ajax({
                         method:'post',
@@ -1380,13 +1382,13 @@
             $('input[name="oneforall"]:checked').each(function(){  
 
                 var token = $("select[name='sel1']").val()
-                var id = $(this).parents('tr').children('td')[0].textContent 
-                var time = $(this).parents('tr').children('td')[1].textContent 
-                var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
-                var address = $(this).parents('tr').children('td')[4].textContent 
-                var mobile = $(this).parents('tr').children('td')[5].textContent 
-                var work_type = $(this).parents('tr').children('td')[7].textContent 
-                var GUI_number = $(this).parents('tr').children('td')[8].textContent 
+                var id = $(this).parents('tr').children('td')[0].innerText 
+                var time = $(this).parents('tr').children('td')[1].innerText 
+                var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
+                var address = $(this).parents('tr').children('td')[4].innerText 
+                var mobile = $(this).parents('tr').children('td')[5].innerText 
+                var work_type = $(this).parents('tr').children('td')[7].innerText 
+                var GUI_number = $(this).parents('tr').children('td')[8].innerText 
 
                 $.ajax({
                     url:"{{ route('ht.StrokeManage.assistant.assignCaseBoss',['organization'=>$organization]) }}", 

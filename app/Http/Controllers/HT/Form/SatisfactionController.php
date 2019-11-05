@@ -47,7 +47,7 @@ class SatisfactionController extends Controller
 
         $caseCount = count($countArray);
 
-    	return view('ht.Form.satisfaction.index',compact('organization','satisfaction','count'));
+    	return view('ht.Form.satisfaction.index',compact('organization','satisfaction','count','caseCount'));
     }
 
     public function store(Organization $organization,Request $request)

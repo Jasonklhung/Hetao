@@ -167,7 +167,6 @@ class PermissionController extends Controller
     {
 
     	$user = User::find($request->id);
-        dd($user);
         $user->organization_id = $request->company;
     	$user->department_id = $request->company;
     	$user->name = $request->name;

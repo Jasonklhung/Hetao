@@ -231,7 +231,7 @@ $(document).ready(function(){
 
                 $("#hetao-list-s-2").on("click", ".transfer", function(){
 
-                    // var id = $(this).parents('tr').children('td')[0].innerText 
+                    var id = $(this).parents('tr').children('td')[0].innerText 
                     // var time = $(this).parents('tr').children('td')[1].innerText 
                     // var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
                     // var address = $(this).parents('tr').children('td')[4].innerText 
@@ -434,7 +434,7 @@ $(document).ready(function(){
 
                 $("#hetao-list-s-2").on("click", ".transfer", function(){
 
-                    // var id = $(this).parents('tr').children('td')[0].innerText 
+                    var id = $(this).parents('tr').children('td')[0].innerText 
                     // var time = $(this).parents('tr').children('td')[1].innerText 
                     // var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
                     // var address = $(this).parents('tr').children('td')[4].innerText 

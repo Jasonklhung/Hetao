@@ -167,6 +167,7 @@ class PermissionController extends Controller
     {
 
     	$user = User::find($request->id);
+        dd($user);
         $user->organization_id = $request->company;
     	$user->department_id = $request->company;
     	$user->name = $request->name;
@@ -191,7 +192,7 @@ class PermissionController extends Controller
         //line api
         if($request->job == '員工'){
 
-            $userId = Auth::user()->token;
+            $userId = $user['token'];
             $richmenuId = 'richmenu-378a6d5027112cad45cbb8c9964d42e4' ;
             $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
 
@@ -202,7 +203,7 @@ class PermissionController extends Controller
         }
         elseif($request->job == '助理'){
 
-            $userId = Auth::user()->token;
+            $userId = $user['token'];
             $richmenuId = 'richmenu-0b9890f50d5cd767db86c87dec17ebdd' ;
             $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
 
@@ -213,7 +214,7 @@ class PermissionController extends Controller
         }
         elseif($request->job == '主管'){
 
-            $userId = Auth::user()->token;
+            $userId = $user['token'];
             $richmenuId = 'richmenu-0b9890f50d5cd767db86c87dec17ebdd' ;
             $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
 
@@ -240,11 +241,13 @@ class PermissionController extends Controller
 
     public function destroy(Request $request,Organization $organization,User $user)
     {
+
     	$user = User::find($request->id);
 
     	$user->delete();
 
-        $userId = Auth::user()->token;
+        $userId = $user['token'];
+
         $richmenuId = 'richmenu-183e75de1b54741099d3b3c6952c21b0' ;
         $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
 
@@ -257,7 +260,7 @@ class PermissionController extends Controller
         $response = $client->post('https://linebotclient.azurewebsites.net/line/1608443818/liff/api/updateSet.php', [
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode([
-                'userId' => Auth::user()->token,
+                'userId' => $userId,
             ])
         ]);
 

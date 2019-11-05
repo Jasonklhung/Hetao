@@ -618,7 +618,7 @@
                             '_token':'{{csrf_token()}}',
                             "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
                             "id":id,
-                            "status":'F',
+                            "status":'R',
                             "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
                         },
                         dataType:'json',                 

@@ -252,10 +252,10 @@ $(document).ready(function(){
                         dataType:'json',
                         success:function(response){
                             if(response.status == 200){
-                                alert(response.message);
+                                alert('轉單成功');
                             }
                             else{
-                                alert('狀態更新失敗')
+                                alert('轉單失敗')
                             }
                         }
                     })

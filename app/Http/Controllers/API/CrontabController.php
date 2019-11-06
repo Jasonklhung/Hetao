@@ -21,10 +21,10 @@ class CrontabController extends Controller
     	$time = $time.':00'; //取現在時間
 
     	foreach ($setting as $key => $value) {
-    		$date = Carbon::parse('-'.$value->days.' days')->format('Y-m-d');
-    		$DEPT = Department::where('organization_id',$value->organization_id)->get();
+    		$date = Carbon::parse('-'.$value->days.' days')->format('Y-m-d'); //預約完成後推播 所以要用減
+    		$DEPT = Department::where('organization_id',$value->organization_id)->get(); //取得部門代號
 
-    		if($time == $value->time){
+    		if($time == $value->time){ //現在時間 = 設定時間
 
     			$client = new \GuzzleHttp\Client();
     			$response = $client->post('http://60.251.216.90:8855/api_/work-push', [
@@ -46,9 +46,7 @@ class CrontabController extends Controller
     					$array = $value;
 
     					foreach ($array as $k => $v) {
-    						if($v->owner == null || $v->owner == ''){
-    							array_push($countArray,$v);
-    						}
+    						
     					}
     				}
     			}

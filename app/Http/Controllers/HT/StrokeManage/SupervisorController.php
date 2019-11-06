@@ -121,7 +121,7 @@ class SupervisorController extends Controller
     	if($case->isNotEmpty()){
             DB::table('transfer_cases')
                 ->where('case_id',$request->id)
-                ->update(['id' => Auth::user()->id]);
+                ->update(['user_id' => Auth::user()->id]);
         }else{
             $transfer = new TransferCase;
             $transfer->user_id = Auth::user()->id;

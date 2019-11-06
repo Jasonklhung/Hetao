@@ -370,13 +370,13 @@ class AssistantController extends Controller
     {
         //dd($request->all());
 
-    	$dept = User::where('token',$request->owner_boss)->get();
+    	// $dept = User::where('token',$request->owner_boss)->get();
 
-    	$dept_id = $dept[0]['department_id'];
+    	// $dept_id = $dept[0]['department_id'];
 
-    	$dept_name = Department::where('id',$dept_id)->get();
+    	// $dept_name = Department::where('id',$dept_id)->get();
 
-    	$dept_name = $dept_name[0]['name']; //取得部門名稱
+    	// $dept_name = $dept_name[0]['name']; //取得部門名稱
 
         
         $case = TransferCase::where('case_id',$request->id)->get();
@@ -384,7 +384,7 @@ class AssistantController extends Controller
         if($case->isNotEmpty()){
             DB::table('transfer_cases')
                 ->where('case_id',$request->id)
-                ->update(['id' => Auth::user()->id]);
+                ->update(['user_id' => Auth::user()->id]);
         }else{
             $transfer = new TransferCase;
             $transfer->user_id = Auth::user()->id;

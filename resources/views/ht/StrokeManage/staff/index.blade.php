@@ -22,11 +22,11 @@
                                                         <input type="text" class="form-control mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
                                                         <div class='form-group'>
                                                             <div class='datetime'>
-                                                                <div class='input-group date date-select'>
+                                                                <div class='input-group date date-select' id="SD1">
                                                                     <input class='form-control' placeholder='選擇起始日期' id="startDate1" type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                 </div><span class='rwd-hide'>~</span>
                                                                 <div class='datetime'>
-                                                                    <div class='input-group date date-select mr-s'>
+                                                                    <div class='input-group date date-select mr-s' id="ED1">
                                                                         <input class='form-control' placeholder='選擇結束日期' id="endDate1" type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                     </div>
                                                                 </div>
@@ -90,7 +90,7 @@ $(document).ready(function(){
                     var tt =  'GUI-number'
                     var itemtt = item['GUI-number']
 
-                    if(item.status == '' || item.status == null ||){
+                    if(item.status == '' || item.status == null){
 
                         rows += "<tr>"
                               + "<td>" + item.id + "</td>"
@@ -466,5 +466,13 @@ $(document).ready(function(){
             }
         })
     })
+</script>
+<script type="text/javascript">
+    $("#SD1").on("dp.change", function (e) {
+        $('#ED1').data("DateTimePicker").minDate(e.date);
+    });
+    $("#ED1").on("dp.change", function (e) {
+        $('#SD1').data("DateTimePicker").maxDate(e.date);
+    });
 </script>
 @endsection

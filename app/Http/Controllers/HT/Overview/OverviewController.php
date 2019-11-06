@@ -54,13 +54,14 @@ class OverviewController extends Controller
 
     	 $activity = new Activity;
          $activity->organization_id = $organization->id;
-         $activity->user_id = Auth::user()->id;
+         $activity->user_id = Auth::user()->name;
     	 $activity->title = $request->title;
     	 ($request->startTime == null)? $activity->start = $request->start : $activity->start = $request->start.' '.$request->startTime;
     	 ($request->endTime == null)? $activity->end = $request->end : $activity->end = $request->end.' '.$request->endTime;
     	 $activity->position = $request->position;
     	 $activity->notice = $request->notice;
-    	 $activity->meeting = $request->meeting;
+         $activity->noticeTime = $request->noticeTime;
+    	 $activity->meeting = substr($request->meeting,0,-1);
     	 $activity->description = $request->description;
     	 $activity->save();
 
@@ -74,11 +75,38 @@ class OverviewController extends Controller
     	return $activity;
     }
 
-    public function delete(Organization $organization,Request $request)
+    public function updateDel(Organization $organization,Request $request)
     {
-        $activity = Activity::find($request->id)->delete();
-        
-        return redirect()->route('ht.Overview.index',compact('organization'))->with('success','刪除成功');
+        if (isset($_POST["submit"])) {
+            $sub = $_POST["submit"];
+
+            if (isset($sub["update"]))
+            {
+                $activity = Activity::find($request->id2);
+                $activity->organization_id = $organization->id;
+                $activity->user_id = Auth::user()->name;
+                $activity->title = $request->title2;
+                (isset($request->check))? $activity->start = $request->start2 : $activity->start = $request->start2.' '.$request->startTime2;
+                (isset($request->check))? $activity->end = $request->end2 : $activity->end = $request->end2.' '.$request->endTime2;
+                $activity->position = $request->position2;
+                $activity->notice = $request->notice2;
+                $activity->noticeTime = $request->noticeTime2;
+
+                $meeting = implode(",", $request->meeting2);
+                $activity->meeting = $meeting;
+
+                $activity->description = $request->description2;
+                $activity->save();
+
+                return redirect()->route('ht.Overview.index',compact('organization'))->with('success','修改成功');
+            } 
+            elseif (isset($sub["delete"])) 
+            {
+               $activity = Activity::find($request->id2)->delete();
+
+               return redirect()->route('ht.Overview.index',compact('organization'))->with('success','刪除成功');
+            }
+        }
     }
 
     public function getData(Organization $organization,Request $request)
@@ -107,6 +135,8 @@ class OverviewController extends Controller
 
     public function getName(Organization $organization,Request $request)
     {
+        //dd($request->all());
+
         if($request->job != '其他'){
 
             $org = Organization::where('name',$request->company)->get(); 

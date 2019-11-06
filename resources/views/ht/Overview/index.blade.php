@@ -36,12 +36,14 @@
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </div>
-                                                                <input class='day-select form-control' name="start" placeholder='開始時間' type='text' required=""><input class='hide text-right time-select form-control' name="startTime" placeholder='14:00' type='text' readonly="true"><input class='day-select form-control' name="end" placeholder='結束時間' type='text' required=""><input class='hide text-right time-select form-control' name="endTime" placeholder='15:00' type='text' readonly="true">
+                                                                <input class='day-select form-control' id="SD1" name="start" placeholder='開始時間' type='text' required=""><input class='hide text-right time-select form-control' name="startTime"  type='text' placeholder="選擇時間" readonly="true"><input class='day-select form-control' id="ED1" name="end" placeholder='結束時間' type='text' required=""><input class='hide text-right time-select form-control' name="endTime" type='text' placeholder="選擇時間" readonly="true">
                                                             </li>
-                                                            <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" type="text" name="position" placeholder="新增位置"></li>
-                                                            <li class="mb-s"><i class="fas fa-bell"></i><div class="opmodal o1" data-toggle="modal" data-target="#newalert"><input type="text" name="notice" value="新增通知"></div></li>
-                                                            <li class="mb-s"><i class="fas fa-users"></i><div class="opmodal o2" data-toggle="modal" data-target="#person"><input type="text" name="meeting" value="會議對象"></div></li>
-                                                            <li class="mb-s"><i class="fas fa-align-left"></i><input class="form-control ps" type="text" name="description" placeholder="新增說明"></li>
+                                                            <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" type="text" name="position" placeholder="新增位置" required=""></li>
+                                                            <li class="mb-s"><i class="fas fa-bell"></i><div class="opmodal o1" data-toggle="modal" data-target="#newalert"><input type="text" id="notice" name="tN" placeholder="新增通知" required=""></div></li>
+                                                            <input type="hidden" name="notice">
+                                                            <input type="hidden" name="noticeTime">
+                                                            <li class="mb-s"><i class="fas fa-users"></i><div class="opmodal o2" data-toggle="modal" data-target="#person"><input type="text" name="meeting" placeholder="會議對象" required=""></div></li>
+                                                            <li class="mb-s"><i class="fas fa-align-left"></i><input class="form-control ps" type="text" name="description" placeholder="新增說明" required=""></li>
                                                             <li class="text-center"><div class="coupon"><button type="submit">儲存</button></div></li>
                                                         </ul>
                                                     </form>
@@ -59,6 +61,92 @@
 @endsection
 
 @section('modal')
+<!-- Modal 會議內容-->
+<div id="meet" class="modal fade" role="dialog">
+    <div class="modal-dialog meeting">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-body">
+                <div class="addcalendar">
+                    <form class="form-inline" action="{{ route('ht.Overview.updateDel',['organization'=>$organization]) }}" method="post">
+                        @csrf
+                        <ul class="add-ul">
+                            <li class="mb-s"><span class="title-deco activity">編輯/刪除活動</span>
+                                <div class="coupon float-right"></div>
+                            </li>
+                            <input type="hidden" name="id2">
+                            <li class="mb-s"><input class="form-control title" name="title2" type="text" placeholder="輸入標題" required=""></li>
+                            <li class="mb-s">
+                                <i class="fas fa-clock"></i>
+                                <div class="allday">
+                                    <span>全天</span>
+                                    <label class="switch">
+                                        <input type="checkbox" name="check" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                <input class='day-select form-control' name="start2" placeholder='開始時間' type='text' readonly="true" required=""><input class='hide text-right time-select form-control' name="startTime2" placeholder='選擇時間' type='text' readonly="true"><input class='day-select form-control' placeholder='結束時間' name="end2" type='text' readonly="true" required=""><input class='hide text-right time-select form-control' name="endTime2" placeholder='選擇時間' type='text' readonly="true">
+                            </li>
+                            <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" name="position2" required="" type="text" placeholder="新增位置"></li>
+                            <li class="mb-s"><i class="fas fa-bell"></i>
+                                <div class="edit">
+                                    <div class="mb-s">
+                                        <input class="form-control messenger" type="number" min="1" value="10" name="notice2" required="">
+                                        <select class="form-control messenger" name="noticeTime2" id="" required="">
+                                            <option value="分鐘前">分鐘前</option>
+                                            <option value="小時前">小時前</option>
+                                            <option value="天前">天前</option>
+                                            <option value="週前">週前</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="mb-s"><i class="fas fa-users"></i>
+                                <div class="opmodal o2">會議對象</div>
+                                <div>
+                                    <select class='form-control mb-s company' name="company2">
+                                        <option selected disabled hidden>分公司</option>
+                                        <option>台北</option>
+                                        <option>新北</option>
+                                        <option>桃園</option>
+                                        <option>台中</option>
+                                        <option>台南</option>
+                                        <option>高雄</option>
+                                    </select>
+                                    <select class='form-control mb-s role' disabled="disabled" name="job2">
+                                        <option selected disabled hidden>職稱</option>
+                                        <option value="助理">助理</option>
+                                        <option value="主管">主管</option>
+                                        <option value="員工">員工</option>
+                                    </select>
+                                    <select class='form-control mb-s staffname' disabled="disabled" name="name2">
+                                        <option selected disabled hidden>員工名稱</option>
+                                        <option value="小美">小美</option>
+                                        <option value="小王">小王</option>
+                                        <option value="小名">小名</option>
+                                        <option value="小強">小強</option>
+                                        <option value="小花">小花</option>
+                                        <option value="小白">小白</option>
+                                    </select>
+                                    <button type="button" class="btn btn-primary add-member">+</button>
+                                </div>
+                                <div class="memberwrap">
+                                </div>
+                            </li>
+                            <li class="mb-s"><i class="fas fa-align-left"></i><input class="form-control ps" name="description2" type="text" placeholder="新增說明"></li>
+                            <li class="mb-s"><i class="fas fa-user"></i><input class="form-control ps" name="owner" type="text" readonly=""></li>
+                            <li class="text-center">
+                                <div class="coupon"><button type="submit" name="submit[update]">儲存</button>&nbsp;&nbsp;<button type="submit" name="submit[delete]">刪除</button>&nbsp;&nbsp;<button type="button" data-dismiss="modal">關閉</button></div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal 新增通知 -->
 <div id="newalert" class="modal fade" role="dialog" style="z-index: 9999;">
     <div class="modal-dialog">
@@ -104,33 +192,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<!-- Modal 會議內容-->
-<div id="meet" class="modal fade" role="dialog">
-  <div class="modal-dialog meeting">
-    <!-- Modal content-->
-    <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <div class="modal-body">
-        <ul class="add-ul">
-            <form method="post" action="{{ route('ht.Overview.delete',['organization'=>$organization]) }}">
-                @csrf
-                <input type="hidden" name="id">
-                <li class="mb-s" id="title"><span class="title-deco active">會議</span>
-                </li>
-                <li class="mb-s">
-                    <i class="fas fa-clock fa-fw"></i><span>全天</span>
-                </li>
-                <li class="mb-s" id="position"><i class="fas fa-map-marker-alt fa-fw"></i><span>XXXXX會議室</span></li>
-                <li class="mb-s" id="people"><i class="fas fa-users fa-fw"></i><span>Vicky, Andy, Luna</span></li>
-                <li class="mb-s" id="description"><i class="fas fa-align-left fa-fw"></i><span>記得要下班</span></li>
-                <li class="mb-s mt-m text-center"><div class="coupon"><button type="button" class="btn" data-dismiss="modal">關閉</button><button type="submit">刪除</button></div></li>
-            </form>
-        </ul>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div id="job1" class="modal fade" role="dialog">
@@ -206,14 +267,14 @@
             method:'get',
             url:'{{ route('ht.Overview.getData',['organization'=>$organization]) }}',
             data:{
-                "token": "Z8564d5737a4ba80b8e7921e882e506ea",
-                "DEPT": "H026"
+                "token": '{{Auth::user()->token}}',
+                "DEPT": '{{Auth::user()->department->name}}'
             },
             dataType:'json',
             success:function(data){
                 $.each(data['data'], function (i, item) {
 
-                    chart_json.push({'title':"工單:"+item.id+" "+item.owner+"",'start':item.time,'url':'#job1','className':'fc-event-success','allDay':true,'id':item.id,'owner':item.owner,'type':item.work_type,'time':item.time,'custkey':item.CUSTKEY,'address':item.address,'mobile':item.mobile,'reason':item.remarks,'status':item.status});
+                    chart_json.push({'title':"工單:"+item.id+" "+item.owner+"",'start':item.time,'url':'#job1','className':'fc-event-success','allDay':false,'id':item.id,'owner':item.owner,'type':item.work_type,'time':item.time,'custkey':item.CUSTKEY,'address':item.address,'mobile':item.mobile,'reason':item.remarks,'status':item.status});
                 });
 
                 $.ajax({
@@ -223,12 +284,20 @@
                     success:function(response){
                         $.each(response, function (i, item) {
 
-                           if(item.start.split(" ")[1] == '00:00:00'){
+                           if(item.start.split(" ")[1] == '00:00:00' && item.start == item.end){
 
-                                chart_json.push({'id':item.id,'title':item.title,'start':item.start,'end':item.end,'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'description':item.description});
+                                chart_json.push({'id':item.id,'title':item.title,'start':item.start.split(" ")[0],'end':item.end.split(" ")[0],'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id});
+                           }
+                           else if(item.start.split(" ")[1] == '00:00:00'){
+
+                                var date = new Date(item.end);
+                                var end = date.setTime(date.getTime()+24*60*60*1000);
+                                var resEnd = date.getFullYear()+"-" + ('0' + (date.getMonth()+1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2)
+
+                                chart_json.push({'id':item.id,'title':item.title,'start':item.start.split(" ")[0],'end':resEnd,'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id});
                            }
                            else{
-                                chart_json.push({'id':item.id,'title':""+item.start.split(" ")[1]+" "+item.title,'start':item.start,'end':item.end,'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'description':item.description});
+                                chart_json.push({'id':item.id,'title':item.title,'start':item.start,'end':item.end,'url':'#meet','allDay':false,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id});
                            }
                         });
 
@@ -269,7 +338,7 @@
                             },
                             events: chart_json,
                             eventClick: function(info) {
-
+                                console.log(info)
                                 if(info.url == '#job1'){
 
                                     $("li[id='type']").html("<span>派工類型 </span>"+info.type+"");
@@ -283,11 +352,55 @@
                                     $("li[id='status']").html("<span>狀態 </span>"+info.status+"");
                                 }
                                 else{
-                                    $("input[name='id']").val(info.id);
-                                    $("li[id='title']").html("<span class='title-deco active'>"+info.title+"</span>");
-                                    $("li[id='position']").html("<i class='fas fa-map-marker-alt fa-fw'></i><span>"+info.position+"</span>");
-                                    $("li[id='people']").html("<i class='fas fa-users fa-fw'></i><span>"+info.meeting+"</span>");
-                                    $("li[id='description']").html("<i class='fas fa-align-left fa-fw'></i><span>"+info.description+"</span>");
+                                    $("div[class='memberwrap']").html("")
+
+                                    $("input[name='id2']").val(info.id);
+                                    $("input[name='title2']").val(info.title);
+                                    $("input[name='position2']").val(info.position);
+                                    $("input[name='notice2']").val(info.notice);
+                                    $("input[name='owner']").val(info.owner);
+                                    
+
+                                    var numbers = $("select[name='noticeTime2']").find("option");
+
+                                    for (var j = 0; j < numbers.length; j++) {
+                                        if ($(numbers[j]).val() == info.noticeTime) {
+                                            $(numbers[j]).attr("selected", "selected");
+                                        }
+                                    }
+
+                                    for (var i = 0; i < info.meeting.split(",").length; i++) {
+                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+info.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+info.meeting.split(",")[i]+"></span>")
+                                    }
+                                    $("input[name='description2']").val(info.description);
+
+                                    //以下為時間判斷
+                                    if(info.start._i.split(" ")[1] == undefined && info.end == null){
+                                        
+                                        $("div[class='allday']").html("<span>全天</span><label class='switch'><input type='checkbox' name='check' checked><span class='slider round'></span></label>");
+                                        $("input[name='start2']").val(info.start._i);
+                                        $("input[name='end2']").val(info.start._i);
+                                    }
+                                    else if(info.start._i.split(" ")[1] == undefined){
+
+                                        $("div[class='allday']").html("<span>全天</span><label class='switch'><input type='checkbox' name='check' checked><span class='slider round'></span></label>");
+                                        $("input[name='start2']").val(info.start._i);
+                                        $("input[name='end2']").val(info.end._i);
+                                    }
+                                    else{
+
+                                        $("div[class='allday']").html("<span>全天</span><label class='switch'><input type='checkbox' name='check'><span class='slider round'></span></label>")
+                                        $("input[name='start2']").val(info.start._i.split(" ")[0])
+                                        $("input[name='end2']").val(info.end._i.split(" ")[0])
+
+                                        $("input[name='startTime2']").attr("style","display: inline-block");
+                                        $("input[name='startTime2']").attr("class","text-right time-select form-control");
+                                        $("input[name='endTime2']").attr("style","display: inline-block");
+                                        $("input[name='endTime2']").attr("class","text-right time-select form-control");
+
+                                        $("input[name='startTime2']").val(info.start._i.split(" ")[1])
+                                        $("input[name='endTime2']").val(info.end._i.split(" ")[1])
+                                    }
                                 }
 
                                 $(info.url).modal('show')
@@ -360,6 +473,9 @@
 
                 $("select[name='company']").empty();
                 $("select[name='company']").append(selOpts);
+
+                $("select[name='company2']").empty();
+                $("select[name='company2']").append(selOpts);
             }
         })
 
@@ -389,6 +505,40 @@
             })
         });
 
+        $("select[name='job2']").on('change',function(){
+
+            var company = $("select[name='company2']").val();
+            var job = $("select[name='job2']").val();
+
+            $.ajax({
+                url:"{{ route('ht.Overview.getName',['organization'=>$organization]) }}", 
+                method:"post",
+                dataType:'json',
+                data:{
+                    '_token':'{{csrf_token()}}',
+                    'company':company,
+                    'job':job
+                },              
+                success:function(res){
+                    var selOpts = "<option selected disabled hidden>員工名稱</option>";
+                    $.each(res, function (i, item) {
+                        selOpts += "<option value='"+item.name+"'>"+item.name+"</option>";
+                    })
+
+                    $("select[name='name2']").empty();
+                    $("select[name='name2']").append(selOpts);
+                }
+            })
+        });
+
     });
+    </script>
+    <script type="text/javascript">
+        $("#SD1").on("dp.change", function (e) {
+            $('#ED1').data("DateTimePicker").minDate(e.date);
+        });
+        $("#ED1").on("dp.change", function (e) {
+            $('#SD1').data("DateTimePicker").maxDate(e.date);
+        });
     </script>
 @endsection

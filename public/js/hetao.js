@@ -62,16 +62,23 @@ $(document).ready(function() {
             ignoreReadonly: true,
             allowInputToggle: true,
             locale: 'ZH-TW',
+            useCurrent: false,
         });
     });
+
+
     $(function() {
         $('.date-select').datetimepicker({
             format: 'YYYY-MM-DD',
             ignoreReadonly: true,
             allowInputToggle: true,
             locale: 'ZH-TW',
+            useCurrent: false,
         });
     });
+
+
+
     $(function() {
         $('.time-select').datetimepicker({
             format: 'HH:mm',
@@ -420,48 +427,88 @@ $('body').on('change', '.allday input[type="checkbox"]', function(){
 
     }
 });
-/*"新增通知"*/
 $('body').on('click', '#newalert button', function(){
     var unit = $("input[name='t']:checked").val()
     var num = $("#newalert input[type='number']").val()
     //$('.o1').attr('data-target', '#newalert').html(num+unit);
-    $('input[name="notice"]').val(num+unit);
+    $('#notice').val(num+unit);
+    $('input[name="notice"]').val(num);
+    $('input[name="noticeTime"]').val(unit);
 });
+
 /*"會議對象"*/
 $('body').on('click', '#person .add-member', function(){
-    var company = $(".company").val()
-    var role = $(".role").val()
-    var staffname = $(".staffname").val()
+    var company = $("#person .company").val()
+    var role = $("#person .role").val()
+    var staffname = $("#person .staffname").val()
     if((company && role && staffname) !== null){
-        $('.memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button></span>');
+        $('#person .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button></span>');
     }
 });
 /*刪除會議對象*/
 $('body').on('click', '#person .close', function(){
-    $(this).parent('.tag').remove();
+    $(this).parent('#person .tag').remove();
 });
 /*選了分公司才能選職稱*/
-$('body').on('change', '.company', function(){
+$('body').on('change', '#person .company', function(){
     if($(this).val() !== "") {
-        $('.role').prop('disabled','');
+        $('#person .role').prop('disabled','');
     }
 });
 /*選了職稱才能選員工*/
-$('body').on('change', '.role', function(){
+$('body').on('change', '#person .role', function(){
     if($(this).val() !== "") {
-        $('.staffname').prop('disabled','');
-        $('.staffname').val('小美');
+        $('#person .staffname').prop('disabled','');
+        $('#person .staffname').val('小美');
     }
 });
 /*會議對象按下完成*/
-$('body').on('click', '.finish', function(){
-    var member = $('.tag').text()
+$('body').on('click', '#person .finish', function(){
+    var member = $('#person .tag').text()
     var noxx = member.replace(/\×/g, ', ')
-    // if($('.memberwrap span').hasClass('tag')) {
-    //     $('.o2').text(noxx);
-    // }else {
-    //     $('.o2').text('會議對象');
-    // }
-    $('input[name="meeting"]').val(noxx);
+    if($('#person .memberwrap span').hasClass('tag')) {
+        $('.main .o2').text(noxx);
+         $('.main .o2').append("<input type='hidden' name='meeting' value="+noxx+" >");
+    }else {
+        $('.main .o2').text('會議對象');
+    }
+});
+
+// 編輯中的"會議對象"
+/*"會議對象"*/
+$('body').on('click', '#meet .add-member', function(){
+    var company = $("#meet .company").val()
+    var role = $("#meet .role").val()
+    var staffname = $("#meet .staffname").val()
+    if((company && role && staffname) !== null){
+        $('#meet .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button><input type="hidden" name="meeting2[]" value='+company+'/'+role+staffname+'></span>');
+    }
+});
+/*刪除會議對象*/
+$('body').on('click', '#meet .close', function(){
+    $(this).parent('#meet .tag').remove();
+});
+/*選了分公司才能選職稱*/
+$('body').on('change', '#meet .company', function(){
+    if($(this).val() !== "") {
+        $('#meet .role').prop('disabled','');
+    }
+});
+/*選了職稱才能選員工*/
+$('body').on('change', '#meet .role', function(){
+    if($(this).val() !== "") {
+        $('#meet .staffname').prop('disabled','');
+        $('#meet .staffname').val('小美');
+    }
+});
+/*會議對象按下完成*/
+$('body').on('click', '#meet .finish', function(){
+    var member = $('#meet .tag').text()
+    var noxx = member.replace(/\×/g, ', ')
+    if($('#meet .memberwrap span').hasClass('tag')) {
+        $('#meet .o2').text(noxx);
+    }else {
+        $('#meet .o2').text('會議對象');
+    }
 });
 

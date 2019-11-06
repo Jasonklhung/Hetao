@@ -46,11 +46,11 @@
                                                                 <div class='form-group'>
                                                                     
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select'>
+                                                                        <div class='input-group date date-select' id="SD1">
                                                                             <input class='form-control' placeholder='選擇起始日期' id="startDate1" type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide'>~</span>
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select mr-s'>
+                                                                        <div class='input-group date date-select mr-s' id="ED1">
                                                                             <input class='form-control' placeholder='選擇結束日期' id="endDate1" type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
@@ -89,11 +89,11 @@
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_a2" placeholder="請輸入關鍵字">
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select'>
+                                                                        <div class='input-group date date-select' id="SD2">
                                                                             <input class='form-control' placeholder='選擇起始日期' id="startDate2" type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide'>~</span>
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select mr-s'>
+                                                                        <div class='input-group date date-select mr-s' id="ED2">
                                                                             <input class='form-control' placeholder='選擇結束日期' id="endDate2" type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
@@ -143,11 +143,11 @@
                                                                 <div class='form-group'>
                                                                     
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select'>
+                                                                        <div class='input-group date date-select' id="SD3">
                                                                             <input class='form-control' placeholder='選擇起始日期' id="startDate3" type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide'>~</span>
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select mr-s'>
+                                                                        <div class='input-group date date-select mr-s' id="ED3">
                                                                             <input class='form-control' placeholder='選擇結束日期' id="endDate3" type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
@@ -188,11 +188,11 @@
                                                                 <div class='form-group'>
                                                                     
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select'>
+                                                                        <div class='input-group date date-select' id="SD5">
                                                                             <input class='form-control' placeholder='選擇起始日期' id="startDate5" type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide'>~</span>
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select mr-s'>
+                                                                        <div class='input-group date date-select mr-s' id="ED5">
                                                                             <input class='form-control' placeholder='選擇結束日期' id="endDate5" type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
@@ -233,11 +233,11 @@
                                                                 <div class='form-group'>
                                                                     
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select'>
+                                                                        <div class='input-group date date-select' id="SD4">
                                                                             <input class='form-control' placeholder='選擇起始日期' id="startDate4" type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide'>~</span>
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select mr-s'>
+                                                                        <div class='input-group date date-select mr-s' id="ED4">
                                                                             <input class='form-control' placeholder='選擇結束日期' id="endDate4" type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
@@ -403,7 +403,7 @@
 
                     if(item.owner == '' || item.owner == null || item.status == 'R'){
                         rows += "<tr>"
-                              + "<td>" + item.id + "</td>"
+                              + "<td id='tdid'>" + item.id + "</td>"
                               + "<td>" + item.time + "</td>"
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
@@ -479,9 +479,11 @@
 
                 $('#hetao-list-a-2 tbody').on('change', 'select[name="assign"]', function () {
 
-                    console.log($(this).parents('tr').children('td'));
-
                      var token = $("select[name='assign']").val()
+                     var tdid = $(this).parents('tbody').find('#tdid')
+
+                    
+
                      var id = $(this).parents('tr').children('td')[0].innerText 
                      var time = $(this).parents('tr').children('td')[1].innerText 
                      var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
@@ -489,6 +491,7 @@
                      var mobile = $(this).parents('tr').children('td')[5].innerText 
                      var work_type = $(this).parents('tr').children('td')[7].innerText 
                      var GUI_number = $(this).parents('tr').children('td')[8].innerText 
+                     console.log(GUI_number)
 
                      if (confirm('是否指派？') == true) {
                          $.ajax({
@@ -1415,5 +1418,45 @@
             });
         }
     })
+</script>
+<script type="text/javascript">
+    $("#SD1").on("dp.change", function (e) {
+        $('#ED1').data("DateTimePicker").minDate(e.date);
+    });
+    $("#ED1").on("dp.change", function (e) {
+        $('#SD1').data("DateTimePicker").maxDate(e.date);
+    });
+
+    $("#SD2").on("dp.change", function (e) {
+        console.log(e)
+        $('#ED2').data("DateTimePicker").minDate(e.date);
+    });
+    $("#ED2").on("dp.change", function (e) {
+        $('#SD2').data("DateTimePicker").maxDate(e.date);
+    });
+
+    $("#SD3").on("dp.change", function (e) {
+        console.log(e)
+        $('#ED3').data("DateTimePicker").minDate(e.date);
+    });
+    $("#ED3").on("dp.change", function (e) {
+        $('#SD3').data("DateTimePicker").maxDate(e.date);
+    });
+
+    $("#SD4").on("dp.change", function (e) {
+        console.log(e)
+        $('#ED4').data("DateTimePicker").minDate(e.date);
+    });
+    $("#ED4").on("dp.change", function (e) {
+        $('#SD4').data("DateTimePicker").maxDate(e.date);
+    });
+
+    $("#SD5").on("dp.change", function (e) {
+        console.log(e)
+        $('#ED5').data("DateTimePicker").minDate(e.date);
+    });
+    $("#ED5").on("dp.change", function (e) {
+        $('#SD5').data("DateTimePicker").maxDate(e.date);
+    });
 </script>
 @endsection

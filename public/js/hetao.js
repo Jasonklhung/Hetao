@@ -468,7 +468,8 @@ $('body').on('click', '#person .finish', function(){
     var noxx = member.replace(/\×/g, ', ')
     if($('#person .memberwrap span').hasClass('tag')) {
         $('.main .o2').text(noxx);
-         $('.main .o2').append("<input type='hidden' name='meeting' value="+noxx+" >");
+        console.log(noxx)
+        $('.main .o2').append("<input type='hidden' name='meeting' value='"+noxx+"'>");
     }else {
         $('.main .o2').text('會議對象');
     }

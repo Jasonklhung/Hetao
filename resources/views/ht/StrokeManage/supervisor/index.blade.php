@@ -453,33 +453,31 @@
                         }
                     }
 
-                     if (confirm('是否指派？') == true) {
-                         $.ajax({
-                            url:"{{ route('ht.StrokeManage.supervisor.assignCaseBoss',['organization'=>$organization]) }}", 
-                            method:"post",
-                            data:{
-                                '_token':'{{csrf_token()}}',
-                                'id':id,
-                                'name': CUSTKEY,
-                                'mobile': mobile,
-                                'GUI_number': GUI_number,
-                                'address': address,
-                                'reason': reason,
-                                'work_type': work_type,
-                                'time': time,
-                                'owner_boss': token,
-                            },
-                            dataType:'json',                 
-                            success:function(res){
-                                if(res.status == 200){
-                                    alert('工單更新成功,已指派員工');
-                                }
-                                else{
-                                    alert('指派失敗')
-                                }
+                    $.ajax({
+                        url:"{{ route('ht.StrokeManage.supervisor.assignCaseBoss',['organization'=>$organization]) }}", 
+                        method:"post",
+                        data:{
+                            '_token':'{{csrf_token()}}',
+                            'id':id,
+                            'name': CUSTKEY,
+                            'mobile': mobile,
+                            'GUI_number': GUI_number,
+                            'address': address,
+                            'reason': reason,
+                            'work_type': work_type,
+                            'time': time,
+                            'owner_boss': token,
+                        },
+                        dataType:'json',                 
+                        success:function(res){
+                            if(res.status == 200){
+                                alert('工單更新成功,已指派員工');
                             }
-                        })
-                    }
+                            else{
+                                alert('指派失敗')
+                            }
+                        }
+                    })
 
                  })
             }
@@ -945,34 +943,31 @@
                         }
                     }
 
-                     if (confirm('是否指派？') == true) {
-                         $.ajax({
-                            url:"{{ route('ht.StrokeManage.supervisor.assignCaseBoss',['organization'=>$organization]) }}", 
-                            method:"post",
-                            data:{
-                                '_token':'{{csrf_token()}}',
-                                'id':id,
-                                'name': CUSTKEY,
-                                'mobile': mobile,
-                                'GUI_number': GUI_number,
-                                'address': address,
-                                'reason': reason,
-                                'work_type': work_type,
-                                'time': time,
-                                'owner_boss': token,
-                            },
-                            dataType:'json',                 
-                            success:function(res){
-                                if(res.status == 200){
-                                    alert('工單更新成功,已指派員工');
-                                }
-                                else{
-                                    alert('指派失敗')
-                                }
+                    $.ajax({
+                        url:"{{ route('ht.StrokeManage.supervisor.assignCaseBoss',['organization'=>$organization]) }}", 
+                        method:"post",
+                        data:{
+                            '_token':'{{csrf_token()}}',
+                            'id':id,
+                            'name': CUSTKEY,
+                            'mobile': mobile,
+                            'GUI_number': GUI_number,
+                            'address': address,
+                            'reason': reason,
+                            'work_type': work_type,
+                            'time': time,
+                            'owner_boss': token,
+                        },
+                        dataType:'json',                 
+                        success:function(res){
+                            if(res.status == 200){
+                                alert('工單更新成功,已指派員工');
                             }
-                        })
-                    }
-
+                            else{
+                                alert('指派失敗')
+                            }
+                        }
+                    })
                  })
             }
         })

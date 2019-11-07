@@ -391,8 +391,8 @@
             method:'get',
             url:'{{ route('ht.StrokeManage.assistant.getData',['organization'=>$organization]) }}',
             data:{
-                "token": '{{Auth::user()->token}}',
-                "DEPT": '{{Auth::user()->department->name}}'
+                "token": 'U2f6ef40c08eb97d124a67970ec337822',
+                "DEPT": 'H026'
             },
             dataType:'json',
             success:function(response){
@@ -547,8 +547,8 @@
             method:'get',
             url:'{{ route('ht.StrokeManage.assistant.schedule',['organization'=>$organization]) }}',
             data:{
-                "token": '{{Auth::user()->token}}',
-                "DEPT": '{{Auth::user()->department->name}}'
+                "token": 'U2f6ef40c08eb97d124a67970ec337822',
+                "DEPT": 'H026'
             },
             dataType:'json',
             success:function(response){

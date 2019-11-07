@@ -289,6 +289,9 @@
                 selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
             })
 
+            $("select[name='assign']").empty();
+            $("select[name='assign']").append(selOpts);
+
             $("select[name='sel1']").empty();
             $("select[name='sel1']").append(selOpts);
         }
@@ -326,7 +329,7 @@
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
-                              + "<td><select class='form-control' name='assign' style='margin-right:28px;'><option selected value=''>待指派</option></select><input class='chkall hide' type='checkbox' value='' name='oneforall' /></td>"
+                              + "<td><select class='form-control' name='assign' style='margin-right:28px;'><option selected value=''>待指派</option><option value='123'>123</option></select><input class='chkall hide' type='checkbox' value='' name='oneforall' /></td>"
                          + "</tr>";
                     }
                     
@@ -421,14 +424,34 @@
                 $('#hetao-list-su tbody').on('change', 'select[name="assign"]', function () {
 
                      var token = $("select[name='assign']").val()
-                     var id = $(this).parents('tr').children('td')[0].innerText 
-                     var time = $(this).parents('tr').children('td')[1].innerText 
-                     var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
-                     var address = $(this).parents('tr').children('td')[4].innerText 
-                     var mobile = $(this).parents('tr').children('td')[5].innerText 
-                     var reason = $(this).parents('tr').children('td')[6].innerText 
-                     var work_type = $(this).parents('tr').children('td')[7].innerText 
-                     var GUI_number = $(this).parents('tr').children('td')[8].innerText 
+                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                     if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var time = $(this).parents('tr').children('td')[1].innerText 
+                        var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
+                        var address = $(this).parents('tr').children('td')[4].innerText 
+                        var mobile = $(this).parents('tr').children('td')[5].innerText 
+                        var reason = $(this).parents('tr').children('td')[6].innerText 
+                        var work_type = $(this).parents('tr').children('td')[7].innerText 
+                        var GUI_number = $(this).parents('tr').children('td')[8].innerText
+                        if(GUI_number == null || GUI_number == ""){
+                            var GUI_number = ""
+                        }
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].innerText;
+                        var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].innerText;
+                        var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].innerText;
+                        var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].innerText;
+                        var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].innerText;
+                        var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].innerText;
+                        var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].innerText;
+                        if(GUI_number == 'null' || GUI_number == ""){
+                            var GUI_number = ""
+                        }
+                    }
 
                      if (confirm('是否指派？') == true) {
                          $.ajax({
@@ -552,7 +575,15 @@
                 });
 
                 $('#hetao-list-s-2').on('click',".finish",function(){
-                    var id = $(this).parents('tr').children('td')[0].innerText
+
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                     if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    }
 
                     $.ajax({
                         method:'post',
@@ -577,7 +608,15 @@
                 })
 
                 $("#hetao-list-s-2").on("click", ".late", function(){
-                    var id = $(this).parents('tr').children('td')[0].innerText
+
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                     if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    }
 
                     $.ajax({
                         method:'post',
@@ -603,7 +642,14 @@
 
                 $("#hetao-list-s-2").on("click", ".transfer", function(){
 
-                    var id = $(this).parents('tr').children('td')[0].innerText 
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                     if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    }
                     // var time = $(this).parents('tr').children('td')[1].innerText 
                     // var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
                     // var address = $(this).parents('tr').children('td')[4].innerText 
@@ -870,14 +916,34 @@
                 $('#hetao-list-su tbody').on('change', 'select[name="assign"]', function () {
 
                      var token = $("select[name='assign']").val()
-                     var id = $(this).parents('tr').children('td')[0].innerText 
-                     var time = $(this).parents('tr').children('td')[1].innerText 
-                     var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
-                     var address = $(this).parents('tr').children('td')[4].innerText 
-                     var mobile = $(this).parents('tr').children('td')[5].innerText 
-                     var reason = $(this).parents('tr').children('td')[6].innerText 
-                     var work_type = $(this).parents('tr').children('td')[7].innerText 
-                     var GUI_number = $(this).parents('tr').children('td')[8].innerText 
+                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                     if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var time = $(this).parents('tr').children('td')[1].innerText 
+                        var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
+                        var address = $(this).parents('tr').children('td')[4].innerText 
+                        var mobile = $(this).parents('tr').children('td')[5].innerText 
+                        var reason = $(this).parents('tr').children('td')[6].innerText 
+                        var work_type = $(this).parents('tr').children('td')[7].innerText 
+                        var GUI_number = $(this).parents('tr').children('td')[8].innerText
+                        if(GUI_number == null || GUI_number == ""){
+                            var GUI_number = ""
+                        }
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].innerText;
+                        var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].innerText;
+                        var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].innerText;
+                        var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].innerText;
+                        var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].innerText;
+                        var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].innerText;
+                        var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].innerText;
+                        if(GUI_number == 'null' || GUI_number == ""){
+                            var GUI_number = ""
+                        }
+                    }
 
                      if (confirm('是否指派？') == true) {
                          $.ajax({
@@ -1096,7 +1162,15 @@
                 });
 
                 $('#hetao-list-s-2').on('click',".finish",function(){
-                    var id = $(this).parents('tr').children('td')[0].innerText
+
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                    if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    }
 
                     $.ajax({
                         method:'post',
@@ -1121,7 +1195,15 @@
                 })
 
                 $("#hetao-list-s-2").on("click", ".late", function(){
-                    var id = $(this).parents('tr').children('td')[0].innerText
+
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                    if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    }
 
                     $.ajax({
                         method:'post',
@@ -1147,7 +1229,14 @@
 
                 $("#hetao-list-s-2").on("click", ".transfer", function(){
 
-                    var id = $(this).parents('tr').children('td')[0].innerText 
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                    if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    }
                     // var time = $(this).parents('tr').children('td')[1].innerText 
                     // var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
                     // var address = $(this).parents('tr').children('td')[4].innerText 
@@ -1278,13 +1367,33 @@
             $('input[name="oneforall"]:checked').each(function(){  
 
                 var token = $("select[name='sel1']").val()
-                var id = $(this).parents('tr').children('td')[0].innerText 
-                var time = $(this).parents('tr').children('td')[1].innerText 
-                var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
-                var address = $(this).parents('tr').children('td')[4].innerText 
-                var mobile = $(this).parents('tr').children('td')[5].innerText 
-                var work_type = $(this).parents('tr').children('td')[7].innerText 
-                var GUI_number = $(this).parents('tr').children('td')[8].innerText 
+
+                var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                     if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var time = $(this).parents('tr').children('td')[1].innerText 
+                        var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
+                        var address = $(this).parents('tr').children('td')[4].innerText 
+                        var mobile = $(this).parents('tr').children('td')[5].innerText 
+                        var work_type = $(this).parents('tr').children('td')[7].innerText 
+                        var GUI_number = $(this).parents('tr').children('td')[8].innerText
+                        if(GUI_number == null || GUI_number == ""){
+                            var GUI_number = ""
+                        }
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].innerText;
+                        var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].innerText;
+                        var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].innerText;
+                        var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].innerText;
+                        var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].innerText;
+                        var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].innerText;
+                        if(GUI_number == 'null' || GUI_number == ""){
+                            var GUI_number = ""
+                        }
+                    }
 
                 $.ajax({
                     url:"{{ route('ht.StrokeManage.supervisor.assignCaseBoss',['organization'=>$organization]) }}", 

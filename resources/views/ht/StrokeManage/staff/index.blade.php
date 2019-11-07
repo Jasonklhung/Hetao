@@ -180,7 +180,15 @@ $(document).ready(function(){
                 });
 
                 $('#hetao-list-s-2').on('click',".finish",function(){
-                    var id = $(this).parents('tr').children('td')[0].innerText
+
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                    if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    }
 
                     $.ajax({
                         method:'post',
@@ -205,7 +213,15 @@ $(document).ready(function(){
                 })
 
                 $("#hetao-list-s-2").on("click", ".late", function(){
-                    var id = $(this).parents('tr').children('td')[0].innerText
+
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                    if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    }
 
                     $.ajax({
                         method:'post',
@@ -231,7 +247,14 @@ $(document).ready(function(){
 
                 $("#hetao-list-s-2").on("click", ".transfer", function(){
 
-                    var id = $(this).parents('tr').children('td')[0].innerText 
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                    if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    }
                     // var time = $(this).parents('tr').children('td')[1].innerText 
                     // var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
                     // var address = $(this).parents('tr').children('td')[4].innerText 
@@ -383,7 +406,15 @@ $(document).ready(function(){
                 });
 
                 $('#hetao-list-s-2').on('click',".finish",function(){
-                    var id = $(this).parents('tr').children('td')[0].innerText
+
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                    if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    }
 
                     $.ajax({
                         method:'post',
@@ -408,7 +439,15 @@ $(document).ready(function(){
                 })
 
                 $("#hetao-list-s-2").on("click", ".late", function(){
-                    var id = $(this).parents('tr').children('td')[0].innerText
+                    
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                    if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    }
 
                     $.ajax({
                         method:'post',
@@ -434,7 +473,14 @@ $(document).ready(function(){
 
                 $("#hetao-list-s-2").on("click", ".transfer", function(){
 
-                    var id = $(this).parents('tr').children('td')[0].innerText 
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                    if(RWD == 0){
+                        var id = $(this).parents('tr').children('td')[0].innerText 
+                    }
+                    else if(RWD == 1){
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    }
                     // var time = $(this).parents('tr').children('td')[1].innerText 
                     // var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
                     // var address = $(this).parents('tr').children('td')[4].innerText 

@@ -50,6 +50,7 @@
                                                                 <th class="desktop">派工原因</th>
                                                                 <th class="desktop">派工類型</th>
                                                                 <th hidden="">統編</th>
+                                                                <th hidden="">status</th>
                                                                 <th class="desktop">狀態</th>
                                                             </tr>
                                                         </thead>
@@ -102,6 +103,7 @@ $(document).ready(function(){
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
+                              + "<td hidden>" + item.status + "</td>"
                               + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
                          + "</tr>";
                     }
@@ -116,6 +118,7 @@ $(document).ready(function(){
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
+                              + "<td hidden>" + item.status + "</td>"
                               + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
                          + "</tr>";
                     }
@@ -130,6 +133,7 @@ $(document).ready(function(){
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
+                              + "<td hidden>" + item.status + "</td>"
                               + "<td>已完成</td>"
                          + "</tr>";
                     }
@@ -328,6 +332,7 @@ $(document).ready(function(){
                                   + "<td>" + item.remarks + "</td>"
                                   + "<td>" + item.work_type + "</td>"
                                   + `<td hidden> ${itemtt}</td>`
+                                  + "<td hidden>" + item.status + "</td>"
                                   + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
                              + "</tr>";
                         }
@@ -342,6 +347,7 @@ $(document).ready(function(){
                                   + "<td>" + item.remarks + "</td>"
                                   + "<td>" + item.work_type + "</td>"
                                   + `<td hidden> ${itemtt}</td>`
+                                  + "<td hidden>" + item.status + "</td>"
                                   + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
                              + "</tr>";
                         }
@@ -356,6 +362,7 @@ $(document).ready(function(){
                                   + "<td>" + item.remarks + "</td>"
                                   + "<td>" + item.work_type + "</td>"
                                   + `<td hidden> ${itemtt}</td>`
+                                  + "<td hidden>" + item.status + "</td>"
                                   + "<td>已完成</td>"
                              + "</tr>";
                         }

@@ -329,7 +329,7 @@
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
-                              + "<td><select class='form-control' name='assign' style='margin-right:28px;'><option selected value=''>待指派</option><option value='123'>123</option></select><input class='chkall hide' type='checkbox' value='' name='oneforall' /></td>"
+                              + "<td><select class='form-control' name='assign' style='margin-right:28px;'><option selected value=''>待指派</option></select><input class='chkall hide' type='checkbox' value='' name='oneforall' /></td>"
                          + "</tr>";
                     }
                     

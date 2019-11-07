@@ -415,7 +415,7 @@
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
-                              + "<td><select class='form-control' name='assign'><option selected value=''>待指派</option><option value='123'>123</option></select></td>"
+                              + "<td><select class='form-control' name='assign'><option selected value=''>待指派</option</select></td>"
                               + "<td><a href='edit/"+window.btoa(item.id)+"'><button type='button' class='btn btn-primary' style='margin-right: 28px;''>處理</button></a><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                          + "</tr>";
                     }
@@ -648,10 +648,10 @@
                         url:'{{ route('ht.StrokeManage.assistant.updateStatus',['organization'=>$organization]) }}',
                         data:{
                             '_token':'{{csrf_token()}}',
-                            "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
+                            "token": 'U2f6ef40c08eb97d124a67970ec337822',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'T',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": 'H026' //'{{Auth::user()->department_id}}'
                         },
                         dataType:'json',
                         success:function(response){
@@ -681,10 +681,10 @@
                         url:'{{ route('ht.StrokeManage.assistant.updateStatus',['organization'=>$organization]) }}',
                         data:{
                             '_token':'{{csrf_token()}}',
-                            "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
+                            "token": 'U2f6ef40c08eb97d124a67970ec337822',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'F',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": 'H026' //'{{Auth::user()->department_id}}'
                         },
                         dataType:'json',
                         success:function(response){
@@ -720,10 +720,10 @@
                         url:'{{ route('ht.StrokeManage.assistant.updateStatus',['organization'=>$organization]) }}',
                         data:{
                             '_token':'{{csrf_token()}}',
-                            "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
+                            "token": 'U2f6ef40c08eb97d124a67970ec337822',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'R',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": 'H026' //'{{Auth::user()->department_id}}'
                         },
                         dataType:'json',                 
                         success:function(res){
@@ -1469,7 +1469,7 @@
             $('input[name="oneforall"]:checked').each(function(){  
 
                 var token = $("select[name='sel1']").val()
-                
+
                 var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                 if(RWD == 0){

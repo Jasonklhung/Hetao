@@ -315,7 +315,7 @@ div.dataTables_wrapper div.dataTables_filter label, .dataTables_filter .form-gro
 
 @media screen and (max-width: 360px) {
     .nav-tabs li {
-        width: 50%;
+        width: 49%;
     }
     .nav-tabs li a {
         padding: 15px;
@@ -945,7 +945,7 @@ input:checked+.slider:before {
 .addcalendar input:focus, .addcalendar select.form-control:focus {
     box-shadow: none;
 }
-#meet .add-member {
+#meet .add-member, #job2 .add-member {
     width: 30px;
     height: 30px;
     padding: 0;
@@ -1002,12 +1002,12 @@ input:checked+.slider:before {
     left: 8px;
 }
 
-#job ul li ul li, #job1 ul li ul li {
+#job ul li ul li, #job1 ul li ul li, #job2 ul.add-ul li.mb-s>ul>li {
     padding: 0.5em 0;    
     border-bottom: 1px solid #efefef;    
 }
 
-#job ul ul, #job1 ul ul {
+#job ul ul, #job1 ul ul, #job2 ul.add-ul li.mb-s>ul {
     border-top: 1px solid #efefef;
     border-bottom: 1px solid #efefef;
     margin-bottom: 15px;
@@ -1015,9 +1015,12 @@ input:checked+.slider:before {
     padding: 0 15px;
 }
 
-#job ul li span, #job1 ul li span {
+#job ul li span, #job1 ul li span, #job2 ul.add-ul li.mb-s span:not(.slider, .weekend) {
     display: inline-block;
-    width: 75px;
+    min-width: 75px;
+}
+.modal-content .tab-content {
+    margin-top: 16px;
 }
 
 #person select[disabled] {
@@ -1645,3 +1648,5 @@ input[class^=follow]:checked+.followanswer:before {
     border: 0; 
     border-radius: 0;
 }
+
+

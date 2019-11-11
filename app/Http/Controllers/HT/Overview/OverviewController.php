@@ -123,6 +123,30 @@ class OverviewController extends Controller
 
     	$response = $response->getBody()->getContents();
 
+        $data = json_decode($response);
+
+        $result = array();
+        $bbb = array();
+        $test = array();
+        $titleArray = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+            }
+        }
+
+        foreach ($array as $k => $v) {
+            // $result[$v->time][$k] = ['title'=>$v->id,'start'=>$v->time,'url'=>'#job','className'=>'fc-event-success','allDay'=>'false','id'=>$v->id,'owner'=>$v->owner,'type'=>$v->work_type,'time'=>$v->time,'custkey'=>$v->CUSTKEY,'address'=>$v->address,'mobile'=>$v->mobile,'reason'=>$v->remarks,'status'=>$v->status];
+            if(in_array($v->time, $bbb)){
+                $result[$v->time][] = ['title'=>$v->id];
+            }
+            else{
+                array_push($bbb,$v->time);
+                $result[$v->time][] = ['title'=>$v->id];
+            }
+        }
+
     	return $response;
     }
 

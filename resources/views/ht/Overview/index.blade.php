@@ -220,6 +220,145 @@
     </div>
   </div>
 </div>
+<div id="job2" class="modal fade" role="dialog">
+        <div class="modal-dialog meeting">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal-body">
+                    <!-- tab標籤 -->
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#preview-meeting">會議</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#preview-job">工單</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <!-- 會議內容 -->
+                        <div class="tab-pane active" id="preview-meeting">
+                            <!-- 看 -->
+                            <ul id="noMeet">
+                                <li class="mb-s"><span class="title-deco active">今日無會議</span>
+                                </li>
+                            </ul>
+                            <ul class="add-ul readmode" id="meetInfo">
+                                <!-- <li class="mb-s">
+                                    <i class="fas fa-clock fa-fw"></i><span>全天</span>
+                                </li>
+                                <li class="mb-s"><i class="fas fa-map-marker-alt fa-fw"></i><span>XXXXX會議室</span></li>
+                                <li class="mb-s"><i class="fas fa-users fa-fw"></i><span>Vicky, Andy, Luna</span></li>
+                                <li class="mb-s"><i class="fas fa-align-left fa-fw"></i><span>記得要下班</span></li>
+                                <li class="mb-s mt-m text-center">
+                                    <div class="coupon">
+                                        <button type="button" class="btn edit-preview-meeting">編輯</button>
+                                        <button type="button" class="btn" data-dismiss="modal">關閉</button>
+                                    </div>
+                                </li> -->
+                            </ul>
+                            <!-- 編輯 -->
+                            <div class="addcalendar editmode" style="display: none;">
+                                <form class="form-inline">
+                                    <ul class="add-ul">
+                                        <li class="mb-s"><span class="title-deco activity">編輯活動</span>
+                                            <div class="coupon float-right"></div>
+                                        </li>
+                                        <li class="mb-s"><input class="form-control title" type="text" placeholder="輸入標題"></li>
+                                        <li class="mb-s">
+                                            <i class="fas fa-clock"></i>
+                                            <div class="allday">
+                                                <span>全天</span>
+                                                <label class="switch">
+                                                    <input type="checkbox" checked>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                            <input class='day-select form-control' placeholder='開始時間' type='text' readonly="true"><input class='hide text-right time-select form-control' placeholder='14:00' type='text' readonly="true"><input class='day-select form-control' placeholder='結束時間' type='text' readonly="true"><input class='hide text-right time-select form-control' placeholder='15:00' type='text' readonly="true">
+                                        </li>
+                                        <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" type="text" placeholder="新增位置"></li>
+                                        <li class="mb-s"><i class="fas fa-bell"></i>
+                                            <div class="edit">
+                                                <div class="mb-s">
+                                                    <input class="form-control messenger" type="number" min="1" value="10">
+                                                    <select class="form-control messenger" name="" id="">
+                                                        <option value="">分鐘前</option>
+                                                        <option value="">小時前</option>
+                                                        <option value="">天前</option>
+                                                        <option value="">週前</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="mb-s"><i class="fas fa-users"></i>
+                                            <div class="opmodal o2">會議對象</div>
+                                            <div>
+                                                <select class='form-control mb-s company'>
+                                                    <option selected disabled hidden>分公司</option>
+                                                    <option>台北</option>
+                                                    <option>新北</option>
+                                                    <option>桃園</option>
+                                                    <option>台中</option>
+                                                    <option>台南</option>
+                                                    <option>高雄</option>
+                                                </select>
+                                                <select class='form-control mb-s role' disabled="disabled">
+                                                    <option selected disabled hidden>職稱</option>
+                                                    <option value="助理">助理</option>
+                                                    <option value="主管">主管</option>
+                                                    <option value="員工">員工</option>
+                                                </select>
+                                                <select class='form-control mb-s staffname' disabled="disabled">
+                                                    <option selected disabled hidden>員工名稱</option>
+                                                    <option value="小美">小美</option>
+                                                    <option value="小王">小王</option>
+                                                    <option value="小名">小名</option>
+                                                    <option value="小強">小強</option>
+                                                    <option value="小花">小花</option>
+                                                    <option value="小白">小白</option>
+                                                </select>
+                                                <button type="button" class="btn btn-primary add-member">+</button>
+                                            </div>
+                                            <div class="memberwrap">
+                                            </div>
+                                        </li>
+                                        <li class="mb-s"><i class="fas fa-align-left"></i><input class="form-control ps" type="text" placeholder="新增說明"></li>
+                                        <li class="text-center">
+                                            <div class="coupon"><button class="edit-meeting-finish" type="button">完成編輯</button><button type="button" class="btn" data-dismiss="modal">關閉</button></div>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- 工單內容 -->
+                        <div class="tab-pane" id="preview-job">
+                            <ul class="add-ul">
+                                <li class="mb-s">
+                                    <ul id="noCase">
+                                        <li><span>今日無工單</span></li>
+                                    </ul>
+                                    <ul id="jobInfo">
+                                        <!-- <li id="type"><span>派工類型 </span>維修</li>
+                                        <li id="custkey"><span>客戶代碼 </span>楊梅國中</li>
+                                        <li id="address"><span>地址 </span><a href="" target="_blank">楊梅區秀才路919號</a></li>
+                                        <li id="mobile"><span>電話 </span><a href="tel:5551234567">03-3322101</a></li>
+                                        <li id="reason"><span>派工原因 </span>載清缸 宿舍1.3樓+教學1樓右邊</li>
+                                        <li id="owner"><span>承辦人員 </span>邱小姐</li>
+                                        <li id="id"><span>工單編號 </span>00000000</li>
+                                        <li id="date"><span>工單日期 </span>2019-08-06 10:30</li>
+                                        <li id="status"><span>狀態 </span>執行中</li> -->
+                                    </ul>
+                                </li>
+                                <li class="mb-s mt-m text-center">
+                                    <div class="coupon"><button type="button" class="btn" data-dismiss="modal">關閉</button></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -261,20 +400,22 @@
         var m = date.getMonth();
         var y = date.getFullYear();
 
+        var count = new Array();
         var chart_json = new Array(); 
 
         $.ajax({
             method:'get',
             url:'{{ route('ht.Overview.getData',['organization'=>$organization]) }}',
             data:{
-                "token": '{{Auth::user()->token}}',
-                "DEPT": '{{Auth::user()->department->name}}'
+                "token": 'U2f6ef40c08eb97d124a67970ec337822',
+                "DEPT": 'H026'
             },
             dataType:'json',
             success:function(data){
+
                 $.each(data['data'], function (i, item) {
 
-                    chart_json.push({'title':"工單:"+item.id+" "+item.owner+"",'start':item.time,'url':'#job1','className':'fc-event-success','allDay':false,'id':item.id,'owner':item.owner,'type':item.work_type,'time':item.time,'custkey':item.CUSTKEY,'address':item.address,'mobile':item.mobile,'reason':item.remarks,'status':item.status});
+                        chart_json.push({'title':"工單:"+item.id+" "+item.owner+"",'start':item.time,'url':'#job2','className':'fc-event-success','allDay':false,'id':item.id,'owner':item.owner,'type':item.work_type,'time':item.time,'custkey':item.CUSTKEY,'address':item.address,'mobile':item.mobile,'reason':item.remarks,'status':item.status,'category':'job'});
                 });
 
                 $.ajax({
@@ -286,7 +427,7 @@
 
                            if(item.start.split(" ")[1] == '00:00:00' && item.start == item.end){
 
-                                chart_json.push({'id':item.id,'title':item.title,'start':item.start.split(" ")[0],'end':item.end.split(" ")[0],'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id});
+                                chart_json.push({'id':item.id,'title':item.title,'start':item.start.split(" ")[0],'end':item.end.split(" ")[0],'url':'#job2','allDay':true,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id,'category':'meet'});
                            }
                            else if(item.start.split(" ")[1] == '00:00:00'){
 
@@ -294,10 +435,10 @@
                                 var end = date.setTime(date.getTime()+24*60*60*1000);
                                 var resEnd = date.getFullYear()+"-" + ('0' + (date.getMonth()+1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2)
 
-                                chart_json.push({'id':item.id,'title':item.title,'start':item.start.split(" ")[0],'end':resEnd,'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id});
+                                chart_json.push({'id':item.id,'title':item.title,'start':item.start.split(" ")[0],'end':resEnd,'url':'#job2','allDay':true,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id,'category':'meet'});
                            }
                            else{
-                                chart_json.push({'id':item.id,'title':item.title,'start':item.start,'end':item.end,'url':'#meet','allDay':false,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id});
+                                chart_json.push({'id':item.id,'title':item.title,'start':item.start,'end':item.end,'url':'#job2','allDay':false,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id,'category':'meet'});
                            }
                         });
 
@@ -338,69 +479,149 @@
                             },
                             events: chart_json,
                             eventClick: function(info) {
-                                console.log(info)
-                                if(info.url == '#job1'){
 
-                                    $("li[id='type']").html("<span>派工類型 </span>"+info.type+"");
-                                    $("li[id='custkey']").html("<span>客戶代碼 </span>"+info.custkey+"");
-                                    $("li[id='address']").html("<span>地址 </span><a href='https://www.google.com.tw/maps/place/"+info.address+"' target='_blank'>"+info.address+"</a>");
-                                    $("li[id='mobile']").html("<span>電話 </span><a href='tel:"+info.mobile+"'>"+info.mobile+"</a>");
-                                    $("li[id='reason']").html("<span>派工原因 </span>"+info.reason+"");
-                                    $("li[id='owner']").html("<span>承辦人員 </span>"+info.owner+"");
-                                    $("li[id='id']").html("<span>工單編號 </span>"+info.id+"");
-                                    $("li[id='date']").html("<span>工單日期 </span>"+info.time+"");
-                                    $("li[id='status']").html("<span>狀態 </span>"+info.status+"");
+                                $("ul[id='noCase']").html("<li><span>今日無工單</span></li>");
+                                $("ul[id='noMeet']").html("<li><span>今日無會議</span></li>");
+                                $("ul[id='jobInfo']").html("");
+                                $("ul[id='meetInfo']").html("");
+
+                                if(info.category == 'job'){
+
+                                    $("ul[id='noCase']").html("");
+
+                                    $("ul[id='jobInfo']").append("<li><span>派工類型 </span>"+info.type+"</li>");
+                                    $("ul[id='jobInfo']").append("<li><span>客戶代碼 </span>"+info.custkey+"</li>");
+                                    $("ul[id='jobInfo']").append("<li><span>地址 </span><a href='https://www.google.com.tw/maps/place/"+info.address+"' target='_blank'>"+info.address+"</a></li>");
+                                    $("ul[id='jobInfo']").append("<li><span>電話 </span><a href='tel:"+info.mobile+"'>"+info.mobile+"</a></li>");
+                                    $("ul[id='jobInfo']").append("<li><span>派工原因 </span>"+info.reason+"</li>");
+                                    $("ul[id='jobInfo']").append("<li><span>承辦人員 </span>"+info.owner+"</li>");
+                                    $("ul[id='jobInfo']").append("<li><span>工單編號 </span>"+info.id+"</li>");
+                                    $("ul[id='jobInfo']").append("<li><span>工單日期 </span>"+info.time+"</li>");
+                                    $("ul[id='jobInfo']").append("<li><span>狀態 </span>"+info.status+"</li>");
                                 }
                                 else{
-                                    $("div[class='memberwrap']").html("")
 
-                                    $("input[name='id2']").val(info.id);
-                                    $("input[name='title2']").val(info.title);
-                                    $("input[name='position2']").val(info.position);
-                                    $("input[name='notice2']").val(info.notice);
-                                    $("input[name='owner']").val(info.owner);
-                                    
+                                    $("ul[id='noMeet']").html("");
 
-                                    var numbers = $("select[name='noticeTime2']").find("option");
-
-                                    for (var j = 0; j < numbers.length; j++) {
-                                        if ($(numbers[j]).val() == info.noticeTime) {
-                                            $(numbers[j]).attr("selected", "selected");
-                                        }
-                                    }
-
-                                    for (var i = 0; i < info.meeting.split(",").length; i++) {
-                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+info.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+info.meeting.split(",")[i]+"></span>")
-                                    }
-                                    $("input[name='description2']").val(info.description);
-
-                                    //以下為時間判斷
+                                    //是否全天
                                     if(info.start._i.split(" ")[1] == undefined && info.end == null){
-                                        
-                                        $("div[class='allday']").html("<span>全天</span><label class='switch'><input type='checkbox' name='check' checked><span class='slider round'></span></label>");
-                                        $("input[name='start2']").val(info.start._i);
-                                        $("input[name='end2']").val(info.start._i);
+                                        $("ul[id='meetInfo']").append("<li class='mb-s'><i class='fas fa-clock fa-fw'></i><span>全天</span></li>");
                                     }
                                     else if(info.start._i.split(" ")[1] == undefined){
-
-                                        $("div[class='allday']").html("<span>全天</span><label class='switch'><input type='checkbox' name='check' checked><span class='slider round'></span></label>");
-                                        $("input[name='start2']").val(info.start._i);
-                                        $("input[name='end2']").val(info.end._i);
+                                        $("ul[id='meetInfo']").append("<li class='mb-s'><i class='fas fa-clock fa-fw'></i><span>全天</span></li>");
                                     }
                                     else{
-
-                                        $("div[class='allday']").html("<span>全天</span><label class='switch'><input type='checkbox' name='check'><span class='slider round'></span></label>")
-                                        $("input[name='start2']").val(info.start._i.split(" ")[0])
-                                        $("input[name='end2']").val(info.end._i.split(" ")[0])
-
-                                        $("input[name='startTime2']").attr("style","display: inline-block");
-                                        $("input[name='startTime2']").attr("class","text-right time-select form-control");
-                                        $("input[name='endTime2']").attr("style","display: inline-block");
-                                        $("input[name='endTime2']").attr("class","text-right time-select form-control");
-
-                                        $("input[name='startTime2']").val(info.start._i.split(" ")[1])
-                                        $("input[name='endTime2']").val(info.end._i.split(" ")[1])
+                                        $("ul[id='meetInfo']").append("<li class='mb-s'><i class='fas fa-clock fa-fw'></i><span>"+info.start._i.split(" ")[1]+"~"+info.end._i.split(" ")[1]+"</span></li>");
                                     }
+
+                                    $("ul[id='meetInfo']").append("<li class='mb-s'><i class='fas fa-map-marker-alt fa-fw'></i><span>"+info.position+"</span></li>");
+                                    //會議對象
+                                    for (var i = 0; i < info.meeting.split(",").length; i++) {
+                                        if(i == 0){
+                                            $("ul[id='meetInfo']").append("<li class='mb-s'><i class='fas fa-users fa-fw'></i><span>"+info.meeting.split(",")[i]+"</span></li>");
+                                        }
+                                        else{
+                                            $("ul[id='meetInfo']").append("<li class='mb-s'><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i><span>"+info.meeting.split(",")[i]+"</span></li>");
+                                        }
+                                        
+                                    }
+                                    $("ul[id='meetInfo']").append("<li class='mb-s'><i class='fas fa-align-left fa-fw'></i><span>"+info.description+"</span></li>");
+                                    $("ul[id='meetInfo']").append("<li class='mb-s mt-m text-center'><div class='coupon'><button type='button' class='btn edit-preview-meeting'>編輯</button><button type='button' class='btn' data-dismiss='modal'>關閉</button></div></li>");
+
+                                    $('.edit-preview-meeting').on('click', function() {
+                                        alert(123)
+                                        $('.readmode').css('display', 'none');
+                                        $('.editmode').css('display', 'block');
+                                    });
+                                    $('.edit-meeting-finish').on('click', function() {
+                                        $('.readmode').css('display', 'block');
+                                        $('.editmode').css('display', 'none');
+                                    });
+
+                                    /*"會議對象"*/
+                                    $('body').on('click', '#job2 .add-member', function(){
+                                        var company = $("#job2 .company").val()
+                                        var role = $("#job2 .role").val()
+                                        var staffname = $("#job2 .staffname").val()
+                                        if((company && role && staffname) !== null){
+                                            $('#job2 .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button></span>');
+                                        }
+                                    });
+                                    /*刪除會議對象*/
+                                    $('body').on('click', '#job2 .close', function(){
+                                        $(this).parent('#job2 .tag').remove();
+                                    });
+                                    /*選了分公司才能選職稱*/
+                                    $('body').on('change', '#job2 .company', function(){
+                                        if($(this).val() !== "") {
+                                            $('#job2 .role').prop('disabled','');
+                                        }
+                                    });
+                                    /*選了職稱才能選員工*/
+                                    $('body').on('change', '#job2 .role', function(){
+                                        if($(this).val() !== "") {
+                                            $('#job2 .staffname').prop('disabled','');
+                                            $('#job2 .staffname').val('小美');
+                                        }
+                                    });
+                                    /*會議對象按下完成*/
+                                    $('body').on('click', '#job2 .finish', function(){
+                                        var member = $('#job2 .tag').text()
+                                        var noxx = member.replace(/\×/g, ', ')
+                                        if($('#job2 .memberwrap span').hasClass('tag')) {
+                                            $('#job2 .o2').text(noxx);
+                                        }else {
+                                            $('#job2 .o2').text('會議對象');
+                                        }
+                                    });
+
+                                    // $("input[name='id2']").val(info.id);
+                                    // $("input[name='title2']").val(info.title);
+                                    // $("input[name='position2']").val(info.position);
+                                    // $("input[name='notice2']").val(info.notice);
+                                    // $("input[name='owner']").val(info.owner);
+                                    
+
+                                    // var numbers = $("select[name='noticeTime2']").find("option");
+
+                                    // for (var j = 0; j < numbers.length; j++) {
+                                    //     if ($(numbers[j]).val() == info.noticeTime) {
+                                    //         $(numbers[j]).attr("selected", "selected");
+                                    //     }
+                                    // }
+
+                                    // for (var i = 0; i < info.meeting.split(",").length; i++) {
+                                    //     $("div[class='memberwrap']").append("<span class='tag'><div><small>"+info.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+info.meeting.split(",")[i]+"></span>")
+                                    // }
+                                    // $("input[name='description2']").val(info.description);
+
+                                    // //以下為時間判斷
+                                    // if(info.start._i.split(" ")[1] == undefined && info.end == null){
+                                        
+                                    //     $("div[class='allday']").html("<span>全天</span><label class='switch'><input type='checkbox' name='check' checked><span class='slider round'></span></label>");
+                                    //     $("input[name='start2']").val(info.start._i);
+                                    //     $("input[name='end2']").val(info.start._i);
+                                    // }
+                                    // else if(info.start._i.split(" ")[1] == undefined){
+
+                                    //     $("div[class='allday']").html("<span>全天</span><label class='switch'><input type='checkbox' name='check' checked><span class='slider round'></span></label>");
+                                    //     $("input[name='start2']").val(info.start._i);
+                                    //     $("input[name='end2']").val(info.end._i);
+                                    // }
+                                    // else{
+
+                                    //     $("div[class='allday']").html("<span>全天</span><label class='switch'><input type='checkbox' name='check'><span class='slider round'></span></label>")
+                                    //     $("input[name='start2']").val(info.start._i.split(" ")[0])
+                                    //     $("input[name='end2']").val(info.end._i.split(" ")[0])
+
+                                    //     $("input[name='startTime2']").attr("style","display: inline-block");
+                                    //     $("input[name='startTime2']").attr("class","text-right time-select form-control");
+                                    //     $("input[name='endTime2']").attr("style","display: inline-block");
+                                    //     $("input[name='endTime2']").attr("class","text-right time-select form-control");
+
+                                    //     $("input[name='startTime2']").val(info.start._i.split(" ")[1])
+                                    //     $("input[name='endTime2']").val(info.end._i.split(" ")[1])
+                                    // }
                                 }
 
                                 $(info.url).modal('show')
@@ -494,7 +715,15 @@
                     'job':job
                 },              
                 success:function(res){
-                    var selOpts = "<option selected disabled hidden>員工名稱</option>";
+                    
+                    
+                    if(res == ""){
+                        var selOpts = "<option selected disabled hidden>員工名稱</option><option disabled>沒有人員</option>";
+                    }
+                    else{
+                       var selOpts = "<option selected disabled hidden>員工名稱</option>";
+                    }
+
                     $.each(res, function (i, item) {
                         selOpts += "<option value='"+item.name+"'>"+item.name+"</option>";
                     })

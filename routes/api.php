@@ -37,3 +37,7 @@ Route::post('accountStore','Api\AccountController@store');
 
 //crontab
 Route::get('reservationFinish','Api\CrontabController@reservationFinish');
+Route::get('reservationPreviousDay','Api\CrontabController@reservationPreviousDay');
+Route::get('satisfactionPush','Api\CrontabController@satisfactionPush');
+Route::get('supervisorAssign','Api\CrontabController@supervisorAssign');
+Route::get('activitiesPush','Api\CrontabController@activitiesPush');

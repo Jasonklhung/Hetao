@@ -135,23 +135,6 @@ class OverviewController extends Controller
         $response = $response->getBody()->getContents();
 
 
-        // foreach ($activity as $key => $value) {
-        //     foreach ($date as $k => $v) {
-        //         if(explode(' ', $value->start)[0] == $v){
-        //             $idArray[$v][] = $value->id;
-        //             $titleArray = $value->
-        //             $startArray = $value->
-        //             $endArray = $value->
-        //             $positionArray = $value->
-        //             $meetingArray = $value->
-        //             $noticeArray = $value->
-        //             $noticeTimeArray = $value->
-        //             $descriptionArray = $value->
-        //             $ownerArray = $value->
-        //         }
-        //     }
-        // }
-
         dd($response);
 
     	return $activity;

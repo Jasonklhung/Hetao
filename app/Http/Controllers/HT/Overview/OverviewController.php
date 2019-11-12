@@ -109,34 +109,6 @@ class OverviewController extends Controller
     {
     	$activity = Activity::where('organization_id',Auth::user()->organization_id)->get();
 
-        $date = array();
-        $idArray = array();
-        $titleArray = array();
-        $startArray = array();
-        $endArray = array();
-        $positionArray = array();
-        $meetingArray = array();
-        $noticeArray = array();
-        $noticeTimeArray = array();
-        $descriptionArray = array();
-        $ownerArray = array();
-
-
-        foreach ($activity as $key => $value) {
-            
-           if(!in_array(explode(' ', $value->start)[0],$date) ){
-                array_push($date,explode(' ', $value->start)[0]);
-           }
-        }
-
-        $client = new \GuzzleHttp\Client();
-        $response = $client->get('https://www.googleapis.com/analytics/v3/data/realtime?ids=188946460&metrics=rt:activeUsers');
-
-        $response = $response->getBody()->getContents();
-
-
-        dd($response);
-
     	return $activity;
     }
 

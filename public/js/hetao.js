@@ -514,50 +514,49 @@ $('body').on('click', '#meet .finish', function(){
 });
 
 
-// $('.edit-preview-meeting').on('click', function() {
-//     alert(123)
-//     $('.readmode').css('display', 'none');
-//     $('.editmode').css('display', 'block');
-// });
-// $('.edit-meeting-finish').on('click', function() {
-//     $('.readmode').css('display', 'block');
-//     $('.editmode').css('display', 'none');
-// });
+$('.edit-preview-meeting').on('click', function() {
+    $('.readmode').css('display', 'none');
+    $('.editmode').css('display', 'block');
+});
+$('.edit-meeting-finish').on('click', function() {
+    $('.readmode').css('display', 'block');
+    $('.editmode').css('display', 'none');
+});
 
-// /*"會議對象"*/
-// $('body').on('click', '#job2 .add-member', function(){
-//     var company = $("#job2 .company").val()
-//     var role = $("#job2 .role").val()
-//     var staffname = $("#job2 .staffname").val()
-//     if((company && role && staffname) !== null){
-//         $('#job2 .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button></span>');
-//     }
-// });
-// 刪除會議對象
-// $('body').on('click', '#job2 .close', function(){
-//     $(this).parent('#job2 .tag').remove();
-// });
-// /*選了分公司才能選職稱*/
-// $('body').on('change', '#job2 .company', function(){
-//     if($(this).val() !== "") {
-//         $('#job2 .role').prop('disabled','');
-//     }
-// });
-// /*選了職稱才能選員工*/
-// $('body').on('change', '#job2 .role', function(){
-//     if($(this).val() !== "") {
-//         $('#job2 .staffname').prop('disabled','');
-//         $('#job2 .staffname').val('小美');
-//     }
-// });
-// /*會議對象按下完成*/
-// $('body').on('click', '#job2 .finish', function(){
-//     var member = $('#job2 .tag').text()
-//     var noxx = member.replace(/\×/g, ', ')
-//     if($('#job2 .memberwrap span').hasClass('tag')) {
-//         $('#job2 .o2').text(noxx);
-//     }else {
-//         $('#job2 .o2').text('會議對象');
-//     }
-// });
+/*"會議對象"*/
+$('body').on('click', '#job2 .add-member', function(){
+    var company = $("#job2 .company").val()
+    var role = $("#job2 .role").val()
+    var staffname = $("#job2 .staffname").val()
+    if((company && role && staffname) !== null){
+        $('#job2 .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button><input type="hidden" name="meeting2[]" value='+company+'/'+role+staffname+'></span>');
+    }
+});
+/*刪除會議對象*/
+$('body').on('click', '#job2 .close', function(){
+    $(this).parent('#job2 .tag').remove();
+});
+/*選了分公司才能選職稱*/
+$('body').on('change', '#job2 .company', function(){
+    if($(this).val() !== "") {
+        $('#job2 .role').prop('disabled','');
+    }
+});
+/*選了職稱才能選員工*/
+$('body').on('change', '#job2 .role', function(){
+    if($(this).val() !== "") {
+        $('#job2 .staffname').prop('disabled','');
+        $('#job2 .staffname').val('小美');
+    }
+});
+/*會議對象按下完成*/
+$('body').on('click', '#job2 .finish', function(){
+    var member = $('#job2 .tag').text()
+    var noxx = member.replace(/\×/g, ', ')
+    if($('#job2 .memberwrap span').hasClass('tag')) {
+        $('#job2 .o2').text(noxx);
+    }else {
+        $('#job2 .o2').text('會議對象');
+    }
+});
 

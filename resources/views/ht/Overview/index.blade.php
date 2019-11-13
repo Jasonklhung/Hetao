@@ -419,24 +419,24 @@
             dataType:'json',
             success:function(data){
 
-                for (var i = 0; i < data[2].length; i++) {
-                    var arr1 = data[1][data[2][i]][0];
-                    var arr2 = data[1][data[2][i]][1];
-                    var arr3 = arr1.concat(arr2);
+                // for (var i = 0; i < data[2].length; i++) {
+                //     var arr1 = data[1][data[2][i]][0];
+                //     var arr2 = data[1][data[2][i]][1];
+                //     var arr3 = arr1.concat(arr2);
 
-                    test.push(arr3);
-                }
+                //     test.push(arr3);
+                // }
 
-                console.log(test);
+                // console.log(test);
 
-                $.each(data[0], function (i, item) {
+                // $.each(data[0], function (i, item) {
 
-                    if(item[10] == undefined){
-                        chart_json.push({'title':""+item[7].date+" "+item[6].number.split("|||").length+"張工單",'start':item[7].date,'url':'#job2','className':'fc-event-success','allDay':true,'id':item[6].number,'owner':item[5].owner,'type':item[0].type,'time':item[7].date,'custkey':item[1].custkey,'address':item[2].address,'mobile':item[3].mobile,'reason':item[4].remarks,'status':item[8].status,'category':'job'});
-                    }
-                });
+                //     if(item[10] == undefined){
+                //         chart_json.push({'title':""+item[7].date+" "+item[6].number.split("|||").length+"張工單",'start':item[7].date,'url':'#job2','className':'fc-event-success','allDay':true,'id':item[6].number,'owner':item[5].owner,'type':item[0].type,'time':item[7].date,'custkey':item[1].custkey,'address':item[2].address,'mobile':item[3].mobile,'reason':item[4].remarks,'status':item[8].status,'category':'job'});
+                //     }
+                // });
 
-                console.log(chart_json)
+                // console.log(chart_json)
 
                 $.ajax({
                     method:'get',

@@ -171,9 +171,6 @@ $.fn.dataTable.Responsive.defaults
 // });
 
 //助理-預約表單rwd的頁面連結
-$(document).ready(function(){
-    $('#hetao-list-a .child').attr("onclick","javascript:location.href='detail.html'")
-});
 
 
 //員工-已接受的工單

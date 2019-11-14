@@ -1564,4 +1564,9 @@
         $('#SD5').data("DateTimePicker").maxDate(e.date);
     });
 </script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#hetao-list-a .child').attr("onclick","javascript:location.href='{{ route('ht.StrokeManage.assistant.show',['organization'=>$organization,'id'=>base64_encode($data->id)]) }}'")
+    });
+</script>
 @endsection

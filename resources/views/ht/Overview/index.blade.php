@@ -551,6 +551,7 @@
 
                                                                     $("input[name='id2']").val(response.id);
                                                                     $("input[name='title2']").val(response.title);
+                                                                    $("input[name='position2']").val(response.position);
                                                                     $("input[name='notice2']").val(response.notice);
                                                                     var numbers = $("select[name='noticeTime2']").find("option");
 
@@ -668,6 +669,7 @@
                                                                     //以下為編輯頁面
                                                                     $("input[name='id2']").val(response.id);
                                                                     $("input[name='title2']").val(response.title);
+                                                                    $("input[name='position2']").val(response.position);
                                                                     $("input[name='notice2']").val(response.notice);
                                                                     var numbers = $("select[name='noticeTime2']").find("option");
 
@@ -785,6 +787,7 @@
                                                                     //以下為編輯頁面
                                                                     $("input[name='id2']").val(response.id);
                                                                     $("input[name='title2']").val(response.title);
+                                                                    $("input[name='position2']").val(response.position);
                                                                     $("input[name='notice2']").val(response.notice);
                                                                     var numbers = $("select[name='noticeTime2']").find("option");
 

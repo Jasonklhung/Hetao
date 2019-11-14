@@ -31,6 +31,13 @@ class LoginController extends Controller
         return view('auth.login',compact('qrcode','UUID'));
     }
 
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->route('ht.Auth.show');
+    }
+
     public function getUUID(User $user,Request $request)
     {
     	$user = User::where('UUID', $request->UUID)->first();

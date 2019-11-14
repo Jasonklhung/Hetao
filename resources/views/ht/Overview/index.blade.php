@@ -294,8 +294,8 @@
             method:'get',
             url:'{{ route('ht.Overview.getData',['organization'=>$organization]) }}',
             data:{
-                "token": 'U2f6ef40c08eb97d124a67970ec337822',
-                "DEPT": 'H026'
+                "token": '{{Auth::user()->token}}',
+                "DEPT": '{{Auth::user()->department->name}}'
             },
             dataType:'json',
             success:function(data){

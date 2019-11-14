@@ -16,6 +16,7 @@
 
 //login
 Route::get('/HT/login','HT\Auth\LoginController@show')->name('ht.Auth.show');
+Route::get('/HT/logout','HT\Auth\LoginController@logout')->name('ht.Auth.logout');
 Route::post('/HT/getUUID','HT\Auth\LoginController@getUUID')->name('ht.Auth.getUUID');
 
 //richmenu 派工單

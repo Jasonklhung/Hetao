@@ -9,6 +9,8 @@
                 <!-- 使用者 -->
                 <div class="hetao-user">
                     <p class="show-login-option">{{Auth::user()->name}}，您好</p>
+                    <br>
+                    <button class="btn-primary" onclick="location.href='{{ route('ht.Auth.logout') }}'">登出</button>
                 </div>
                 <nav>
                     <ul class="nav">

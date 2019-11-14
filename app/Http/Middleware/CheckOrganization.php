@@ -30,7 +30,8 @@ class CheckOrganization
 			return $next($request);
 		}else{
 
-			abort(403);
+			Auth::logout();
+    	 	return redirect()->route('ht.Auth.show');
 		}
 
 	}

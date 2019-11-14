@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/HT/{organization}/Overview/getData','HT\Overview\OverviewController@getData')->name('ht.Overview.getData');
 		Route::get('/HT/{organization}/Overview/getCompany','HT\Overview\OverviewController@getCompany')->name('ht.Overview.getCompany');
 		Route::post('/HT/{organization}/Overview/getName','HT\Overview\OverviewController@getName')->name('ht.Overview.getName');
+		Route::post('/HT/{organization}/Overview/search','HT\Overview\OverviewController@search')->name('ht.Overview.search');
+		Route::post('/HT/{organization}/Overview/searchAct','HT\Overview\OverviewController@searchAct')->name('ht.Overview.searchAct');
 
 		//行程管理-助理
 		Route::get('/HT/{organization}/StrokeManage/assistant/index','HT\StrokeManage\AssistantController@index')->name('ht.StrokeManage.assistant.index');

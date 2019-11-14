@@ -369,6 +369,10 @@ small {
     margin-bottom: 12px;
 }
 
+.mt-s {
+    margin-top: 12px;
+}
+
 .px-0 {
     padding-right: 0;
     padding-left: 0;
@@ -1647,6 +1651,10 @@ input[class^=follow]:checked+.followanswer:before {
     padding: 0; 
     border: 0; 
     border-radius: 0;
+}
+
+.fc-content-skeleton td {
+    height: 40px;
 }
 
 

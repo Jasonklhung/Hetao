@@ -174,7 +174,7 @@ class SupervisorController extends Controller
                 'token' => $request->owner_boss,
                 'id' => $request->id,
                 'status'=> '',
-                'DEPT' => Auth::user()->department->name
+                'DEPT' => $dept_name
             ])
         ]);
 
@@ -191,7 +191,7 @@ class SupervisorController extends Controller
     			'work_type' => $request->work_type,
     			'time' => $request->time,
     			'owner_boss' => $request->owner_boss,//$request->owner_boss,
-    			'DEPT' => Auth::user()->department->name,//$dept_name,
+    			'DEPT' => $dept_name,//$dept_name,
     		])
     	]);
 

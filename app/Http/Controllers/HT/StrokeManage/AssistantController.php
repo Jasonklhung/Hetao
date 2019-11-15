@@ -454,13 +454,13 @@ class AssistantController extends Controller
     {
         //dd($request->all());
 
-    	// $dept = User::where('token',$request->owner_boss)->get();
+    	$dept = User::where('token',$request->owner_boss)->get();
 
-    	// $dept_id = $dept[0]['department_id'];
+        $dept_id = $dept[0]['department_id'];
 
-    	// $dept_name = Department::where('id',$dept_id)->get();
+        $dept_name = Department::where('id',$dept_id)->get();
 
-    	// $dept_name = $dept_name[0]['name']; //取得部門名稱
+        $dept_name = $dept_name[0]['name'];
 
         
         $case = TransferCase::where('case_id',$request->id)->get();
@@ -484,7 +484,7 @@ class AssistantController extends Controller
                 'token' => $request->owner_boss,
                 'id' => $request->id,
                 'status'=> '',
-                'DEPT' => Auth::user()->department->name
+                'DEPT' => $dept_name
             ])
         ]);
 
@@ -501,7 +501,7 @@ class AssistantController extends Controller
     			'work_type' => $request->work_type,
     			'time' => $request->time,
     			'owner_boss' => $request->owner_boss,//$request->remarks,
-    			'DEPT' => Auth::user()->department->name//$dept_name,
+    			'DEPT' => $dept_name//$dept_name,
     		])
     	]);
 

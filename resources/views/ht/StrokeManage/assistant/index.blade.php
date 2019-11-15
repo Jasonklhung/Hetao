@@ -536,6 +536,8 @@
                             }
                         }
                     })
+
+                    $(this).attr('disabled','disabled')
                  })
 
                 //延遲塞
@@ -1110,6 +1112,8 @@
                             }
                         }
                     })
+
+                    $(this).attr('disabled','disabled')
                  })
 
                 //延遲塞

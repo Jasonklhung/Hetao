@@ -129,6 +129,19 @@ class SupervisorController extends Controller
             $transfer->save();
         }
 
+
+        //api update status
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/update-case-status', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => $request->owner_boss,
+                'id' => $request->id,
+                'status'=> '',
+                'DEPT' => Auth::user()->department->name
+            ])
+        ]);
+
     	//api
     	$client = new \GuzzleHttp\Client();
     	$response = $client->post('http://60.251.216.90:8855/api_/assign-case-boss', [

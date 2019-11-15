@@ -148,8 +148,8 @@ class AssistantController extends Controller
         $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode([
-                'token' => 'U2f6ef40c08eb97d124a67970ec337822',
-                'DEPT' => 'H026'
+                'token' => Auth::user()->token,
+                'DEPT' => Auth::user()->department->name
             ])
         ]);
 
@@ -361,7 +361,7 @@ class AssistantController extends Controller
 
     public function getSupervisor(Organization $organization)
     {
-    	$data = User::where('organization_id',Auth::user()->organization_id)->get();
+    	$data = User::where('organization_id','28')->get();
 
     	return $data;
     }
@@ -392,6 +392,18 @@ class AssistantController extends Controller
             $transfer->save();
         }
 
+        //api update status
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/update-case-status', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => $request->owner_boss,
+                'id' => $request->id,
+                'status'=> '',
+                'DEPT' => Auth::user()->department->name
+            ])
+        ]);
+
     	//api
     	$client = new \GuzzleHttp\Client();
     	$response = $client->post('http://60.251.216.90:8855/api_/assign-case-boss', [
@@ -405,7 +417,7 @@ class AssistantController extends Controller
     			'work_type' => $request->work_type,
     			'time' => $request->time,
     			'owner_boss' => $request->owner_boss,//$request->remarks,
-    			'DEPT' => Auth::user()->department->name,//$dept_name,
+    			'DEPT' => Auth::user()->department->name//$dept_name,
     		])
     	]);
 

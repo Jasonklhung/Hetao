@@ -502,7 +502,7 @@
                         }
                     })
                     timesRun += 1;
-                    if(timesRun == 5){
+                    if(timesRun == 3){
                         clearInterval(interval);
                     }
                 },1000);
@@ -1018,7 +1018,7 @@
                         }
                     })
                     timesRun += 1;
-                    if(timesRun == 5){
+                    if(timesRun == 3){
                         clearInterval(interval);
                     }
                 },1000);

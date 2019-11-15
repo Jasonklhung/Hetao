@@ -188,8 +188,8 @@ class CrontabController extends Controller
                     $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
                         'headers' => ['Content-Type' => 'application/json'],
                         'body' => json_encode([
-                        'token' => 'U2f6ef40c08eb97d124a67970ec337822',//kk->token
-                        'DEPT' => 'H026',//$DEPT[0]->name
+                        'token' => $kk->token,//kk->token
+                        'DEPT' =>  $DEPT[0]->name,//$DEPT[0]->name
                         ])
                     ]);
 

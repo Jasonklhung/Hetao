@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Account;
 use App\Organization;
 use App\Department;
+use DB;
 
 class AccountController extends Controller
 {
@@ -20,18 +21,32 @@ class AccountController extends Controller
             'headers' => ['Content-Length' => '0','Authorization' => 'Bearer '.$channel],
         ]);
 
+        $findAccount = Account::where('token',$request->userId)->get();
 
         $depart = Department::where('name',$request->DEPT)->get();
 
-    	$account = new Account;
-        $account->organization_id = $depart[0]['organization_id'];
-        $account->department_id = $depart[0]['id'];
-    	$account->token = $request->userId;
-    	$account->cuskey = $request->CUSTKEY;
-    	$account->name = $request->name;
-    	$account->card_number = $request->CARDNO;
-    	$account->save();
+        if($findAccount->isNotEmpty()){
+            $account = new Account;
+            $account->organization_id = $depart[0]['organization_id'];
+            $account->department_id = $depart[0]['id'];
+            $account->token = $request->userId;
+            $account->cuskey = $request->CUSTKEY;
+            $account->name = $request->name;
+            $account->card_number = $request->CARDNO;
+            $account->save();
 
-    	return response()->json(['success'=>['ok']]);
+            return response()->json(['success'=>['ok']]);
+        }
+        else{
+            DB::table('accounts')
+                ->where('token',$request->userId)
+                ->update(['organization_id' => $depart[0]['organization_id'],
+                          'department_id' => $depart[0]['id'],
+                          'cuskey' => $request->CUSTKEY,
+                          'name' => $request->name,
+                          'card_number'=> $request->CARDNO]);
+
+            return response()->json(['success'=>['ok']]);
+        }
     }
 }

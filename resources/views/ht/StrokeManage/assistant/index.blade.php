@@ -417,7 +417,7 @@
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
                               + "<td><select class='form-control' name='assign'><option selected value=''>待指派</option</select></td>"
-                              + "<td><a href='edit/"+window.btoa(item.id)+"'><button type='button' class='btn btn-primary' style='margin-right: 28px;''>處理</button></a><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
+                              + "<td><a href='edit/"+window.btoa(item.id)+"'><button type='button' class='btn btn-primary' style='margin-right: 28px;''>編輯</button></a><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                          + "</tr>";
                     }
                     
@@ -991,7 +991,7 @@
                                   + "<td>" + item.work_type + "</td>"
                                   + `<td hidden> ${itemtt}</td>`
                                   + "<td><select class='form-control' name='assign'><option selected value=''>待指派</option></select></td>"
-                                  + "<td><a href='edit/"+window.btoa(item.id)+"'><button type='button' class='btn btn-primary' style='margin-right: 28px;''>處理</button></a><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
+                                  + "<td><a href='edit/"+window.btoa(item.id)+"'><button type='button' class='btn btn-primary' style='margin-right: 28px;''>編輯</button></a><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                              + "</tr>";
                          }
                     }   

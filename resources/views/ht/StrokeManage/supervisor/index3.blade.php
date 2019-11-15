@@ -422,12 +422,12 @@
                 })
 
 
-                $('#hetao-list-su tbody').on('change', 'select[name="assign"]', function () {
+                $('select[name="assign"]').on('change', function () {
 
-                     var token = $(this).val()
                      var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                      if(RWD == 0){
+                        var token = $(this).val()
                         var id = $(this).parents('tr').children('td')[0].innerText 
                         var time = $(this).parents('tr').children('td')[1].innerText 
                         var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
@@ -441,6 +441,7 @@
                         }
                     }
                     else if(RWD == 1){
+                        var token = $(this).val()
                         var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
                         var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].innerText;
                         var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].innerText;
@@ -939,12 +940,12 @@
                 })
 
 
-                $('#hetao-list-su tbody').on('change', 'select[name="assign"]', function () {
+                $('select[name="assign"]').on('change', function () {
 
-                     var token = $(this).val()
                      var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                      if(RWD == 0){
+                        var token = $(this).val()
                         var id = $(this).parents('tr').children('td')[0].innerText 
                         var time = $(this).parents('tr').children('td')[1].innerText 
                         var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
@@ -958,6 +959,7 @@
                         }
                     }
                     else if(RWD == 1){
+                        var token = $(this).val()
                         var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
                         var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].innerText;
                         var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].innerText;
@@ -1430,6 +1432,7 @@
                         var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
                         var address = $(this).parents('tr').children('td')[4].innerText 
                         var mobile = $(this).parents('tr').children('td')[5].innerText 
+                        var reason = $(this).parents('tr').children('td')[6].innerText 
                         var work_type = $(this).parents('tr').children('td')[7].innerText 
                         var GUI_number = $(this).parents('tr').children('td')[8].innerText
                         if(GUI_number == null || GUI_number == ""){
@@ -1442,6 +1445,7 @@
                         var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].innerText;
                         var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].innerText;
                         var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].innerText;
+                        var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].innerText;
                         var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].innerText;
                         var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].innerText;
                         if(GUI_number == 'null' || GUI_number == ""){
@@ -1459,6 +1463,7 @@
                         'mobile': mobile,
                         'GUI_number': GUI_number,
                         'address': address,
+                        'reason': reason,
                         'work_type': work_type,
                         'time': time,
                         'owner_boss': token,

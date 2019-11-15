@@ -484,6 +484,7 @@
                 $('#hetao-list-a-2 tbody').on('change', 'select[name="assign"]', function () {
 
                     var token = $("select[name='assign']").val()
+                    console.log(token);
                      
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 

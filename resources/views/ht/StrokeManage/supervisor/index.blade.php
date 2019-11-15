@@ -481,6 +481,29 @@
                     })
 
                  })
+
+                //延遲塞
+                var timesRun = 0
+                var interval = setInterval(function() {
+                    $.ajax({
+                        url:"{{ route('ht.StrokeManage.supervisor.getAssign',['organization'=>$organization]) }}", 
+                        method:"get",
+                        dataType:'json',                 
+                        success:function(res){
+                            var selOpts = "<option value='' selected disabled='true'>待指派</option>";
+                            $.each(res, function (i, item) {
+                                selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
+                            })
+
+                            $("select[name='assign']").empty();
+                            $("select[name='assign']").append(selOpts);
+                        }
+                    })
+                    timesRun += 1;
+                    if(timesRun == 5){
+                        clearInterval(interval);
+                    }
+                },1000);
             }
         })
         //end
@@ -972,6 +995,29 @@
                         }
                     })
                  })
+
+                //延遲塞
+                var timesRun = 0;
+                var interval = setInterval(function() {
+                    $.ajax({
+                        url:"{{ route('ht.StrokeManage.supervisor.getAssign',['organization'=>$organization]) }}", 
+                        method:"get",
+                        dataType:'json',                 
+                        success:function(res){
+                            var selOpts = "<option value='' selected disabled='true'>待指派</option>";
+                            $.each(res, function (i, item) {
+                                selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
+                            })
+
+                            $("select[name='assign']").empty();
+                            $("select[name='assign']").append(selOpts);
+                        }
+                    })
+                    timesRun += 1;
+                    if(timesRun == 5){
+                        clearInterval(interval);
+                    }
+                },1000);
             }
         })
     })

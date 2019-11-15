@@ -483,9 +483,8 @@
 
                 $('#hetao-list-a-2 tbody').on('change', 'select[name="assign"]', function () {
 
-                    var token = $("select[name='assign']").val()
-                    console.log(token);
-                     
+                    var token = $(this).val()
+
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
@@ -539,7 +538,7 @@
                     })
 
                     $(this).attr('disabled','disabled')
-                 })
+                })
 
                 //延遲塞
                 var timesRun = 0;
@@ -1060,7 +1059,7 @@
 
                 $('#hetao-list-a-2 tbody').on('change', 'select[name="assign"]', function () {
 
-                     var token = $("select[name='assign']").val()
+                     var token = $(this).val()
 
                      var RWD = $(this).parents('table').parents('tr').find('.child').length;
 

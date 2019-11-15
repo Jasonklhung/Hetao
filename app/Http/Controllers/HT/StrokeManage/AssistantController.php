@@ -478,7 +478,7 @@ class AssistantController extends Controller
 
         //api update status
         $client = new \GuzzleHttp\Client();
-        $response = $client->post('http://60.251.216.90:8855/api_/update-case-status', [
+        $response2 = $client->post('http://60.251.216.90:8855/api_/update-case-status', [
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode([
                 'token' => $request->owner_boss,
@@ -489,6 +489,9 @@ class AssistantController extends Controller
         ]);
 
     	//api
+        if($request->GUI_number == '' || $request->GUI_number == null){
+            $request->GUI_number = "";
+        }
     	$client = new \GuzzleHttp\Client();
     	$response = $client->post('http://60.251.216.90:8855/api_/assign-case-boss', [
     		'headers' => ['Content-Type' => 'application/json'],

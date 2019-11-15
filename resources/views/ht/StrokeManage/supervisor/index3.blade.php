@@ -424,7 +424,7 @@
 
                 $('#hetao-list-su tbody').on('change', 'select[name="assign"]', function () {
 
-                     var token = $("select[name='assign']").val()
+                     var token = $(this).val()
                      var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                      if(RWD == 0){
@@ -941,7 +941,7 @@
 
                 $('#hetao-list-su tbody').on('change', 'select[name="assign"]', function () {
 
-                     var token = $("select[name='assign']").val()
+                     var token = $(this).val()
                      var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                      if(RWD == 0){

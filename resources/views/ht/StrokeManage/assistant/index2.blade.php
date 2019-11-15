@@ -483,7 +483,7 @@
 
                 $('#hetao-list-a-2 tbody').on('change', 'select[name="assign"]', function () {
 
-                    var token = $("select[name='assign']").val()
+                    var token = $(this).val()
                      
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
@@ -1059,7 +1059,7 @@
 
                 $('#hetao-list-a-2 tbody').on('change', 'select[name="assign"]', function () {
 
-                     var token = $("select[name='assign']").val()
+                     var token = $(this).val()
 
                      var RWD = $(this).parents('table').parents('tr').find('.child').length;
 

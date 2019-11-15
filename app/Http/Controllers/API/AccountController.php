@@ -25,7 +25,7 @@ class AccountController extends Controller
 
         $depart = Department::where('name',$request->DEPT)->get();
 
-        if($findAccount->isNotEmpty()){
+        if($findAccount->isEmpty()){
             $account = new Account;
             $account->organization_id = $depart[0]['organization_id'];
             $account->department_id = $depart[0]['id'];

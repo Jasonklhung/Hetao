@@ -258,292 +258,297 @@ class OverviewController extends Controller
 
         $test = array();
 
-        foreach ($data as $key => $value) {
-            if($key == 'data'){
-                $array = $value;
-            }
+        if(!$data){
+            return [];
         }
-
-        foreach ($array as $k => $v) {
-            if(!in_array($v->time, $date)){
-                array_push($date, $v->time);
-            }
-        }
-
-        foreach ($array as $k => $v) {
-            foreach ($date as $kk => $vv) {
-                if($v->time == $vv){
-                    $typeArray[$vv][] = $v->work_type;
-                    $custkeyArray[$vv][] = $v->CUSTKEY;
-                    $addressArray[$vv][] = $v->address;
-                    $mobileArray[$vv][] = $v->mobile;
-                    $reasonArray[$vv][] = $v->remarks;
-                    $ownerArray[$vv][] = $v->owner;
-                    $idArray[$vv][] = $v->id;
-                    $dateArray[$vv][] = $v->time;
-                    $statusArray[$vv][] = $v->status;
+        else{
+            foreach ($data as $key => $value) {
+                if($key == 'data'){
+                    $array = $value;
                 }
             }
-        }
 
-        foreach ($typeArray as $type => $types) {
-
-            $test = array();
-
-            foreach ($types as $aa => $aaa) {
-
-                end($types);
-
-                $last = key($types);
-
-                array_push($test,$aaa);
-
-                if($aa == $last){
-
-                    $resultArray = implode("|||",$test);
-
-                    $typeNew[$type]['type'] = $resultArray;
-                }
-
-            }
-        }
-
-        foreach ($custkeyArray as $custkey => $custkeys) {
-
-            $test = array();
-
-            foreach ($custkeys as $aa => $aaa) {
-
-                end($custkeys);
-
-                $last = key($custkeys);
-
-                array_push($test,$aaa);
-
-                if($aa == $last){
-
-                    $resultArray = implode("|||",$test);
-
-                    $custkeyNew[$custkey]['custkey'] = $resultArray;
-                }
-
-            }
-        }
-
-        foreach ($addressArray as $address => $addresss) {
-
-            $test = array();
-
-            foreach ($addresss as $aa => $aaa) {
-
-                end($addresss);
-
-                $last = key($addresss);
-
-                array_push($test,$aaa);
-
-                if($aa == $last){
-
-                    $resultArray = implode("|||",$test);
-
-                    $addressNew[$address]['address'] = $resultArray;
-                }
-
-            }
-        }
-
-        foreach ($mobileArray as $mobile => $mobiles) {
-
-            $test = array();
-
-            foreach ($mobiles as $aa => $aaa) {
-
-                end($mobiles);
-
-                $last = key($mobiles);
-
-                array_push($test,$aaa);
-
-                if($aa == $last){
-
-                    $resultArray = implode("|||",$test);
-
-                    $mobileNew[$mobile]['mobile'] = $resultArray;
-                }
-
-            }
-        }
-
-        foreach ($reasonArray as $reason => $reasons) {
-
-            $test = array();
-
-            foreach ($reasons as $aa => $aaa) {
-
-                end($reasons);
-
-                $last = key($reasons);
-
-                array_push($test,$aaa);
-
-                if($aa == $last){
-
-                    $resultArray = implode("|||",$test);
-
-                    $reasonNew[$reason]['reason'] = $resultArray;
-                }
-
-            }
-        }
-
-        foreach ($ownerArray as $owner => $owners) {
-
-            $test = array();
-
-            foreach ($owners as $aa => $aaa) {
-
-                end($owners);
-
-                $last = key($owners);
-
-                array_push($test,$aaa);
-
-                if($aa == $last){
-
-                    $resultArray = implode("|||",$test);
-
-                    $ownerNew[$owner]['owner'] = $resultArray;
-                }
-
-            }
-        }
-
-        foreach ($idArray as $id => $ids) {
-
-            $test = array();
-
-            foreach ($ids as $aa => $aaa) {
-
-                end($ids);
-
-                $last = key($ids);
-
-                array_push($test,$aaa);
-
-                if($aa == $last){
-
-                    $resultArray = implode("|||",$test);
-
-                    $idNew[$id]['number'] = $resultArray;
-                }
-
-            }
-        }
-
-        foreach ($dateArray as $date => $dates) {
-
-            $test = array();
-
-            foreach ($dates as $aa => $aaa) {
-
-                $dateNew[$date]['date'] = $date;
-
-            }
-        }
-
-        foreach ($statusArray as $status => $statuss) {
-
-            $test = array();
-
-            foreach ($statuss as $aa => $aaa) {
-
-                end($statuss);
-
-                $last = key($statuss);
-
-                array_push($test,$aaa);
-
-                if($aa == $last){
-
-                    $resultArray = implode("|||",$test);
-
-                    $statusNew[$status]['status'] = $resultArray;
-                }
-
-            }
-        }
-
-        foreach ($typeNew as $key => $value) {
-            foreach ($custkeyNew as $k => $v) {
-                if($key == $k){
-                    $test[$key][] = $value;
-                    $test[$key][] = $v;
+            foreach ($array as $k => $v) {
+                if(!in_array($v->time, $date)){
+                    array_push($date, $v->time);
                 }
             }
-        }
 
-        foreach ($test as $key => $value) {
-            foreach ($addressNew as $k => $v) {
-                if($key == $k){
-                    $test[$key][] = $v;
+            foreach ($array as $k => $v) {
+                foreach ($date as $kk => $vv) {
+                    if($v->time == $vv){
+                        $typeArray[$vv][] = $v->work_type;
+                        $custkeyArray[$vv][] = $v->CUSTKEY;
+                        $addressArray[$vv][] = $v->address;
+                        $mobileArray[$vv][] = $v->mobile;
+                        $reasonArray[$vv][] = $v->remarks;
+                        $ownerArray[$vv][] = $v->owner;
+                        $idArray[$vv][] = $v->id;
+                        $dateArray[$vv][] = $v->time;
+                        $statusArray[$vv][] = $v->status;
+                    }
                 }
             }
-        }
 
-        foreach ($test as $key => $value) {
-            foreach ($mobileNew as $k => $v) {
-                if($key == $k){
-                    $test[$key][] = $v;
+            foreach ($typeArray as $type => $types) {
+
+                $test = array();
+
+                foreach ($types as $aa => $aaa) {
+
+                    end($types);
+
+                    $last = key($types);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $typeNew[$type]['type'] = $resultArray;
+                    }
+
                 }
             }
-        }
 
-        foreach ($test as $key => $value) {
-            foreach ($reasonNew as $k => $v) {
-                if($key == $k){
-                    $test[$key][] = $v;
+            foreach ($custkeyArray as $custkey => $custkeys) {
+
+                $test = array();
+
+                foreach ($custkeys as $aa => $aaa) {
+
+                    end($custkeys);
+
+                    $last = key($custkeys);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $custkeyNew[$custkey]['custkey'] = $resultArray;
+                    }
+
                 }
             }
-        }
 
-        foreach ($test as $key => $value) {
-            foreach ($ownerNew as $k => $v) {
-                if($key == $k){
-                    $test[$key][] = $v;
+            foreach ($addressArray as $address => $addresss) {
+
+                $test = array();
+
+                foreach ($addresss as $aa => $aaa) {
+
+                    end($addresss);
+
+                    $last = key($addresss);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $addressNew[$address]['address'] = $resultArray;
+                    }
+
                 }
             }
-        }
 
-        foreach ($test as $key => $value) {
-            foreach ($idNew as $k => $v) {
-                if($key == $k){
-                    $test[$key][] = $v;
+            foreach ($mobileArray as $mobile => $mobiles) {
+
+                $test = array();
+
+                foreach ($mobiles as $aa => $aaa) {
+
+                    end($mobiles);
+
+                    $last = key($mobiles);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $mobileNew[$mobile]['mobile'] = $resultArray;
+                    }
+
                 }
             }
-        }
 
-        foreach ($test as $key => $value) {
-            foreach ($dateNew as $k => $v) {
-                if($key == $k){
-                    $test[$key][] = $v;
+            foreach ($reasonArray as $reason => $reasons) {
+
+                $test = array();
+
+                foreach ($reasons as $aa => $aaa) {
+
+                    end($reasons);
+
+                    $last = key($reasons);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $reasonNew[$reason]['reason'] = $resultArray;
+                    }
+
                 }
             }
-        }
 
-        foreach ($test as $key => $value) {
-            foreach ($statusNew as $k => $v) {
-                if($key == $k){
-                    $test[$key][] = $v;
+            foreach ($ownerArray as $owner => $owners) {
+
+                $test = array();
+
+                foreach ($owners as $aa => $aaa) {
+
+                    end($owners);
+
+                    $last = key($owners);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $ownerNew[$owner]['owner'] = $resultArray;
+                    }
+
                 }
             }
+
+            foreach ($idArray as $id => $ids) {
+
+                $test = array();
+
+                foreach ($ids as $aa => $aaa) {
+
+                    end($ids);
+
+                    $last = key($ids);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $idNew[$id]['number'] = $resultArray;
+                    }
+
+                }
+            }
+
+            foreach ($dateArray as $date => $dates) {
+
+                $test = array();
+
+                foreach ($dates as $aa => $aaa) {
+
+                    $dateNew[$date]['date'] = $date;
+
+                }
+            }
+
+            foreach ($statusArray as $status => $statuss) {
+
+                $test = array();
+
+                foreach ($statuss as $aa => $aaa) {
+
+                    end($statuss);
+
+                    $last = key($statuss);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $statusNew[$status]['status'] = $resultArray;
+                    }
+
+                }
+            }
+
+            foreach ($typeNew as $key => $value) {
+                foreach ($custkeyNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $value;
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($addressNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($mobileNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($reasonNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($ownerNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($idNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($dateNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($statusNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            $test = array_splice($test, '0'); 
+            $test = array_splice($test, '1'); 
+            $test = array_splice($test, '2'); 
+
+
+            return $test;
         }
-
-        $test = array_splice($test, '0'); 
-        $test = array_splice($test, '1'); 
-        $test = array_splice($test, '2'); 
-
-
-        return $test;
     }
 
     public function getCompany(Organization $organization)

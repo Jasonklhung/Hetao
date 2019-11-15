@@ -392,8 +392,8 @@
             method:'get',
             url:'{{ route('ht.StrokeManage.assistant.getData',['organization'=>$organization]) }}',
             data:{
-                "token": '{{Auth::user()->token}}',
-                "DEPT": '{{Auth::user()->department->name}}'
+                "token": 'U2f6ef40c08eb97d124a67970ec337822',
+                "DEPT": 'H026'
             },
             dataType:'json',
             success:function(response){
@@ -846,13 +846,17 @@
         var start = $('#startDate1').val()
         var end = $('#endDate1').val()
 
+        var date = new Date(end);
+        var end = date.setTime(date.getTime()+24*60*60*1000);
+        var resEnd = date.getFullYear()+"-" + ('0' + (date.getMonth()+1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2)
+
         $.ajax({
             method:'post',
             url:'{{ route('ht.StrokeManage.assistant.resSearch',['organization'=>$organization]) }}',
             data:{
                 '_token':'{{csrf_token()}}',
                 'start':start,
-                'end':end,
+                'end':resEnd,
             },
             dataType:'json',
             success:function(res){
@@ -949,7 +953,7 @@
                     var itemtt = item['GUI-number']
 
                     if(item.owner == '' || item.owner == null || item.status == 'R'){
-                        if(Newend > Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart < Date.parse(new Date(item.time.replace(/-/g, '/')))){
+                        if(Newend > Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart <= Date.parse(new Date(item.time.replace(/-/g, '/')))){
                             rows += "<tr>"
                                   + "<td>" + item.id + "</td>"
                                   + "<td>" + item.time + "</td>"
@@ -1113,7 +1117,7 @@
                     var tt =  'GUI-number'
                     var itemtt = item['GUI-number']
 
-                    if(Newend > Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart < Date.parse(new Date(item.time.replace(/-/g, '/')))){
+                    if(Newend > Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart <= Date.parse(new Date(item.time.replace(/-/g, '/')))){
                         if(item.status == '' || item.status == null){
 
                             rows += "<tr>"
@@ -1324,7 +1328,7 @@
                     var tt =  'GUI-number'
                     var itemtt = item['GUI-number']
 
-                    if(Newend > Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart < Date.parse(new Date(item.time.replace(/-/g, '/')))){
+                    if(Newend > Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart <= Date.parse(new Date(item.time.replace(/-/g, '/')))){
                         if(item.status == 'T'){
                             rows += "<tr class='past'>"
                                   + "<td>" + item.id + "</td>"
@@ -1391,13 +1395,17 @@
         var start = $('#startDate4').val()
         var end = $('#endDate4').val()
 
+        var date = new Date(end);
+        var end = date.setTime(date.getTime()+24*60*60*1000);
+        var resEnd = date.getFullYear()+"-" + ('0' + (date.getMonth()+1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2)
+
         $.ajax({
             method:'post',
             url:'{{ route('ht.StrokeManage.assistant.contactSearch',['organization'=>$organization]) }}',
             data:{
                 '_token':'{{csrf_token()}}',
                 'start':start,
-                'end':end,
+                'end':resEnd,
             },
             dataType:'json',
             success:function(res){

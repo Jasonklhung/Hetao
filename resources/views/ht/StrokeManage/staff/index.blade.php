@@ -319,7 +319,7 @@ $(document).ready(function(){
                     var tt =  'GUI-number'
                     var itemtt = item['GUI-number']
 
-                    if(Newend > Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart < Date.parse(new Date(item.time.replace(/-/g, '/')))){
+                    if(Newend > Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart <= Date.parse(new Date(item.time.replace(/-/g, '/')))){
                         if(item.status == '' || item.status == null){
 
                             rows += "<tr>"

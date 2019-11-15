@@ -386,32 +386,6 @@
                             for (var i = 0; i < all.length; i++) {
                                 dateArray.push(all[i]);
                             }
-
-                            // for (var i = 0; i < all.length; i++) {
-                            //      chart_json.push({'id':item.id,'title':item.title,'start':all[i],'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id,'category':'meet'});
-                            // }
-                            
-
-                            // if(item.start.split(" ")[1] == '00:00:00' && item.start == item.end){
-
-                            //     chart_json.push({'id':item.id,'title':item.title,'start':item.start.split(" ")[0],'end':item.end.split(" ")[0],'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id,'category':'meet'});
-                            // }
-                            // else if(item.start.split(" ")[1] == '00:00:00'){
-
-                            //     var date = new Date(item.end);
-                            //     var end = date.setTime(date.getTime()+24*60*60*1000);
-                            //     var resEnd = date.getFullYear()+"-" + ('0' + (date.getMonth()+1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2)
-
-                            //     chart_json.push({'id':item.id,'title':item.title,'start':item.start.split(" ")[0],'end':resEnd,'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id,'category':'meet'});
-                            // }
-                            // else{
-
-                            //     var date = new Date(item.end);
-                            //     var end = date.setTime(date.getTime()+24*60*60*1000);
-                            //     var resEnd = date.getFullYear()+"-" + ('0' + (date.getMonth()+1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2)
-
-                            //     chart_json.push({'id':item.id,'title':item.title,'start':item.start,'end':resEnd,'url':'#meet','allDay':true,'position':item.position,'meeting':item.meeting,'notice':item.notice,'noticeTime':item.noticeTime,'description':item.description,'owner':item.user_id,'category':'meet'});
-                            // }
                         })
 
                        var resArray = collectionRepeat(dateArray);
@@ -474,15 +448,6 @@
                                     $("ul[id='jobInfo']").attr("style","display:block");
 
                                     for (var i = 0; i < number; i++) {
-                                        // $("li[id='type']").append("<span>派工類型 </span>"+info.type.split("|||")[i]+"");
-                                        // $("li[id='custkey']").append("<span>客戶代碼 </span>"+info.custkey.split("|||")[i]+"");
-                                        // $("li[id='address']").append("<span>地址 </span><a href='https://www.google.com.tw/maps/place/"+info.address.split("|||")[i]+"' target='_blank'>"+info.address.split("|||")[i]+"</a>");
-                                        // $("li[id='mobile']").append("<span>電話 </span><a href='tel:"+info.mobile.split("|||")[i]+"'>"+info.mobile.split("|||")[i]+"</a>");
-                                        // $("li[id='reason']").append("<span>派工原因 </span>"+info.reason+"");
-                                        // $("li[id='owner']").append("<span>承辦人員 </span>"+info.owner.split("|||")[i]+"");
-                                        // $("li[id='id']").append("<span>工單編號 </span>"+info.id.split("|||")[i]+"");
-                                        // $("li[id='date']").append("<span>工單日期 </span>"+info.time+"");
-                                        // $("li[id='status']").append("<span>狀態 </span>"+info.status.split("|||")[i]+"");
 
                                         $("li[id='foreachJob']").append("<ul><li><span>派工類型 </span>"+info.type.split("|||")[i]+"</li><li><span>客戶代碼 </span>"+info.custkey.split("|||")[i]+"</li><li><span>地址 </span><a href='https://www.google.com.tw/maps/place/"+info.address.split("|||")[i]+"' target='_blank'>"+info.address.split("|||")[i]+"</a></li><li><span>電話 </span><a href='tel:"+info.mobile.split("|||")[i]+"'>"+info.mobile.split("|||")[i]+"</a></li><li><span>派工原因 </span>"+info.remarks.split("|||")[i]+"</li><li><span>承辦人員 </span>"+info.owner.split("|||")[i]+"</li><li><span>工單編號 </span>"+info.id.split("|||")[i]+"</li><li><span>工單日期 </span>"+info.time+"</li><li><span>狀態 </span>"+info.status.split("|||")[i]+"</li></ul>")
                                     }

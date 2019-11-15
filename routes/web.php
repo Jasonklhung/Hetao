@@ -49,6 +49,10 @@ Route::group(['middleware' => ['auth']], function () {
 		//行程管理-助理
 		Route::get('/HT/{organization}/StrokeManage/assistant/index','HT\StrokeManage\AssistantController@index')->name('ht.StrokeManage.assistant.index');
 
+		Route::get('/HT/{organization}/StrokeManage/assistant/index2','HT\StrokeManage\AssistantController@index2')->name('ht.StrokeManage.assistant.index2');
+
+		Route::get('/HT/{organization}/StrokeManage/assistant/index3','HT\StrokeManage\AssistantController@index3')->name('ht.StrokeManage.assistant.index3');
+
 		Route::get('/HT/{organization}/StrokeManage/assistant/create','HT\StrokeManage\AssistantController@create')->name('ht.StrokeManage.assistant.create');
 
 		Route::post('/HT/{organization}/StrokeManage/assistant/store','HT\StrokeManage\AssistantController@store')->name('ht.StrokeManage.assistant.store');
@@ -79,6 +83,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 		//行程管理-主管
 		Route::get('/HT/{organization}/StrokeManage/supervisor/index','HT\StrokeManage\SupervisorController@index')->name('ht.StrokeManage.supervisor.index');
+
+		Route::get('/HT/{organization}/StrokeManage/supervisor/index3','HT\StrokeManage\SupervisorController@index3')->name('ht.StrokeManage.supervisor.index3');
 
 		Route::get('/HT/{organization}/StrokeManage/supervisor/getData','HT\StrokeManage\SupervisorController@getData')->name('ht.StrokeManage.supervisor.getData');
 

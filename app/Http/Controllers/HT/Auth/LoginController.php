@@ -74,7 +74,7 @@ class LoginController extends Controller
                 if($user['job'] == '助理'){
 
                     return response()->json([
-                        'redirect'=>route('ht.StrokeManage.assistant.index',['organization'=>$user['organization_id']]),
+                        'redirect'=>route('ht.StrokeManage.assistant.index2',['organization'=>$user['organization_id']]),
                     ],  200);
                 }
                 elseif($user['job'] == '主管'){
@@ -105,13 +105,13 @@ class LoginController extends Controller
                 if($user['job'] == '助理'){
 
                     return response()->json([
-                        'redirect'=>route('ht.StrokeManage.assistant.index',['organization'=>$user['organization_id']]),
+                        'redirect'=>route('ht.StrokeManage.assistant.index3',['organization'=>$user['organization_id']]),
                     ],  200);
                 }
                 elseif($user['job'] == '主管'){
 
                     return response()->json([
-                        'redirect'=>route('ht.StrokeManage.supervisor.index',['organization'=>$user['organization_id']]),
+                        'redirect'=>route('ht.StrokeManage.supervisor.index3',['organization'=>$user['organization_id']]),
                     ],  200);
                 } 
                 elseif($user['job'] == '員工'){

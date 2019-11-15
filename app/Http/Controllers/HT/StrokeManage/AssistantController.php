@@ -61,6 +61,90 @@ class AssistantController extends Controller
     	return view('ht.StrokeManage.assistant.index',compact('organization','reservation','contact','caseCount'));
     }
 
+    public function index2(Organization $organization)
+    {
+        $reservation = DB::table('reservation_answers')
+                        ->select('reservation_answers.id','accounts.cuskey','accounts.name','reservation_answers.created_at')
+                        ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
+                        ->where('reservation_answers.department_id',Auth::user()->department_id)
+                        ->get();
+
+        $contact = ContactAnswer::all();
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $countArray = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+
+                foreach ($array as $k => $v) {
+                    if($v->owner == null || $v->owner == ''){
+                        array_push($countArray,$v);
+                    }
+                }
+            }
+        }
+
+        $caseCount = count($countArray);
+
+        return view('ht.StrokeManage.assistant.index2',compact('organization','reservation','contact','caseCount'));
+    }
+
+    public function index3(Organization $organization)
+    {
+        $reservation = DB::table('reservation_answers')
+                        ->select('reservation_answers.id','accounts.cuskey','accounts.name','reservation_answers.created_at')
+                        ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
+                        ->where('reservation_answers.department_id',Auth::user()->department_id)
+                        ->get();
+
+        $contact = ContactAnswer::all();
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $countArray = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+
+                foreach ($array as $k => $v) {
+                    if($v->owner == null || $v->owner == ''){
+                        array_push($countArray,$v);
+                    }
+                }
+            }
+        }
+
+        $caseCount = count($countArray);
+
+        return view('ht.StrokeManage.assistant.index3',compact('organization','reservation','contact','caseCount'));
+    }
+
     public function create(Organization $organization)
     {
         $client = new \GuzzleHttp\Client();

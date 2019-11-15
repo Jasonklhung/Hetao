@@ -52,6 +52,42 @@ class SupervisorController extends Controller
     	return view('ht.StrokeManage.supervisor.index',compact('organization','supervisor','caseCount'));
     }
 
+    public function index3(Organization $organization)
+    {
+        $supervisor = SupervisorCase::where('user_id',Auth::user()->id)->get();
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $countArray = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+
+                foreach ($array as $k => $v) {
+                    if($v->owner == null || $v->owner == ''){
+                        array_push($countArray,$v);
+                    }
+                }
+            }
+        }
+
+        $caseCount = count($countArray);
+
+        return view('ht.StrokeManage.supervisor.index3',compact('organization','supervisor','caseCount'));
+    }
+
     public function getData(Organization $organization,Request $request)
     {
     	$client = new \GuzzleHttp\Client();

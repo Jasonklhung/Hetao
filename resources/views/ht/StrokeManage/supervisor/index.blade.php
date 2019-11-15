@@ -76,7 +76,6 @@
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
                                                                     <th hidden="">統編</th>
-                                                                    <th hidden="">status</th>
                                                                     <th class="desktop">負責人</th>
                                                                 </tr>
                                                             </thead>
@@ -172,6 +171,7 @@
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
                                                                     <th hidden="">統編</th>
+                                                                    <th hidden="">status</th>
                                                                     <th class="desktop">狀態</th>
                                                                 </tr>
                                                             </thead>
@@ -578,7 +578,7 @@
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 9, "desc" ]],
+                    "order": [[ 1, "desc" ], [ 9, "asc" ]],
                     "columnDefs": [{
                         "targets": [0],
                         "orderable": false,

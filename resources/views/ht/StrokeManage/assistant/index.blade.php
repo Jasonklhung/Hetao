@@ -639,7 +639,7 @@
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 9, "desc" ]],
+                    "order": [[ 1, "desc" ], [ 9, "asc" ]],
                     "columnDefs": [{
                         "targets": [9],
                         "orderable": false,

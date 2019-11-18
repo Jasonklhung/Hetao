@@ -356,7 +356,7 @@
                     }],
                     "order": [[ 1, "desc" ]],
                     "columnDefs": [{
-                        "targets": [0],
+                        "targets": [9],
                         "orderable": false,
                     }],
                     "responsive": {
@@ -374,36 +374,6 @@
                 });
                 $(".searchInput_su").on("keyup", function() {
                     table_su.search(this.value).draw();
-                });
-
-                $('.sall').addClass('hide');
-                $('.batch').on('click', function() {
-                    $('.batch-select').removeClass('hide');
-                    $('.batch-finish').removeClass('hide');
-                    $('.chkall').removeClass('hide');
-                    $('.batch').addClass('hide');
-                    $('.sall').removeClass('hide');
-                });
-                $('.batch-finish').on('click', function() {
-                    $('.batch-select').addClass('hide');
-                    $('.batch-finish').addClass('hide');
-                    $('.chkall').addClass('hide');
-                    $('.batch').removeClass('hide');
-                    $('.sall').addClass('hide');
-                });
-                $('.nav-tabs li').on('click', function() {
-                    $("#hetao-list").DataTable();
-                    $("#hetao-list-2").DataTable();
-                });
-
-                $('input#chkall').change(function() {
-                    if($(this).is(':checked')){
-                        $('.sall').text('取消全選');
-                        $('input.chkall').prop('checked',true);
-                    } else {
-                        $('input.chkall').prop('checked',false);
-                        $('.sall').text('全選');
-                    }
                 });
 
                 $.ajax({
@@ -424,9 +394,9 @@
 
                 $('select[name="assign"]').on('change', function () {
 
-                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
-                     if(RWD == 0){
+                    if(RWD == 0){
                         var token = $(this).val()
                         var id = $(this).parents('tr').children('td')[0].innerText 
                         var time = $(this).parents('tr').children('td')[1].innerText 
@@ -483,7 +453,7 @@
 
                     $(this).attr('disabled','disabled')
 
-                 })
+                })
 
                 //延遲塞
                 var timesRun = 0
@@ -894,36 +864,6 @@
                     table_su.search(this.value).draw();
                 });
 
-                $('.sall').addClass('hide');
-                $('.batch').on('click', function() {
-                    $('.batch-select').removeClass('hide');
-                    $('.batch-finish').removeClass('hide');
-                    $('.chkall').removeClass('hide');
-                    $('.batch').addClass('hide');
-                    $('.sall').removeClass('hide');
-                });
-                $('.batch-finish').on('click', function() {
-                    $('.batch-select').addClass('hide');
-                    $('.batch-finish').addClass('hide');
-                    $('.chkall').addClass('hide');
-                    $('.batch').removeClass('hide');
-                    $('.sall').addClass('hide');
-                });
-                $('.nav-tabs li').on('click', function() {
-                    $("#hetao-list").DataTable();
-                    $("#hetao-list-2").DataTable();
-                });
-
-                $('input#chkall').change(function() {
-                    if($(this).is(':checked')){
-                        $('.sall').text('取消全選');
-                        $('input.chkall').prop('checked',true);
-                    } else {
-                        $('input.chkall').prop('checked',false);
-                        $('.sall').text('全選');
-                    }
-                });
-
                 $.ajax({
                     url:"{{ route('ht.StrokeManage.supervisor.getAssign',['organization'=>$organization]) }}", 
                     method:"get",
@@ -942,9 +882,9 @@
 
                 $('select[name="assign"]').on('change', function () {
 
-                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
+                    var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
-                     if(RWD == 0){
+                    if(RWD == 0){
                         var token = $(this).val()
                         var id = $(this).parents('tr').children('td')[0].innerText 
                         var time = $(this).parents('tr').children('td')[1].innerText 
@@ -1000,7 +940,8 @@
                     })
 
                     $(this).attr('disabled','disabled')
-                 })
+
+                })
 
                 //延遲塞
                 var timesRun = 0;
@@ -1418,65 +1359,104 @@
 <script type="text/javascript">
     $('#allFinish').on('click',function(){
 
-        if (confirm('是否全部指派？') == true) {
+        
+        var page = $(this).parents("#viewers-tab-01").children("#hetao-list-su_wrapper").children("table").children("tbody").children('.child').find('input[name="oneforall"]:checked').length
 
-            $('input[name="oneforall"]:checked').each(function(){  
+        if(page == 0){
+            if (confirm('是否全部指派？') == true) {
 
-                var token = $("select[name='sel1']").val()
+                var count = 0
+                $('input[name="oneforall"]:checked').each(function(){
 
-                var RWD = $(this).parents('table').parents('tr').find('.child').length;
+                    var token = $("select[name='sel1']").val()
 
-                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
-                        var time = $(this).parents('tr').children('td')[1].innerText 
-                        var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
-                        var address = $(this).parents('tr').children('td')[4].innerText 
-                        var mobile = $(this).parents('tr').children('td')[5].innerText 
-                        var reason = $(this).parents('tr').children('td')[6].innerText 
-                        var work_type = $(this).parents('tr').children('td')[7].innerText 
-                        var GUI_number = $(this).parents('tr').children('td')[8].innerText
-                        if(GUI_number == null || GUI_number == ""){
-                            var GUI_number = ""
-                        }
-                    }
-                    else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
-                        var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].innerText;
-                        var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].innerText;
-                        var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].innerText;
-                        var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].innerText;
-                        var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].innerText;
-                        var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].innerText;
-                        var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].innerText;
-                        if(GUI_number == 'null' || GUI_number == ""){
-                            var GUI_number = ""
-                        }
+                    var id = $(this).parents('tr').children('td')[0].innerText 
+                    var time = $(this).parents('tr').children('td')[1].innerText 
+                    var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
+                    var address = $(this).parents('tr').children('td')[4].innerText 
+                    var mobile = $(this).parents('tr').children('td')[5].innerText 
+                    var reason = $(this).parents('tr').children('td')[6].innerText 
+                    var work_type = $(this).parents('tr').children('td')[7].innerText 
+                    var GUI_number = $(this).parents('tr').children('td')[8].innerText
+                    if(GUI_number == null || GUI_number == ""){
+                        var GUI_number = ""
                     }
 
-                $.ajax({
-                    url:"{{ route('ht.StrokeManage.supervisor.assignCaseBoss',['organization'=>$organization]) }}", 
-                    method:"post",
-                    data:{
-                        '_token':'{{csrf_token()}}',
-                        'id':id,
-                        'name': CUSTKEY,
-                        'mobile': mobile,
-                        'GUI_number': GUI_number,
-                        'address': address,
-                        'reason': reason,
-                        'work_type': work_type,
-                        'time': time,
-                        'owner_boss': token,
-                    },
-                    dataType:'json',                 
-                    success:function(res){
-                        if(res.status == 200){
+                    $.ajax({
+                        url:"{{ route('ht.StrokeManage.supervisor.assignCaseBoss',['organization'=>$organization]) }}", 
+                        method:"post",
+                        data:{
+                            '_token':'{{csrf_token()}}',
+                            'id':id,
+                            'name': CUSTKEY,
+                            'mobile': mobile,
+                            'GUI_number': GUI_number,
+                            'address': address,
+                            'reason': reason,
+                            'work_type': work_type,
+                            'time': time,
+                            'owner_boss': token,
+                        },
+                        dataType:'json',                 
+                        success:function(res){
+                            if(res.status == 200 && count == 0){
+                                count += 1;
+                                alert('工單更新成功,已指派');
+                            }
+                            else{
+                            }
                         }
-                        else{
-                        }
+                    })
+                });
+            }
+        }
+        else{
+            if (confirm('是否全部指派？') == true) {
+
+                var count = 0
+                $(this).parents("#viewers-tab-01").children("#hetao-list-su_wrapper").children("table").children("tbody").children('.child').find('input[name="oneforall"]:checked').each(function(){ 
+
+                    var token = $("select[name='sel1']").val()
+
+                    var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                    var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].innerText;
+                    var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].innerText;
+                    var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].innerText;
+                    var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].innerText;
+                    var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].innerText;
+                    var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].innerText;
+                    var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].innerText;
+                    if(GUI_number == 'null' || GUI_number == ""){
+                        var GUI_number = ""
                     }
-                })
-            });
+
+                    $.ajax({
+                        url:"{{ route('ht.StrokeManage.supervisor.assignCaseBoss',['organization'=>$organization]) }}", 
+                        method:"post",
+                        data:{
+                            '_token':'{{csrf_token()}}',
+                            'id':id,
+                            'name': CUSTKEY,
+                            'mobile': mobile,
+                            'GUI_number': GUI_number,
+                            'address': address,
+                            'reason': reason,
+                            'work_type': work_type,
+                            'time': time,
+                            'owner_boss': token,
+                        },
+                        dataType:'json',                 
+                        success:function(res){
+                            if(res.status == 200 && count == 0){
+                                count += 1;
+                                alert('工單更新成功,已指派');
+                            }
+                            else{
+                            }
+                        }
+                    })
+                });
+            }
         }
     })
 </script>

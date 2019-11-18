@@ -38,7 +38,7 @@
                                                                     <th class="desktop">分公司</th>
                                                                     <th class="desktop">電話</th>
                                                                     <th class="desktop">最後登入時間</th>
-                                                                    <th class="desktop"></th>
+                                                                    <th class="desktop">編輯/刪除</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>

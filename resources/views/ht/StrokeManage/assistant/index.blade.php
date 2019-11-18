@@ -986,7 +986,7 @@
                     var itemtt = item['GUI-number']
 
                     if(item.owner == '' || item.owner == null || item.status == 'R'){
-                        if(Newend > Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart <= Date.parse(new Date(item.time.replace(/-/g, '/')))){
+                        if(Newend >= Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart <= Date.parse(new Date(item.time.replace(/-/g, '/')))){
                             rows += "<tr>"
                                   + "<td>" + item.id + "</td>"
                                   + "<td>" + item.time + "</td>"
@@ -1179,7 +1179,7 @@
                     var tt =  'GUI-number'
                     var itemtt = item['GUI-number']
 
-                    if(Newend > Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart <= Date.parse(new Date(item.time.replace(/-/g, '/')))){
+                    if(Newend >= Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart <= Date.parse(new Date(item.time.replace(/-/g, '/')))){
                         if(item.status == '' || item.status == null){
 
                             rows += "<tr>"
@@ -1390,7 +1390,7 @@
                     var tt =  'GUI-number'
                     var itemtt = item['GUI-number']
 
-                    if(Newend > Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart <= Date.parse(new Date(item.time.replace(/-/g, '/')))){
+                    if(Newend >= Date.parse(new Date(item.time.replace(/-/g, '/'))) && Newstart <= Date.parse(new Date(item.time.replace(/-/g, '/')))){
                         if(item.status == 'T'){
                             rows += "<tr class='past'>"
                                   + "<td>" + item.id + "</td>"

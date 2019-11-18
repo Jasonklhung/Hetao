@@ -68,14 +68,16 @@
                                                                     <th class="desktop">姓名</th>
                                                                     <th class="desktop">客戶代碼</th>
                                                                     <th class="desktop">預約日期</th>
+                                                                    <th class="desktop">查看</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 @foreach($reservation as $data)
-                                                                <tr class="watch" onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.show',['organization'=>$organization,'id'=>base64_encode($data->id)]) }}'">
+                                                                <tr class="watch">
                                                                     <td>{{ $data->name }}</td>
                                                                     <td>{{ $data->cuskey }}</td>
                                                                     <td>{{ $data->created_at }}</td>
+                                                                    <td><button type='button' class='btn status' onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.show',['organization'=>$organization,'id'=>base64_encode($data->id)]) }}'">查看</button></td>
                                                                 </tr>
                                                                 @endforeach
                                                             </tbody>
@@ -254,12 +256,14 @@
                                                             <thead class="rwdhide">
                                                                 <tr>
                                                                     <th class="desktop">預約日期</th>
+                                                                    <th class="desktop">查看</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 @foreach($contact as $data)
-                                                                <tr class="watch" onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.showContact',['organization'=>$organization,'id'=>base64_encode($data->id)]) }}'">
+                                                                <tr class="watch">
                                                                     <td>{{ $data->created_at }}</td>
+                                                                    <td><button type='button' class='btn status' onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.showContact',['organization'=>$organization,'id'=>base64_encode($data->id)]) }}'">查看</button></td>
                                                                 </tr>
                                                                 @endforeach
                                                             </tbody>
@@ -640,7 +644,7 @@
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 9, "asc" ]],
+                    "order": [[ 1, "desc" ], [ 9, "desc" ]],
                     "columnDefs": [{
                         "targets": [9],
                         "orderable": false,
@@ -1670,11 +1674,6 @@
     });
     $("#ED5").on("dp.change", function (e) {
         $('#SD5').data("DateTimePicker").maxDate(e.date);
-    });
-</script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#hetao-list-a .child').attr("onclick","javascript:location.href='{{ route('ht.StrokeManage.assistant.show',['organization'=>$organization,'id'=>base64_encode($data->id)]) }}'")
     });
 </script>
 @endsection

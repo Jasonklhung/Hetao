@@ -103,7 +103,7 @@ $(document).ready(function(){
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
-                              + "<td hidden>" + item.status + "</td>"
+                              + "<td hidden></td>"
                               + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
                          + "</tr>";
                     }
@@ -332,7 +332,7 @@ $(document).ready(function(){
                                   + "<td>" + item.remarks + "</td>"
                                   + "<td>" + item.work_type + "</td>"
                                   + `<td hidden> ${itemtt}</td>`
-                                  + "<td hidden>" + item.status + "</td>"
+                                  + "<td hidden></td>"
                                   + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
                              + "</tr>";
                         }
@@ -387,7 +387,7 @@ $(document).ready(function(){
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 9, "desc" ]],
+                    "order": [[ 1, "desc" ], [ 9, "asc" ]],
                     "columnDefs": [{
                         "targets": [],
                         "orderable": false,

@@ -188,10 +188,10 @@ $(document).ready(function(){
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var id = $(this).parents('tr').children('td')[0].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
                     }
 
                     $.ajax({
@@ -221,10 +221,10 @@ $(document).ready(function(){
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var id = $(this).parents('tr').children('td')[0].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
                     }
 
                     $.ajax({
@@ -254,20 +254,20 @@ $(document).ready(function(){
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var id = $(this).parents('tr').children('td')[0].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
                     }
-                    // var time = $(this).parents('tr').children('td')[1].innerText 
-                    // var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
-                    // var address = $(this).parents('tr').children('td')[4].innerText 
-                    // var mobile = $(this).parents('tr').children('td')[5].innerText 
-                    // var work_type = $(this).parents('tr').children('td')[7].innerText 
-                    // var GUI_number = $(this).parents('tr').children('td')[8].innerText 
+                    // var time = $(this).parents('tr').children('td')[1].textContent 
+                    // var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                    // var address = $(this).parents('tr').children('td')[4].textContent 
+                    // var mobile = $(this).parents('tr').children('td')[5].textContent 
+                    // var work_type = $(this).parents('tr').children('td')[7].textContent 
+                    // var GUI_number = $(this).parents('tr').children('td')[8].textContent 
 
                     $.ajax({
-                        url:"{{ route('ht.StrokeManage.staff.transfer',['organization'=>$organization]) }}", 
+                        url:"{{ route('ht.StrokeManage.staff.updateStatus',['organization'=>$organization]) }}", 
                         method:"post",
                         data:{
                             '_token':'{{csrf_token()}}',
@@ -417,10 +417,10 @@ $(document).ready(function(){
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var id = $(this).parents('tr').children('td')[0].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
                     }
 
                     $.ajax({
@@ -450,10 +450,10 @@ $(document).ready(function(){
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var id = $(this).parents('tr').children('td')[0].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
                     }
 
                     $.ajax({
@@ -483,20 +483,20 @@ $(document).ready(function(){
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var id = $(this).parents('tr').children('td')[0].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
                     }
-                    // var time = $(this).parents('tr').children('td')[1].innerText 
-                    // var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
-                    // var address = $(this).parents('tr').children('td')[4].innerText 
-                    // var mobile = $(this).parents('tr').children('td')[5].innerText 
-                    // var work_type = $(this).parents('tr').children('td')[7].innerText 
-                    // var GUI_number = $(this).parents('tr').children('td')[8].innerText 
+                    // var time = $(this).parents('tr').children('td')[1].textContent 
+                    // var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                    // var address = $(this).parents('tr').children('td')[4].textContent 
+                    // var mobile = $(this).parents('tr').children('td')[5].textContent 
+                    // var work_type = $(this).parents('tr').children('td')[7].textContent 
+                    // var GUI_number = $(this).parents('tr').children('td')[8].textContent 
 
                     $.ajax({
-                        url:"{{ route('ht.StrokeManage.staff.transfer',['organization'=>$organization]) }}", 
+                        url:"{{ route('ht.StrokeManage.staff.updateStatus',['organization'=>$organization]) }}", 
                         method:"post",
                         data:{
                             '_token':'{{csrf_token()}}',

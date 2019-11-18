@@ -398,28 +398,28 @@
 
                     if(RWD == 0){
                         var token = $(this).val()
-                        var id = $(this).parents('tr').children('td')[0].innerText 
-                        var time = $(this).parents('tr').children('td')[1].innerText 
-                        var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
-                        var address = $(this).parents('tr').children('td')[4].innerText 
-                        var mobile = $(this).parents('tr').children('td')[5].innerText 
-                        var reason = $(this).parents('tr').children('td')[6].innerText 
-                        var work_type = $(this).parents('tr').children('td')[7].innerText 
-                        var GUI_number = $(this).parents('tr').children('td')[8].innerText
+                        var id = $(this).parents('tr').children('td')[0].textContent 
+                        var time = $(this).parents('tr').children('td')[1].textContent 
+                        var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                        var address = $(this).parents('tr').children('td')[4].textContent 
+                        var mobile = $(this).parents('tr').children('td')[5].textContent 
+                        var reason = $(this).parents('tr').children('td')[6].textContent 
+                        var work_type = $(this).parents('tr').children('td')[7].textContent 
+                        var GUI_number = $(this).parents('tr').children('td')[8].textContent
                         if(GUI_number == null || GUI_number == ""){
                             var GUI_number = ""
                         }
                     }
                     else if(RWD == 1){
                         var token = $(this).val()
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
-                        var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].innerText;
-                        var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].innerText;
-                        var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].innerText;
-                        var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].innerText;
-                        var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].innerText;
-                        var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].innerText;
-                        var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
+                        var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
+                        var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].textContent;
+                        var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].textContent;
+                        var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
+                        var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
+                        var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
+                        var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
                         if(GUI_number == 'null' || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -576,10 +576,10 @@
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                      if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var id = $(this).parents('tr').children('td')[0].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
                     }
 
                     $.ajax({
@@ -609,10 +609,10 @@
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                      if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var id = $(this).parents('tr').children('td')[0].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
                     }
 
                     $.ajax({
@@ -642,17 +642,17 @@
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                      if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var id = $(this).parents('tr').children('td')[0].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
                     }
-                    // var time = $(this).parents('tr').children('td')[1].innerText 
-                    // var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
-                    // var address = $(this).parents('tr').children('td')[4].innerText 
-                    // var mobile = $(this).parents('tr').children('td')[5].innerText 
-                    // var work_type = $(this).parents('tr').children('td')[7].innerText 
-                    // var GUI_number = $(this).parents('tr').children('td')[8].innerText 
+                    // var time = $(this).parents('tr').children('td')[1].textContent 
+                    // var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                    // var address = $(this).parents('tr').children('td')[4].textContent 
+                    // var mobile = $(this).parents('tr').children('td')[5].textContent 
+                    // var work_type = $(this).parents('tr').children('td')[7].textContent 
+                    // var GUI_number = $(this).parents('tr').children('td')[8].textContent 
 
                     $.ajax({
                         method:'post',
@@ -886,28 +886,28 @@
 
                     if(RWD == 0){
                         var token = $(this).val()
-                        var id = $(this).parents('tr').children('td')[0].innerText 
-                        var time = $(this).parents('tr').children('td')[1].innerText 
-                        var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
-                        var address = $(this).parents('tr').children('td')[4].innerText 
-                        var mobile = $(this).parents('tr').children('td')[5].innerText 
-                        var reason = $(this).parents('tr').children('td')[6].innerText 
-                        var work_type = $(this).parents('tr').children('td')[7].innerText 
-                        var GUI_number = $(this).parents('tr').children('td')[8].innerText
+                        var id = $(this).parents('tr').children('td')[0].textContent 
+                        var time = $(this).parents('tr').children('td')[1].textContent 
+                        var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                        var address = $(this).parents('tr').children('td')[4].textContent 
+                        var mobile = $(this).parents('tr').children('td')[5].textContent 
+                        var reason = $(this).parents('tr').children('td')[6].textContent 
+                        var work_type = $(this).parents('tr').children('td')[7].textContent 
+                        var GUI_number = $(this).parents('tr').children('td')[8].textContent
                         if(GUI_number == null || GUI_number == ""){
                             var GUI_number = ""
                         }
                     }
                     else if(RWD == 1){
                         var token = $(this).val()
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
-                        var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].innerText;
-                        var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].innerText;
-                        var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].innerText;
-                        var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].innerText;
-                        var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].innerText;
-                        var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].innerText;
-                        var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
+                        var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
+                        var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].textContent;
+                        var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].textContent;
+                        var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
+                        var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
+                        var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
+                        var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
                         if(GUI_number == 'null' || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -1163,10 +1163,10 @@
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var id = $(this).parents('tr').children('td')[0].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
                     }
 
                     $.ajax({
@@ -1196,10 +1196,10 @@
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var id = $(this).parents('tr').children('td')[0].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
                     }
 
                     $.ajax({
@@ -1229,17 +1229,17 @@
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].innerText 
+                        var id = $(this).parents('tr').children('td')[0].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
+                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
                     }
-                    // var time = $(this).parents('tr').children('td')[1].innerText 
-                    // var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
-                    // var address = $(this).parents('tr').children('td')[4].innerText 
-                    // var mobile = $(this).parents('tr').children('td')[5].innerText 
-                    // var work_type = $(this).parents('tr').children('td')[7].innerText 
-                    // var GUI_number = $(this).parents('tr').children('td')[8].innerText 
+                    // var time = $(this).parents('tr').children('td')[1].textContent 
+                    // var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                    // var address = $(this).parents('tr').children('td')[4].textContent 
+                    // var mobile = $(this).parents('tr').children('td')[5].textContent 
+                    // var work_type = $(this).parents('tr').children('td')[7].textContent 
+                    // var GUI_number = $(this).parents('tr').children('td')[8].textContent 
 
                     $.ajax({
                         method:'post',
@@ -1370,14 +1370,14 @@
 
                     var token = $("select[name='sel1']").val()
 
-                    var id = $(this).parents('tr').children('td')[0].innerText 
-                    var time = $(this).parents('tr').children('td')[1].innerText 
-                    var CUSTKEY = $(this).parents('tr').children('td')[2].innerText 
-                    var address = $(this).parents('tr').children('td')[4].innerText 
-                    var mobile = $(this).parents('tr').children('td')[5].innerText 
-                    var reason = $(this).parents('tr').children('td')[6].innerText 
-                    var work_type = $(this).parents('tr').children('td')[7].innerText 
-                    var GUI_number = $(this).parents('tr').children('td')[8].innerText
+                    var id = $(this).parents('tr').children('td')[0].textContent 
+                    var time = $(this).parents('tr').children('td')[1].textContent 
+                    var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                    var address = $(this).parents('tr').children('td')[4].textContent 
+                    var mobile = $(this).parents('tr').children('td')[5].textContent 
+                    var reason = $(this).parents('tr').children('td')[6].textContent 
+                    var work_type = $(this).parents('tr').children('td')[7].textContent 
+                    var GUI_number = $(this).parents('tr').children('td')[8].textContent
                     if(GUI_number == null || GUI_number == ""){
                         var GUI_number = ""
                     }
@@ -1418,14 +1418,14 @@
 
                     var token = $("select[name='sel1']").val()
 
-                    var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].innerText;
-                    var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].innerText;
-                    var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].innerText;
-                    var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].innerText;
-                    var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].innerText;
-                    var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].innerText;
-                    var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].innerText;
-                    var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].innerText;
+                    var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
+                    var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
+                    var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].textContent;
+                    var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].textContent;
+                    var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
+                    var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
+                    var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
+                    var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
                     if(GUI_number == 'null' || GUI_number == ""){
                         var GUI_number = ""
                     }

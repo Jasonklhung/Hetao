@@ -128,7 +128,7 @@
                                                                     <th class="desktop">派工類型</th>
                                                                     <th hidden="">統編</th>
                                                                     <th class="desktop">負責主管</th>
-                                                                    <th class="desktop"></th>
+                                                                    <th class="desktop">編輯</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>

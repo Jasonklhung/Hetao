@@ -871,7 +871,7 @@ input:checked+.slider:before {
         justify-content: space-between;
     }
     .nav>li>a {
-        padding: 4px;
+        padding: 4px 0;
     }
 }
 

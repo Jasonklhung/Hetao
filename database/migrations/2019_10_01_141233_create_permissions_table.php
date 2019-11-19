@@ -25,6 +25,8 @@ class CreatePermissionsTable extends Migration
             $table->enum('contact',array('Y','N'))->default('N')->comment('表單-與我聯繫權限');
             $table->enum('timeset',array('Y','N'))->default('N')->comment('推播設定權限');
             $table->enum('permission',array('Y','N'))->default('N')->comment('權限');
+            $table->enum('contactUs',array('Y','N'))->default('N')->comment('與我聯繫權限');
+            $table->enum('satisfactionSurvey',array('Y','N'))->default('N')->comment('滿意度調查權限');
             $table->timestamps();
         });
     }

@@ -193,6 +193,35 @@
                                                                     </label>
                                                                     @endif
                                                                 </li>
+                                                                <li>
+                                                                    <span class="text-left">與我聯繫/滿意度表單</span>
+                                                                    <ul class="text-left">
+
+                                                                        @if($permission->contactUs == 'Y')
+                                                                        <li class="si">與我聯繫<label class="switch">
+                                                                                <input type="checkbox" name="contactUs" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label></li>
+                                                                        @else
+                                                                        <li class="si">與我聯繫<label class="switch">
+                                                                                <input type="checkbox" name="contactUs">
+                                                                                <span class="slider round"></span>
+                                                                            </label></li>
+                                                                        @endif
+
+                                                                        @if($permission->satisfactionSurvey == 'Y')
+                                                                        <li class="si">滿意度調查<label class="switch">
+                                                                                <input type="checkbox" name="satisfactionSurvey" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label></li>
+                                                                        @else
+                                                                        <li class="si">滿意度調查<label class="switch">
+                                                                                <input type="checkbox" name="satisfactionSurvey">
+                                                                                <span class="slider round"></span>
+                                                                            </label></li>
+                                                                        @endif
+                                                                    </ul>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>

@@ -57,11 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::post('/HT/{organization}/StrokeManage/assistant/store','HT\StrokeManage\AssistantController@store')->name('ht.StrokeManage.assistant.store');
 
-		Route::get('/HT/{organization}/StrokeManage/assistant/show/{id}','HT\StrokeManage\AssistantController@show')->name('ht.StrokeManage.assistant.show');
-
 		Route::post('/HT/{organization}/StrokeManage/assistant/resSearch','HT\StrokeManage\AssistantController@resSearch')->name('ht.StrokeManage.assistant.resSearch');
-
-		Route::post('/HT/{organization}/StrokeManage/assistant/contactSearch','HT\StrokeManage\AssistantController@contactSearch')->name('ht.StrokeManage.assistant.contactSearch');
 
 		Route::get('/HT/{organization}/StrokeManage/assistant/showContact/{id}','HT\StrokeManage\AssistantController@showContact')->name('ht.StrokeManage.assistant.showContact');
 
@@ -145,5 +141,21 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/HT/{organization}/Permission/getUserInfo','HT\Permission\PermissionController@getUserInfo')->name('ht.Permission.getUserInfo');
 
 		Route::delete('/HT/{organization}/Permission/destroy','HT\Permission\PermissionController@destroy')->name('ht.Permission.destroy');
+
+		//與我聯繫/滿意度調查表單內容
+
+		//與我聯繫
+		Route::get('/HT/{organization}/FormDetails/ContactUs/index','HT\FormDetails\ContactUsController@index')->name('ht.FormDetails.ContactUs.index');
+
+		Route::get('/HT/{organization}/FormDetails/ContactUs/show/{id}','HT\FormDetails\ContactUsController@show')->name('ht.FormDetails.ContactUs.show');
+
+		Route::post('/HT/{organization}/FormDetails/ContactUs/contactSearch','HT\FormDetails\ContactUsController@contactSearch')->name('ht.FormDetails.ContactUs.contactSearch');
+
+		//滿意度調查
+		Route::get('/HT/{organization}/FormDetails/satisfactionSurvey/index','HT\FormDetails\satisfactionSurveyController@index')->name('ht.FormDetails.satisfactionSurvey.index');
+
+		Route::get('/HT/{organization}/FormDetails/satisfactionSurvey/show/{id}','HT\FormDetails\satisfactionSurveyController@show')->name('ht.FormDetails.satisfactionSurvey.show');
+		
+		Route::post('/HT/{organization}/FormDetails/satisfactionSurvey/satisfactionSearch','HT\FormDetails\satisfactionSurveyController@satisfactionSearch')->name('ht.FormDetails.satisfactionSurvey.satisfactionSearch');
 	});
 });

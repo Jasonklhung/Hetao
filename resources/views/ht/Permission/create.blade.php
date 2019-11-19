@@ -118,6 +118,19 @@
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </li>
+                                                                <li>
+                                                                    <span class="text-left">與我聯繫/滿意度表單</span>
+                                                                    <ul class="text-left">
+                                                                        <li class="si">與我聯繫<label class="switch">
+                                                                                <input type="checkbox" name="contactUs" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label></li>
+                                                                        <li class="si">滿意度調查<label class="switch">
+                                                                                <input type="checkbox" name="satisfactionSurvey" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label></li>
+                                                                    </ul>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>

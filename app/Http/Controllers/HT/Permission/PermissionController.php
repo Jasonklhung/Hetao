@@ -119,6 +119,8 @@ class PermissionController extends Controller
     	(isset($request->contact))? $permission->contact = 'Y' : $permission->contact = 'N';
     	(isset($request->timeset))? $permission->timeset = 'Y' : $permission->timeset = 'N';
     	(isset($request->permission))? $permission->permission = 'Y' : $permission->permission = 'N';
+        (isset($request->contactUs))? $permission->contactUs = 'Y' : $permission->contactUs = 'N';
+        (isset($request->satisfactionSurvey))? $permission->satisfactionSurvey = 'Y' : $permission->satisfactionSurvey = 'N';
     	$permission->save();
 
     	return redirect()->route('ht.Permission.index',compact('organization'))->with('success','新增成功');
@@ -186,6 +188,8 @@ class PermissionController extends Controller
     	(isset($request->contact))? $permission->contact = 'Y' : $permission->contact = 'N';
     	(isset($request->timeset))? $permission->timeset = 'Y' : $permission->timeset = 'N';
     	(isset($request->permission))? $permission->permission = 'Y' : $permission->permission = 'N';
+        (isset($request->contactUs))? $permission->contactUs = 'Y' : $permission->contactUs = 'N';
+        (isset($request->satisfactionSurvey))? $permission->satisfactionSurvey = 'Y' : $permission->satisfactionSurvey = 'N';
     	$permission->save();
 
         //line api

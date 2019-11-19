@@ -146,6 +146,41 @@
                         </li>
                         @endif
                     @endif
+                    @if(Auth::user()->permission->contactUs == 'N' && Auth::user()->permission->satisfactionSurvey == 'N')
+
+                    @else
+                        <li class="c-2">
+                            <a class="collapsed" data-toggle="collapse" href="#sub-3"><i class="fas fa-angle-double-right"></i> <span>與我聯繫/滿意度表單</span> <span class="float-right">+</span></a>
+                            <div class="collapse" id="sub-3">
+                                <ul class="nav">
+
+                                @if(Auth::user()->permission->contactUs == 'Y')
+                                    @if(url()->current() == route('ht.FormDetails.ContactUs.index',['organization'=>$organization]))
+                                    <li class="selected">
+                                        <a href="{{ route('ht.FormDetails.ContactUs.index',['organization'=>$organization]) }}">與我聯繫</a>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <a href="{{ route('ht.FormDetails.ContactUs.index',['organization'=>$organization]) }}">與我聯繫</a>
+                                    </li>
+                                    @endif
+                                @endif
+
+                                @if(Auth::user()->permission->satisfactionSurvey == 'Y')
+                                    @if(url()->current() == route('ht.FormDetails.satisfactionSurvey.index',['organization'=>$organization]))
+                                    <li class="selected">
+                                        <a href="{{ route('ht.FormDetails.satisfactionSurvey.index',['organization'=>$organization]) }}">滿意度調查</a>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <a href="{{ route('ht.FormDetails.satisfactionSurvey.index',['organization'=>$organization]) }}">滿意度調查</a>
+                                    </li>
+                                    @endif
+                                @endif
+                                </ul>
+                            </div>
+                        </li>
+                    @endif
                     </ul>
                 </nav>
             </div>
@@ -207,5 +242,21 @@
             <a class="" href="{{ route('ht.Permission.index',['organization'=>$organization]) }}">
                 <sb-item><i class="fas fa-angle-double-right fa-fw"></i> 權限管理</sb-item>
             </a>
+            @endif
+
+            @if(Auth::user()->permission->ContactUs == 'N' && Auth::user()->permission->satisfactionSurvey == 'N')
+
+            @else
+            <sb-menu2>
+                <sb-menu-title2><i class="fas fa-angle-double-right fa-fw"></i> <span> 與我聯繫/滿意度表單</span><span class="badge"></span></sb-menu-title2>
+
+                @if(Auth::user()->permission->ContactUs == 'Y')
+                <sb-item2 onclick="javascript:location.href='{{ route('ht.FormDetails.ContactUs.index',['organization'=>$organization]) }}'">與我聯繫</sb-item2>
+                @endif
+
+                @if(Auth::user()->permission->satisfactionSurvey == 'Y')
+                <sb-item2 onclick="javascript:location.href='{{ route('ht.FormDetails.satisfactionSurvey.index',['organization'=>$organization]) }}'">滿意度調查</sb-item2>
+                @endif
+            </sb-menu2>
             @endif
         </side-bar>

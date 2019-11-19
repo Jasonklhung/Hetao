@@ -472,7 +472,7 @@
                                                 for (var i = 0; i < item.length; i++) {
                                                     if(item[i].start.split(" ")[1] == '00:00:00' && item[i].start == item[i].end){
 
-                                                        var selOpts = "<ul class='mb-s readmode'><ul class='add-ul' id='meetInfo'><li class='mb-s' hidden id='id'><i class='fas fa-clock fa-fw'></i><span>"+item[i].id+"</span></li><li class='mb-s' id='title'><i class='fas fa-clock fa-fw'></i><span>"+item[i].title+"</span></li><li class='mb-s' id='allday'><i class='fas fa-clock fa-fw'></i><span>全天</span></li><li class='mb-s' id='pos'><i class='fas fa-map-marker-alt fa-fw'></i><span>"+item[i].position+"</span></li>"
+                                                        var selOpts = "<ul class='mb-s readmode'><ul class='add-ul' id='meetInfo'><li class='mb-s' hidden id='id'><i class='fas fa-clock fa-fw'></i><span>"+item[i].id+"</span></li><li class='mb-s' id='title'><span class='title-deco active'>"+item[i].title+"</span></li><li class='mb-s' id='allday'><i class='fas fa-clock fa-fw'></i><span>全天</span></li><li class='mb-s' id='pos'><i class='fas fa-map-marker-alt fa-fw'></i><span>"+item[i].position+"</span></li>"
 
                                                         for (var j = 0; j < item[i].meeting.split(",").length; j++) {
                                                             if(j == 0){
@@ -590,7 +590,7 @@
                                                     }
                                                     else if(item[i].start.split(" ")[1] == '00:00:00' && item[i].end.split(" ")[1] == '00:00:00'){
 
-                                                        var selOpts = "<ul class='mb-s readmode'><ul class='add-ul' id='meetInfo'><li class='mb-s' hidden id='id'><i class='fas fa-clock fa-fw'></i><span>"+item[i].id+"</span></li><li class='mb-s' id='title'><i class='fas fa-clock fa-fw'></i><span>"+item[i].title+"</span></li><li class='mb-s' id='allday'><i class='fas fa-clock fa-fw'></i><span>全天</span></li><li class='mb-s' id='pos'><i class='fas fa-map-marker-alt fa-fw'></i><span>"+item[i].position+"</span></li>"
+                                                        var selOpts = "<ul class='mb-s readmode'><ul class='add-ul' id='meetInfo'><li class='mb-s' hidden id='id'><i class='fas fa-clock fa-fw'></i><span>"+item[i].id+"</span></li><li class='mb-s' id='title'><span class='title-deco active'>"+item[i].title+"</span></li><li class='mb-s' id='allday'><i class='fas fa-clock fa-fw'></i><span>全天</span></li><li class='mb-s' id='pos'><i class='fas fa-map-marker-alt fa-fw'></i><span>"+item[i].position+"</span></li>"
 
                                                         for (var j = 0; j < item[i].meeting.split(",").length; j++) {
                                                             if(j == 0){
@@ -708,7 +708,7 @@
                                                     }
                                                     else{
 
-                                                        var selOpts = "<ul class='mb-s readmode'><ul class='add-ul' id='meetInfo'><li class='mb-s' hidden id='id'><i class='fas fa-clock fa-fw'></i><span>"+item[i].id+"</span></li><li class='mb-s' id='title'><i class='fas fa-clock fa-fw'></i><span>"+item[i].title+"</span></li><li class='mb-s' id='allday'><i class='fas fa-clock fa-fw'></i><span>"+item[i].start.split(" ")[1]+"~"+item[i].end.split(" ")[1]+"</span></li><li class='mb-s' id='pos'><i class='fas fa-map-marker-alt fa-fw'></i><span>"+item[i].position+"</span></li>"
+                                                        var selOpts = "<ul class='mb-s readmode'><ul class='add-ul' id='meetInfo'><li class='mb-s' hidden id='id'><i class='fas fa-clock fa-fw'></i><span>"+item[i].id+"</span></li><li class='mb-s' id='title'><span class='title-deco active'>"+item[i].title+"</span></li><li class='mb-s' id='allday'><i class='fas fa-clock fa-fw'></i><span>"+item[i].start.split(" ")[1]+"~"+item[i].end.split(" ")[1]+"</span></li><li class='mb-s' id='pos'><i class='fas fa-map-marker-alt fa-fw'></i><span>"+item[i].position+"</span></li>"
 
                                                         for (var j = 0; j < item[i].meeting.split(",").length; j++) {
                                                             if(j == 0){

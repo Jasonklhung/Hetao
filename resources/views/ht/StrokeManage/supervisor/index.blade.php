@@ -20,16 +20,16 @@
                                                 <!-- tab標籤 -->
                                                 <ul class="nav nav-tabs">
                                                     <li class="active">
-                                                        <a data-toggle="tab" href="#viewers-tab-01">待指派工單</a>
+                                                        <a data-toggle="tab" href="#viewers-tab-01">待指派</a>
                                                     </li>
                                                     <li>
-                                                        <a data-toggle="tab" href="#viewers-tab-02">已指派工單</a>
+                                                        <a data-toggle="tab" href="#viewers-tab-02">已指派</a>
                                                     </li>
                                                     <li>
                                                         <a data-toggle="tab" href="#viewers-tab-03">行程回報</a>
                                                     </li>
                                                     <li>
-                                                        <a data-toggle="tab" href="#viewers-tab-04">已完成工單</a>
+                                                        <a data-toggle="tab" href="#viewers-tab-04">已完成</a>
                                                     </li>
                                                 </ul>
                                                 <!-- tab標籤內容 -->

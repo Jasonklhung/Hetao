@@ -21,7 +21,7 @@
                                                 <!-- tab標籤 -->
                                                 <ul class="nav nav-tabs">
                                                     <li>
-                                                        <a data-toggle="tab" href="#viewers-tab-01">客戶線上預約</a>
+                                                        <a data-toggle="tab" href="#viewers-tab-01">線上預約</a>
                                                     </li>
                                                     <li class="active">
                                                         <a data-toggle="tab" href="#viewers-tab-02">派工單</a>
@@ -30,7 +30,7 @@
                                                         <a data-toggle="tab" href="#viewers-tab-03">行程回報</a>
                                                     </li>
                                                     <li>
-                                                        <a data-toggle="tab" href="#viewers-tab-05">已完成工單</a>
+                                                        <a data-toggle="tab" href="#viewers-tab-05">已完成</a>
                                                     </li>
                                                 </ul>
                                                 <!-- tab標籤內容 -->

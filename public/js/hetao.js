@@ -557,3 +557,8 @@ $('body').on('click', '#job2 .finish', function(){
     }
 });
 
+$(window).on('resize', function(e) {
+    $($.fn.dataTable.tables(true)).DataTable()
+        .columns.adjust();
+});
+

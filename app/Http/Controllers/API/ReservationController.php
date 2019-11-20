@@ -60,12 +60,14 @@ class ReservationController extends Controller
                         $radioName = explode('Question', $vv->name)[0];
                         foreach ($v as $r => $rr) {
                             if(preg_match("/^$radioName+Question+$/", $rr->name)){
-                                $res[explode('Question', $rr->name)[0]]['question'] = $rr->value;
+                                $res[$radioName]['question'] = $rr->value;
                             }
                             elseif(preg_match("/^$radioName+Opt$/", $rr->name)){
-                                $res[explode('Opt', $rr->name)[0]]['answer'] = $rr->value;
+                                $res[$radioName]['answer'] = $rr->value;
                             }
                         }
+
+                        $res = array_values($res);
                     }
                     elseif(preg_match("/^multi+[0-9]+Question+$/", $vv->name)){
                         $multiName = explode('Question', $vv->name)[0];
@@ -77,6 +79,7 @@ class ReservationController extends Controller
                                 $res[explode('Opt', $rr->name)[0]]['answer'][] = $rr->value;
                             }
                         }
+                        $res = array_values($res);
                     }
                     elseif(preg_match("/^select+[0-9]+Question+$/", $vv->name)){
                         $selectName = explode('Question', $vv->name)[0];
@@ -88,6 +91,7 @@ class ReservationController extends Controller
                                 $res[$rr->name]['answer'] = $rr->value;
                             }
                         }
+                        $res = array_values($res);
                     }
                     elseif(preg_match("/^qa+[0-9]+Question+$/", $vv->name)){
                         $qaName = explode('Question', $vv->name)[0];
@@ -99,6 +103,7 @@ class ReservationController extends Controller
                                 $res[$rr->name]['answer'] = $rr->value;
                             }
                         }
+                        $res = array_values($res);
                     }
                     elseif(preg_match("/^part+[0-9]+Question+$/", $vv->name)){
                         $partName = explode('Question', $vv->name)[0];
@@ -110,6 +115,7 @@ class ReservationController extends Controller
                                 $res[$rr->name]['answer'] = $rr->value;
                             }
                         }
+                        $res = array_values($res);
                     }
                     elseif(preg_match("/^date+[0-9]+Question+$/", $vv->name)){
                         $dateName = explode('Question', $vv->name)[0];
@@ -121,6 +127,7 @@ class ReservationController extends Controller
                                 $res[$rr->name]['answer'] = $rr->value;
                             }
                         }
+                        $res = array_values($res);
                     }
                     elseif(preg_match("/^time+[0-9]+Question+$/", $vv->name)){
                         $timeName = explode('Question', $vv->name)[0];
@@ -132,6 +139,7 @@ class ReservationController extends Controller
                                 $res[$rr->name]['answer'] = $rr->value;
                             }
                         }
+                        $res = array_values($res);
                     }
                 }
             }

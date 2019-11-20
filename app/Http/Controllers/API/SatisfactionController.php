@@ -34,6 +34,7 @@ class SatisfactionController extends Controller
         $res->department_id = $request->DEPT;
     	$res->account_id = $id[0]['id'];
     	$res->form = json_encode($form);
+        $res->case_id = $request->case_id;
     	$res->save();   
 
     	return 'ok';

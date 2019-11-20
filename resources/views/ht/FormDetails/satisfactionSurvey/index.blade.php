@@ -55,7 +55,7 @@
                                                                 <tr>
                                                                     <th class="desktop">姓名</th>
                                                                     <th class="desktop">客戶代碼</th>
-                                                                    <th class="desktop">預約日期</th>
+                                                                    <th class="desktop">填寫時間</th>
                                                                     <th class="desktop">查看</th>
                                                                 </tr>
                                                             </thead>
@@ -180,7 +180,7 @@
                             "search": "",
                             "searchPlaceholder": "請輸入關鍵字",
                             "paginate": { "previous": "上一頁", "next": "下一頁" },
-                            "emptyTable":     "目前無與我聯繫表單",
+                            "emptyTable":     "目前無滿意度調查表單",
                             "zeroRecords":    "沒有符合的搜尋結果",
                         },
                         "dom": "Bfrtip",

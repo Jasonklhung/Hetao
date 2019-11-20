@@ -87,8 +87,39 @@ component('side-bar', toggleAbleOpenAttr({
   }
 }))
 
+component('side-bar', toggleAbleOpenAttr({
+  props: {
+    accessors: {
+      selected: {
+        get (sb) {
+          const selected = sb.state.selected || sb.findOne('sb-item3.selected')
+          if (selected) return $(selected)
+        },
+        set (sb, selected) {
+          selected = $(selected)
+          if (selected.class.selected) return
+          selected.class.selected = true
+          if (sb.selected) {
+            (sb.selectedLast = sb.selected).class.selected = false
+          }
+          sb.state.selected = selected
+        }
+      }
+    }
+  },
+  mount (el) {
+    el.on.click(({target}) => {
+      if (target === el || target === el()) return
+      if ((target = $(target)).matches('sb-item3') && !target.class.selected) {
+        el.selected = target
+      }
+    })
+  }
+}))
+
 component('sb-menu', toggleAbleOpenAttr({}, 'sb-menu-title'))
 component('sb-menu2', toggleAbleOpenAttr({}, 'sb-menu-title2'))
+component('sb-menu3', toggleAbleOpenAttr({}, 'sb-menu-title3'))
 }
 
 $('.c-l').click(function(){
@@ -104,5 +135,13 @@ $('.c-2').click(function(){
     $('.c-2 .float-right').text('-');  
   } else {
     $('.c-2 .float-right').text('+');  
+  }
+});
+
+$('.c-3').click(function(){
+  if(!$('.collapse').hasClass('in')){
+    $('.c-3 .float-right').text('-');  
+  } else {
+    $('.c-3 .float-right').text('+');  
   }
 });

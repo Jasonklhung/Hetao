@@ -13,7 +13,8 @@ body {
 
 side-bar,
 sb-menu,
-sb-menu2 {
+sb-menu2,
+sb-menu3 {
     display: flex;
     justify-content: flex-start;
     align-content: center;
@@ -44,10 +45,10 @@ side-bar[open] {
 }
 
 side-bar .selected,
-sb-menu[open]>.selected, sb-menu2[open]>.selected  {
+sb-menu[open]>.selected, sb-menu2[open]>.selected, sb-menu3[open]>.selected {
     background: rgba(99, 222, 255, 0.3) !important;
 }
-sb-item, sb-item:hover, sb-item2, sb-item2:hover  {
+sb-item, sb-item:hover, sb-item2, sb-item2:hover, sb-item3, sb-item3:hover {
     color: #fff;
 }
 side-bar .selected:hover {
@@ -82,7 +83,7 @@ side-bar[open]>.toggler {
     background-size: 40%;
 }
 
-sb-menu, sb-menu2 {
+sb-menu, sb-menu2, sb-menu3 {
     width: 100%;
     margin-top: .5em;
     border-top: 1px solid transparent;
@@ -92,14 +93,16 @@ sb-menu, sb-menu2 {
 sb-menu,
 sb-menu-title,
 sb-menu2,
-sb-menu-title2, {
+sb-menu-title2,
+sb-menu3,
+sb-menu-title3, {
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
     margin: 0;
     color: #fff;
 }
 
-sb-menu>sb-menu-title::before, sb-menu2>sb-menu-title2::before {
+sb-menu>sb-menu-title::before, sb-menu2>sb-menu-title2::before, sb-menu3>sb-menu-title3::before {
     display: inline-block;
     margin-right: 5px;
     font-weight: bold;
@@ -108,29 +111,29 @@ sb-menu>sb-menu-title::before, sb-menu2>sb-menu-title2::before {
     right: 12px;    
 }
 
-sb-menu[open]>sb-menu-title::before, sb-menu2[open]>sb-menu-title2::before {
+sb-menu[open]>sb-menu-title::before, sb-menu2[open]>sb-menu-title2::before, sb-menu3[open]>sb-menu-title3::before {
     content: '-';
 }
 
-sb-menu[open], sb-menu2[open] {
+sb-menu[open], sb-menu2[open], sb-menu3[open] {
 /*    border-top: 1px solid hsla(0, 0%, 100%, .15);
     border-bottom: 1px solid hsla(0, 0%, 100%, .15);*/
     /*background-color: rgba(99, 222, 255, 0.3) !important;*/
 }
 
-sb-menu>.selected, sb-menu2>.selected {
+sb-menu>.selected, sb-menu2>.selected, sb-menu3>.selected {
     height: 0;
     margin: 0;
 }
 
-sb-menu[open]>sb-menu-title, sb-menu2[open]>sb-menu-title2 {
+sb-menu[open]>sb-menu-title, sb-menu2[open]>sb-menu-title2, sb-menu3[open]>sb-menu-title3 {
 /*    border-bottom: 1px solid hsla(0, 0%, 100%, .15);
     box-shadow: 0 1px 6px rgba(0, 0, 0, .12);
     margin-bottom: .75em;*/
     background-color: transparent !important;
 }
 
-.sidebar sb-menu:hover, .sidebar sb-menu:focus, .sidebar sb-item:hover, .sidebar sb-item:focus, .sidebar sb-menu2:hover, .sidebar sb-menu2:focus, .sidebar sb-item2:hover, .sidebar sb-item2:focus,{
+.sidebar sb-menu:hover, .sidebar sb-menu:focus, .sidebar sb-item:hover, .sidebar sb-item:focus, .sidebar sb-menu2:hover, .sidebar sb-menu2:focus, .sidebar sb-item2:hover, .sidebar sb-item2:focus , .sidebar sb-menu3:hover, .sidebar sb-menu3:focus, .sidebar sb-item3:hover, .sidebar sb-item3:focus {
     color: #fff;
     background-color: rgba(99, 222, 255, 0.3) !important;
 }
@@ -140,20 +143,20 @@ sb-menu[open]>sb-menu-title, sb-menu2[open]>sb-menu-title2 {
     border-bottom: 1px solid hsla(0, 0%, 100%, .2);
 }*/
 
-sb-menu>sb-item, sb-menu2>sb-item2 {
+sb-menu>sb-item, sb-menu2>sb-item2, sb-menu3>sb-item3 {
     opacity: 0;
     height: 0;
     pointer-events: none;
     padding-left: 60px;
 }
 
-sb-menu[open]>sb-item, sb-menu2[open]>sb-item2 {
+sb-menu[open]>sb-item, sb-menu2[open]>sb-item2, sb-menu3[open]>sb-item3 {
     opacity: 1;
     height: 3.5em;
     pointer-events: auto;
 }
 
-sb-item a, sb-item a:hover, sb-menu-title, sb-item2 a, sb-item2 a:hover, sb-menu-title2 {
+sb-item a, sb-item a:hover, sb-menu-title, sb-item2 a, sb-item2 a:hover, sb-menu-title2, sb-item3 a, sb-item3 a:hover, sb-menu-title3 {
     font-size: 16px;
     color: #fff;    
 }
@@ -161,7 +164,9 @@ sb-item a, sb-item a:hover, sb-menu-title, sb-item2 a, sb-item2 a:hover, sb-menu
 sb-item,
 sb-menu-title,
 sb-item2,
-sb-menu-title2 {
+sb-menu-title2,
+sb-item3,
+sb-menu-title3 {
     display: flex;
     justify-content: left;
     align-content: center;

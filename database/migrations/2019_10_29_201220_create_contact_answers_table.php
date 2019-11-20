@@ -16,6 +16,7 @@ class CreateContactAnswersTable extends Migration
         Schema::create('contact_answers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->json('form')->comment('整包表單內容');
+            $table->enum('status',array('Y','N'))->default('N')->comment('狀態');
             $table->timestamps();
         });
     }

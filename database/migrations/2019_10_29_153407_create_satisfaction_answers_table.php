@@ -17,6 +17,7 @@ class CreateSatisfactionAnswersTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('account_id')->comment('客戶 account id');
             $table->json('form')->comment('整包表單內容');
+            $table->enum('status',array('Y','N'))->default('N')->comment('狀態');
             $table->timestamps();
         });
     }

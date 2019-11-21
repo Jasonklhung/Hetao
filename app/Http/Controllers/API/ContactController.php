@@ -148,7 +148,7 @@ class ContactController extends Controller
 
             $result[$key]['id'] = $value->id;
             $result[$key]['case_id'] = $finalCase;
-            $result[$key]['data'] = [$res];
+            $result[$key]['data'] = $res;
             $result[$key]['status'] = $value->status;
 
         }

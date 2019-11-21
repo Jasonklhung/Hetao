@@ -164,7 +164,7 @@ class ReservationController extends Controller
             $result[$key]['CUSTKEY'] = $account->cuskey;
             $result[$key]['name'] = $account->name;
             $result[$key]['CARDNO'] = $account->card_number;
-            $result[$key]['data'] = [$res];
+            $result[$key]['data'] = $res;
             $result[$key]['status'] = $value->status;
 
         }

@@ -180,8 +180,8 @@ class ReservationController extends Controller
         if($type == 'reservation'){
 
             $res = ReservationAnswer::find($id);
-            
-            if($res->isEmpty()){
+
+            if($res == null){
                 return json_encode(array('status' => 400, 'message' => '無效的id')) ;
             }
             else{

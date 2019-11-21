@@ -183,7 +183,7 @@ class ReservationController extends Controller
             $res->status = 'Y';
             $res->save();
 
-            dd($res);
+            return $res;
         }
         else{
             return json_encode(array('status' => 400, 'message' => '無效的type')) ;

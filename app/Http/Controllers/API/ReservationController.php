@@ -191,6 +191,34 @@ class ReservationController extends Controller
             }
 
         }
+        elseif($type == 'satisfaction'){
+
+            $res = SatisfactionAnswer::find($id);
+
+            if($res == null){
+                return json_encode(array('status' => 400, 'message' => '無效的id')) ;
+            }
+            else{
+                $res->status = 'Y';
+                $res->save();
+                return json_encode(array('status' => 200, 'message' => '更新成功')) ;
+            }
+
+        }
+        elseif($type == 'contact'){
+
+            $res = ContactAnswer::find($id);
+
+            if($res == null){
+                return json_encode(array('status' => 400, 'message' => '無效的id')) ;
+            }
+            else{
+                $res->status = 'Y';
+                $res->save();
+                return json_encode(array('status' => 200, 'message' => '更新成功')) ;
+            }
+
+        }
         else{
             return json_encode(array('status' => 400, 'message' => '無效的type')) ;
         }

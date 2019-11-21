@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Account;
 use App\Reservation;
 use App\ReservationAnswer;
+use App\SatisfactionAnswer;
+use App\ContactAnswer;
 use App\Department;
 
 class ReservationController extends Controller
@@ -168,5 +170,20 @@ class ReservationController extends Controller
         }
 
         return $result;
+    }
+
+    public function statusUpdate(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+
+        if($type == 'reservation'){
+
+            $res = ReservationAnswer::find($id);
+            $res->status = 'Y';
+            $res->save();
+
+            dd($res);
+        }
     }
 }

@@ -133,21 +133,9 @@ class ContactController extends Controller
                     }
                 }
             }
-
-            $case_id = explode(' ', $value->created_at)[0];
-            $case_id = explode('-',$case_id)[0].explode('-',$case_id)[1].explode('-',$case_id)[2];
-
-            if(in_array($case_id, $date)){
-                ++$finalCase;
-            }
-            else{
-                array_push($date, $case_id);
-                $finalCase = $case_id.'0001';
-            }
             
 
             $result[$key]['id'] = $value->id;
-            $result[$key]['case_id'] = $finalCase;
             $result[$key]['data'] = $res;
             $result[$key]['status'] = $value->status;
 

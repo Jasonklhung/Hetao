@@ -53,6 +53,7 @@
                                                         <table class="table table-hover dt-responsive table-striped" id="hetao-list-ab">
                                                             <thead class="rwdhide">
                                                                 <tr>
+                                                                    <th class="desktop">工單id</th>
                                                                     <th class="desktop">姓名</th>
                                                                     <th class="desktop">客戶代碼</th>
                                                                     <th class="desktop">填寫時間</th>
@@ -62,6 +63,7 @@
                                                             <tbody>
                                                                 @foreach($satisfaction as $data)
                                                                 <tr class="watch">
+                                                                    <td>{{ $data->case_id }}</td>
                                                                     <td>{{ $data->name }}</td>
                                                                     <td>{{ $data->cuskey }}</td>
                                                                     <td>{{ $data->created_at }}</td>
@@ -163,6 +165,7 @@
 
                     $.each(res, function (i, item) {
                         rows += "<tr class='watch'>"
+                        + "<td>" + item.case_id + "</td>"
                         + "<td>" + item.name + "</td>"
                         + "<td>" + item.cuskey +"</td>"
                         + "<td>" + item.created_at +"</td>"

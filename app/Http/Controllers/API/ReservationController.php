@@ -172,7 +172,7 @@ class ReservationController extends Controller
         return $result;
     }
 
-    public function statusUpdate(Request $request)
+    public function update(Request $request)
     {
         $id = $request->id;
         $type = $request->type;

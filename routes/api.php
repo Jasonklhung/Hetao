@@ -25,7 +25,7 @@ use Illuminate\Http\Request;
 Route::get('getResData','Api\ReservationController@index');
 Route::post('resStore','Api\ReservationController@store');
 Route::get('reservation','Api\ReservationController@show');
-Route::get('statusUpdate','Api\ReservationController@update');
+Route::post('statusUpdate','Api\ReservationController@update');
 
 Route::get('getContactData','Api\ContactController@index');
 Route::post('contactStore','Api\ContactController@store');

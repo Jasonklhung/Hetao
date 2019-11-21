@@ -185,5 +185,8 @@ class ReservationController extends Controller
 
             dd($res);
         }
+        else{
+            return json_encode(array('status' => 400, 'message' => '無效的type')) ;
+        }
     }
 }

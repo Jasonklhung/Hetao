@@ -8,6 +8,7 @@ use App\Organization;
 use App\TransferCase;
 use App\User;
 use App\Department;
+use App\SupervisorCase;
 
 use Auth;
 use GuzzleHttp\Client;
@@ -66,6 +67,17 @@ class StaffController extends Controller
 
     public function updateStatus(Organization $organization,Request $request)
     {
+
+        //update
+        $super = SupervisorCase::where('case_id',$request->id)->get();
+        if($super->isNotEmpty()){
+            $supervisor = SupervisorCase::find($super[0]['id']);
+            $supervisor->status = $request->status;
+            $supervisor->save();
+        }else{
+            
+        }
+
         //api
         $client = new \GuzzleHttp\Client();
         $response = $client->post('http://60.251.216.90:8855/api_/update-case-status', [

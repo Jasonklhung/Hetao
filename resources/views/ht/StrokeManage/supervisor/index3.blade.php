@@ -76,6 +76,7 @@
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
                                                                     <th hidden="">統編</th>
+                                                                    <th hidden="">狀態</th>
                                                                     <th class="desktop">負責人</th>
                                                                 </tr>
                                                             </thead>
@@ -89,6 +90,15 @@
                                                         <div class='coupon'>
                                                             <form class='form-inline'>
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_su2" placeholder="請輸入關鍵字">
+                                                                <div class="form-group mr-s">
+                                                                    <select class="form-control" id="searchStatus">
+                                                                        <option selected="" value="notselect">所有狀態</option>
+                                                                        <option value="">執行中</option>
+                                                                        <option value="R">轉單</option>
+                                                                        <option value="F">延後</option>
+                                                                        <option value="T">已完成</option>
+                                                                    </select>
+                                                                </div>
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select' id="SD2">
@@ -117,6 +127,7 @@
                                                                     <th class="desktop">電話</th>
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
+                                                                    <th class="desktop">工單狀態</th>
                                                                     <th class="desktop">負責人</th>
                                                                 </tr>
                                                             </thead>
@@ -130,6 +141,15 @@
                                                                     <td><a href="tel:{{ $data->mobile }}">{{ $data->mobile }}</a></td>
                                                                     <td>{{ $data->reason }}</td>
                                                                     <td>{{ $data->work_type }}</td>
+                                                                @if($data->status == '' || $data->status == null)
+                                                                    <td>執行中</td>
+                                                                @elseif($data->status == 'R')
+                                                                    <td>轉單</td>
+                                                                @elseif($data->status == 'F')
+                                                                    <td>延後</td>
+                                                                @else
+                                                                    <td>已完成</td>
+                                                                @endif
                                                                     <td>{{ $data->owner }}</td>
                                                                 </tr>
                                                                 @endforeach
@@ -240,6 +260,7 @@
 
 @section('scripts')
 <script type="text/javascript">
+    //已指派
     var table_su2 = $("#hetao-list-su-2").DataTable({
         "bPaginate": true,
         "searching": true,
@@ -258,7 +279,7 @@
             "extend": "colvis",
             "collectionLayout": "fixed two-column"
         }],
-        "order": [],
+        "order": [[1,'desc']],
         "columnDefs": [{
             "targets": [0],
             "orderable": false,
@@ -280,6 +301,131 @@
         table_su2.search(this.value).draw();
     });
 
+    //已指派狀態搜尋
+    $('#searchStatus').on('change',function(){
+
+        var status = $('#searchStatus').val()
+
+        $.ajax({
+            method:'post',
+            url:'{{ route('ht.StrokeManage.supervisor.searchStatus',['organization'=>$organization]) }}',
+            data:{
+                '_token':'{{csrf_token()}}',
+                'status':status,
+            },
+            dataType:'json',
+            success:function(res){
+
+                if(res == ''){
+                    alert('沒有符合的資料')
+                }
+                else{
+                    var rows;
+
+                    $('#hetao-list-su-2').DataTable().destroy();
+                    $('#hetao-list-su-2 tbody').empty();
+
+                    $.each(res, function (i, item) {
+
+                        if(item.status == null || item.status == ''){
+                            rows += "<tr>"
+                            + "<td>" + item.case_id + "</td>"
+                            + "<td>" + item.time + "</td>"
+                            + "<td>" + item.cuskey + "</td>"
+                            + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                            + "<td>" + item.reason + "</td>"
+                            + "<td>" + item.work_type + "</td>"
+                            + "<td>執行中</td>"
+                            + "<td>" + item.owner + "</td>"
+                            + "</tr>";            
+                        }
+                        else if(item.status == 'R'){
+                            rows += "<tr>"
+                            + "<td>" + item.case_id + "</td>"
+                            + "<td>" + item.time + "</td>"
+                            + "<td>" + item.cuskey + "</td>"
+                            + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                            + "<td>" + item.reason + "</td>"
+                            + "<td>" + item.work_type + "</td>"
+                            + "<td>轉單</td>"
+                            + "<td>" + item.owner + "</td>"
+                            + "</tr>";            
+                        }
+                        else if(item.status == 'F'){
+                            rows += "<tr>"
+                            + "<td>" + item.case_id + "</td>"
+                            + "<td>" + item.time + "</td>"
+                            + "<td>" + item.cuskey + "</td>"
+                            + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                            + "<td>" + item.reason + "</td>"
+                            + "<td>" + item.work_type + "</td>"
+                            + "<td>延後</td>"
+                            + "<td>" + item.owner + "</td>"
+                            + "</tr>";            
+                        }
+                        else{
+                            rows += "<tr>"
+                            + "<td>" + item.case_id + "</td>"
+                            + "<td>" + item.time + "</td>"
+                            + "<td>" + item.cuskey + "</td>"
+                            + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                            + "<td>" + item.reason + "</td>"
+                            + "<td>" + item.work_type + "</td>"
+                            + "<td>已完成</td>"
+                            + "<td>" + item.owner + "</td>"
+                            + "</tr>";            
+                        }
+                    });
+                    $('#hetao-list-su-2 tbody').append(rows);
+                    var table_a = $("#hetao-list-su-2").DataTable({
+                        "bPaginate": true,
+                        "searching": true,
+                        "info": false,
+                        "bLengthChange": false,
+                        "bServerSide": false,
+                        "language": {
+                            "search": "",
+                            "searchPlaceholder": "請輸入關鍵字",
+                            "paginate": { "previous": "上一頁", "next": "下一頁" },
+                            "emptyTable":     "目前無已指派工單",
+                            "zeroRecords":    "沒有符合的搜尋結果",
+                        },
+                        "dom": "Bfrtip",
+                        "buttons": [{
+                            "extend": 'colvis',
+                            "collectionLayout": 'fixed two-column'
+                        }],
+                        "order": [[ 1, "desc" ]],
+                        "columnDefs": [{
+                            "targets": [0],
+                            "orderable": false,
+                        }],
+                        "responsive": {
+                            "breakpoints": [
+                            { name: 'desktop', width: Infinity},
+                            { name: 'tablet',  width: 1700},
+                            ],
+                            "details": {
+                                "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                                "type": 'none',
+                                renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
+                                "target": ''
+                            }
+                        },
+                    });
+                    $(".searchInput_su2").on("keyup", function() {
+                        table_a.search(this.value).draw();
+                    });
+                }
+            }
+        })
+    })
+
+    //
     $.ajax({
         url:"{{ route('ht.StrokeManage.supervisor.getAssign',['organization'=>$organization]) }}", 
         method:"get",
@@ -330,6 +476,7 @@
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
+                              + "<td hidden>" + item.status + "</td>"
                               + "<td><select class='form-control' name='assign' style='margin-right:28px;'><option selected value=''>待指派</option></select><input class='chkall hide' type='checkbox' value='' name='oneforall' /></td>"
                          + "</tr>";
                     }
@@ -406,6 +553,7 @@
                         var reason = $(this).parents('tr').children('td')[6].textContent 
                         var work_type = $(this).parents('tr').children('td')[7].textContent 
                         var GUI_number = $(this).parents('tr').children('td')[8].textContent
+                        var status = $(this).parents('tr').children('td')[9].textContent
                         if(GUI_number == null || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -420,6 +568,7 @@
                         var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
                         var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
                         var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
+                        var status = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
                         if(GUI_number == 'null' || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -439,6 +588,7 @@
                             'work_type': work_type,
                             'time': time,
                             'owner_boss': token,
+                            'status': status,
                         },
                         dataType:'json',                 
                         success:function(res){
@@ -511,7 +661,7 @@
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
                               + "<td hidden></td>"
-                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
+                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                          + "</tr>";
                     }
                     else if(item.status == 'F'){
@@ -526,7 +676,7 @@
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
                               + "<td hidden>" + item.status + "</td>"
-                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
+                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                          + "</tr>";
                     }                  
                 });
@@ -817,6 +967,7 @@
                                   + "<td>" + item.remarks + "</td>"
                                   + "<td>" + item.work_type + "</td>"
                                   + `<td hidden> ${itemtt}</td>`
+                                  + "<td hidden>" + item.status + "</td>"
                                   + "<td><select class='form-control' name='assign' style='margin-right:28px;'><option selected value=''>待指派</option></select><input class='chkall hide' type='checkbox' value='' name='oneforall' /></td>"
                              + "</tr>";
                         }
@@ -894,6 +1045,7 @@
                         var reason = $(this).parents('tr').children('td')[6].textContent 
                         var work_type = $(this).parents('tr').children('td')[7].textContent 
                         var GUI_number = $(this).parents('tr').children('td')[8].textContent
+                        var status = $(this).parents('tr').children('td')[9].textContent
                         if(GUI_number == null || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -908,6 +1060,7 @@
                         var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
                         var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
                         var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
+                        var status = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
                         if(GUI_number == 'null' || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -927,6 +1080,7 @@
                             'work_type': work_type,
                             'time': time,
                             'owner_boss': token,
+                            'status': status,
                         },
                         dataType:'json',                 
                         success:function(res){
@@ -1000,16 +1154,58 @@
 
                     $.each(res, function (i, item) {
 
-                        rows += "<tr>"
-                        + "<td>" + item.case_id + "</td>"
-                        + "<td>" + item.time + "</td>"
-                        + "<td>" + item.cuskey + "</td>"
-                        + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                        + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
-                        + "<td>" + item.reason + "</td>"
-                        + "<td>" + item.work_type + "</td>"
-                        + "<td>" + item.owner + "</td>"
-                        + "</tr>";            
+                        if(item.status == null || item.status == ''){
+                            rows += "<tr>"
+                            + "<td>" + item.case_id + "</td>"
+                            + "<td>" + item.time + "</td>"
+                            + "<td>" + item.cuskey + "</td>"
+                            + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                            + "<td>" + item.reason + "</td>"
+                            + "<td>" + item.work_type + "</td>"
+                            + "<td>執行中</td>"
+                            + "<td>" + item.owner + "</td>"
+                            + "</tr>";            
+                        }
+                        else if(item.status == 'R'){
+                            rows += "<tr>"
+                            + "<td>" + item.case_id + "</td>"
+                            + "<td>" + item.time + "</td>"
+                            + "<td>" + item.cuskey + "</td>"
+                            + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                            + "<td>" + item.reason + "</td>"
+                            + "<td>" + item.work_type + "</td>"
+                            + "<td>轉單</td>"
+                            + "<td>" + item.owner + "</td>"
+                            + "</tr>";            
+                        }
+                        else if(item.status == 'F'){
+                            rows += "<tr>"
+                            + "<td>" + item.case_id + "</td>"
+                            + "<td>" + item.time + "</td>"
+                            + "<td>" + item.cuskey + "</td>"
+                            + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                            + "<td>" + item.reason + "</td>"
+                            + "<td>" + item.work_type + "</td>"
+                            + "<td>延後</td>"
+                            + "<td>" + item.owner + "</td>"
+                            + "</tr>";            
+                        }
+                        else{
+                            rows += "<tr>"
+                            + "<td>" + item.case_id + "</td>"
+                            + "<td>" + item.time + "</td>"
+                            + "<td>" + item.cuskey + "</td>"
+                            + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                            + "<td>" + item.reason + "</td>"
+                            + "<td>" + item.work_type + "</td>"
+                            + "<td>已完成</td>"
+                            + "<td>" + item.owner + "</td>"
+                            + "</tr>";            
+                        }   
                     });
                     $('#hetao-list-su-2 tbody').append(rows);
                     var table_a = $("#hetao-list-su-2").DataTable({
@@ -1032,8 +1228,8 @@
                         }],
                         "order": [[ 1, "desc" ]],
                         "columnDefs": [{
-                            "targets": [2],
-                            "orderable": true,
+                            "targets": [0],
+                            "orderable": false,
                         }],
                         "responsive": {
                             "breakpoints": [
@@ -1096,7 +1292,7 @@
                                   + "<td>" + item.work_type + "</td>"
                                   + `<td hidden> ${itemtt}</td>`
                                   + "<td hidden></td>"
-                                  + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
+                                  + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                              + "</tr>";
                         }
                         else if(item.status == 'F'){
@@ -1111,7 +1307,7 @@
                                   + "<td>" + item.work_type + "</td>"
                                   + `<td hidden> ${itemtt}</td>`
                                   + "<td hidden>" + item.status + "</td>"
-                                  + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
+                                  + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                              + "</tr>";
                         }
                     }

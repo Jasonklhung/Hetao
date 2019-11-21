@@ -139,18 +139,36 @@ class SupervisorController extends Controller
     	$dept_name = $dept_name[0]['name'];
 
     	//DB
-    	$supervisor = new SupervisorCase;
-    	$supervisor->user_id = Auth::user()->id;
-    	$supervisor->case_id = $request->id;
-    	$supervisor->cuskey = $request->name;
-    	$supervisor->mobile = $request->mobile;
-    	$supervisor->GUI_number = $request->GUI_number;
-    	$supervisor->address = $request->address;
-    	$supervisor->reason = $request->reason;
-    	$supervisor->work_type = $request->work_type;
-    	$supervisor->time = $request->time;
-    	$supervisor->owner = $dept[0]['name'];
-    	$supervisor->save();
+        $supervisor = SupervisorCase::where('case_id',$request->id)->get();
+        if($supervisor->isNotEmpty()){
+            $supervisor = SupervisorCase::find($supervisor[0]['id']);
+            $supervisor->user_id = Auth::user()->id;
+            $supervisor->case_id = $request->id;
+            $supervisor->cuskey = $request->name;
+            $supervisor->mobile = $request->mobile;
+            $supervisor->GUI_number = $request->GUI_number;
+            $supervisor->address = $request->address;
+            $supervisor->reason = $request->reason;
+            $supervisor->work_type = $request->work_type;
+            $supervisor->time = $request->time;
+            $supervisor->owner = $dept[0]['name'];
+            $supervisor->status = '';
+            $supervisor->save();
+        }else{
+            $supervisor = new SupervisorCase;
+            $supervisor->user_id = Auth::user()->id;
+            $supervisor->case_id = $request->id;
+            $supervisor->cuskey = $request->name;
+            $supervisor->mobile = $request->mobile;
+            $supervisor->GUI_number = $request->GUI_number;
+            $supervisor->address = $request->address;
+            $supervisor->reason = $request->reason;
+            $supervisor->work_type = $request->work_type;
+            $supervisor->time = $request->time;
+            $supervisor->owner = $dept[0]['name'];
+            $supervisor->status = $request->status;
+            $supervisor->save();
+        }
 
     	$case = TransferCase::where('case_id',$request->id)->get();
 
@@ -206,6 +224,16 @@ class SupervisorController extends Controller
     public function updateStatus(Organization $organization,Request $request)
     {
         //dd($request->all());
+
+        //update
+        $super = SupervisorCase::where('case_id',$request->id)->get();
+        if($super->isNotEmpty()){
+            $supervisor = SupervisorCase::find($super[0]['id']);
+            $supervisor->status = $request->status;
+            $supervisor->save();
+        }else{
+            
+        }
 
         //api
         $client = new \GuzzleHttp\Client();
@@ -274,5 +302,14 @@ class SupervisorController extends Controller
         $supervisor = SupervisorCase::where('user_id',Auth::user()->id)->whereBetween('time',[$request->start,$end])->get();
 
         return $supervisor;
+    }
+
+    public function searchStatus(Organization $organization,Request $request)
+    {
+        $status = $request->status;
+
+        $super = SupervisorCase::where('status',$status)->get();
+
+        return $super;
     }
 }

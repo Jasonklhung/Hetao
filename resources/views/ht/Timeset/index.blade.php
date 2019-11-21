@@ -33,9 +33,9 @@
                                                             </label>
                                                         </label>            
                                                         <div class="form-inline mr-l">
-                                                            預約完成後，隔<input class="form-control mx-s dayy" type="number" name="onlineDay" value="{{ substr($timeset[0]['days'],-1) }}" min="0">日
+                                                            預約完成後，隔<input class="form-control mx-s dayy" type="number" name="onlineDay" value="{{ substr($timeset[0]['days'],-1) }}" min="0" required="">日
                                                             <div class="input-group date time-select">
-                                                                <input class="form-control mx-s" placeholder="" type="text" name="onlineTime" value="{{ substr($timeset[0]['time'],0,-2) }}"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                <input class="form-control mx-s" placeholder="" type="text" name="onlineTime" required value="{{ substr($timeset[0]['time'],0,-2) }}"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                             </div>
                                                             推播
                                                         </div>
@@ -53,7 +53,7 @@
                                                         </label>
                                                         <div class="form-inline mr-l">
                                                             <div class="input-group date time-select">
-                                                                <input class="form-control" placeholder="" type="text" name="reservationTime" value="{{ substr($timeset[1]['time'],0,-2) }}"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                <input class="form-control" placeholder="" type="text" required name="reservationTime" value="{{ substr($timeset[1]['time'],0,-2) }}"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -69,9 +69,9 @@
                                                             </label>
                                                         </label>
                                                         <div class="form-inline mr-l">
-                                                            工單完成後，隔<input class="form-control mx-s dayy" type="number" name="satisfactionDay" value="{{ substr($timeset[2]['days'],-1) }}" min="0">日
+                                                            工單完成後，隔<input class="form-control mx-s dayy" type="number" name="satisfactionDay" value="{{ substr($timeset[2]['days'],-1) }}" min="0" required>日
                                                             <div class="input-group date time-select">
-                                                                <input class="form-control mx-s" placeholder="" type="text" name="satisfactionTime" value="{{ substr($timeset[2]['time'],0,-2) }}"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                <input class="form-control mx-s" placeholder="" required type="text" name="satisfactionTime" value="{{ substr($timeset[2]['time'],0,-2) }}"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                             </div>
                                                             推播
                                                         </div>
@@ -90,7 +90,7 @@
                                                         <div class="form-inline mr-l">
                                                             每天
                                                             <div class="input-group date time-select">
-                                                                <input class="form-control mx-s" placeholder="" type="text" name="assignTime" value="{{ substr($timeset[3]['time'],0,-2) }}"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                <input class="form-control mx-s" placeholder="" type="text" required name="assignTime" value="{{ substr($timeset[3]['time'],0,-2) }}"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -109,9 +109,9 @@
                                                             </label>
                                                         </label>            
                                                         <div class="form-inline mr-l">
-                                                            預約完成後，隔<input class="form-control mx-s dayy" type="number" name="onlineDay" value="" min="0">日
+                                                            預約完成後，隔<input class="form-control mx-s dayy" type="number" name="onlineDay" required value="" min="0">日
                                                             <div class="input-group date time-select">
-                                                                <input class="form-control mx-s" placeholder="" type="text" name="onlineTime" value=""> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                <input class="form-control mx-s" placeholder="" type="text" name="onlineTime" value="" required> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                             </div>
                                                             推播
                                                         </div>
@@ -125,7 +125,7 @@
                                                         </label>
                                                         <div class="form-inline mr-l">
                                                             <div class="input-group date time-select">
-                                                                <input class="form-control" placeholder="" type="text" name="reservationTime" value=""> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                <input class="form-control" placeholder="" type="text" name="reservationTime" required value=""> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -137,9 +137,9 @@
                                                             </label>
                                                         </label>
                                                         <div class="form-inline mr-l">
-                                                            工單完成後，隔<input class="form-control mx-s dayy" type="number" name="satisfactionDay" value="" min="0">日
+                                                            工單完成後，隔<input class="form-control mx-s dayy" type="number" name="satisfactionDay" value="" min="0" required>日
                                                             <div class="input-group date time-select">
-                                                                <input class="form-control mx-s" placeholder="" type="text" name="satisfactionTime" value=""> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                <input class="form-control mx-s" placeholder="" type="text" required name="satisfactionTime" value=""> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                             </div>
                                                             推播
                                                         </div>
@@ -154,7 +154,7 @@
                                                         <div class="form-inline mr-l">
                                                             每天
                                                             <div class="input-group date time-select">
-                                                                <input class="form-control mx-s" placeholder="" type="text" name="assignTime" value=""> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                <input class="form-control mx-s" placeholder="" type="text" required name="assignTime" value=""> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                             </div>
                                                         </div>
                                                     </div>

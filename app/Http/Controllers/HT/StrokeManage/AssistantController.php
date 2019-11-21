@@ -14,6 +14,7 @@ use App\Department;
 use App\TransferCase;
 use App\ReservationAnswer;
 use App\ContactAnswer;
+use App\SupervisorCase;
 
 use GuzzleHttp\Client;
 
@@ -467,6 +468,16 @@ class AssistantController extends Controller
     public function updateStatus(Organization $organization,Request $request)
     {
         //dd($request->all());
+
+        //updateStatus
+        $super = SupervisorCase::where('case_id',$request->id)->get();
+        if($super->isNotEmpty()){
+            $supervisor = SupervisorCase::find($super[0]['id']);
+            $supervisor->status = $request->status;
+            $supervisor->save();
+        }else{
+            
+        }
 
         //api
         $client = new \GuzzleHttp\Client();

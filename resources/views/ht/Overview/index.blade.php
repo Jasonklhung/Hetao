@@ -302,7 +302,7 @@
 
                 $.each(data, function (i, item) {
 
-                    chart_json.push({'title':""+item[7].date+" "+item[6].number.split("|||").length+"張工單",'start':item[7].date,'url':'#job1','className':'fc-event-success','allDay':true,'id':item[6].number,'owner':item[5].owner,'type':item[0].type,'time':item[7].date,'custkey':item[1].custkey,'address':item[2].address,'mobile':item[3].mobile,'remarks':item[4].reason,'status':item[8].status,'category':'job'});
+                    chart_json.push({'title':""+item[6].number.split("|||").length+"張工單",'start':item[7].date,'url':'#job1','className':'fc-event-success','allDay':true,'id':item[6].number,'owner':item[5].owner,'type':item[0].type,'time':item[7].date,'custkey':item[1].custkey,'address':item[2].address,'mobile':item[3].mobile,'remarks':item[4].reason,'status':item[8].status,'category':'job'});
                 });
 
                 $.ajax({

@@ -39,7 +39,7 @@
 										<div class="field">
 											@foreach($array as $key => $value)
 												@if(preg_match("/^radio+[0-9]+Question+$/", $value['name']))
-														<h5>{{$value['value']}}</h5>
+														<h5><strong>{{$value['value']}}</strong></h5>
 													@foreach($array as $k => $v)
 														@if(explode('Question',$value['name'])[0].'Opt' == $v['name'])
 														<ul>
@@ -48,7 +48,7 @@
 														@endif
 													@endforeach
 												@elseif(preg_match("/^multi+[0-9]+Question+$/", $value['name']))
-														<h5>{{$value['value']}}</h5>
+														<h5><strong>{{$value['value']}}</strong></h5>
 													@foreach($array as $k => $v)
 														@if(explode('Question',$value['name'])[0].'Opt' == $v['name'])
 														<ul>
@@ -57,7 +57,7 @@
 														@endif
 													@endforeach
 												@elseif(preg_match("/^select+[0-9]+Question+$/", $value['name']))
-														<h5>{{$value['value']}}</h5>
+														<h5><strong>{{$value['value']}}</strong></h5>
 													@foreach($array as $k => $v)
 														@if(explode('Question',$value['name'])[0] == $v['name'])
 														<ul>
@@ -66,7 +66,7 @@
 														@endif
 													@endforeach
 												@elseif(preg_match("/^qa+[0-9]+Question+$/", $value['name']))
-														<h5>{{$value['value']}}</h5>
+														<h5><strong>{{$value['value']}}</strong></h5>
 													@foreach($array as $k => $v)
 														@if(explode('Question',$value['name'])[0] == $v['name'])
 														<ul>
@@ -75,7 +75,7 @@
 														@endif
 													@endforeach
 												@elseif(preg_match("/^part+[0-9]+Question+$/", $value['name']))
-														<h5>{{$value['value']}}</h5>
+														<h5><strong>{{$value['value']}}</strong></h5>
 													@foreach($array as $k => $v)
 														@if(explode('Question',$value['name'])[0] == $v['name'])
 														<ul>
@@ -84,7 +84,7 @@
 														@endif
 													@endforeach
 												@elseif(preg_match("/^date+[0-9]+Question+$/", $value['name']))
-														<h5>{{$value['value']}}</h5>
+														<h5><strong>{{$value['value']}}</strong></h5>
 													@foreach($array as $k => $v)
 														@if(explode('Question',$value['name'])[0] == $v['name'])
 														<ul>
@@ -93,7 +93,7 @@
 														@endif
 													@endforeach
 												@elseif(preg_match("/^time+[0-9]+Question+$/", $value['name']))
-														<h5>{{$value['value']}}</h5>
+														<h5><strong>{{$value['value']}}</strong></h5>
 													@foreach($array as $k => $v)
 														@if(explode('Question',$value['name'])[0] == $v['name'])
 														<ul>

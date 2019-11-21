@@ -100,7 +100,7 @@
                                                                 <div class='btn-wrap'>
                                                                     <button class='mr-s' id="searchDate2" type="button">確認送出</button>
                                                                     <button class='mr-s'>重新設定時間</button>
-                                                                    <a href="{{ route('ht.StrokeManage.assistant.create',['organization'=>$organization]) }}"><button type='button' class='mr-s btn-bright' type='button'>新增派工單</button></a>
+                                                                    <!-- <a href="{{ route('ht.StrokeManage.assistant.create',['organization'=>$organization]) }}"><button type='button' class='mr-s btn-bright' type='button'>新增派工單</button></a> -->
                                                                     <div class='batchwrap'>
                                                                         <div class='form-group mr-s hide batch-select'><select class='form-control' name="sel1" id='sel1'>
                                                                                 <option selected hidden disabled>請指派負責主管</option>
@@ -519,7 +519,7 @@
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
                               + "<td hidden></td>"
-                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
+                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                          + "</tr>";
                     }
                     else if(item.status == 'F'){
@@ -534,7 +534,7 @@
                               + "<td>" + item.work_type + "</td>"
                               + `<td hidden> ${itemtt}</td>`
                               + "<td hidden>" + item.status + "</td>"
-                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
+                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                          + "</tr>";
                     }
                     
@@ -1107,7 +1107,7 @@
                                   + "<td>" + item.work_type + "</td>"
                                   + `<td hidden> ${itemtt}</td>`
                                   + "<td hidden></td>"
-                                  + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
+                                  + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                              + "</tr>";
                         }
                         else if(item.status == 'F'){
@@ -1122,7 +1122,7 @@
                                   + "<td>" + item.work_type + "</td>"
                                   + `<td hidden> ${itemtt}</td>`
                                   + "<td hidden>" + item.status + "</td>"
-                                  + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>已完成</button></td>"
+                                  + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                              + "</tr>";
                         }
                     }

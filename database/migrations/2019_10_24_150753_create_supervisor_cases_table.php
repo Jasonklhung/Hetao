@@ -25,6 +25,7 @@ class CreateSupervisorCasesTable extends Migration
             $table->string('work_type')->comment('工作類別');
             $table->date('time')->comment('工單時間');
             $table->string('owner')->comment('負責人');
+            $table->string('status')->comment('狀態');
             $table->timestamps();
         });
     }

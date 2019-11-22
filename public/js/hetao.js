@@ -437,9 +437,10 @@ $('body').on('click', '#newalert button', function(){
 $('body').on('click', '#person .add-member', function(){
     var company = $("#person .company").val()
     var role = $("#person .role").val()
-    var staffname = $("#person .staffname").val()
+    var staffname = $("#person .staffname").find("option:selected").text()
+    var token = $("#person .staffname").find("option:selected").val()
     if((company && role && staffname) !== null){
-        $('#person .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button></span>');
+        $('#person .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button></span><span class="tok" hidden>'+token+'×</span>');
     }
 });
 /*刪除會議對象*/
@@ -462,11 +463,15 @@ $('body').on('change', '#person .role', function(){
 /*會議對象按下完成*/
 $('body').on('click', '#person .finish', function(){
     var member = $('#person .tag').text()
+    var token = $('#person .tok').text()
     var noxx = member.replace(/\×/g, ', ')
+    var noxxx = token.replace(/\×/g, ',')
     if($('#person .memberwrap span').hasClass('tag')) {
-        $('.main .o2').text(noxx);
+        $('.main .o2').html(noxx);
         console.log(noxx)
+        console.log(noxxx)
         $('.main .o2').append("<input type='hidden' name='meeting' value='"+noxx+"'>");
+        $('.main .o2').append("<input type='hidden' name='meetingToken' value='"+noxxx+"'>");
     }else {
         $('.main .o2').text('會議對象');
     }

@@ -83,7 +83,6 @@ class OverviewController extends Controller
 
     public function store(Organization $organization,Request $request)
     {
-        //dd($request->all());
 
         //計算該推播的日期   
         if($request->noticeTime == '分鐘前'){
@@ -131,6 +130,7 @@ class OverviewController extends Controller
          $activity->noticeTime = $request->noticeTime;
          $activity->pushDate = $push;
          $activity->meeting = substr($request->meeting,0,-1);
+         $activity->meetingToken = substr($request->meetingToken,0,-1);
          $activity->description = $request->description;
          $activity->save();
 

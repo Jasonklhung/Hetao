@@ -244,6 +244,7 @@ class CrontabController extends Controller
                  'headers' => ['Content-Type' => 'application/json'],
                  'body' => json_encode([
                         'to' => $token,
+                        'multi' => $value->meetingToken,
                         'title' => $value->title,
                         'start' => $value->start,
                         'end' => $value->end,

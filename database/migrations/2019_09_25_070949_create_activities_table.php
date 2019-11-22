@@ -26,6 +26,7 @@ class CreateActivitiesTable extends Migration
             $table->string('noticeTime')->nullable()->comment('通知時間');
             $table->datetime('pushDate')->nullable()->comment('推播時間');
             $table->string('meeting')->nullable()->comment('參與此活動的人');
+            $table->string('meetingToken')->nullable()->comment('參與此活動的人的token');
             $table->string('description')->nullable()->comment('活動描述');
             $table->timestamps();
         });

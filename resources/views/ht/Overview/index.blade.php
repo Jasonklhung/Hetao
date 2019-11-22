@@ -929,7 +929,7 @@
                     }
 
                     $.each(res, function (i, item) {
-                        selOpts += "<option value='"+item.name+"'>"+item.name+"</option>";
+                        selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
                     })
 
                     $("select[name='name']").empty();
@@ -962,7 +962,7 @@
                     }
                     
                     $.each(res, function (i, item) {
-                        selOpts += "<option value='"+item.name+"'>"+item.name+"</option>";
+                        selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
                     })
 
                     $("select[name='name2']").empty();

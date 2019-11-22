@@ -482,9 +482,9 @@ $('body').on('click', '#person .finish', function(){
 $('body').on('click', '#meet .add-member', function(){
     var company = $("#meet .company").val()
     var role = $("#meet .role").val()
-    var staffname = $("#meet .staffname").val()
+    var staffname = $("#meet .staffname").find("option:selected").text()
     if((company && role && staffname) !== null){
-        $('#meet .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button><input type="hidden" name="meeting2[]" value='+company+'/'+role+staffname+'></span>');
+        $('#meet .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button><input type="hidden" name="meeting2[]" value='+company+'/'+role+staffname+'></span></span>');
     }
 });
 /*刪除會議對象*/

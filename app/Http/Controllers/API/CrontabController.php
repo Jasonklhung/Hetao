@@ -109,6 +109,7 @@ class CrontabController extends Controller
                                     'address' => $v->add,
                                     'type' => $v->work_type,
                                     'name' => $v->owner,
+                                    'custname' => $v->name,
                                     'mobile' => $v->mobile,
                                 ])
                              ]);
@@ -158,6 +159,8 @@ class CrontabController extends Controller
                                  'body' => json_encode([
                                     'to' => $v->custoken,
                                     'date' => $v->time,
+                                    'type' => $v->work_type,
+                                    'case_id'=> $v->id,
                                 ])
                              ]);
                             }

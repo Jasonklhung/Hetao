@@ -230,6 +230,24 @@ class OverviewController extends Controller
                 $meeting = implode(",", $request->meeting2);
                 $activity->meeting = $meeting;
 
+                $meetingToken = array();
+
+                foreach ($request->meeting2 as $k => $v) {
+                    $name = explode('/', $v)[1];
+
+                    $name = mb_substr($name,2);
+
+                    $token = User::where('name',$name)->get();
+
+                    $token = $token[0]->token;
+
+                    array_push($meetingToken, $token);
+                }
+
+                $finalToken = implode(',', $meetingToken);
+
+                $activity->meetingToken = $finalToken;
+
                 $activity->description = $request->description2;
                 $activity->save();
 

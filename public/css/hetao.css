@@ -1660,9 +1660,15 @@ input[class^=follow]:checked+.followanswer:before {
 .modal-open .modal {
    overflow-y: inherit;
 }
-#meet .modal-body {
+#meet .modal-body, #job1 .modal-body {
    height: 330px;
    overflow-y: auto;
 }
+
+.fc-content .fc-title {
+       font-size: 15px;
+}
+
+
 
 

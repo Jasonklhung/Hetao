@@ -173,7 +173,7 @@ class CrontabController extends Controller
 
     public function supervisorAssign(Request $request)
     {
-        $setting = Timeset::where('name','通知主管指派項目')->where('status','Y')->get(); //取得全部時間設定
+        $setting = Timeset::where('name','通知主管指派項目')->where('organization_id','28')->where('status','Y')->get(); //取得全部時間設定
 
         $time = Carbon::now()->format('H:i'); //取現在時間
         $time = $time.':00'; //取現在時間
@@ -186,12 +186,13 @@ class CrontabController extends Controller
             $supervisor = User::where('organization_id',$value->organization_id)->where('job','主管')->get();
 
             if($time == $value->time){ //現在時間 = 設定時間
+                
                 foreach ($supervisor as $kk => $vv) {
                     $client = new \GuzzleHttp\Client();
                     $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
                         'headers' => ['Content-Type' => 'application/json'],
                         'body' => json_encode([
-                        'token' => $kk->token,//kk->token
+                        'token' => $vv->token,//kk->token
                         'DEPT' =>  $DEPT[0]->name,//$DEPT[0]->name
                         ])
                     ]);
@@ -219,7 +220,7 @@ class CrontabController extends Controller
                     $response = $client->post('https://linebotclient.azurewebsites.net/line/1608443818/push/supervisorAssign-push.php', [
                        'headers' => ['Content-Type' => 'application/json'],
                        'body' => json_encode([
-                        'to' => $kk->token,//kk->token
+                        'to' => $vv->token,//kk->token
                         'count' => $count,
                     ])
                    ]);

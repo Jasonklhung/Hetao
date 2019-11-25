@@ -35,11 +35,11 @@
                                                                     
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select' id="SD4">
-                                                                            <input class='form-control' placeholder='選擇起始日期' id="startDate4" type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                            <input class='form-control' placeholder='選擇起始日期' readonly="" id="startDate4" type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide'>~</span>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select mr-s' id="ED4">
-                                                                            <input class='form-control' placeholder='選擇結束日期' id="endDate4" type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                            <input class='form-control' placeholder='選擇結束日期' readonly="" id="endDate4" type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>

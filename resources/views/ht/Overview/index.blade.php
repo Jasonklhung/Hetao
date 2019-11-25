@@ -36,7 +36,7 @@
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </div>
-                                                                <input class='day-select form-control' id="SD1" name="start" placeholder='開始時間' type='text' required=""><input class='hide text-right time-select form-control' name="startTime"  type='text' placeholder="選擇時間" readonly="true"><input class='day-select form-control' id="ED1" name="end" placeholder='結束時間' type='text' required=""><input class='hide text-right time-select form-control' name="endTime" type='text' placeholder="選擇時間" readonly="true">
+                                                                <input class='day-select form-control' readonly="" id="SD1" name="start" placeholder='開始時間' type='text' required=""><input class='hide text-right time-select form-control' readonly="" name="startTime"  type='text' placeholder="選擇時間" readonly="true"><input class='day-select form-control' readonly="" id="ED1" name="end" placeholder='結束時間' type='text' required=""><input class='hide text-right time-select form-control' readonly="" name="endTime" type='text' placeholder="選擇時間" readonly="true">
                                                             </li>
                                                             <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" type="text" name="position" placeholder="新增位置" required=""></li>
                                                             <li class="mb-s"><i class="fas fa-bell"></i><div class="opmodal o1" data-toggle="modal" data-target="#newalert"><input type="text" id="notice" name="tN" placeholder="新增通知" required=""></div></li>
@@ -107,7 +107,7 @@
                                                     <span class="slider round"></span>
                                                 </label>
                                             </div>
-                                            <input class='day-select form-control' name="start2" placeholder='開始時間' type='text' readonly="true" required=""><input class='hide text-right time-select form-control' name="startTime2" placeholder='選擇時間' type='text' readonly="true"><input class='day-select form-control' placeholder='結束時間' name="end2" type='text' readonly="true" required=""><input class='hide text-right time-select form-control' name="endTime2" placeholder='選擇時間' type='text' readonly="true">
+                                            <input class='day-select form-control' readonly="" name="start2" placeholder='開始時間' type='text' readonly="true" required=""><input class='hide text-right time-select form-control' readonly="" name="startTime2" placeholder='選擇時間' type='text' readonly="true"><input class='day-select form-control' readonly="" placeholder='結束時間' name="end2" type='text' readonly="true" required=""><input class='hide text-right time-select form-control' readonly="" name="endTime2" placeholder='選擇時間' type='text' readonly="true">
                                         </li>
                                         <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" name="position2" required="" type="text" placeholder="新增位置"></li>
                                         <li class="mb-s"><i class="fas fa-bell"></i>

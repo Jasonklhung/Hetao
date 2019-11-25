@@ -63,6 +63,7 @@ $(document).ready(function() {
             allowInputToggle: true,
             locale: 'ZH-TW',
             useCurrent: false,
+            ignoreReadonly: true,
         });
     });
 
@@ -74,6 +75,7 @@ $(document).ready(function() {
             allowInputToggle: true,
             locale: 'ZH-TW',
             useCurrent: false,
+            ignoreReadonly: true,
         });
     });
 
@@ -83,7 +85,8 @@ $(document).ready(function() {
         $('.time-select').datetimepicker({
             format: 'HH:mm',
             ignoreReadonly: true,
-            allowInputToggle: true
+            allowInputToggle: true,
+            ignoreReadonly: true
         });
     });
 });

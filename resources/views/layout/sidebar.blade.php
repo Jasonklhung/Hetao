@@ -150,7 +150,7 @@
 
                     @else
                         <li class="c-3">
-                            <a class="collapsed" data-toggle="collapse" href="#sub-3"><i class="fas fa-angle-double-right"></i> <span>與我聯繫/滿意度表單</span> <span class="float-right">+</span></a>
+                            <a class="collapsed" data-toggle="collapse" href="#sub-3"><i class="fas fa-angle-double-right"></i> <span>表單查看</span> <span class="float-right">+</span></a>
                             <div class="collapse" id="sub-3">
                                 <ul class="nav">
 
@@ -248,7 +248,7 @@
 
             @else
             <sb-menu3>
-                <sb-menu-title3><i class="fas fa-angle-double-right fa-fw"></i> <span> 與我聯繫/滿意度表單</span><span class="badge"></span></sb-menu-title3>
+                <sb-menu-title3><i class="fas fa-angle-double-right fa-fw"></i> <span> 表單查看</span><span class="badge"></span></sb-menu-title3>
 
                 @if(Auth::user()->permission->contactUs == 'Y')
                 <sb-item3 onclick="javascript:location.href='{{ route('ht.FormDetails.ContactUs.index',['organization'=>$organization]) }}'">與我聯繫</sb-item3>

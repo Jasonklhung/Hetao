@@ -21,6 +21,7 @@ class CreateSupervisorCasesTable extends Migration
             $table->string('mobile')->comment('手機號碼');
             $table->string('GUI_number')->comment('統編');
             $table->string('address')->comment('地址');
+            $table->string('name')->comment('聯絡人');
             $table->string('reason')->comment('派工原因');
             $table->string('work_type')->comment('工作類別');
             $table->date('time')->comment('工單時間');

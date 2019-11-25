@@ -98,6 +98,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::post('/HT/{organization}/StrokeManage/supervisor/searchStatus','HT\StrokeManage\SupervisorController@searchStatus')->name('ht.StrokeManage.supervisor.searchStatus');
 
+		Route::post('/HT/{organization}/StrokeManage/supervisor/searchAssign','HT\StrokeManage\SupervisorController@searchAssign')->name('ht.StrokeManage.supervisor.searchAssign');
+
 		//行程管理-員工
 		Route::get('/HT/{organization}/StrokeManage/staff/index','HT\StrokeManage\StaffController@index')->name('ht.StrokeManage.staff.index');
 

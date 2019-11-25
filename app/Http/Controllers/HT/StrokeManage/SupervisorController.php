@@ -20,6 +20,8 @@ class SupervisorController extends Controller
     {
     	$supervisor = SupervisorCase::where('user_id',Auth::user()->id)->get();
 
+        $assign = User::where('organization_id',Auth::user()->organization_id)->get();
+
         $job = Auth::user()->job;
         if($job == '員工'){
             $client = new \GuzzleHttp\Client();
@@ -81,7 +83,7 @@ class SupervisorController extends Controller
             $caseCount = count($countArray);
         }
 
-    	return view('ht.StrokeManage.supervisor.index',compact('organization','supervisor','caseCount'));
+    	return view('ht.StrokeManage.supervisor.index',compact('organization','supervisor','caseCount','assign'));
     }
 
     public function index3(Organization $organization)
@@ -180,6 +182,7 @@ class SupervisorController extends Controller
             $supervisor->mobile = $request->mobile;
             $supervisor->GUI_number = $request->GUI_number;
             $supervisor->address = $request->address;
+            $supervisor->name = $request->case_name;
             $supervisor->reason = $request->reason;
             $supervisor->work_type = $request->work_type;
             $supervisor->time = $request->time;
@@ -193,6 +196,7 @@ class SupervisorController extends Controller
             $supervisor->cuskey = $request->name;
             $supervisor->mobile = $request->mobile;
             $supervisor->GUI_number = $request->GUI_number;
+            $supervisor->name = $request->case_name;
             $supervisor->address = $request->address;
             $supervisor->reason = $request->reason;
             $supervisor->work_type = $request->work_type;
@@ -340,7 +344,22 @@ class SupervisorController extends Controller
     {
         $status = $request->status;
 
-        $super = SupervisorCase::where('status',$status)->get();
+        if($status == 'null'){
+            $super = SupervisorCase::where('user_id',Auth::user()->id)->where('status',$status)->orWhere('status','')->get();
+        }
+        else{
+            $super = SupervisorCase::where('user_id',Auth::user()->id)->where('status',$status)->get();
+        }
+
+        $assign = User::where('organization_id',Auth::user()->organization_id)->get();
+
+        return [$super,$assign];
+    }
+
+    public function searchAssign(Organization $organization,Request $request)
+    {
+
+        $super = SupervisorCase::where('user_id',Auth::user()->id)->whereBetween('time',[$request->start,$request->end])->get();
 
         return $super;
     }

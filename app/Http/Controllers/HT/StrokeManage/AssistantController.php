@@ -343,7 +343,10 @@ class AssistantController extends Controller
 
     public function show(Organization $organization,$id)
     {
+
         $id = base64_decode($id);
+
+        dd($id);
 
         $res = ReservationAnswer::where('id',$id)->get();
 
@@ -381,13 +384,12 @@ class AssistantController extends Controller
 
     public function resSearch(Organization $organization,Request $request)
     { 
-        $end = date("Y-m-d",strtotime("+1 day",strtotime($request->end)));
 
         $data = DB::table('reservation_answers')
                         ->select('reservation_answers.id','accounts.cuskey','accounts.name','reservation_answers.created_at')
                         ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
                         ->where('reservation_answers.department_id',Auth::user()->department_id)
-                        ->whereBetween('reservation_answers.created_at',[$request->start,$end])
+                        ->whereBetween('reservation_answers.created_at',[$request->start,$request->end])
                         ->get();
 
         return $data;

@@ -819,10 +819,11 @@
 
                     $.each(res, function (i, item) {
 
-                        rows += "<tr class='watch' onclick='javascript:location.href='{{ route('ht.StrokeManage.assistant.show',['organization'=>$organization,'id'=>base64_encode("+item.id+")]) }}''>"
+                        rows += "<tr class='watch' '>"
                         + "<td>" + item.name + "</td>"
                         + "<td>" + item.cuskey + "</td>"
                         + "<td>" + item.created_at + "</td>"
+                        + "<td><button type='button' class='btn status' onclick='javascript:location.href='{{ route('ht.StrokeManage.assistant.show',['organization'=>$organization,'id'=>base64_encode("+item.id+")]) }}''>查看</button></td>"
                         + "</tr>";                
                     });
                     $('#hetao-list-a tbody').append(rows);

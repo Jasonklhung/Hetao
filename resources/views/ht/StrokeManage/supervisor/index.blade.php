@@ -72,11 +72,12 @@
                                                                     <th class="desktop">客戶代碼</th>
                                                                     <th class="desktop">承辦人員</th>
                                                                     <th class="desktop">地址</th>
+                                                                    <th class="desktop">聯絡人</th>
                                                                     <th class="desktop">電話</th>
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
-                                                                    <th hidden="">統編</th>
-                                                                    <th hidden="">狀態</th>
+                                                                    <th hidden="" class="desktop">統編</th>
+                                                                    <th hidden="" class="desktop">狀態</th>
                                                                     <th class="desktop">負責人</th>
                                                                 </tr>
                                                             </thead>
@@ -93,7 +94,7 @@
                                                                 <div class="form-group mr-s">
                                                                     <select class="form-control" id="searchStatus">
                                                                         <option selected="" value="notselect">所有狀態</option>
-                                                                        <option value="">執行中</option>
+                                                                        <option value="null">執行中</option>
                                                                         <option value="R">轉單</option>
                                                                         <option value="F">延後</option>
                                                                         <option value="T">已完成</option>
@@ -123,10 +124,13 @@
                                                                     <th class="desktop">工單編號</th>
                                                                     <th class="desktop">工單日期</th>
                                                                     <th class="desktop">客戶代碼</th>
+                                                                    <th class="desktop">承辦人員</th>
                                                                     <th class="desktop">地址</th>
+                                                                    <th class="desktop">聯絡人</th>
                                                                     <th class="desktop">電話</th>
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
+                                                                    <th hidden class="desktop">統編</th>
                                                                     <th class="desktop">工單狀態</th>
                                                                     <th class="desktop">負責人</th>
                                                                 </tr>
@@ -137,11 +141,14 @@
                                                                     <td>{{ $data->case_id }}</td>
                                                                     <td>{{ $data->time }}</td>
                                                                     <td>{{ $data->cuskey }}</td>
+                                                                    <td>{{ $data->owner }}</td>
                                                                     <td><a href="https://www.google.com.tw/maps/place/{{ $data->address }}" target="_blank">{{ $data->address }}</a></td>
+                                                                    <td>{{ $data->name }}</td>
                                                                     <td><a href="tel:{{ $data->mobile }}">{{ $data->mobile }}</a></td>
                                                                     <td>{{ $data->reason }}</td>
                                                                     <td>{{ $data->work_type }}</td>
-                                                                @if($data->status == '' || $data->status == null)
+                                                                    <td hidden="">{{ $data->GUI_number }}</td>
+                                                                @if($data->status == '' || $data->status == 'null' || $data->status == null)
                                                                     <td>執行中</td>
                                                                 @elseif($data->status == 'R')
                                                                     <td>轉單</td>
@@ -150,7 +157,17 @@
                                                                 @else
                                                                     <td>已完成</td>
                                                                 @endif
-                                                                    <td>{{ $data->owner }}</td>
+                                                                    <td>
+                                                                        <select class="form-control" name="assign2" style="margin-right:28px;">
+                                                                            @foreach($assign as $res)
+                                                                            @if($res->name == $data->owner)
+                                                                            <option selected value="{{ $res->token }}" >{{ $res->name }}</option>
+                                                                            @else
+                                                                            <option value="{{ $res->token }}">{{ $res->name }}</option>
+                                                                            @endif
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </td>
                                                                 </tr>
                                                                 @endforeach
                                                             </tbody>
@@ -187,6 +204,7 @@
                                                                     <th class="desktop">客戶代碼</th>
                                                                     <th class="desktop">承辦人員</th>
                                                                     <th class="desktop">地址</th>
+                                                                    <th class="desktop">聯絡人</th>
                                                                     <th class="desktop">電話</th>
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
@@ -232,6 +250,7 @@
                                                                     <th class="desktop">客戶代碼</th>
                                                                     <th class="desktop">承辦人員</th>
                                                                     <th class="desktop">地址</th>
+                                                                    <th class="desktop">聯絡人</th>
                                                                     <th class="desktop">電話</th>
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
@@ -301,6 +320,77 @@
         table_su2.search(this.value).draw();
     });
 
+
+    //已指派中指派
+    $('select[name="assign2"]').on('change', function () {
+
+        var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+        if(RWD == 0){
+            var token = $(this).val()
+            var id = $(this).parents('tr').children('td')[0].textContent 
+            var time = $(this).parents('tr').children('td')[1].textContent 
+            var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+            var address = $(this).parents('tr').children('td')[4].textContent 
+            var name = $(this).parents('tr').children('td')[5].textContent 
+            var mobile = $(this).parents('tr').children('td')[6].textContent 
+            var reason = $(this).parents('tr').children('td')[7].textContent 
+            var work_type = $(this).parents('tr').children('td')[8].textContent 
+            var GUI_number = $(this).parents('tr').children('td')[9].textContent
+            var status = $(this).parents('tr').children('td')[10].textContent
+            if(GUI_number == null || GUI_number == ""){
+                var GUI_number = ""
+            }
+        }
+        else if(RWD == 1){
+            var token = $(this).val()
+            var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
+            var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
+            var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].textContent;
+            var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].textContent;
+            var name = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
+            var mobile = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
+            var reason = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
+            var work_type = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
+            var GUI_number = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+            var status = $(this).closest('tbody').find("tr:eq(10)").children("td")[1].textContent;
+            if(GUI_number == 'null' || GUI_number == ""){
+                var GUI_number = ""
+            }
+        }
+
+        $.ajax({
+            url:"{{ route('ht.StrokeManage.supervisor.assignCaseBoss',['organization'=>$organization]) }}", 
+            method:"post",
+            data:{
+                '_token':'{{csrf_token()}}',
+                'id':id,
+                'name': CUSTKEY,
+                'mobile': mobile,
+                'GUI_number': GUI_number,
+                'address': address,
+                'case_name':name,
+                'reason': reason,
+                'work_type': work_type,
+                'time': time,
+                'owner_boss': token,
+                'status': status,
+            },
+            dataType:'json',                 
+            success:function(res){
+                if(res.status == 200){
+                    alert('工單更新成功,已指派員工');
+                }
+                else{
+                    alert('指派失敗')
+                }
+            }
+        })
+
+        $(this).attr('disabled','disabled')
+
+    })
+
     //已指派狀態搜尋
     $('#searchStatus').on('change',function(){
 
@@ -325,19 +415,32 @@
                     $('#hetao-list-su-2').DataTable().destroy();
                     $('#hetao-list-su-2 tbody').empty();
 
-                    $.each(res, function (i, item) {
 
-                        if(item.status == null || item.status == ''){
+                    $.each(res[0], function (i, item) {
+
+                        if(item.status == 'null' || item.status == ''){
                             rows += "<tr>"
                             + "<td>" + item.case_id + "</td>"
                             + "<td>" + item.time + "</td>"
                             + "<td>" + item.cuskey + "</td>"
+                            + "<td>" + item.owner + "</td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                            + "<td>" + item.name + "</td>"
                             + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td>" + item.reason + "</td>"
                             + "<td>" + item.work_type + "</td>"
+                            + "<td hidden>" + item.GUI_number + "</td>"
                             + "<td>執行中</td>"
-                            + "<td>" + item.owner + "</td>"
+                            + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
+                            for (var j = 0; j < res[1].length; j++) {
+                                if(res[1][j].name == item.owner){ 
+                                    rows += "<option value="+ res[1][j].token+" selected>"+res[1][j].name+"</option>"
+                                }
+                                else{
+                                    rows += "<option value="+ res[1][j].token+">"+res[1][j].name+"</option>"
+                                }
+                            }
+                            rows += "</select></td>"
                             + "</tr>";            
                         }
                         else if(item.status == 'R'){
@@ -345,39 +448,75 @@
                             + "<td>" + item.case_id + "</td>"
                             + "<td>" + item.time + "</td>"
                             + "<td>" + item.cuskey + "</td>"
+                            + "<td>" + item.owner + "</td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                            + "<td>" + item.name + "</td>"
                             + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td>" + item.reason + "</td>"
                             + "<td>" + item.work_type + "</td>"
+                            + "<td hidden>" + item.GUI_number + "</td>"
                             + "<td>轉單</td>"
-                            + "<td>" + item.owner + "</td>"
-                            + "</tr>";            
+                            + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
+                            for (var j = 0; j < res[1].length; j++) {
+                                if(res[1][j].name == item.owner){ 
+                                    rows += "<option value="+ res[1][j].token+" selected>"+res[1][j].name+"</option>"
+                                }
+                                else{
+                                    rows += "<option value="+ res[1][j].token+">"+res[1][j].name+"</option>"
+                                }
+                            }
+                            rows += "</select></td>"
+                            + "</tr>";                     
                         }
                         else if(item.status == 'F'){
                             rows += "<tr>"
                             + "<td>" + item.case_id + "</td>"
                             + "<td>" + item.time + "</td>"
                             + "<td>" + item.cuskey + "</td>"
+                            + "<td>" + item.owner + "</td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                            + "<td>" + item.name + "</td>"
                             + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td>" + item.reason + "</td>"
                             + "<td>" + item.work_type + "</td>"
+                            + "<td hidden>" + item.GUI_number + "</td>"
                             + "<td>延後</td>"
-                            + "<td>" + item.owner + "</td>"
-                            + "</tr>";            
+                            + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
+                            for (var j = 0; j < res[1].length; j++) {
+                                if(res[1][j].name == item.owner){ 
+                                    rows += "<option value="+ res[1][j].token+" selected>"+res[1][j].name+"</option>"
+                                }
+                                else{
+                                    rows += "<option value="+ res[1][j].token+">"+res[1][j].name+"</option>"
+                                }
+                            }
+                            rows += "</select></td>"
+                            + "</tr>";                      
                         }
                         else{
                             rows += "<tr>"
                             + "<td>" + item.case_id + "</td>"
                             + "<td>" + item.time + "</td>"
                             + "<td>" + item.cuskey + "</td>"
+                            + "<td>" + item.owner + "</td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                            + "<td>" + item.name + "</td>"
                             + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td>" + item.reason + "</td>"
                             + "<td>" + item.work_type + "</td>"
+                            + "<td hidden>" + item.GUI_number + "</td>"
                             + "<td>已完成</td>"
-                            + "<td>" + item.owner + "</td>"
-                            + "</tr>";            
+                            + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
+                            for (var j = 0; j < res[1].length; j++) {
+                                if(res[1][j].name == item.owner){ 
+                                    rows += "<option value="+ res[1][j].token+" selected>"+res[1][j].name+"</option>"
+                                }
+                                else{
+                                    rows += "<option value="+ res[1][j].token+">"+res[1][j].name+"</option>"
+                                }
+                            }
+                            rows += "</select></td>"
+                            + "</tr>";                      
                         }
                     });
                     $('#hetao-list-su-2 tbody').append(rows);
@@ -420,28 +559,78 @@
                     $(".searchInput_su2").on("keyup", function() {
                         table_a.search(this.value).draw();
                     });
+
+                    $('select[name="assign2"]').on('change', function () {
+
+                        var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                        if(RWD == 0){
+                            var token = $(this).val()
+                            var id = $(this).parents('tr').children('td')[0].textContent 
+                            var time = $(this).parents('tr').children('td')[1].textContent 
+                            var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                            var address = $(this).parents('tr').children('td')[4].textContent 
+                            var name = $(this).parents('tr').children('td')[5].textContent 
+                            var mobile = $(this).parents('tr').children('td')[6].textContent 
+                            var reason = $(this).parents('tr').children('td')[7].textContent 
+                            var work_type = $(this).parents('tr').children('td')[8].textContent 
+                            var GUI_number = $(this).parents('tr').children('td')[9].textContent
+                            var status = $(this).parents('tr').children('td')[10].textContent
+                            if(GUI_number == 'null' || GUI_number == ""){
+                                var GUI_number = ""
+                            }
+                        }
+                        else if(RWD == 1){
+                            var token = $(this).val()
+                            var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
+                            var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
+                            var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].textContent;
+                            var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].textContent;
+                            var name = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
+                            var mobile = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
+                            var reason = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
+                            var work_type = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
+                            var GUI_number = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                            var status = $(this).closest('tbody').find("tr:eq(10)").children("td")[1].textContent;
+                            if(GUI_number == 'null' || GUI_number == ""){
+                                var GUI_number = ""
+                            }
+                        }
+
+                        $.ajax({
+                            url:"{{ route('ht.StrokeManage.supervisor.assignCaseBoss',['organization'=>$organization]) }}", 
+                            method:"post",
+                            data:{
+                                '_token':'{{csrf_token()}}',
+                                'id':id,
+                                'name': CUSTKEY,
+                                'mobile': mobile,
+                                'GUI_number': GUI_number,
+                                'address': address,
+                                'case_name':name,
+                                'reason': reason,
+                                'work_type': work_type,
+                                'time': time,
+                                'owner_boss': token,
+                                'status': status,
+                            },
+                            dataType:'json',                 
+                            success:function(res){
+                                if(res.status == 200){
+                                    alert('工單更新成功,已指派員工');
+                                }
+                                else{
+                                    alert('指派失敗')
+                                }
+                            }
+                        })
+
+                        $(this).attr('disabled','disabled')
+
+                    })
                 }
             }
         })
-    })
-
-    //
-    $.ajax({
-        url:"{{ route('ht.StrokeManage.supervisor.getAssign',['organization'=>$organization]) }}", 
-        method:"get",
-        dataType:'json',                 
-        success:function(res){
-            var selOpts = "<option value='' selected disabled='true'>待指派</option>";
-            $.each(res, function (i, item) {
-                selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
-            })
-
-            $("select[name='assign']").empty();
-            $("select[name='assign']").append(selOpts);
-
-            $("select[name='sel1']").empty();
-            $("select[name='sel1']").append(selOpts);
-        }
     })
 </script>
 <script type="text/javascript">
@@ -472,6 +661,7 @@
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
                               + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
+                              + "<td>" + item.name + "</td>"
                               + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
@@ -549,11 +739,12 @@
                         var time = $(this).parents('tr').children('td')[1].textContent 
                         var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
                         var address = $(this).parents('tr').children('td')[4].textContent 
-                        var mobile = $(this).parents('tr').children('td')[5].textContent 
-                        var reason = $(this).parents('tr').children('td')[6].textContent 
-                        var work_type = $(this).parents('tr').children('td')[7].textContent 
-                        var GUI_number = $(this).parents('tr').children('td')[8].textContent
-                        var status = $(this).parents('tr').children('td')[9].textContent
+                        var name = $(this).parents('tr').children('td')[5].textContent 
+                        var mobile = $(this).parents('tr').children('td')[6].textContent 
+                        var reason = $(this).parents('tr').children('td')[7].textContent 
+                        var work_type = $(this).parents('tr').children('td')[8].textContent 
+                        var GUI_number = $(this).parents('tr').children('td')[9].textContent
+                        var status = $(this).parents('tr').children('td')[10].textContent
                         if(GUI_number == null || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -564,11 +755,12 @@
                         var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
                         var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].textContent;
                         var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].textContent;
-                        var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
-                        var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
-                        var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
-                        var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
-                        var status = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                        var name = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
+                        var mobile = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
+                        var reason = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
+                        var work_type = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
+                        var GUI_number = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                        var status = $(this).closest('tbody').find("tr:eq(10)").children("td")[1].textContent;
                         if(GUI_number == 'null' || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -584,6 +776,7 @@
                             'mobile': mobile,
                             'GUI_number': GUI_number,
                             'address': address,
+                            'case_name':name,
                             'reason': reason,
                             'work_type': work_type,
                             'time': time,
@@ -656,6 +849,7 @@
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
                               + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
+                              + "<td>" + item.name + "</td>"
                               + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
@@ -671,6 +865,7 @@
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
                               + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
+                              + "<td>" + item.name + "</td>"
                               + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
@@ -699,7 +894,7 @@
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 9, "asc" ]],
+                    "order": [[ 1, "desc" ], [ 10, "asc" ]],
                     "columnDefs": [{
                         "targets": [0],
                         "orderable": false,
@@ -855,6 +1050,7 @@
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
                               + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
+                              + "<td>" + item.name + "</td>"
                               + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
                               + "<td>" + item.remarks + "</td>"
                               + "<td>" + item.work_type + "</td>"
@@ -883,7 +1079,7 @@
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 9, "desc" ]],
+                    "order": [[ 1, "desc" ], [ 10, "desc" ]],
                     "columnDefs": [{
                         "targets": [0],
                         "orderable": false,
@@ -963,6 +1159,7 @@
                                   + "<td>" + item.CUSTKEY + "</td>"
                                   + "<td>" + item.owner + "</td>"
                                   + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
+                                  + "<td>" + item.name + "</td>"
                                   + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
                                   + "<td>" + item.remarks + "</td>"
                                   + "<td>" + item.work_type + "</td>"
@@ -1041,11 +1238,12 @@
                         var time = $(this).parents('tr').children('td')[1].textContent 
                         var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
                         var address = $(this).parents('tr').children('td')[4].textContent 
-                        var mobile = $(this).parents('tr').children('td')[5].textContent 
-                        var reason = $(this).parents('tr').children('td')[6].textContent 
-                        var work_type = $(this).parents('tr').children('td')[7].textContent 
-                        var GUI_number = $(this).parents('tr').children('td')[8].textContent
-                        var status = $(this).parents('tr').children('td')[9].textContent
+                        var name = $(this).parents('tr').children('td')[5].textContent 
+                        var mobile = $(this).parents('tr').children('td')[6].textContent 
+                        var reason = $(this).parents('tr').children('td')[7].textContent 
+                        var work_type = $(this).parents('tr').children('td')[8].textContent 
+                        var GUI_number = $(this).parents('tr').children('td')[9].textContent
+                        var status = $(this).parents('tr').children('td')[10].textContent
                         if(GUI_number == null || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -1056,11 +1254,12 @@
                         var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
                         var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].textContent;
                         var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].textContent;
-                        var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
-                        var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
-                        var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
-                        var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
-                        var status = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                        var name = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
+                        var mobile = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
+                        var reason = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
+                        var work_type = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
+                        var GUI_number = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                        var status = $(this).closest('tbody').find("tr:eq(10)").children("td")[1].textContent;
                         if(GUI_number == 'null' || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -1076,6 +1275,7 @@
                             'mobile': mobile,
                             'GUI_number': GUI_number,
                             'address': address,
+                            'case_name':name,
                             'reason': reason,
                             'work_type': work_type,
                             'time': time,
@@ -1128,126 +1328,247 @@
         var start = $('#startDate2').val()
         var end = $('#endDate2').val()
 
-        var date = new Date(end);
-        var end = date.setTime(date.getTime()+24*60*60*1000);
-        var resEnd = date.getFullYear()+"-" + ('0' + (date.getMonth()+1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2)
-
         $.ajax({
             method:'post',
-            url:'{{ route('ht.StrokeManage.supervisor.assignCase',['organization'=>$organization]) }}',
+            url:'{{ route('ht.StrokeManage.supervisor.searchAssign',['organization'=>$organization]) }}',
             data:{
                 '_token':'{{csrf_token()}}',
                 'start':start,
-                'end':resEnd,
+                'end':end,
             },
             dataType:'json',
             success:function(res){
 
-                if(res == ''){
-                    alert('沒有符合的資料')
-                }
-                else{
-                    var rows;
+                $.ajax({
+                    url:"{{ route('ht.StrokeManage.supervisor.getAssign',['organization'=>$organization]) }}", 
+                    method:"get",
+                    dataType:'json',                 
+                    success:function(data){
 
-                    $('#hetao-list-su-2').DataTable().destroy();
-                    $('#hetao-list-su-2 tbody').empty();
-
-                    $.each(res, function (i, item) {
-
-                        if(item.status == null || item.status == ''){
-                            rows += "<tr>"
-                            + "<td>" + item.case_id + "</td>"
-                            + "<td>" + item.time + "</td>"
-                            + "<td>" + item.cuskey + "</td>"
-                            + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
-                            + "<td>" + item.reason + "</td>"
-                            + "<td>" + item.work_type + "</td>"
-                            + "<td>執行中</td>"
-                            + "<td>" + item.owner + "</td>"
-                            + "</tr>";            
-                        }
-                        else if(item.status == 'R'){
-                            rows += "<tr>"
-                            + "<td>" + item.case_id + "</td>"
-                            + "<td>" + item.time + "</td>"
-                            + "<td>" + item.cuskey + "</td>"
-                            + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
-                            + "<td>" + item.reason + "</td>"
-                            + "<td>" + item.work_type + "</td>"
-                            + "<td>轉單</td>"
-                            + "<td>" + item.owner + "</td>"
-                            + "</tr>";            
-                        }
-                        else if(item.status == 'F'){
-                            rows += "<tr>"
-                            + "<td>" + item.case_id + "</td>"
-                            + "<td>" + item.time + "</td>"
-                            + "<td>" + item.cuskey + "</td>"
-                            + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
-                            + "<td>" + item.reason + "</td>"
-                            + "<td>" + item.work_type + "</td>"
-                            + "<td>延後</td>"
-                            + "<td>" + item.owner + "</td>"
-                            + "</tr>";            
+                        if(res == ''){
+                            alert('沒有符合的資料')
                         }
                         else{
-                            rows += "<tr>"
-                            + "<td>" + item.case_id + "</td>"
-                            + "<td>" + item.time + "</td>"
-                            + "<td>" + item.cuskey + "</td>"
-                            + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
-                            + "<td>" + item.reason + "</td>"
-                            + "<td>" + item.work_type + "</td>"
-                            + "<td>已完成</td>"
-                            + "<td>" + item.owner + "</td>"
-                            + "</tr>";            
-                        }   
-                    });
-                    $('#hetao-list-su-2 tbody').append(rows);
-                    var table_a = $("#hetao-list-su-2").DataTable({
-                        "bPaginate": true,
-                        "searching": true,
-                        "info": false,
-                        "bLengthChange": false,
-                        "bServerSide": false,
-                        "language": {
-                            "search": "",
-                            "searchPlaceholder": "請輸入關鍵字",
-                            "paginate": { "previous": "上一頁", "next": "下一頁" },
-                            "emptyTable":     "目前無已指派工單",
-                            "zeroRecords":    "沒有符合的搜尋結果",
-                        },
-                        "dom": "Bfrtip",
-                        "buttons": [{
-                            "extend": 'colvis',
-                            "collectionLayout": 'fixed two-column'
-                        }],
-                        "order": [[ 1, "desc" ]],
-                        "columnDefs": [{
-                            "targets": [0],
-                            "orderable": false,
-                        }],
-                        "responsive": {
-                            "breakpoints": [
-                            { name: 'desktop', width: Infinity},
-                            { name: 'tablet',  width: 1700},
-                            ],
-                            "details": {
-                                "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-                                "type": 'none',
-                                renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
-                                "target": ''
-                            }
-                        },
-                    });
-                    $(".searchInput_su2").on("keyup", function() {
-                        table_a.search(this.value).draw();
-                    });
-                }
+                            var rows;
+
+                            $('#hetao-list-su-2').DataTable().destroy();
+                            $('#hetao-list-su-2 tbody').empty();
+
+                            $.each(res, function (i, item) {
+
+                                if(item.status == null || item.status == ''){
+                                    rows += "<tr>"
+                                    + "<td>" + item.case_id + "</td>"
+                                    + "<td>" + item.time + "</td>"
+                                    + "<td>" + item.cuskey + "</td>"
+                                    + "<td>" + item.owner + "</td>"
+                                    + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                                    + "<td>" + item.name + "</td>"
+                                    + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                                    + "<td>" + item.reason + "</td>"
+                                    + "<td>" + item.work_type + "</td>"
+                                    + "<td hidden>" + item.GUI_number + "</td>"
+                                    + "<td>執行中</td>"
+                                    + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
+                                    for (var j = 0; j < data.length; j++) {
+                                        if(data[j].name == item.owner){ 
+                                            rows += "<option value="+ data[j].token+" selected>"+data[j].name+"</option>"
+                                        }
+                                        else{
+                                            rows += "<option value="+ data[j].token+">"+data[j].name+"</option>"
+                                        }
+                                    }
+                                    rows += "</select></td>"
+                                    + "</tr>";                       
+                                }
+                                else if(item.status == 'R'){
+                                    rows += "<tr>"
+                                    + "<td>" + item.case_id + "</td>"
+                                    + "<td>" + item.time + "</td>"
+                                    + "<td>" + item.cuskey + "</td>"
+                                    + "<td>" + item.owner + "</td>"
+                                    + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                                    + "<td>" + item.name + "</td>"
+                                    + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                                    + "<td>" + item.reason + "</td>"
+                                    + "<td>" + item.work_type + "</td>"
+                                    + "<td hidden>" + item.GUI_number + "</td>"
+                                    + "<td>轉單</td>"
+                                    + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
+                                    for (var j = 0; j < data.length; j++) {
+                                        if(data[j].name == item.owner){ 
+                                            rows += "<option value="+ data[j].token+" selected>"+data[j].name+"</option>"
+                                        }
+                                        else{
+                                            rows += "<option value="+ data[j].token+">"+data[j].name+"</option>"
+                                        }
+                                    }
+                                    rows += "</select></td>"
+                                    + "</tr>";                           
+                                }
+                                else if(item.status == 'F'){
+                                    rows += "<tr>"
+                                    + "<td>" + item.case_id + "</td>"
+                                    + "<td>" + item.time + "</td>"
+                                    + "<td>" + item.cuskey + "</td>"
+                                    + "<td>" + item.owner + "</td>"
+                                    + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                                    + "<td>" + item.name + "</td>"
+                                    + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                                    + "<td>" + item.reason + "</td>"
+                                    + "<td>" + item.work_type + "</td>"
+                                    + "<td hidden>" + item.GUI_number + "</td>"
+                                    + "<td>延後</td>"
+                                    + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
+                                    for (var j = 0; j < data.length; j++) {
+                                        if(data[j].name == item.owner){ 
+                                            rows += "<option value="+ data[j].token+" selected>"+data[j].name+"</option>"
+                                        }
+                                        else{
+                                            rows += "<option value="+ data[j].token+">"+data[j].name+"</option>"
+                                        }
+                                    }
+                                    rows += "</select></td>"
+                                    + "</tr>";                           
+                                }
+                                else{
+                                    rows += "<tr>"
+                                    + "<td>" + item.case_id + "</td>"
+                                    + "<td>" + item.time + "</td>"
+                                    + "<td>" + item.cuskey + "</td>"
+                                    + "<td>" + item.owner + "</td>"
+                                    + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                                    + "<td>" + item.name + "</td>"
+                                    + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                                    + "<td>" + item.reason + "</td>"
+                                    + "<td>" + item.work_type + "</td>"
+                                    + "<td hidden>" + item.GUI_number + "</td>"
+                                    + "<td>已完成</td>"
+                                    + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
+                                    for (var j = 0; j < data.length; j++) {
+                                        if(data[j].name == item.owner){ 
+                                            rows += "<option value="+ data[j].token+" selected>"+data[j].name+"</option>"
+                                        }
+                                        else{
+                                            rows += "<option value="+ data[j].token+">"+data[j].name+"</option>"
+                                        }
+                                    }
+                                    rows += "</select></td>"
+                                    + "</tr>";                         
+                                }
+                            });
+                            $('#hetao-list-su-2 tbody').append(rows);
+                            var table_a = $("#hetao-list-su-2").DataTable({
+                                "bPaginate": true,
+                                "searching": true,
+                                "info": false,
+                                "bLengthChange": false,
+                                "bServerSide": false,
+                                "language": {
+                                    "search": "",
+                                    "searchPlaceholder": "請輸入關鍵字",
+                                    "paginate": { "previous": "上一頁", "next": "下一頁" },
+                                    "emptyTable":     "目前無已指派工單",
+                                    "zeroRecords":    "沒有符合的搜尋結果",
+                                },
+                                "dom": "Bfrtip",
+                                "buttons": [{
+                                    "extend": 'colvis',
+                                    "collectionLayout": 'fixed two-column'
+                                }],
+                                "order": [[ 1, "desc" ]],
+                                "columnDefs": [{
+                                    "targets": [0],
+                                    "orderable": false,
+                                }],
+                                "responsive": {
+                                    "breakpoints": [
+                                    { name: 'desktop', width: Infinity},
+                                    { name: 'tablet',  width: 1700},
+                                    ],
+                                    "details": {
+                                        "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                                        "type": 'none',
+                                        renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
+                                        "target": ''
+                                    }
+                                },
+                            });
+                            $(".searchInput_su2").on("keyup", function() {
+                                table_a.search(this.value).draw();
+                            });
+
+                            $('select[name="assign2"]').on('change', function () {
+
+                                var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                                if(RWD == 0){
+                                    var token = $(this).val()
+                                    var id = $(this).parents('tr').children('td')[0].textContent 
+                                    var time = $(this).parents('tr').children('td')[1].textContent 
+                                    var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
+                                    var address = $(this).parents('tr').children('td')[4].textContent 
+                                    var name = $(this).parents('tr').children('td')[5].textContent 
+                                    var mobile = $(this).parents('tr').children('td')[6].textContent 
+                                    var reason = $(this).parents('tr').children('td')[7].textContent 
+                                    var work_type = $(this).parents('tr').children('td')[8].textContent 
+                                    var GUI_number = $(this).parents('tr').children('td')[9].textContent
+                                    var status = $(this).parents('tr').children('td')[10].textContent
+                                    if(GUI_number == 'null' || GUI_number == ""){
+                                        var GUI_number = ""
+                                    }
+                                }
+                                else if(RWD == 1){
+                                    var token = $(this).val()
+                                    var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
+                                    var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
+                                    var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].textContent;
+                                    var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].textContent;
+                                    var name = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
+                                    var mobile = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
+                                    var reason = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
+                                    var work_type = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
+                                    var GUI_number = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                                    var status = $(this).closest('tbody').find("tr:eq(10)").children("td")[1].textContent;
+                                    if(GUI_number == 'null' || GUI_number == ""){
+                                        var GUI_number = ""
+                                    }
+                                }
+
+                                $.ajax({
+                                    url:"{{ route('ht.StrokeManage.supervisor.assignCaseBoss',['organization'=>$organization]) }}", 
+                                    method:"post",
+                                    data:{
+                                        '_token':'{{csrf_token()}}',
+                                        'id':id,
+                                        'name': CUSTKEY,
+                                        'mobile': mobile,
+                                        'GUI_number': GUI_number,
+                                        'address': address,
+                                        'case_name':name,
+                                        'reason': reason,
+                                        'work_type': work_type,
+                                        'time': time,
+                                        'owner_boss': token,
+                                        'status': status,
+                                    },
+                                    dataType:'json',                 
+                                    success:function(res){
+                                        if(res.status == 200){
+                                            alert('工單更新成功,已指派員工');
+                                        }
+                                        else{
+                                            alert('指派失敗')
+                                        }
+                                    }
+                                })
+
+                                $(this).attr('disabled','disabled')
+
+                            })
+                        }
+                    }
+                })
             }
         })
     })
@@ -1287,6 +1608,7 @@
                                   + "<td>" + item.CUSTKEY + "</td>"
                                   + "<td>" + item.owner + "</td>"
                                   + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
+                                  + "<td>" + item.name + "</td>"
                                   + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
                                   + "<td>" + item.remarks + "</td>"
                                   + "<td>" + item.work_type + "</td>"
@@ -1302,6 +1624,7 @@
                                   + "<td>" + item.CUSTKEY + "</td>"
                                   + "<td>" + item.owner + "</td>"
                                   + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
+                                  + "<td>" + item.name + "</td>"
                                   + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
                                   + "<td>" + item.remarks + "</td>"
                                   + "<td>" + item.work_type + "</td>"
@@ -1332,7 +1655,7 @@
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 9, "asc" ]],
+                    "order": [[ 1, "desc" ], [ 10, "asc" ]],
                     "columnDefs": [{
                         "targets": [0],
                         "orderable": false,
@@ -1498,6 +1821,7 @@
                                   + "<td>" + item.CUSTKEY + "</td>"
                                   + "<td>" + item.owner + "</td>"
                                   + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
+                                  + "<td>" + item.name + "</td>"
                                   + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
                                   + "<td>" + item.remarks + "</td>"
                                   + "<td>" + item.work_type + "</td>"
@@ -1527,7 +1851,7 @@
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 9, "desc" ]],
+                    "order": [[ 1, "desc" ], [ 10, "desc" ]],
                     "columnDefs": [{
                         "targets": [0],
                         "orderable": false,
@@ -1570,10 +1894,12 @@
                     var time = $(this).parents('tr').children('td')[1].textContent 
                     var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
                     var address = $(this).parents('tr').children('td')[4].textContent 
-                    var mobile = $(this).parents('tr').children('td')[5].textContent 
-                    var reason = $(this).parents('tr').children('td')[6].textContent 
-                    var work_type = $(this).parents('tr').children('td')[7].textContent 
-                    var GUI_number = $(this).parents('tr').children('td')[8].textContent
+                    var name = $(this).parents('tr').children('td')[5].textContent 
+                    var mobile = $(this).parents('tr').children('td')[6].textContent 
+                    var reason = $(this).parents('tr').children('td')[7].textContent 
+                    var work_type = $(this).parents('tr').children('td')[8].textContent 
+                    var GUI_number = $(this).parents('tr').children('td')[9].textContent
+                    var status = $(this).parents('tr').children('td')[10].textContent
                     if(GUI_number == null || GUI_number == ""){
                         var GUI_number = ""
                     }
@@ -1588,10 +1914,12 @@
                             'mobile': mobile,
                             'GUI_number': GUI_number,
                             'address': address,
+                            'case_name' : name,
                             'reason': reason,
                             'work_type': work_type,
                             'time': time,
                             'owner_boss': token,
+                            'status':status,
                         },
                         dataType:'json',                 
                         success:function(res){
@@ -1618,10 +1946,12 @@
                     var time = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
                     var CUSTKEY = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].textContent;
                     var address = $(this).closest('tbody').find("tr:eq(4)").children("td")[1].textContent;
-                    var mobile = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
-                    var reason = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
-                    var work_type = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
-                    var GUI_number = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
+                    var name = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
+                    var mobile = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
+                    var reason = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
+                    var work_type = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
+                    var GUI_number = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                    var status = $(this).closest('tbody').find("tr:eq(10)").children("td")[1].textContent;
                     if(GUI_number == 'null' || GUI_number == ""){
                         var GUI_number = ""
                     }
@@ -1636,10 +1966,12 @@
                             'mobile': mobile,
                             'GUI_number': GUI_number,
                             'address': address,
+                            'case_name' :name,
                             'reason': reason,
                             'work_type': work_type,
                             'time': time,
                             'owner_boss': token,
+                            'status':status,
                         },
                         dataType:'json',                 
                         success:function(res){

@@ -49,7 +49,7 @@
                                                             </form>
                                                         </div>
 
-                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-s-2">
+                                                        <table class="table table-hover dt-responsive table-striped staff" id="hetao-list-s-2">
                                                             <thead class="rwdhide">
                                                                 <tr>
                                                                     <th class="desktop">工單編號</th>
@@ -93,7 +93,7 @@
                                                             </form>
                                                         </div>
 
-                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-s-3">
+                                                        <table class="table table-hover dt-responsive table-striped staff" id="hetao-list-s-3">
                                                             <thead class="rwdhide">
                                                                 <tr>
                                                                     <th class="desktop">工單編號</th>

@@ -59,7 +59,7 @@
                                                             </form>
                                                         </div>
 
-                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-a">
+                                                        <table class="table table-hover dt-responsive table-striped assistant" id="hetao-list-a">
                                                             <thead class="rwdhide">
                                                                 <tr>
                                                                     <th class="desktop">姓名</th>
@@ -112,7 +112,7 @@
                                                             </form>
                                                         </div>
 
-                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-a-2">
+                                                        <table class="table table-hover dt-responsive table-striped assistant" id="hetao-list-a-2">
                                                             <thead class="rwdhide">
                                                                 <tr>
                                                                     <th class="desktop">工單編號</th>
@@ -158,7 +158,7 @@
                                                             </form>
                                                         </div>
 
-                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-s-2">
+                                                        <table class="table table-hover dt-responsive table-striped assistant" id="hetao-list-s-2">
                                                             <thead class="rwdhide">
                                                                 <tr>
                                                                     <th class="desktop">工單編號</th>
@@ -204,7 +204,7 @@
                                                             </form>
                                                         </div>
 
-                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-ss-2">
+                                                        <table class="table table-hover dt-responsive table-striped assistant" id="hetao-list-ss-2">
                                                             <thead class="rwdhide">
                                                                 <tr>
                                                                     <th class="desktop">工單編號</th>

@@ -669,7 +669,7 @@ h4.title-deco {
     }
     .child .form-control {
         display: inline-block;
-        width: 40%;
+        width: 50%;
     }
 }
 @media screen and (max-width: 1700px) {

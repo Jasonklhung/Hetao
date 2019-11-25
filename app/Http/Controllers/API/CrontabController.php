@@ -219,7 +219,7 @@ class CrontabController extends Controller
                     $response = $client->post('https://linebotclient.azurewebsites.net/line/1608443818/push/supervisorAssign-push.php', [
                        'headers' => ['Content-Type' => 'application/json'],
                        'body' => json_encode([
-                        'to' => 'U6fb3d1720955ab575d4c55f8cd001de5',//kk->token
+                        'to' => $kk->token,//kk->token
                         'count' => $count,
                     ])
                    ]);

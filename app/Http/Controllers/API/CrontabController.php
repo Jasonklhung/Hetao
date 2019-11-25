@@ -173,7 +173,7 @@ class CrontabController extends Controller
 
     public function supervisorAssign(Request $request)
     {
-        $setting = Timeset::where('name','通知主管指派項目')->where('organization_id','28')->where('status','Y')->get(); //取得全部時間設定
+        $setting = Timeset::where('name','通知主管指派項目')->where('status','Y')->get(); //取得全部時間設定
 
         $time = Carbon::now()->format('H:i'); //取現在時間
         $time = $time.':00'; //取現在時間

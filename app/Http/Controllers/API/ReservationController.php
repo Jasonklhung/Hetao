@@ -10,6 +10,7 @@ use App\ReservationAnswer;
 use App\SatisfactionAnswer;
 use App\ContactAnswer;
 use App\Department;
+use App\Organization;
 
 class ReservationController extends Controller
 {
@@ -42,9 +43,18 @@ class ReservationController extends Controller
     	return 'ok';
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        $data = ReservationAnswer::all();
+        $dept = $request->dept;
+
+        $deptName = Department::where('name',$dept)->get();
+
+        if(!isset($dept)){
+            $data = ReservationAnswer::all();
+        }else{
+            $data = ReservationAnswer::where('department_id',$deptName[0]['id'])->get();
+        }
+
         $result = array();
         $date = array();
 

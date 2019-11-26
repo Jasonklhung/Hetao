@@ -204,7 +204,7 @@ var table_s2 = $("#hetao-list-s-2").DataTable({
     "responsive": {
         "breakpoints": [
         { name: 'desktop', width: Infinity},
-        { name: 'tablet',  width: 1300},
+        { name: 'tablet',  width: 1700},
         ],
         "details": {
             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
@@ -343,7 +343,7 @@ var table_authority = $("#hetao-list-authority").DataTable({
     "responsive": {
         "breakpoints": [
         { name: 'desktop', width: Infinity},
-        { name: 'tablet',  width: 1300},
+        { name: 'tablet',  width: 1700},
         ],
         "details": {
             "display": $.fn.dataTable.Responsive.display.childRowImmediate,

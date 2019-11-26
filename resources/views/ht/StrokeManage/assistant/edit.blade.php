@@ -52,7 +52,7 @@
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <a href="{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization]) }}"><button type="button" class="btn btn-default">返回</button></a>
+                                                        <a href="{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization,'tab'=>'case']) }}"><button type="button" class="btn btn-default">返回</button></a>
                                                         <button type="submit" class="btn btn-primary">儲存</button>
                                                     </div>
                                                 </form>

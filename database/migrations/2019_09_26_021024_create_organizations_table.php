@@ -16,6 +16,8 @@ class CreateOrganizationsTable extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->comment('組織名稱');
+            $table->string('phone')->comment('電話');
+            $table->string('company_name')->comment('公司名稱');
             $table->timestamps();
         });
     }

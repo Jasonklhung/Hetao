@@ -19,24 +19,90 @@
                                         <div class="panel-body">
                                             <div class="tabbable">
                                                 <!-- tab標籤 -->
+                                                @php
+                                                    if(isset($_GET['tab'])){
+                                                        $tab = $_GET['tab'];
+                                                    }
+                                                    else{
+                                                        $tab = '';
+                                                    }
+                                                @endphp
                                                 <ul class="nav nav-tabs">
-                                                    <li>
-                                                        <a data-toggle="tab" href="#viewers-tab-01">線上預約</a>
+                                                    @if($tab == 'res')
+                                                    <li class="active">
+                                                        <a data-toggle="tab" name="res">線上預約</a>
                                                     </li>
                                                     <li>
-                                                        <a data-toggle="tab" href="#viewers-tab-02">派工單</a>
+                                                        <a data-toggle="tab" name="case">派工單</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" name="report">行程回報</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" name="finish">已完成</a>
+                                                    </li>
+                                                    @elseif($tab == 'case')
+                                                    <li>
+                                                        <a data-toggle="tab" name="res">線上預約</a>
                                                     </li>
                                                     <li class="active">
-                                                        <a data-toggle="tab" href="#viewers-tab-03">行程回報</a>
+                                                        <a data-toggle="tab" name="case">派工單</a>
                                                     </li>
                                                     <li>
-                                                        <a data-toggle="tab" href="#viewers-tab-05">已完成</a>
+                                                        <a data-toggle="tab" name="report">行程回報</a>
                                                     </li>
+                                                    <li>
+                                                        <a data-toggle="tab" name="finish">已完成</a>
+                                                    </li>
+                                                    @elseif($tab == 'report')
+                                                    <li>
+                                                        <a data-toggle="tab" name="res">線上預約</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" name="case">派工單</a>
+                                                    </li>
+                                                    <li class="active">
+                                                        <a data-toggle="tab" name="report">行程回報</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" name="finish">已完成</a>
+                                                    </li>
+                                                    @elseif($tab == 'finish')
+                                                    <li>
+                                                        <a data-toggle="tab" name="res">線上預約</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" name="case">派工單</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" name="report">行程回報</a>
+                                                    </li>
+                                                    <li class="active">
+                                                        <a data-toggle="tab" name="finish">已完成</a>
+                                                    </li>
+                                                    @else
+                                                    <li>
+                                                        <a data-toggle="tab" name="res">線上預約</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" name="case">派工單</a>
+                                                    </li>
+                                                    <li class="active">
+                                                        <a data-toggle="tab" name="report">行程回報</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" name="finish">已完成</a>
+                                                    </li>
+                                                    @endif
                                                 </ul>
                                                 <!-- tab標籤內容 -->
                                                 <div class="tab-content">
                                                     <!-- 客戶線上預約 -->
+                                                    @if($tab == 'res')
+                                                    <div class="tab-pane active" id="viewers-tab-01">
+                                                    @else
                                                     <div class="tab-pane" id="viewers-tab-01">
+                                                    @endif
                                                         <div class='coupon'>
                                                             <form class="form-inline">
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_a" placeholder="請輸入關鍵字">
@@ -82,7 +148,11 @@
                                                     </div>
                                                     <!-- end -->
                                                     <!-- 派工單 -->
+                                                    @if($tab == 'case')
+                                                    <div class="tab-pane active" id="viewers-tab-02">
+                                                    @else
                                                     <div class="tab-pane" id="viewers-tab-02">
+                                                    @endif
                                                         <div class='coupon'>
                                                             <form class='form-inline'>
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_a2" placeholder="請輸入關鍵字">
@@ -135,7 +205,13 @@
                                                     </div>
                                                     <!-- end -->
                                                     <!-- 行程回報 -->
+                                                    @if($tab == 'report')
                                                     <div class="tab-pane active" id="viewers-tab-03">
+                                                    @elseif($tab == '')
+                                                    <div class="tab-pane active" id="viewers-tab-03">
+                                                    @else
+                                                    <div class="tab-pane" id="viewers-tab-03">
+                                                    @endif
                                                         <div class='coupon'>
                                                             <form class="form-inline">
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
@@ -181,7 +257,11 @@
                                                     </div>
                                                     <!-- end -->
                                                     <!-- 已完成工單 -->
+                                                    @if($tab == 'finish')
+                                                    <div class="tab-pane active" id="viewers-tab-05">
+                                                    @else
                                                     <div class="tab-pane" id="viewers-tab-05">
+                                                    @endif
                                                         <div class='coupon'>
                                                             <form class="form-inline">
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_ss2" placeholder="請輸入關鍵字">
@@ -1501,5 +1581,13 @@
     $("#ED5").on("dp.change", function (e) {
         $('#SD5').data("DateTimePicker").maxDate(e.date);
     });
+</script>
+<script type="text/javascript">
+    $('a[data-toggle="tab"]').on('click',function(){
+        var name = $(this).context.name;
+        var path = $(this).context.pathname;
+        //var page = location.href;
+        window.location.href = path+"?tab="+name+""
+    })
 </script>
 @endsection

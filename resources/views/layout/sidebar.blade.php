@@ -3,7 +3,7 @@
             <div class="sidebar-scroll">
                 <nav class="navbar navbar-default">
                     <div class="hetao-logo">
-                        <a href="{{ route('ht.Overview.index',['organization'=>$organization]) }}">賀桃</a>
+                        <a href="{{ route('ht.Overview.index',['organization'=>$organization]) }}">{{Auth::user()->organization['company_name']}}</a>
                     </div>
                 </nav>
                 <!-- 使用者 -->

@@ -48,15 +48,17 @@ class CrontabController extends Controller
     					foreach ($array as $k => $v) {
                             if($v->status != 'T'){
                               $client = new \GuzzleHttp\Client();
-                              $response = $client->post('https://linebotclient.azurewebsites.net/line/1608443818/push/reservation-push.php', [
+                              $response = $client->post('https://linebotclient.azurewebsites.net/line/1608443818/push/reservation-pushTwo.php', [
                                  'headers' => ['Content-Type' => 'application/json'],
                                  'body' => json_encode([
                                     'to' => $v->custoken,
+                                    'owner' => $v->owner_token,
                                     'date' => $v->time,
                                     'address' => $v->add,
                                     'type' => $v->work_type,
                                     'name' => $v->owner,
-                                    'mobile'=> $v->mobile,
+                                    'custname' => $v->name,
+                                    'mobile' => $v->mobile,
                                 ])
                              ]);
                           }

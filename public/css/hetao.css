@@ -1660,7 +1660,7 @@ input[class^=follow]:checked+.followanswer:before {
 .modal-open .modal {
    overflow-y: inherit;
 }
-#meet .modal-body, #job1 .modal-body {
+#meet .modal-body, #job1 .modal-body #person .modal-body {
    height: 330px;
    overflow-y: auto;
 }
@@ -1686,6 +1686,14 @@ input[class^=follow]:checked+.followanswer:before {
 /*員工已完成*/#hetao-list-s-3.staff .child tr:nth-child(10)
 {
     display: none;
+}
+
+.color-btn{
+   background: #000;
+   color: #fff;
+   border-radius: 20px;
+   letter-spacing: .07rem;
+   padding: 5px 15px;
 }
 
 

@@ -17,6 +17,8 @@ class CreateDepartmentsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('organization_id')->comment('組織id');
             $table->string('name')->comment('部門名稱');
+            $table->string('phone')->comment('電話');
+            $table->string('company_name')->comment('公司名稱');
             $table->timestamps();
         });
     }

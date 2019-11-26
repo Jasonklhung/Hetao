@@ -103,6 +103,9 @@
 													@endforeach
 												@endif
 											@endforeach
+											<div>
+												<a href="{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization,'tab'=>'res']) }}"><button type="button" class="btn btn-default">返回</button></a>
+											</div>
 										</div>    
 									</div>
 								</div>

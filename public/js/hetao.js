@@ -437,13 +437,21 @@ $('body').on('click', '#newalert button', function(){
 });
 
 /*"會議對象"*/
+var array = [];
 $('body').on('click', '#person .add-member', function(){
     var company = $("#person .company").val()
     var role = $("#person .role").val()
     var staffname = $("#person .staffname").find("option:selected").text()
     var token = $("#person .staffname").find("option:selected").val()
-    if((company && role && staffname) !== null){
-        $('#person .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button></span><span class="tok" hidden>'+token+'×</span>');
+    console.log(token)
+    if(array.indexOf(token) == -1){
+        array.push(token)
+        if((company && role && staffname) !== null){
+            $('#person .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button></span><span class="tok" hidden>'+token+'×</span>');
+        }
+    }
+    else{
+        alert('此人員已新增')
     }
 });
 /*刪除會議對象*/
@@ -482,12 +490,27 @@ $('body').on('click', '#person .finish', function(){
 
 // 編輯中的"會議對象"
 /*"會議對象"*/
+var array = [];
 $('body').on('click', '#meet .add-member', function(){
     var company = $("#meet .company").val()
     var role = $("#meet .role").val()
     var staffname = $("#meet .staffname").find("option:selected").text()
-    if((company && role && staffname) !== null){
-        $('#meet .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button><input type="hidden" name="meeting2[]" value='+company+'/'+role+staffname+'></span></span>');
+    var token = $("#meet .staffname").find("option:selected").val()
+
+    var haveToken = $("input[name='meetingToken']").val();
+    var aaa = haveToken.split(",");
+    console.log(haveToken)
+    for (var i = 0; i < aaa.length; i++) {
+        array.push(aaa[i]);
+    }
+    if(array.indexOf(token) == -1){
+        array.push(token)
+        if((company && role && staffname) !== null){
+            $('#meet .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button><input type="hidden" name="meeting2[]" value='+company+'/'+role+staffname+'></span></span>');
+        }
+    }
+    else{
+        alert('此人員已新增')
     }
 });
 /*刪除會議對象*/

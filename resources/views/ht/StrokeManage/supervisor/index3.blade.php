@@ -18,24 +18,54 @@
                                         <div class="panel-body">
                                             <div class="tabbable">
                                                 <!-- tab標籤 -->
+                                                @php
+                                                    if(isset($_GET['tab'])){
+                                                        $tab = $_GET['tab'];
+                                                    }
+                                                    else{
+                                                        $tab = '';
+                                                    }
+                                                @endphp
                                                 <ul class="nav nav-tabs">
-                                                    <li>
-                                                        <a data-toggle="tab" href="#viewers-tab-01">待指派</a>
-                                                    </li>
-                                                    <li>
-                                                        <a data-toggle="tab" href="#viewers-tab-02">已指派</a>
-                                                    </li>
+                                                    @if($tab == 'case')
                                                     <li class="active">
-                                                        <a data-toggle="tab" href="#viewers-tab-03">行程回報</a>
-                                                    </li>
+                                                    @else
                                                     <li>
-                                                        <a data-toggle="tab" href="#viewers-tab-04">已完成</a>
+                                                    @endif
+                                                        <a data-toggle="tab" name="case">待指派</a>
+                                                    </li>
+                                                    @if($tab == 'cased')
+                                                    <li class="active">
+                                                    @else
+                                                    <li>
+                                                    @endif
+                                                        <a data-toggle="tab" name="cased">已指派</a>
+                                                    </li>
+                                                    @if($tab == 'report')
+                                                    <li class="active">
+                                                    @elseif($tab == '')
+                                                    <li class="active">
+                                                    @else
+                                                    <li>
+                                                    @endif
+                                                        <a data-toggle="tab" name="report">行程回報</a>
+                                                    </li>
+                                                    @if($tab == 'finish')
+                                                    <li class="active">
+                                                    @else
+                                                    <li>
+                                                    @endif
+                                                        <a data-toggle="tab" name="finish">已完成</a>
                                                     </li>
                                                 </ul>
                                                 <!-- tab標籤內容 -->
                                                 <div class="tab-content">
                                                     <!-- 待指派工單 -->
+                                                    @if($tab == 'case')
+                                                    <div class="tab-pane active" id="viewers-tab-01">
+                                                    @else
                                                     <div class="tab-pane" id="viewers-tab-01">
+                                                    @endif
                                                         <div class='coupon'>
                                                             <form class='form-inline'>
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_su" placeholder="請輸入關鍵字">
@@ -87,14 +117,18 @@
                                                         </table>
                                                     </div>
                                                     <!-- 已指派工單 -->
+                                                    @if($tab == 'cased')
+                                                    <div class="tab-pane active" id="viewers-tab-02">
+                                                    @else
                                                     <div class="tab-pane" id="viewers-tab-02">
+                                                    @endif
                                                         <div class='coupon'>
                                                             <form class='form-inline'>
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_su2" placeholder="請輸入關鍵字">
                                                                 <div class="form-group mr-s">
                                                                     <select class="form-control" id="searchStatus">
-                                                                        <option selected="" value="notselect">所有狀態</option>
-                                                                        <option value="null">執行中</option>
+                                                                        <option value="notselect">所有狀態</option>
+                                                                        <option selected="" value="null">執行中</option>
                                                                         <option value="R">轉單</option>
                                                                         <option value="F">延後</option>
                                                                         <option value="T">已完成</option>
@@ -174,7 +208,13 @@
                                                         </table>
                                                     </div>
                                                     <!-- 行程回報 -->
+                                                    @if($tab == 'report')
                                                     <div class="tab-pane active" id="viewers-tab-03">
+                                                    @elseif($tab == '')
+                                                    <div class="tab-pane active" id="viewers-tab-03">
+                                                    @else
+                                                    <div class="tab-pane" id="viewers-tab-03">
+                                                    @endif
                                                         <div class='coupon'>
                                                             <form class="form-inline">
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
@@ -220,7 +260,11 @@
                                                     </div>
                                                     <!-- end -->
                                                     <!-- 已完成工單 -->
+                                                    @if($tab == 'finish')
+                                                    <div class="tab-pane active" id="viewers-tab-04">
+                                                    @else
                                                     <div class="tab-pane" id="viewers-tab-04">
+                                                    @endif
                                                         <div class='coupon'>
                                                             <form class="form-inline">
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_ss2" placeholder="請輸入關鍵字">
@@ -298,7 +342,7 @@
             "extend": "colvis",
             "collectionLayout": "fixed two-column"
         }],
-        "order": [[1,'desc']],
+        "order": [[1,'desc'],[0,'asc']],
         "columnDefs": [{
             "targets": [0],
             "orderable": false,
@@ -2019,5 +2063,13 @@
     $("#ED4").on("dp.change", function (e) {
         $('#SD4').data("DateTimePicker").maxDate(e.date);
     });
+</script>
+<script type="text/javascript">
+    $('a[data-toggle="tab"]').on('click',function(){
+        var name = $(this).context.name;
+        var path = $(this).context.pathname;
+        //var page = location.href;
+        window.location.href = path+"?tab="+name+""
+    })
 </script>
 @endsection

@@ -36,7 +36,7 @@
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </div>
-                                                                <input class='day-select form-control' readonly="" id="SD1" name="start" placeholder='開始時間' type='text' required=""><input class='hide text-right time-select form-control' readonly="" name="startTime"  type='text' placeholder="選擇時間" readonly="true"><input class='day-select form-control' readonly="" id="ED1" name="end" placeholder='結束時間' type='text' required=""><input class='hide text-right time-select form-control' readonly="" name="endTime" type='text' placeholder="選擇時間" readonly="true">
+                                                                <input class='day-select form-control' id="SD1" name="start" placeholder='開始時間' type='text' required=""><input class='hide text-right time-select form-control' readonly="" name="startTime"  type='text' placeholder="選擇時間" readonly="true"><input class='day-select form-control'  id="ED1" name="end" placeholder='結束時間' type='text' required=""><input class='hide text-right time-select form-control' readonly="" name="endTime" type='text' placeholder="選擇時間" readonly="true">
                                                             </li>
                                                             <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" type="text" name="position" placeholder="新增位置" required=""></li>
                                                             <li class="mb-s"><i class="fas fa-bell"></i><div class="opmodal o1" data-toggle="modal" data-target="#newalert"><input type="text" id="notice" name="tN" placeholder="新增通知" required=""></div></li>
@@ -157,6 +157,7 @@
                                         </li>
                                         <li class="mb-s"><i class="fas fa-align-left"></i><input class="form-control ps" name="description2" type="text" placeholder="新增說明"></li>
                                         <li class="mb-s"><i class="fas fa-user"></i><input class="form-control ps" name="owner" type="text" readonly=""></li>
+                                        <input type="hidden" name="meetingToken">
                                         <li class="text-center">
                                             <div class="coupon"><button type="submit" name="submit[update]">儲存</button>&nbsp;&nbsp;<button type="submit" name="submit[delete]">刪除</button>&nbsp;&nbsp;<button type="button" data-dismiss="modal">關閉</button></div>
                                         </li>
@@ -449,7 +450,7 @@
 
                                     for (var i = 0; i < number; i++) {
 
-                                        $("li[id='foreachJob']").append("<ul><li><span>派工類型 </span>"+info.type.split("|||")[i]+"</li><li><span>客戶代碼 </span>"+info.custkey.split("|||")[i]+"</li><li><span>地址 </span><a href='https://www.google.com.tw/maps/place/"+info.address.split("|||")[i]+"' target='_blank'>"+info.address.split("|||")[i]+"</a></li><li><span>電話 </span><a href='tel:"+info.mobile.split("|||")[i]+"'>"+info.mobile.split("|||")[i]+"</a></li><li><span>派工原因 </span>"+info.remarks.split("|||")[i]+"</li><li><span>承辦人員 </span>"+info.owner.split("|||")[i]+"</li><li><span>工單編號 </span>"+info.id.split("|||")[i]+"</li><li><span>工單日期 </span>"+info.time+"</li><li><span>狀態 </span>"+info.status.split("|||")[i]+"</li></ul>")
+                                        $("li[id='foreachJob']").append("<ul><li><span>工單編號 </span>"+info.id.split("|||")[i]+"</li><li><span>工單日期 </span>"+info.time+"</li><li><span>派工類型 </span>"+info.type.split("|||")[i]+"</li><li><span>客戶代碼 </span>"+info.custkey.split("|||")[i]+"</li><li><span>地址 </span><a href='https://www.google.com.tw/maps/place/"+info.address.split("|||")[i]+"' target='_blank'>"+info.address.split("|||")[i]+"</a></li><li><span>電話 </span><a href='tel:"+info.mobile.split("|||")[i]+"'>"+info.mobile.split("|||")[i]+"</a></li><li><span>派工原因 </span>"+info.remarks.split("|||")[i]+"</li><li><span>承辦人員 </span>"+info.owner.split("|||")[i]+"</li><li><span>狀態 </span>"+info.status.split("|||")[i]+"</li></ul>")
                                     }
                                     
                                 }
@@ -529,6 +530,7 @@
                                                                     for (var i = 0; i < response.meeting.split(",").length; i++) {
                                                                         $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"></span>")
                                                                     }
+                                                                    $("input[name='meetingToken']").val(response.meetingToken);
                                                                     $("input[name='description2']").val(response.description);
                                                                     $("input[name='owner']").val(response.user_id);
 
@@ -647,6 +649,7 @@
                                                                     for (var i = 0; i < response.meeting.split(",").length; i++) {
                                                                         $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"></span>")
                                                                     }
+                                                                    $("input[name='meetingToken']").val(response.meetingToken);
                                                                     $("input[name='description2']").val(response.description);
                                                                     $("input[name='owner']").val(response.user_id);
 
@@ -765,6 +768,7 @@
                                                                     for (var i = 0; i < response.meeting.split(",").length; i++) {
                                                                         $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"></span>")
                                                                     }
+                                                                    $("input[name='meetingToken']").val(response.meetingToken);
                                                                     $("input[name='description2']").val(response.description);
                                                                     $("input[name='owner']").val(response.user_id);
 
@@ -970,10 +974,33 @@
                 }
             })
         });
-
     });
     </script>
     <script type="text/javascript">
+        $(function() {
+            $('.day-select').datetimepicker({
+                minDate: new Date(),
+                format: 'YYYY-MM-DD',
+                ignoreReadonly: true,
+                allowInputToggle: true,
+                locale: 'ZH-TW',
+                useCurrent: false,
+                ignoreReadonly: true,
+            });
+        });
+
+
+        $(function() {
+            $('.date-select').datetimepicker({
+                minDate: new Date(),
+                format: 'YYYY-MM-DD',
+                ignoreReadonly: true,
+                allowInputToggle: true,
+                locale: 'ZH-TW',
+                useCurrent: false,
+                ignoreReadonly: true,
+            });
+        });
         $("#SD1").on("dp.change", function (e) {
             $('#ED1').data("DateTimePicker").minDate(e.date);
         });

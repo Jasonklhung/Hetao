@@ -180,16 +180,40 @@
                                                                     <td>{{ $data->name }}</td>
                                                                     <td><a href="tel:{{ $data->mobile }}">{{ $data->mobile }}</a></td>
                                                                     <td>{{ $data->reason }}</td>
-                                                                    <td>{{ $data->work_type }}</td>
+
+                                                                    @if($data->work_type == '維修')
+                                                                    <td><span class="color-btn" style="background-color: #e64242 ">{{ $data->work_type }}</span></td>
+                                                                    @elseif($data->work_type == '洽機')
+                                                                    <td><span class="color-btn" style="background-color: #f59d56 ">{{ $data->work_type }}</span></td>
+                                                                    @elseif($data->work_type == '收款')
+                                                                    <td><span class="color-btn" style="background-color: #ffe167 ">{{ $data->work_type }}</span></td>
+                                                                    @elseif($data->work_type == '送水')
+                                                                    <td><span class="color-btn" style="background-color: #91d35c ">{{ $data->work_type }}</span></td>
+                                                                    @elseif($data->work_type == '裝機')
+                                                                    <td><span class="color-btn" style="background-color: #1bab9f ">{{ $data->work_type }}</span></td>
+                                                                    @elseif($data->work_type == '拆機')
+                                                                    <td><span class="color-btn" style="background-color: #00c0ff ">{{ $data->work_type }}</span></td>
+                                                                    @elseif($data->work_type == '回機')
+                                                                    <td><span class="color-btn" style="background-color: #41438f ">{{ $data->work_type }}</span></td>
+                                                                    @elseif($data->work_type == '保養')
+                                                                    <td><span class="color-btn" style="background-color: #a080c3 ">{{ $data->work_type }}</span></td>
+                                                                    @elseif($data->work_type == '合約')
+                                                                    <td><span class="color-btn" style="background-color: #f73e99 ">{{ $data->work_type }}</span></td>
+                                                                    @elseif($data->work_type == '其他')
+                                                                    <td><span class="color-btn" style="background-color: #a1602c ">{{ $data->work_type }}</span></td>
+                                                                    @elseif($data->work_type == '送貨')
+                                                                    <td><span class="color-btn" style="background-color: #3f3f3f ">{{ $data->work_type }}</span></td>
+                                                                    @endif
+
                                                                     <td hidden="">{{ $data->GUI_number }}</td>
                                                                 @if($data->status == '' || $data->status == 'null' || $data->status == null)
                                                                     <td>執行中</td>
                                                                 @elseif($data->status == 'R')
-                                                                    <td>轉單</td>
+                                                                    <td style="color:yellow">轉單</td>
                                                                 @elseif($data->status == 'F')
-                                                                    <td>延後</td>
+                                                                    <td style="color:red">延後</td>
                                                                 @else
-                                                                    <td>已完成</td>
+                                                                    <td style="color:green">已完成</td>
                                                                 @endif
                                                                     <td>
                                                                         <select class="form-control" name="assign2" style="margin-right:28px;">
@@ -472,8 +496,40 @@
                             + "<td>" + item.name + "</td>"
                             + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td>" + item.reason + "</td>"
-                            + "<td>" + item.work_type + "</td>"
-                            + "<td hidden>" + item.GUI_number + "</td>"
+                            if(item.work_type == '維修'){
+                                rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '洽機'){
+                                rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '收款'){
+                                rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '送水'){
+                                rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '裝機'){
+                                rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '拆機'){
+                                rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '回機'){
+                                rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '保養'){
+                                rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '合約'){
+                                rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '其他'){
+                                rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '送貨'){
+                                rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
+                            }
+                            rows += "<td hidden>" + item.GUI_number + "</td>"
                             + "<td>執行中</td>"
                             + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
                             for (var j = 0; j < res[1].length; j++) {
@@ -497,9 +553,41 @@
                             + "<td>" + item.name + "</td>"
                             + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td>" + item.reason + "</td>"
-                            + "<td>" + item.work_type + "</td>"
-                            + "<td hidden>" + item.GUI_number + "</td>"
-                            + "<td>轉單</td>"
+                            if(item.work_type == '維修'){
+                                rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '洽機'){
+                                rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '收款'){
+                                rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '送水'){
+                                rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '裝機'){
+                                rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '拆機'){
+                                rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '回機'){
+                                rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '保養'){
+                                rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '合約'){
+                                rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '其他'){
+                                rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '送貨'){
+                                rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
+                            }
+                            rows += "<td hidden>" + item.GUI_number + "</td>"
+                            + "<td style='color:yellow'>轉單</td>"
                             + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
                             for (var j = 0; j < res[1].length; j++) {
                                 if(res[1][j].name == item.owner){ 
@@ -522,9 +610,41 @@
                             + "<td>" + item.name + "</td>"
                             + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td>" + item.reason + "</td>"
-                            + "<td>" + item.work_type + "</td>"
-                            + "<td hidden>" + item.GUI_number + "</td>"
-                            + "<td>延後</td>"
+                            if(item.work_type == '維修'){
+                                rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '洽機'){
+                                rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '收款'){
+                                rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '送水'){
+                                rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '裝機'){
+                                rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '拆機'){
+                                rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '回機'){
+                                rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '保養'){
+                                rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '合約'){
+                                rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '其他'){
+                                rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '送貨'){
+                                rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
+                            }
+                            rows += "<td hidden>" + item.GUI_number + "</td>"
+                            + "<td style='color:red'>延後</td>"
                             + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
                             for (var j = 0; j < res[1].length; j++) {
                                 if(res[1][j].name == item.owner){ 
@@ -547,9 +667,41 @@
                             + "<td>" + item.name + "</td>"
                             + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td>" + item.reason + "</td>"
-                            + "<td>" + item.work_type + "</td>"
-                            + "<td hidden>" + item.GUI_number + "</td>"
-                            + "<td>已完成</td>"
+                            if(item.work_type == '維修'){
+                                rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '洽機'){
+                                rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '收款'){
+                                rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '送水'){
+                                rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '裝機'){
+                                rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '拆機'){
+                                rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '回機'){
+                                rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '保養'){
+                                rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '合約'){
+                                rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '其他'){
+                                rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '送貨'){
+                                rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
+                            }
+                            rows += "<td hidden>" + item.GUI_number + "</td>"
+                            + "<td style='color:green'>已完成</td>"
                             + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
                             for (var j = 0; j < res[1].length; j++) {
                                 if(res[1][j].name == item.owner){ 
@@ -1410,8 +1562,40 @@
                                     + "<td>" + item.name + "</td>"
                                     + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                     + "<td>" + item.reason + "</td>"
-                                    + "<td>" + item.work_type + "</td>"
-                                    + "<td hidden>" + item.GUI_number + "</td>"
+                                    if(item.work_type == '維修'){
+                                        rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '洽機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '收款'){
+                                        rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '送水'){
+                                        rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '裝機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '拆機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '回機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '保養'){
+                                        rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '合約'){
+                                        rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '其他'){
+                                        rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '送貨'){
+                                        rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
+                                    }
+                                    rows += "<td hidden>" + item.GUI_number + "</td>"
                                     + "<td>執行中</td>"
                                     + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
                                     for (var j = 0; j < data.length; j++) {
@@ -1435,9 +1619,41 @@
                                     + "<td>" + item.name + "</td>"
                                     + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                     + "<td>" + item.reason + "</td>"
-                                    + "<td>" + item.work_type + "</td>"
-                                    + "<td hidden>" + item.GUI_number + "</td>"
-                                    + "<td>轉單</td>"
+                                    if(item.work_type == '維修'){
+                                        rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '洽機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '收款'){
+                                        rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '送水'){
+                                        rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '裝機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '拆機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '回機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '保養'){
+                                        rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '合約'){
+                                        rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '其他'){
+                                        rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '送貨'){
+                                        rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
+                                    }
+                                    rows += "<td hidden>" + item.GUI_number + "</td>"
+                                    + "<td style='color:yellow'>轉單</td>"
                                     + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
                                     for (var j = 0; j < data.length; j++) {
                                         if(data[j].name == item.owner){ 
@@ -1460,9 +1676,41 @@
                                     + "<td>" + item.name + "</td>"
                                     + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                     + "<td>" + item.reason + "</td>"
-                                    + "<td>" + item.work_type + "</td>"
-                                    + "<td hidden>" + item.GUI_number + "</td>"
-                                    + "<td>延後</td>"
+                                    if(item.work_type == '維修'){
+                                        rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '洽機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '收款'){
+                                        rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '送水'){
+                                        rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '裝機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '拆機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '回機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '保養'){
+                                        rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '合約'){
+                                        rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '其他'){
+                                        rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '送貨'){
+                                        rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
+                                    }
+                                    rows += "<td hidden>" + item.GUI_number + "</td>"
+                                    + "<td style='color:red'>延後</td>"
                                     + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
                                     for (var j = 0; j < data.length; j++) {
                                         if(data[j].name == item.owner){ 
@@ -1485,9 +1733,41 @@
                                     + "<td>" + item.name + "</td>"
                                     + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                     + "<td>" + item.reason + "</td>"
-                                    + "<td>" + item.work_type + "</td>"
-                                    + "<td hidden>" + item.GUI_number + "</td>"
-                                    + "<td>已完成</td>"
+                                    if(item.work_type == '維修'){
+                                        rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '洽機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '收款'){
+                                        rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '送水'){
+                                        rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '裝機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '拆機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '回機'){
+                                        rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '保養'){
+                                        rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '合約'){
+                                        rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '其他'){
+                                        rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span></td>"
+                                    }
+                                    else if(item.work_type == '送貨'){
+                                        rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
+                                    }
+                                    rows += "<td hidden>" + item.GUI_number + "</td>"
+                                    + "<td style='color:green'>已完成</td>"
                                     + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
                                     for (var j = 0; j < data.length; j++) {
                                         if(data[j].name == item.owner){ 

@@ -49,6 +49,10 @@ class ReservationController extends Controller
 
         $deptName = Department::where('name',$dept)->get();
 
+        if($deptName->isEmpty()){
+            return json_encode(array('status'=>200,'message'=>'This DEPT is not current'));
+        }
+
         if(!isset($dept)){
             $data = ReservationAnswer::all();
         }else{

@@ -346,7 +346,7 @@ class AssistantController extends Controller
 
         $id = base64_decode($id);
 
-        dd($id);
+        //dd($id);
 
         $res = ReservationAnswer::where('id',$id)->get();
 

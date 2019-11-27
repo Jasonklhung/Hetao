@@ -57,8 +57,10 @@ class CrontabController extends Controller
                                     'address' => $v->add,
                                     'type' => $v->work_type,
                                     'name' => $v->owner,
-                                    'custname' => $v->name,
+                                    'custname' => $v->full_name,
                                     'mobile' => $v->mobile,
+                                    'cust' => $v->name,
+                                    'phone' => $DEPT[0]->phone,
                                 ])
                              ]);
                           }
@@ -111,8 +113,10 @@ class CrontabController extends Controller
                                     'address' => $v->add,
                                     'type' => $v->work_type,
                                     'name' => $v->owner,
-                                    'custname' => $v->name,
+                                    'custname' => $v->full_name,
                                     'mobile' => $v->mobile,
+                                    'cust' => $v->name,
+                                    'phone' => $DEPT[0]->phone,
                                 ])
                              ]);
                             }

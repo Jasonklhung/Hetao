@@ -25,10 +25,6 @@ button {
     font-size: 15px;
 }
 
-input, textarea {
-    font-size: 17px !important;
-}
-
 /*----------------------------------------------------------------
    使用者
 ------------------------------------------------------------------*/
@@ -55,7 +51,7 @@ input, textarea {
     height: 35px;
     line-height: 35px;
     color: #ffffff;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: bold;
     padding-left: 15px;
     background: #4194d4;
@@ -84,7 +80,7 @@ input, textarea {
 .coupon .search button {
     border-radius: 4px;
     border-color: #4194d4;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .coupon {
@@ -174,7 +170,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 .dataTables_filter input[type="search"] {
     height: 34px;
     padding: 6px 12px;
-    font-size: 17px;
+    font-size: 14px;
     line-height: 1.42857143;
     color: #555;
     background-color: #fff;
@@ -224,7 +220,7 @@ div.dataTables_wrapper div.dataTables_filter label, .dataTables_filter .form-gro
 .nav-tabs>li.active>a:focus,
 .nav-tabs>li.active>a:hover {
     border-bottom: 3px solid #fece78;
-/*    font-size: 1.5rem;*/
+    font-size: 1.5rem;
     font-weight: bold;
     color: #000;
     border-left: none;
@@ -423,22 +419,14 @@ small {
 
 .title-deco {
     border-left: 6px solid #53AAEC;
-    padding-left: 6px;
+    padding-left: 9px;
     margin: 6px 0 10px;
     font-weight: bold;
-}
-
-.panel-body {
-    padding: 8px;
 }
 
 h5 {
     background: #f1faff;
     padding: 8px 12px;
-}
-
-.btn {
-    font-size: 16px;
 }
 
 .btn-default {
@@ -483,7 +471,7 @@ ul {
 }
 /*datetimepicker設定*/
 .bootstrap-datetimepicker-widget tr td, .bootstrap-datetimepicker-widget th {
-    font-size: 17px !important;
+    font-size: 14px !important;
     padding: 6px 3px !important; 
 }
 .bootstrap-datetimepicker-widget {
@@ -595,7 +583,7 @@ h4.title-deco {
 
 @media screen and (min-width: 768px) {
     .setting .form-item .form-inline .form-control {
-        width: 75px;
+        width: 64px;
     }
 
     .setting .form-item .form-inline .time-select .form-control {
@@ -642,7 +630,7 @@ h4.title-deco {
 .dtr-details tr td:nth-child(odd) {
     wdith: 80px;
 }
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1700px) {
     div.dataTables_wrapper div.dataTables_filter {
         text-align: left;
     }
@@ -657,7 +645,7 @@ h4.title-deco {
     }*/
 }
 
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1700px) {
     .rwdhide {
         visibility: hidden;
     }
@@ -681,10 +669,10 @@ h4.title-deco {
     }
     .child .form-control {
         display: inline-block;
-        /*width: 50%;*/
+        width: 50%;
     }
 }
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1700px) {
     #hetao-list-a .rwdhide {
         visibility: hidden;
     }
@@ -700,14 +688,14 @@ h4.title-deco {
     }
     .dataTables_wrapper table.dataTable#hetao-list-a {
         position: relative;
-        /*top: -30px;*/
+        top: -30px;
     }
     #hetao-list-a .child .form-control {
         display: inline-block;
         width: 40%;
     }
 }
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1700px) {
     #hetao-list-a-2 .rwdhide {
         visibility: hidden;
     }
@@ -727,7 +715,7 @@ h4.title-deco {
     }
     #hetao-list-a-2 .child .form-control {
         display: inline-block;
-        /*width: 40%;*/
+        width: 40%;
     }
     .batch-finish {
         position: fixed;
@@ -856,7 +844,7 @@ input:checked+.slider:before {
         max-width: 60px;
     }
     .setting .date {
-        max-width: 83%;
+        max-width: 86%;
         display: inline-table;
         vertical-align: bottom;
         margin-top: 10px;
@@ -867,8 +855,8 @@ input:checked+.slider:before {
 }
 @media screen and (max-width: 600px) {
     .dispatch-form .panel-body .panel-body {
-        padding-left: 13px;
-        padding-right: 13px;
+        padding-left: 15px;
+        padding-right: 15px;
     }
     .setting .slider:after {
         content: '關閉';
@@ -893,7 +881,7 @@ input:checked+.slider:before {
 /* 總覽-新增活動
 =================================*/
 .add-ul .activity {
-    font-size: 22px;
+    font-size: 20px;
     line-height: 1.5;    
 }
 .addcalendar .add-ul {
@@ -972,18 +960,18 @@ input:checked+.slider:before {
 .addcalendar ::placeholder {
     color: #464646 !important;
     opacity: 1;
-    font-size: 17px;
+    font-size: 15px;
 }
 .addcalendar ::-webkit-input-placeholder {
     color: #464646 !important;
     opacity: 1;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .addcalendar ::-ms-input-placeholder {
     color: #464646 !important;
     opacity: 1;
-    font-size: 17px;
+    font-size: 15px;
 }
 .addcalendar .title {
     font-size: 18px;
@@ -1034,7 +1022,6 @@ input:checked+.slider:before {
 #job ul li span, #job1 ul li span, #job2 ul.add-ul li.mb-s span:not(.slider, .weekend) {
     display: inline-block;
     min-width: 75px;
-    vertical-align: middle;
 }
 .modal-content .tab-content {
     margin-top: 16px;
@@ -1192,7 +1179,6 @@ form[class^=form-content] hr {
     cursor: pointer;
     background-color: #fff;
     border: 1px solid #DFDFDF;    
-    width: 125px;
 }
 
 .section .form-control {
@@ -1213,7 +1199,6 @@ form[class^=form-content] hr {
 .section label {
     margin-bottom: 0;
     cursor: pointer;
-    width: 85%;
 }
 
 .section label .fa-check-circle {
@@ -1537,17 +1522,17 @@ input[class^=follow]:checked+.followanswer:before {
     }
 }
 @media screen and (max-width: 600px) {
-    /*.design-form .nav-tabs>li {
+    .design-form .nav-tabs>li {
         width: 33%;
-    }*/
+    }
     .design-form .nav-tabs>li a {
         padding: 15px 0;
         text-align: center;
 /*        font-size: 14px;*/
     }
-    .design-form .nav-tabs>li a:focus {
-        font-size: 17px;
-    }
+/*    .design-form .nav-tabs>li a:focus {
+        font-size: 14px;
+    }*/
     .design-form {
         padding: 15px;
     }
@@ -1566,17 +1551,11 @@ input[class^=follow]:checked+.followanswer:before {
     .item.link .form-control .mb-s {
         height: 52px;
     }
-    .design-form .tab-content .section {
-        width: 46%;
-    }
-    .design-form .tab-content .nav-tabs {
-        display: block;
-    }
 }
 
 @media screen and (max-width:320px) {
     .design-form ul.nav-tabs>li a, .design-form ul.nav-tabs>li a:focus {
-        font-size: 16px;
+        font-size: 12px;
     }
 }
 
@@ -1602,7 +1581,7 @@ input[class^=follow]:checked+.followanswer:before {
 .dtr-details tr td:nth-child(2) {
     word-break: normal;
     line-height: 1.5;
-    padding: 0 8px;
+    padding: 0 16px;
 
 }
 
@@ -1681,21 +1660,13 @@ input[class^=follow]:checked+.followanswer:before {
 .modal-open .modal {
    overflow-y: inherit;
 }
-#meet .modal-body, #job1 .modal-body {
+#meet .modal-body, #job1 .modal-body #person .modal-body {
    height: 330px;
    overflow-y: auto;
 }
 
 .fc-content .fc-title {
-       font-size: 17px;
-}
-/*日曆最小尺寸*/
-.fc-view-container {
-    width: 100%;
-    overflow-x: auto;
-}
-.fc-basic-view {
-    min-width: 450px;
+       font-size: 15px;
 }
 
 /*隱藏table的"統編"及"status"*/
@@ -1717,13 +1688,14 @@ input[class^=follow]:checked+.followanswer:before {
     display: none;
 }
 
-@media screen and (min-width: 1025px) {
-    div.dataTables_wrapper {
-        width: 100%;
-        margin: 0 auto;
-        overflow-x: auto;
-    }
-    div.dataTables_scroll {
-        min-width: 1024px;
-    }
+.color-btn{
+   background: #000;
+   color: #fff;
+   border-radius: 20px;
+   letter-spacing: .07rem;
+   padding: 5px 15px;
 }
+
+
+
+

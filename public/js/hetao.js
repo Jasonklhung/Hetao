@@ -204,7 +204,7 @@ var table_s2 = $("#hetao-list-s-2").DataTable({
     "responsive": {
         "breakpoints": [
         { name: 'desktop', width: Infinity},
-        { name: 'tablet',  width: 1700},
+        { name: 'tablet',  width: 1024},
         ],
         "details": {
             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
@@ -343,7 +343,7 @@ var table_authority = $("#hetao-list-authority").DataTable({
     "responsive": {
         "breakpoints": [
         { name: 'desktop', width: Infinity},
-        { name: 'tablet',  width: 1700},
+        { name: 'tablet',  width: 1024},
         ],
         "details": {
             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
@@ -592,4 +592,30 @@ $(window).on('resize', function(e) {
     $($.fn.dataTable.tables(true)).DataTable()
         .columns.adjust();
 });
+
+var u = navigator.userAgent;
+var isIos = u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1;
+if (isIos) {
+    $('input[name="keywords"]').focus(function(e) {
+        var mviewport;
+        var metas = document.getElementsByTagName('meta') || [];
+        for (var i in metas) {
+            var meta = metas[i] || {},
+                mtname = meta.name || "";
+            if (mtname.toLowerCase() == "viewport") {
+                mviewport = meta;
+                break;
+            }
+        }
+        if (mviewport) {
+            var metacontent = mviewport.content;
+            if (metacontent && metacontent.replace) {
+                mviewport.content = metacontent.replace('user-scalable=yes', 'user-scalable=no');
+                setTimeout(function() {
+                    mviewport.content = metacontent;
+                }, 2000)
+            }
+        }
+    })
+}
 

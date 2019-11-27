@@ -241,9 +241,9 @@ $('.toolbar').on('click', '.t10', function() {
 
 
 //頁面切換tab效果
-$('body').on('click', '.design-form .tab-pane .nav-tabs .section a', function(){
-	$('.design-form .tab-pane .nav-tabs .section').removeClass('active');
-	$(this).closest('.section').addClass('active');
+$('body').on('click', '.design-form .tab-pane .nav-tabs .section label', function(){
+   $('.design-form .tab-pane .nav-tabs .section').removeClass('active');
+   $(this).closest('.section').addClass('active');
 });
 
 

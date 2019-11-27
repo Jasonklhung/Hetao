@@ -559,7 +559,7 @@ h4.title-deco {
 .delay:before {
     background-color: #FEF069;
 }
-#hetao-list-su-2 td span {
+#hetao-list-su-2 td span:not(.color-btn) {
     padding-left: 25px;
 }
 

@@ -19,6 +19,7 @@ class CreateSatisfactionAnswersTable extends Migration
             $table->json('form')->comment('整包表單內容');
             $table->string('case_id')->comment('工單id');
             $table->enum('status',array('Y','N'))->default('N')->comment('狀態');
+            $table->enum('views',array('Y','N'))->default('N')->comment('是否查看');
             $table->timestamps();
         });
     }

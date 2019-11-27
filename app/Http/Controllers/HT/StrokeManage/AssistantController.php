@@ -23,7 +23,7 @@ class AssistantController extends Controller
     public function index(Organization $organization)
     {
         $reservation = DB::table('reservation_answers')
-                        ->select('reservation_answers.id','accounts.cuskey','accounts.name','reservation_answers.created_at')
+                        ->select('reservation_answers.id','reservation_answers.views','accounts.cuskey','accounts.name','reservation_answers.created_at')
                         ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
                         ->where('reservation_answers.department_id',Auth::user()->department_id)
                         ->get();
@@ -349,6 +349,11 @@ class AssistantController extends Controller
         //dd($id);
 
         $res = ReservationAnswer::where('id',$id)->get();
+
+        //更新狀態-是否查看
+        $view = ReservationAnswer::find($id);
+        $view->views = 'Y';
+        $view->save();
 
         $client = new \GuzzleHttp\Client();
         $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [

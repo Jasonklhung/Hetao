@@ -138,7 +138,11 @@
                                                             </thead>
                                                             <tbody>
                                                                 @foreach($reservation as $data)
+                                                                @if($data->views == 'Y')
+                                                                <tr class="past">
+                                                                @else
                                                                 <tr class="watch">
+                                                                @endif
                                                                     <td>{{ $data->name }}</td>
                                                                     <td>{{ $data->cuskey }}</td>
                                                                     <td>{{ $data->created_at }}</td>

@@ -62,7 +62,11 @@
                                                             </thead>
                                                             <tbody>
                                                                 @foreach($satisfaction as $data)
+                                                                @if($data->views == 'Y')
+                                                                <tr class="past">
+                                                                @else
                                                                 <tr class="watch">
+                                                                @endif
                                                                     <td>{{ $data->case_id }}</td>
                                                                     <td>{{ $data->name }}</td>
                                                                     <td>{{ $data->cuskey }}</td>

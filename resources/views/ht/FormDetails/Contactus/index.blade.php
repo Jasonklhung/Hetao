@@ -59,7 +59,11 @@
                                                             </thead>
                                                             <tbody>
                                                                 @foreach($contact as $data)
+                                                                @if($data->views == 'Y')
+                                                                <tr class="past">
+                                                                @else
                                                                 <tr class="watch">
+                                                                @endif
                                                                     <td>{{ $data->created_at }}</td>
                                                                     <td><button type='button' class='btn status' onclick="javascript:location.href='{{ route('ht.FormDetails.ContactUs.show',['organization'=>$organization,'id'=>base64_encode($data->id)]) }}'">查看</button></td>
                                                                 </tr>

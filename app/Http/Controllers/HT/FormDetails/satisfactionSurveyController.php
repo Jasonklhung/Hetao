@@ -76,7 +76,7 @@ class satisfactionSurveyController extends Controller
         }
 
         $satisfaction = DB::table('satisfaction_answers')
-                        ->select('satisfaction_answers.id','satisfaction_answers.case_id','accounts.cuskey','accounts.name','satisfaction_answers.created_at')
+                        ->select('satisfaction_answers.id','satisfaction_answers.case_id','satisfaction_answers.views','accounts.cuskey','accounts.name','satisfaction_answers.created_at')
                         ->leftjoin('accounts','satisfaction_answers.account_id','=','accounts.id')
                         ->where('satisfaction_answers.department_id',Auth::user()->department_id)
                         ->get();
@@ -89,6 +89,11 @@ class satisfactionSurveyController extends Controller
         $id = base64_decode($id);
 
         $res = SatisfactionAnswer::where('id',$id)->get();
+
+        //更新狀態-是否查看
+        $view = SatisfactionAnswer::find($id);
+        $view->views = 'Y';
+        $view->save();
 
         $client = new \GuzzleHttp\Client();
         $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [

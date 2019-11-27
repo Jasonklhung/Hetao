@@ -734,7 +734,7 @@
                             "extend": 'colvis',
                             "collectionLayout": 'fixed two-column'
                         }],
-                        "order": [[ 1, "desc" ]],
+                        "order": [[1,'desc'],[0,'asc']],
                         "columnDefs": [{
                             "targets": [0],
                             "orderable": false,
@@ -1800,7 +1800,7 @@
                                     "extend": 'colvis',
                                     "collectionLayout": 'fixed two-column'
                                 }],
-                                "order": [[ 1, "desc" ]],
+                                "order": [[1,'desc'],[0,'asc']],
                                 "columnDefs": [{
                                     "targets": [0],
                                     "orderable": false,

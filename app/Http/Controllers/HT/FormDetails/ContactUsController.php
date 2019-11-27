@@ -85,6 +85,11 @@ class ContactUsController extends Controller
 
         $res = ContactAnswer::where('id',$id)->get();
 
+        //更新狀態-是否查看
+        $view = ContactAnswer::find($id);
+        $view->views = 'Y';
+        $view->save();
+
         $client = new \GuzzleHttp\Client();
         $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
             'headers' => ['Content-Type' => 'application/json'],

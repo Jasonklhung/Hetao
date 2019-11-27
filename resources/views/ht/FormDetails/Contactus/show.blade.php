@@ -103,6 +103,9 @@
 													@endforeach
 												@endif
 											@endforeach
+											<div>
+												<a href="{{ route('ht.FormDetails.ContactUs.index',['organization'=>$organization]) }}"><button type="button" class="btn btn-default">返回</button></a>
+											</div>
 										</div>    
 									</div>
 								</div>

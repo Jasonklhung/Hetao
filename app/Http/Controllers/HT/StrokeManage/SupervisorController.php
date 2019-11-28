@@ -20,7 +20,7 @@ class SupervisorController extends Controller
     {
     	//$supervisor = SupervisorCase::where('user_id',Auth::user()->id)->whereIn('status',['','null'])->get();
 
-        $supervisor = SupervisorCase::where('user_id',Auth::user()->id)->where('status','')->orWhere('status','null')->get();
+        $supervisor = SupervisorCase::where('user_id',Auth::user()->id)->whereIn('status',['','null'])->get();
 
         $assign = User::where('organization_id',Auth::user()->organization_id)->get();
 

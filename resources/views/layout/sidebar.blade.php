@@ -187,6 +187,7 @@
         </div>
         <!-- 選單rwd -->
         <side-bar class="rwd">
+            <div style="height: calc(100vh - 60px);overflow-y: auto;">
             @if(Auth::user()->permission->overview == 'Y')
             <a class="" href="{{ route('ht.Overview.index',['organization'=>$organization]) }}">
                 @if(url()->current() == route('ht.Overview.index',['organization'=>$organization]))
@@ -303,4 +304,5 @@
                 @endif
             </sb-menu3>
             @endif
-        </side-bar>
+        </div>
+    </side-bar>

@@ -42,7 +42,7 @@
                                                             <li class="mb-s"><i class="fas fa-bell"></i><div class="opmodal o1" data-toggle="modal" data-target="#newalert"><input type="text" id="notice" name="tN" placeholder="新增通知" required=""></div></li>
                                                             <input type="hidden" name="notice">
                                                             <input type="hidden" name="noticeTime">
-                                                            <li class="mb-s"><i class="fas fa-users"></i><div class="opmodal o2" data-toggle="modal" data-target="#person"><input type="text" name="meeting" placeholder="會議對象" οnfοcus="this.blur()" required=""></div></li>
+                                                            <li class="mb-s"><i class="fas fa-users"></i><div class="opmodal o2" data-toggle="modal" data-target="#person"><input type="text" name="meeting" placeholder="會議對象" readonly="" required=""></div></li>
                                                             <li class="mb-s"><i class="fas fa-align-left"></i><input class="form-control ps" type="text" name="description" placeholder="新增說明" required=""></li>
                                                             <li class="text-center"><div class="coupon"><button type="submit">儲存</button></div></li>
                                                         </ul>

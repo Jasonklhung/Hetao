@@ -157,7 +157,7 @@ sb-menu[open]>sb-item, sb-menu2[open]>sb-item2, sb-menu3[open]>sb-item3 {
 }
 
 sb-item a, sb-item a:hover, sb-menu-title, sb-item2 a, sb-item2 a:hover, sb-menu-title2, sb-item3 a, sb-item3 a:hover, sb-menu-title3 {
-    font-size: 16px;
+    font-size: 17px;
     color: #fff;    
 }
 

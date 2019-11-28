@@ -1749,3 +1749,7 @@ input[class^=follow]:checked+.followanswer:before {
     padding: 5px 15px;
 }
 
+.past.parent+tr.child {
+ opacity: 0.5;
+}
+

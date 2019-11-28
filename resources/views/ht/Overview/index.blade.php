@@ -107,7 +107,7 @@
                                                     <span class="slider round"></span>
                                                 </label>
                                             </div>
-                                            <input class='day-select form-control' readonly="" id="start2" name="start2" placeholder='開始時間' required=""><input class='hide text-right time-select form-control' readonly="" name="startTime2" placeholder='選擇時間' type='text' readonly="true"><input class='day-select form-control' readonly="" placeholder='結束時間' id="end2" name="end2" required=""><input class='hide text-right time-select form-control' readonly="" name="endTime2" placeholder='選擇時間' type='text' readonly="true">
+                                            <input class='day-select form-control' readonly="" id="start2" name="start2" value="<?php echo date('Y-m-d') ?>" placeholder='開始時間'><input class='hide text-right time-select form-control' readonly="" name="startTime2" placeholder='選擇時間' type='text' readonly="true"><input class='day-select form-control' value="<?php echo date('Y-m-d') ?>" readonly="" placeholder='結束時間' id="end2" name="end2"><input class='hide text-right time-select form-control' readonly="" name="endTime2" placeholder='選擇時間' type='text' readonly="true">
                                         </li>
                                         <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" name="position2" required="" type="text" placeholder="新增位置"></li>
                                         <li class="mb-s"><i class="fas fa-bell"></i>

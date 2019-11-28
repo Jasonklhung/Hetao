@@ -96,8 +96,6 @@ class OverviewController extends Controller
         if($request->noticeTime == '分鐘前'){
             if($request->startTime == null){
                 $push = Carbon::parse($request->start)->subMinutes($request->notice)->format('Y-m-d H:i:s');
-
-                dd($push);
             }
             else{
                 $push = Carbon::parse($request->start.' '.$request->startTime)->subMinutes($request->notice)->format('Y-m-d H:i:s');

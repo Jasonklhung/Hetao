@@ -596,7 +596,7 @@ $(window).on('resize', function(e) {
 var u = navigator.userAgent;
 var isIos = u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1;
 if (isIos) {
-    $('input[name="keywords"]').focus(function(e) {
+    $('input[name="keywords"], select').focus(function(e) {
         var mviewport;
         var metas = document.getElementsByTagName('meta') || [];
         for (var i in metas) {

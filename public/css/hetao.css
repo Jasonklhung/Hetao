@@ -1040,6 +1040,18 @@ input:checked+.slider:before {
     margin-top: 16px;
 }
 
+.m-j-list {
+    display: inline-block;
+}
+ul li .m-j-list:nth-child(1) {
+    /*margin-right: 8px;*/
+    width: 33%;
+} 
+ul li .m-j-list:nth-child(2) {
+    width: 66%;
+    vertical-align: middle;
+}
+
 #person select[disabled] {
     opacity: 0.6;
 }
@@ -1469,7 +1481,8 @@ input[type="text"].datime {
 }
 
 .meeting .close {
-    margin: 10px;
+    margin: 0 5px;
+    font-size: 30px;
 }
 .meeting .modal-body {
     margin-bottom: 0;
@@ -1546,7 +1559,7 @@ input[class^=follow]:checked+.followanswer:before {
 /*        font-size: 14px;*/
     }
     .design-form .nav-tabs>li a:focus {
-        font-size: 17px;
+        font-size: 16px;
     }
     .design-form {
         padding: 15px;
@@ -1681,7 +1694,7 @@ input[class^=follow]:checked+.followanswer:before {
 .modal-open .modal {
    overflow-y: inherit;
 }
-#meet .modal-body, #job1 .modal-body {
+#meet .modal-body, #job1 .modal-body, #person .modal-body, #job .modal-body {
    height: 330px;
    overflow-y: auto;
 }
@@ -1727,3 +1740,11 @@ input[class^=follow]:checked+.followanswer:before {
         min-width: 1024px;
     }
 }
+.color-btn{
+    background: #000;
+    color: #fff;
+    border-radius: 20px;
+    letter-spacing: .07rem;
+    padding: 5px 15px;
+}
+

@@ -36,10 +36,10 @@
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </div>
-                                                                <input class='day-select form-control' id="SD1" name="start" placeholder='開始時間' required=""><input class='hide text-right time-select form-control' readonly="" name="startTime"  type='text' placeholder="選擇時間" readonly="true"><input class='day-select form-control'  id="ED1" name="end" οnfοcus="this.blur()" placeholder='結束時間' type='text' required=""><input class='hide text-right time-select form-control' readonly="" name="endTime" type='text' placeholder="選擇時間" readonly="true">
+                                                                <input class='day-select form-control' id="SD1" name="start" placeholder='開始時間' required=""><input class='hide text-right time-select form-control' readonly="" name="startTime"  type='text' placeholder="選擇時間" readonly="true"><input class='day-select form-control'  id="ED1" name="end" placeholder='結束時間' required=""><input class='hide text-right time-select form-control' readonly="" name="endTime" type='text' placeholder="選擇時間" readonly="true">
                                                             </li>
                                                             <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" type="text" name="position" placeholder="新增位置" required=""></li>
-                                                            <li class="mb-s"><i class="fas fa-bell"></i><div class="opmodal o1" data-toggle="modal" data-target="#newalert"><input type="text" id="notice" name="tN" placeholder="新增通知" required=""></div></li>
+                                                            <li class="mb-s"><i class="fas fa-bell"></i><div class="opmodal o1" data-toggle="modal" data-target="#newalert"><input id="notice" name="tN" placeholder="新增通知" required=""></div></li>
                                                             <input type="hidden" name="notice">
                                                             <input type="hidden" name="noticeTime">
                                                             <li class="mb-s"><i class="fas fa-users"></i><div class="opmodal o2" data-toggle="modal" data-target="#person"><input name="meeting" placeholder="會議對象" required=""></div></li>
@@ -107,7 +107,7 @@
                                                     <span class="slider round"></span>
                                                 </label>
                                             </div>
-                                            <input class='day-select form-control' readonly="" name="start2" placeholder='開始時間' type='text' readonly="true" required=""><input class='hide text-right time-select form-control' readonly="" name="startTime2" placeholder='選擇時間' type='text' readonly="true"><input class='day-select form-control' readonly="" placeholder='結束時間' name="end2" type='text' readonly="true" required=""><input class='hide text-right time-select form-control' readonly="" name="endTime2" placeholder='選擇時間' type='text' readonly="true">
+                                            <input class='day-select form-control' readonly="" id="start2" name="start2" placeholder='開始時間' required=""><input class='hide text-right time-select form-control' readonly="" name="startTime2" placeholder='選擇時間' type='text' readonly="true"><input class='day-select form-control' readonly="" placeholder='結束時間' id="end2" name="end2" required=""><input class='hide text-right time-select form-control' readonly="" name="endTime2" placeholder='選擇時間' type='text' readonly="true">
                                         </li>
                                         <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" name="position2" required="" type="text" placeholder="新增位置"></li>
                                         <li class="mb-s"><i class="fas fa-bell"></i>
@@ -978,7 +978,7 @@
     </script>
     <script type="text/javascript">
         $(function() {
-            $('.day-select').datetimepicker({
+            $('#SD1').datetimepicker({
                 minDate: new Date(),
                 format: 'YYYY-MM-DD',
                 ignoreReadonly: true,
@@ -991,7 +991,7 @@
 
 
         $(function() {
-            $('.date-select').datetimepicker({
+            $('#ED1').datetimepicker({
                 minDate: new Date(),
                 format: 'YYYY-MM-DD',
                 ignoreReadonly: true,
@@ -1006,6 +1006,13 @@
         });
         $("#ED1").on("dp.change", function (e) {
             $('#SD1').data("DateTimePicker").maxDate(e.date);
+        });
+
+        $("#start2").on("dp.change", function (e) {
+            $('#end2').data("DateTimePicker").minDate(e.date);
+        });
+        $("#end2").on("dp.change", function (e) {
+            $('#start2').data("DateTimePicker").maxDate(e.date);
         });
     </script>
     <script type="text/javascript">

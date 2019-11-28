@@ -914,12 +914,11 @@ input:checked+.slider:before {
     width: 45%;
     display: inline-block;
 }
-.addcalendar input[type="text"] {
+.addcalendar .form-inline input.form-control  {
     width: 100%;
 }
-.addcalendar  input[type="text"].day-select, .addcalendar  input[type="text"].time-select {
+.addcalendar .form-inline input.form-control.day-select, .addcalendar  .form-inline input.form-control.time-select {
     width: 50%;   
-/*    display: inline-block;*/
 }
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
     background-color: transparent;
@@ -1210,7 +1209,7 @@ form[class^=form-content] hr {
 .section .form-control {
     width: 50px;
     display: inline-block;
-    height: 16px;
+    height: auto;
 }
 
 .section .form-control:focus {
@@ -1463,6 +1462,8 @@ input[type="text"].datime {
 .design-form .panel-body {
     overflow-y: scroll;
     height: 500px;
+    z-index: 1;
+    position: relative;
 }
 .section .fa-check-circle {
     display: none;

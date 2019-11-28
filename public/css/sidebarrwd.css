@@ -37,12 +37,12 @@ side-bar {
     box-shadow: 0 0 4px rgba(0, 0, 0, .25);
     transition: all 180ms ease-in-out;
     padding-top: 60px;
-    overflow-y: scroll;
 }
 
 side-bar[open] {
     -webkit-transform: translateX(0);
     transform: translateX(0);
+    overflow-y: scroll;
 }
 
 side-bar .selected,

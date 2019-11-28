@@ -189,25 +189,41 @@
         <side-bar class="rwd">
             @if(Auth::user()->permission->overview == 'Y')
             <a class="" href="{{ route('ht.Overview.index',['organization'=>$organization]) }}">
+                @if(url()->current() == route('ht.Overview.index',['organization'=>$organization]))
+                <sb-item class="selected"><i class="fas fa-angle-double-right fa-fw"></i> 總覽</sb-item>
+                @else
                 <sb-item><i class="fas fa-angle-double-right fa-fw"></i> 總覽</sb-item>
+                @endif
             </a>
             @endif
             @if(Auth::user()->permission->assistant == 'N' && Auth::user()->permission->supervisor == 'N' && Auth::user()->permission->staff == 'N')
 
             @else
-            <sb-menu open>
+            <sb-menu>
                 <sb-menu-title><i class="fas fa-angle-double-right fa-fw"></i> <span> 行程管理</span><span class="badge">{{$caseCount}}</span></sb-menu-title>
 
                 @if(Auth::user()->permission->assistant == 'Y')
+                    @if(url()->current() == route('ht.StrokeManage.assistant.index',['organization'=>$organization]))
                 <sb-item class="selected" onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization]) }}'">助理</sb-item>
+                    @else
+                <sb-item onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization]) }}'">助理</sb-item>
+                    @endif
                 @endif
 
                 @if(Auth::user()->permission->supervisor == 'Y')
+                    @if(url()->current() == route('ht.StrokeManage.supervisor.index',['organization'=>$organization]))
+                <sb-item class="selected" onclick="javascript:location.href='{{ route('ht.StrokeManage.supervisor.index',['organization'=>$organization]) }}'">主管</sb-item>
+                    @else
                 <sb-item onclick="javascript:location.href='{{ route('ht.StrokeManage.supervisor.index',['organization'=>$organization]) }}'">主管</sb-item>
+                    @endif
                 @endif
 
                 @if(Auth::user()->permission->staff == 'Y')
+                    @if(url()->current() == route('ht.StrokeManage.staff.index',['organization'=>$organization]))
+                <sb-item class="selected" onclick="javascript:location.href='{{ route('ht.StrokeManage.staff.index',['organization'=>$organization]) }}'">員工</sb-item>
+                    @else
                 <sb-item onclick="javascript:location.href='{{ route('ht.StrokeManage.staff.index',['organization'=>$organization]) }}'">員工</sb-item>
+                    @endif
                 @endif
             </sb-menu>
             @endif
@@ -219,28 +235,48 @@
                 <sb-menu-title2><i class="fas fa-angle-double-right fa-fw"></i> <span> 表單設定</span><span class="badge"></span></sb-menu-title2>
 
                 @if(Auth::user()->permission->reservation == 'Y')
+                    @if(url()->current() == route('ht.Form.reservation.index',['organization'=>$organization]))
+                <sb-item2 class="selected" onclick="javascript:location.href='{{ route('ht.Form.reservation.index',['organization'=>$organization]) }}'">線上預約</sb-item2>
+                    @else
                 <sb-item2 onclick="javascript:location.href='{{ route('ht.Form.reservation.index',['organization'=>$organization]) }}'">線上預約</sb-item2>
+                    @endif
                 @endif
 
                 @if(Auth::user()->permission->satisfaction == 'Y')
+                    @if(url()->current() == route('ht.Form.satisfaction.index',['organization'=>$organization]))
+                <sb-item2 class="selected" onclick="javascript:location.href='{{ route('ht.Form.satisfaction.index',['organization'=>$organization]) }}'">滿意度調查</sb-item2>
+                    @else
                 <sb-item2 onclick="javascript:location.href='{{ route('ht.Form.satisfaction.index',['organization'=>$organization]) }}'">滿意度調查</sb-item2>
+                    @endif
                 @endif
 
                 @if(Auth::user()->permission->contact == 'Y')
+                    @if(url()->current() == route('ht.Form.contact.index',['organization'=>$organization]))
+                <sb-item2 class="selected" onclick="javascript:location.href='{{ route('ht.Form.contact.index',['organization'=>$organization]) }}'">與我聯繫</sb-item2>
+                    @else
                 <sb-item2 onclick="javascript:location.href='{{ route('ht.Form.contact.index',['organization'=>$organization]) }}'">與我聯繫</sb-item2>
+                    @endif
                 @endif
             </sb-menu2>
             @endif
 
             @if(Auth::user()->permission->timeset == 'Y')
             <a class="" href="{{ route('ht.Timeset.index',['organization'=>$organization]) }}">
+                    @if(url()->current() == route('ht.Timeset.index',['organization'=>$organization]))
+                <sb-item class="selected"><i class="fas fa-angle-double-right fa-fw"></i> 推播時間設定</sb-item>
+                    @else
                 <sb-item><i class="fas fa-angle-double-right fa-fw"></i> 推播時間設定</sb-item>
+                    @endif
             </a>
             @endif
 
             @if(Auth::user()->permission->permission == 'Y')
             <a class="" href="{{ route('ht.Permission.index',['organization'=>$organization]) }}">
+                    @if(url()->current() == route('ht.Permission.index',['organization'=>$organization]))
+                <sb-item class="selected"><i class="fas fa-angle-double-right fa-fw"></i> 權限管理</sb-item>
+                    @else
                 <sb-item><i class="fas fa-angle-double-right fa-fw"></i> 權限管理</sb-item>
+                    @endif
             </a>
             @endif
 
@@ -251,11 +287,19 @@
                 <sb-menu-title3><i class="fas fa-angle-double-right fa-fw"></i> <span> 表單查看</span><span class="badge"></span></sb-menu-title3>
 
                 @if(Auth::user()->permission->contactUs == 'Y')
+                    @if(url()->current() == route('ht.FormDetails.ContactUs.index',['organization'=>$organization]))
+                <sb-item3 class="selected" onclick="javascript:location.href='{{ route('ht.FormDetails.ContactUs.index',['organization'=>$organization]) }}'">與我聯繫</sb-item3>
+                    @else
                 <sb-item3 onclick="javascript:location.href='{{ route('ht.FormDetails.ContactUs.index',['organization'=>$organization]) }}'">與我聯繫</sb-item3>
+                    @endif
                 @endif
 
                 @if(Auth::user()->permission->satisfactionSurvey == 'Y')
+                    @if(url()->current() == route('ht.FormDetails.satisfactionSurvey.index',['organization'=>$organization]))
+                <sb-item3 class="selected" onclick="javascript:location.href='{{ route('ht.FormDetails.satisfactionSurvey.index',['organization'=>$organization]) }}'">滿意度調查</sb-item3>
+                    @else
                 <sb-item3 onclick="javascript:location.href='{{ route('ht.FormDetails.satisfactionSurvey.index',['organization'=>$organization]) }}'">滿意度調查</sb-item3>
+                    @endif
                 @endif
             </sb-menu3>
             @endif

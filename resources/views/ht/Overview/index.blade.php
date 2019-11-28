@@ -39,7 +39,7 @@
                                                                 <input class='day-select form-control' id="SD1" name="start" placeholder='開始時間' required=""><input class='hide text-right time-select form-control' readonly="" name="startTime"  type='text' placeholder="選擇時間" readonly="true"><input class='day-select form-control'  id="ED1" name="end" placeholder='結束時間' required=""><input class='hide text-right time-select form-control' readonly="" name="endTime" type='text' placeholder="選擇時間" readonly="true">
                                                             </li>
                                                             <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" type="text" name="position" placeholder="新增位置" required=""></li>
-                                                            <li class="mb-s"><i class="fas fa-bell"></i><input id="notice" name="tN" placeholder="新增通知" required="" class="opmodal o1 form-control" data-toggle="modal" data-target="#newalert"></li>
+                                                            <li class="mb-s"><i class="fas fa-bell"></i><input id="notice" id="notice" name="tN" placeholder="新增通知" required="" class="opmodal o1 form-control" data-toggle="modal" data-target="#newalert"></li>
                                                             <input type="hidden" name="notice">
                                                             <input type="hidden" name="noticeTime">
                                                             <li class="mb-s"><i class="fas fa-users"></i><input name="meeting" id="meeting" placeholder="會議對象" required="" class="opmodal o2 form-control" data-toggle="modal" data-target="#person"></li>
@@ -1044,7 +1044,7 @@
             window.scrollTo(0, 0);
         });
 
-        $("#meeting").focus(function(){
+        $("#meeting,#notice,#SD1,#ED1").focus(function(){
             document.activeElement.blur();
         })
     </script>

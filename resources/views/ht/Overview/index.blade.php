@@ -36,13 +36,13 @@
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </div>
-                                                                <input class='day-select form-control' id="SD1" name="start" placeholder='開始時間' type='text' required=""><input class='hide text-right time-select form-control' readonly="" name="startTime"  type='text' placeholder="選擇時間" readonly="true"><input class='day-select form-control'  id="ED1" name="end" placeholder='結束時間' type='text' required=""><input class='hide text-right time-select form-control' readonly="" name="endTime" type='text' placeholder="選擇時間" readonly="true">
+                                                                <input class='day-select form-control' id="SD1" name="start" οnfοcus="this.blur()" placeholder='開始時間' type='text' required=""><input class='hide text-right time-select form-control' readonly="" name="startTime"  type='text' placeholder="選擇時間" readonly="true"><input class='day-select form-control'  id="ED1" name="end" οnfοcus="this.blur()" placeholder='結束時間' type='text' required=""><input class='hide text-right time-select form-control' readonly="" name="endTime" type='text' placeholder="選擇時間" readonly="true">
                                                             </li>
                                                             <li class="mb-s"><i class="fas fa-map-marker-alt"></i><input class="form-control location" type="text" name="position" placeholder="新增位置" required=""></li>
                                                             <li class="mb-s"><i class="fas fa-bell"></i><div class="opmodal o1" data-toggle="modal" data-target="#newalert"><input type="text" id="notice" name="tN" placeholder="新增通知" required=""></div></li>
                                                             <input type="hidden" name="notice">
                                                             <input type="hidden" name="noticeTime">
-                                                            <li class="mb-s"><i class="fas fa-users"></i><div class="opmodal o2" data-toggle="modal" data-target="#person"><input type="text" name="meeting" placeholder="會議對象" required=""></div></li>
+                                                            <li class="mb-s"><i class="fas fa-users"></i><div class="opmodal o2" data-toggle="modal" data-target="#person"><input type="text" name="meeting" placeholder="會議對象" οnfοcus="this.blur()" required=""></div></li>
                                                             <li class="mb-s"><i class="fas fa-align-left"></i><input class="form-control ps" type="text" name="description" placeholder="新增說明" required=""></li>
                                                             <li class="text-center"><div class="coupon"><button type="submit">儲存</button></div></li>
                                                         </ul>

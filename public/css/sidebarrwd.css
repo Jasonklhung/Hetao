@@ -89,6 +89,7 @@ sb-menu, sb-menu2, sb-menu3 {
     margin-top: .5em;
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
+    position: relative;
 }
 
 sb-menu,

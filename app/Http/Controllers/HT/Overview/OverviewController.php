@@ -84,10 +84,20 @@ class OverviewController extends Controller
     public function store(Organization $organization,Request $request)
     {
 
+        if($request->start == null){
+            $request->start = date('Y-m-d');
+        }
+
+        if($request->end == null){
+            $request->end = date('Y-m-d');
+        }
+
         //計算該推播的日期   
         if($request->noticeTime == '分鐘前'){
             if($request->startTime == null){
                 $push = Carbon::parse($request->start)->subMinutes($request->notice)->format('Y-m-d H:i:s');
+
+                dd($push);
             }
             else{
                 $push = Carbon::parse($request->start.' '.$request->startTime)->subMinutes($request->notice)->format('Y-m-d H:i:s');
@@ -118,21 +128,21 @@ class OverviewController extends Controller
             }
         }
 
-         $activity = new Activity;
-         $activity->organization_id = Auth::user()->organization_id;
-         $activity->user_id = Auth::user()->name;
-         $activity->owner = Auth::user()->id;
-         $activity->title = $request->title;
-         ($request->startTime == null)? $activity->start = $request->start : $activity->start = $request->start.' '.$request->startTime;
-         ($request->endTime == null)? $activity->end = $request->end : $activity->end = $request->end.' '.$request->endTime;
-         $activity->position = $request->position;
-         $activity->notice = $request->notice;
-         $activity->noticeTime = $request->noticeTime;
-         $activity->pushDate = $push;
-         $activity->meeting = substr($request->meeting,0,-1);
-         $activity->meetingToken = substr($request->meetingToken,0,-1);
-         $activity->description = $request->description;
-         $activity->save();
+        $activity = new Activity;
+        $activity->organization_id = Auth::user()->organization_id;
+        $activity->user_id = Auth::user()->name;
+        $activity->owner = Auth::user()->id;
+        $activity->title = $request->title;
+        ($request->startTime == null)? $activity->start = $request->start : $activity->start = $request->start.' '.$request->startTime;
+        ($request->endTime == null)? $activity->end = $request->end : $activity->end = $request->end.' '.$request->endTime;
+        $activity->position = $request->position;
+        $activity->notice = $request->notice;
+        $activity->noticeTime = $request->noticeTime;
+        $activity->pushDate = $push;
+        $activity->meeting = substr($request->meeting,0,-1);
+        $activity->meetingToken = substr($request->meetingToken,0,-1);
+        $activity->description = $request->description;
+        $activity->save();
 
          return redirect()->route('ht.Overview.index',compact('organization'))->with('success','新增成功');
     }

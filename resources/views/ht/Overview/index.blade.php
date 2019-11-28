@@ -1044,7 +1044,7 @@
             window.scrollTo(0, 0);
         });
 
-        $("#meeting,#notice,#SD1,#ED1").focus(function(){
+        $("#meeting,#notice").focus(function(){
             document.activeElement.blur();
         })
     </script>

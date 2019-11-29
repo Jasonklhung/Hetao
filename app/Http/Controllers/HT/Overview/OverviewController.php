@@ -76,9 +76,12 @@ class OverviewController extends Controller
             }
 
             $caseCount = count($countArray);
+
+            $company = Organization::all();
+            $user = User::where('organization_id',Auth::user()->organization_id)->where('job','主管')->get();
         }
 
-        return view('ht.Overview.index',compact('organization','caseCount'));
+        return view('ht.Overview.index',compact('organization','caseCount','company','user'));
     }
 
     public function store(Organization $organization,Request $request)

@@ -127,28 +127,29 @@
                                             <div class="opmodal o2">會議對象</div>
                                             <div>
                                                 <select class='form-control mb-s company' id="company2" name="company2">
-                                                    <option selected disabled hidden>分公司</option>
-                                                    <option>台北</option>
-                                                    <option>新北</option>
-                                                    <option>桃園</option>
-                                                    <option>台中</option>
-                                                    <option>台南</option>
-                                                    <option>高雄</option>
+                                                    @foreach($company as $data)
+                                                    @if($data->organization_id == Auth::user()->organization_id)
+                                                    <option selected value="{{$data->name}}">{{$data->name}}</option>
+                                                    @else
+                                                    <option value="{{$data->name}}">{{$data->name}}</option>
+                                                    @endif
+                                                    @endforeach
                                                 </select>
-                                                <select class='form-control mb-s role' disabled="disabled" id="job2" name="job2">
-                                                    <option selected disabled hidden>職稱</option>
+                                                <select class='form-control mb-s role' id="job2" name="job2">
                                                     <option value="助理">助理</option>
-                                                    <option value="主管">主管</option>
+                                                    <option selected="" value="主管">主管</option>
                                                     <option value="員工">員工</option>
+                                                    <option value="其他">其他</option>
                                                 </select>
-                                                <select class='form-control mb-s staffname' disabled="disabled" id="name2" name="name2">
+                                                <select class='form-control mb-s staffname' id="name2" name="name2">
+                                                    @if($user->isEmpty())
+                                                    <option selected disabled>沒有人員</option>
+                                                    @else
                                                     <option selected disabled hidden>員工名稱</option>
-                                                    <option value="小美">小美</option>
-                                                    <option value="小王">小王</option>
-                                                    <option value="小名">小名</option>
-                                                    <option value="小強">小強</option>
-                                                    <option value="小花">小花</option>
-                                                    <option value="小白">小白</option>
+                                                    @foreach($user as $data)
+                                                    <option value="{{$data->token}}">{{$data->name}}</option>
+                                                    @endforeach
+                                                    @endif
                                                 </select>
                                                 <button type="button" class="btn btn-primary add-member">+</button>
                                             </div>
@@ -197,17 +198,29 @@
             <div class="modal-body">
                 <div>
                     <select class='form-control mb-s company' name="company">
-                        <option selected disabled hidden>分公司</option>
+                        @foreach($company as $data)
+                            @if($data->organization_id == Auth::user()->organization_id)
+                        <option selected value="{{$data->name}}">{{$data->name}}</option>
+                            @else
+                        <option value="{{$data->name}}">{{$data->name}}</option>
+                            @endif
+                        @endforeach
                     </select>
-                    <select class='form-control mb-s role' disabled="disabled" name="job">
-                        <option selected disabled hidden>職稱</option>
+                    <select class='form-control mb-s role' name="job">
                         <option value="助理">助理</option>
-                        <option value="主管">主管</option>
+                        <option selected value="主管">主管</option>
                         <option value="員工">員工</option>
                         <option value="其他">其他</option>
                     </select>
-                    <select class='form-control mb-s staffname' disabled="disabled" name="name">
+                    <select class='form-control mb-s staffname' name="name">
+                        @if($user->isEmpty())
+                        <option selected disabled>沒有人員</option>
+                        @else
                         <option selected disabled hidden>員工名稱</option>
+                        @foreach($user as $data)
+                        <option value="{{$data->token}}">{{$data->name}}</option>
+                        @endforeach
+                        @endif
                     </select>
                     <div class="memberwrap">
                     </div>    
@@ -889,24 +902,6 @@
             "</form>" +
             "</div>");
 
-
-        $.ajax({
-            url:"{{ route('ht.Overview.getCompany',['organization'=>$organization]) }}", 
-            method:"get",
-            dataType:'json',                 
-            success:function(res){
-                var selOpts = "<option selected disabled hidden>分公司</option>";
-                $.each(res, function (i, item) {
-                    selOpts += "<option value='"+item.name+"'>"+item.name+"</option>";
-                })
-
-                $("select[name='company']").empty();
-                $("select[name='company']").append(selOpts);
-
-                $("select[name='company2']").empty();
-                $("select[name='company2']").append(selOpts);
-            }
-        })
 
         $("select[name='job']").on('change',function(){
 

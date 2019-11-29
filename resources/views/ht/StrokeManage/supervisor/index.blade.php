@@ -89,7 +89,7 @@
                                                                         <div class='form-group mr-s hide batch-select'><select class='form-control' name="sel1" id='sel1'>
                                                                                 <option selected hidden disabled>請指派負責主管</option>
                                                                             </select></div>
-                                                                        <button type='button' id="allFinish" class='btn-bright hide batch-finish'>完成</button><label for='chkall' class='sall'>全選</label><input id='chkall' type='checkbox' value='' />
+                                                                        <button type='button' name="allFinish" id="allFinish" class='btn-bright hide batch-finish'>完成</button><label for='chkall' class='sall'>全選</label><input id='chkall' type='checkbox' value='' />
                                                                         <button type='button' class='btn-bright batch' type="button">批次指派</button>
                                                                     </div>
                                                                 </div>
@@ -347,6 +347,21 @@
 
 @section('scripts')
 <script type="text/javascript">
+    $.ajax({
+        url:"{{ route('ht.StrokeManage.supervisor.getAssign',['organization'=>$organization]) }}", 
+        method:"get",
+        dataType:'json',                 
+        success:function(res){
+            var selOpts = "<option value='' selected disabled='true'>請指派負責人</option>";
+            $.each(res, function (i, item) {
+                selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
+            })
+
+            $("select[name='sel1']").empty();
+            $("select[name='sel1']").append(selOpts);
+        }
+    })
+    
     //已指派
     var table_su2 = $("#hetao-list-su-2").DataTable({
         "bPaginate": true,

@@ -473,21 +473,6 @@ $(document).ready(function(){
                                   + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                              + "</tr>";
                         }
-                        else if(item.status == 'T'){
-                           rows += "<tr class='past'>"
-                                  + "<td>" + item.id + "</td>"
-                                  + "<td>" + item.time + "</td>"
-                                  + "<td>" + item.CUSTKEY + "</td>"
-                                  + "<td>" + item.owner + "</td>"
-                                  + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                                  + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
-                                  + "<td>" + item.remarks + "</td>"
-                                  + "<td>" + item.work_type + "</td>"
-                                  + `<td hidden> ${itemtt}</td>`
-                                  + "<td hidden>" + item.status + "</td>"
-                                  + "<td>已完成</td>"
-                             + "</tr>";
-                        }
                     }
                 });
                 $('#hetao-list-s-2 tbody').append(rows);

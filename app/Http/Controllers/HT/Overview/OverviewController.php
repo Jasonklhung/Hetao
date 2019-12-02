@@ -603,9 +603,15 @@ class OverviewController extends Controller
                 }
             }
 
-            $test = array_splice($test, '0'); 
-            $test = array_splice($test, '1'); 
-            $test = array_splice($test, '2'); 
+            foreach ($test as $aa => $aaa) {
+                if($aaa == null){
+                    unset($test[$aa]);
+                }
+            }
+
+            //$test = array_splice($test, '0'); 
+           // $test = array_splice($test, '1'); 
+            //$test = array_splice($test, '2'); 
 
 
             return $test;

@@ -128,7 +128,7 @@
                                             <div>
                                                 <select class='form-control mb-s company' id="company2" name="company2">
                                                     @foreach($company as $data)
-                                                    @if($data->organization_id == Auth::user()->organization_id)
+                                                    @if($data->id == Auth::user()->organization_id)
                                                     <option selected value="{{$data->name}}">{{$data->name}}</option>
                                                     @else
                                                     <option value="{{$data->name}}">{{$data->name}}</option>
@@ -199,7 +199,7 @@
                 <div>
                     <select class='form-control mb-s company' name="company">
                         @foreach($company as $data)
-                            @if($data->organization_id == Auth::user()->organization_id)
+                            @if($data->id == Auth::user()->organization_id)
                         <option selected value="{{$data->name}}">{{$data->name}}</option>
                             @else
                         <option value="{{$data->name}}">{{$data->name}}</option>

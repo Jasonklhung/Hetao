@@ -12,6 +12,7 @@ use App\User;
 use GuzzleHttp\Client;
 use Auth;
 use Carbon\Carbon;
+use App\ReservationAnswer;
 
 class OverviewController extends Controller
 {

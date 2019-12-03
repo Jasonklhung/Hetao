@@ -17,6 +17,7 @@ class CreateReservationAnswersTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('department_id')->comment('部門id');
             $table->bigInteger('account_id')->comment('客戶 account id');
+            $table->string('number')->comment('編號');
             $table->json('form')->comment('整包表單內容');
             $table->enum('status',array('Y','N'))->default('N')->comment('狀態');
             $table->enum('views',array('Y','N'))->default('N')->comment('是否查看');

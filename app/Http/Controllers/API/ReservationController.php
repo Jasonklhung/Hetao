@@ -37,34 +37,35 @@ class ReservationController extends Controller
     	$id = Account::where('token',$request->token)->get();
 
         //計算預約工單編號
-        // $date = Carbon::now()->format('Y-m-d');
-        // $caseDate = explode('-',$date)[0].explode('-',$date)[1].explode('-',$date)[2];
-        // $case = ReservationAnswer::where('department_id',$request->DEPT)->get();
+        $date = Carbon::now()->format('Y-m-d');
+        $caseDate = explode('-',$date)[0].explode('-',$date)[1].explode('-',$date)[2];
+        $case = ReservationAnswer::where('department_id',$request->DEPT)->get();
 
-        // if($case->isNotEmpty()){
-        //     foreach ($case as $key => $value) {
-        //         $cDate = explode(' ', $value->created_at)[0];
+        if($case->isNotEmpty()){
+            foreach ($case as $key => $value) {
+                $cDate = explode(' ', $value->created_at)[0];
 
-        //         if($cDate == $date){
-        //             $all = ReservationAnswer::where('department_id',$request->DEPT)->whereDate('created_at',$date)->get();
-        //             $count = count($all)+1;
-        //             $count=str_pad($count,4,0,STR_PAD_LEFT); 
-        //             $number = $caseDate.$count;
-        //         }
-        //         else{
-        //             $number = $caseDate.'0001';
-        //         }
-        //     }
-        // }
-        // else{
+                if($cDate == $date){
+                    $all = ReservationAnswer::where('department_id',$request->DEPT)->whereDate('created_at',$date)->get();
+                    $count = count($all)+1;
+                    $count=str_pad($count,4,0,STR_PAD_LEFT); 
+                    $number = $caseDate.$count;
+                }
+                else{
+                    $number = $caseDate.'0001';
+                }
+            }
+        }
+        else{
 
-        //     $caseDate = explode('-',$date)[0].explode('-',$date)[1].explode('-',$date)[2];
-        //     $number = $caseDate.'0001';
-        // }
+            $caseDate = explode('-',$date)[0].explode('-',$date)[1].explode('-',$date)[2];
+            $number = $caseDate.'0001';
+        }
 
     	$res = new ReservationAnswer;
         $res->department_id = $request->DEPT;
     	$res->account_id = $id[0]['id'];
+        $res->number = $number;
     	$res->form = json_encode($form);
     	$res->save();   
 

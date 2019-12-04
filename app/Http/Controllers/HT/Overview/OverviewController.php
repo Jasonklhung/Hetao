@@ -605,7 +605,7 @@ class OverviewController extends Controller
             }
 
             foreach ($test as $aa => $aaa) {
-                if($aaa == null){
+                if($aaa == null || $aaa == 'F'){
                     unset($test[$aa]);
                 }
             }

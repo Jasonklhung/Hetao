@@ -484,9 +484,9 @@ $('body').on('click', '#person .finish', function(){
         console.log(noxxx)
         $('.main .o2').after("<input type='hidden' name='meeting' value='"+noxx+"'>");
         $('.main .o2').after("<input type='hidden' name='meetingToken' value='"+noxxx+"'>");
-        $('textarea[name="meeting"]').css('height', 'auto');
-        getElementById('meeting').style.height = "34px";
-        getElementById('meeting').style.height = (getElementById('meeting').scrollHeight)+"px";
+        // $('textarea[name="meeting"]').css('height', 'auto');
+        document.getElementById('meeting').style.height = "34px";
+        document.getElementById('meeting').style.height = ( document.getElementById('meeting').scrollHeight)+"px";
     }else {
         $('.main .o2').text('會議對象');
         $('textarea[name="meeting"]').css('height', '34px');

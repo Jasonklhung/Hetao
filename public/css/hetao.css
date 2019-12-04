@@ -938,6 +938,7 @@ input:checked+.slider:before {
 }
 .addcalendar .form-inline textarea.form-control {
     width: 100% !important;
+    overflow: hidden;
     resize: none;
     height: 34px;
 }    

@@ -546,6 +546,14 @@ h4.title-deco {
 .status.btn-primary:hover {
     background-color: #0088cc;
 }
+.color-btn{
+    background: #000;
+    color: #fff;
+    border-radius: 20px;
+    letter-spacing: .07rem;
+    padding: 5px 15px;
+    margin: 3px 5px;
+}
 @media screen and (max-width: 400px) {
     .btn.status {
         margin: 0;
@@ -1766,14 +1774,6 @@ input[class^=follow]:checked+.followanswer:before {
     tr.odd, tr.even {
         display: table-row;
     }
-}
-.color-btn{
-    background: #000;
-    color: #fff;
-    border-radius: 20px;
-    letter-spacing: .07rem;
-    padding: 5px 15px;
-    margin: 3px 5px;
 }
 table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before {
     display: none;

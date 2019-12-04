@@ -930,8 +930,8 @@ input:checked+.slider:before {
     width: 100%;
 }
 .addcalendar .form-inline input.form-control {
-    width: 100%;
-    height: 34px;
+    width: 100% !important;
+    height: 34px !important;
     resize: none;
 }    
 .addcalendar .form-inline input.form-control.day-select, .addcalendar  .form-inline input.form-control.time-select {

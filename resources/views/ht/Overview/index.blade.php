@@ -138,14 +138,14 @@
                                                     @endforeach
                                                 </select>
                                                 <select class='form-control mb-s role' id="job2" name="job2">
-                                                    <option value="" disabled="">請選擇職稱</option>
+                                                    <option value="" selected="" disabled="">請選擇職稱</option>
                                                     <option value="助理">助理</option>
                                                     <option value="主管">主管</option>
                                                     <option value="員工">員工</option>
                                                     <option value="其他">其他</option>
                                                 </select>
                                                 <select class='form-control mb-s staffname' id="name2" name="name2" disabled="">
-
+                                                    <option value="" selected="" disabled="">員工名稱</option>
                                                 </select>
                                                 <button type="button" class="btn btn-primary add-member">+</button>
                                             </div>
@@ -964,6 +964,10 @@
                 },              
                 success:function(res){
 
+                    var aaa = $('input[name="meetingToken"]').val()
+                    var bbb = aaa.split(',')
+                    
+
                     if(res == ""){
                         var selOpts = "<option selected disabled hidden>員工名稱</option><option disabled>沒有人員</option>";
                     }
@@ -972,7 +976,8 @@
                     }
                     
                     $.each(res, function (i, item) {
-                        if(array.indexOf(item.token) == -1){
+
+                        if(bbb.indexOf(item.token) == -1){
                             selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
                         }
                         else{

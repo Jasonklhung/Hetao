@@ -197,6 +197,7 @@
                                                                     <th class="desktop">客戶代碼</th>
                                                                     <th class="desktop">承辦人員</th>
                                                                     <th class="desktop">地址</th>
+                                                                    <th class="desktop">聯絡人</th>
                                                                     <th class="desktop">電話</th>
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
@@ -246,6 +247,7 @@
                                                                     <th class="desktop">客戶代碼</th>
                                                                     <th class="desktop">承辦人員</th>
                                                                     <th class="desktop">地址</th>
+                                                                    <th class="desktop">聯絡人</th>
                                                                     <th class="desktop">電話</th>
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
@@ -296,6 +298,7 @@
                                                                     <th class="desktop">客戶代碼</th>
                                                                     <th class="desktop">承辦人員</th>
                                                                     <th class="desktop">地址</th>
+                                                                    <th class="desktop">聯絡人</th>
                                                                     <th class="desktop">電話</th>
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
@@ -415,7 +418,13 @@
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
                               + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                              + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                              if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                               + "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -527,9 +536,9 @@
                         var time = $(this).parents('tr').children('td')[2].textContent 
                         var CUSTKEY = $(this).parents('tr').children('td')[3].textContent 
                         var address = $(this).parents('tr').children('td')[5].textContent
-                        var mobile = $(this).parents('tr').children('td')[6].textContent 
-                        var work_type = $(this).parents('tr').children('td')[8].textContent 
-                        var GUI_number = $(this).parents('tr').children('td')[9].textContent
+                        var mobile = $(this).parents('tr').children('td')[7].textContent 
+                        var work_type = $(this).parents('tr').children('td')[9].textContent 
+                        var GUI_number = $(this).parents('tr').children('td')[10].textContent
                         if(GUI_number == null || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -540,9 +549,9 @@
                         var time = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].textContent;
                         var CUSTKEY = $(this).closest('tbody').find("tr:eq(3)").children("td")[1].textContent;
                         var address = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
-                        var mobile = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
-                        var work_type = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
-                        var GUI_number = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                        var mobile = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
+                        var work_type = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                        var GUI_number = $(this).closest('tbody').find("tr:eq(10)").children("td")[1].textContent;
                         if(GUI_number == 'null' || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -635,7 +644,13 @@
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
                               + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                              + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                              if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                               + "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -682,7 +697,13 @@
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
                               + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                              + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                              if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                               + "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -743,7 +764,7 @@
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 9, "asc" ]],
+                    "order": [[ 1, "desc" ], [ 10, "asc" ]],
                     "columnDefs": [{
                         "targets": [9],
                         "orderable": false,
@@ -898,7 +919,13 @@
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
                               + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                              + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                              if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                               + "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -958,7 +985,7 @@
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 9, "desc" ]],
+                    "order": [[ 1, "desc" ], [ 10, "desc" ]],
                     "columnDefs": [{
                         "targets": [9],
                         "orderable": false,
@@ -1126,7 +1153,13 @@
                                   + "<td>" + item.CUSTKEY + "</td>"
                                   + "<td>" + item.owner + "</td>"
                                   + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                                  + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                                  if(item.name == null || item.name == '' || item.name == 'null'){
+                                    rows += "<td></td>"
+                                }
+                                else{
+                                    rows += "<td>" + item.name + "</td>"
+                                }
+                                rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                   + "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -1237,9 +1270,9 @@
                         var time = $(this).parents('tr').children('td')[2].textContent 
                         var CUSTKEY = $(this).parents('tr').children('td')[3].textContent 
                         var address = $(this).parents('tr').children('td')[5].textContent 
-                        var mobile = $(this).parents('tr').children('td')[6].textContent 
-                        var work_type = $(this).parents('tr').children('td')[8].textContent 
-                        var GUI_number = $(this).parents('tr').children('td')[9].textContent
+                        var mobile = $(this).parents('tr').children('td')[7].textContent 
+                        var work_type = $(this).parents('tr').children('td')[9].textContent 
+                        var GUI_number = $(this).parents('tr').children('td')[10].textContent
                         if(GUI_number == null || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -1250,9 +1283,9 @@
                         var time = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].textContent;
                         var CUSTKEY = $(this).closest('tbody').find("tr:eq(3)").children("td")[1].textContent;
                         var address = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
-                        var mobile = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
-                        var work_type = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
-                        var GUI_number = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                        var mobile = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
+                        var work_type = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                        var GUI_number = $(this).closest('tbody').find("tr:eq(10)").children("td")[1].textContent;
                         if(GUI_number == 'null' || GUI_number == ""){
                             var GUI_number = ""
                         }
@@ -1357,7 +1390,13 @@
                                   + "<td>" + item.CUSTKEY + "</td>"
                                   + "<td>" + item.owner + "</td>"
                                   + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                                  + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                                  if(item.name == null || item.name == '' || item.name == 'null'){
+                                    rows += "<td></td>"
+                                }
+                                else{
+                                    rows += "<td>" + item.name + "</td>"
+                                }
+                                rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                   + "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -1404,7 +1443,13 @@
                                   + "<td>" + item.CUSTKEY + "</td>"
                                   + "<td>" + item.owner + "</td>"
                                   + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                                  + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                                  if(item.name == null || item.name == '' || item.name == 'null'){
+                                    rows += "<td></td>"
+                                }
+                                else{
+                                    rows += "<td>" + item.name + "</td>"
+                                }
+                                rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                   + "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -1465,7 +1510,7 @@
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 9, "asc" ]],
+                    "order": [[ 1, "desc" ], [ 10, "asc" ]],
                     "columnDefs": [{
                         "targets": [9],
                         "orderable": false,
@@ -1631,7 +1676,13 @@
                                   + "<td>" + item.CUSTKEY + "</td>"
                                   + "<td>" + item.owner + "</td>"
                                   + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                                  + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                                  if(item.name == null || item.name == '' || item.name == 'null'){
+                                    rows += "<td></td>"
+                                }
+                                else{
+                                    rows += "<td>" + item.name + "</td>"
+                                }
+                                rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                   + "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -1691,7 +1742,7 @@
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 9, "desc" ]],
+                    "order": [[ 1, "desc" ], [ 10, "desc" ]],
                     "columnDefs": [{
                         "targets": [9],
                         "orderable": false,
@@ -1734,10 +1785,10 @@
                     var time = $(this).parents('tr').children('td')[2].textContent 
                     var CUSTKEY = $(this).parents('tr').children('td')[3].textContent 
                     var address = $(this).parents('tr').children('td')[5].textContent 
-                    var mobile = $(this).parents('tr').children('td')[6].textContent 
-                    var reason = $(this).parents('tr').children('td')[7].textContent 
-                    var work_type = $(this).parents('tr').children('td')[8].textContent 
-                    var GUI_number = $(this).parents('tr').children('td')[9].textContent
+                    var mobile = $(this).parents('tr').children('td')[7].textContent 
+                    var reason = $(this).parents('tr').children('td')[8].textContent 
+                    var work_type = $(this).parents('tr').children('td')[9].textContent 
+                    var GUI_number = $(this).parents('tr').children('td')[10].textContent
                     if(GUI_number == null || GUI_number == ""){
                         var GUI_number = ""
                     }
@@ -1782,10 +1833,10 @@
                     var time = $(this).closest('tbody').find("tr:eq(2)").children("td")[1].textContent;
                     var CUSTKEY = $(this).closest('tbody').find("tr:eq(3)").children("td")[1].textContent;
                     var address = $(this).closest('tbody').find("tr:eq(5)").children("td")[1].textContent;
-                    var mobile = $(this).closest('tbody').find("tr:eq(6)").children("td")[1].textContent;
-                    var reason = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
-                    var work_type = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
-                    var GUI_number = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                    var mobile = $(this).closest('tbody').find("tr:eq(7)").children("td")[1].textContent;
+                    var reason = $(this).closest('tbody').find("tr:eq(8)").children("td")[1].textContent;
+                    var work_type = $(this).closest('tbody').find("tr:eq(9)").children("td")[1].textContent;
+                    var GUI_number = $(this).closest('tbody').find("tr:eq(10)").children("td")[1].textContent;
                     if(GUI_number == 'null' || GUI_number == ""){
                         var GUI_number = ""
                     }

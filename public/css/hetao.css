@@ -1764,8 +1764,8 @@ input[class^=follow]:checked+.followanswer:before {
         margin: 0 auto;
         overflow-x: auto;
     }
-    div.dataTables_scroll {
-        min-width: 1600px;
+    .dataTables_wrapper table.dataTable {
+        min-width: 1600px !important;
     }
     .child {
         display: none;

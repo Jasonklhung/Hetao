@@ -940,8 +940,8 @@ input:checked+.slider:before {
     width: 100% !important;
     resize: none;
     overflow: hidden;
-    height: min-content;
-    min-height: 34px;
+    /* height: min-content; */
+    height: 34px;
 }    
 .addcalendar .form-inline input.form-control.day-select, .addcalendar  .form-inline input.form-control.time-select {
     width: 50%;   

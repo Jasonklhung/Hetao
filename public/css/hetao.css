@@ -688,6 +688,7 @@ h4.title-deco {
     }
     .dataTables_wrapper table.dataTable {
         position: relative;
+        width: auto !important;
         /*top: -30px;*/
     }
     .child .form-control {

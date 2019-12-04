@@ -7691,7 +7691,7 @@ html.dark .colorpicker:after {
 .dataTables_wrapper table.dataTable {
 	border-collapse: collapse !important;
 	margin: 0 !important;
-	width: 100% !important;
+	width: 1580px !important;
 }
 
 .dataTables_wrapper div.dataTables_info {

@@ -653,7 +653,7 @@ h4.title-deco {
 .dtr-details tr td:nth-child(odd) {
     width: 80px;
 }
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1041px) {
     div.dataTables_wrapper div.dataTables_filter {
         text-align: left;
     }
@@ -668,7 +668,7 @@ h4.title-deco {
     }*/
 }
 
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1041px) {
     .rwdhide {
         visibility: hidden;
     }
@@ -688,6 +688,7 @@ h4.title-deco {
     }
     .dataTables_wrapper table.dataTable {
         position: relative;
+        width: auto !important;
         /*top: -30px;*/
     }
     .child .form-control {
@@ -695,7 +696,7 @@ h4.title-deco {
         /*width: 50%;*/
     }
 }
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1041px) {
     #hetao-list-a .rwdhide {
         visibility: hidden;
     }
@@ -718,7 +719,7 @@ h4.title-deco {
         width: 40%;
     }
 }
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1041px) {
     #hetao-list-a-2 .rwdhide {
         visibility: hidden;
     }
@@ -1758,14 +1759,11 @@ input[class^=follow]:checked+.followanswer:before {
     height: auto;
 }
 
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1042px) {
     div.dataTables_wrapper {
         width: 100%;
         margin: 0 auto;
         overflow-x: auto;
-    }
-    div.dataTables_scroll {
-        min-width: 1024px;
     }
     .child {
         display: none;

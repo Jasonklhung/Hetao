@@ -1733,7 +1733,7 @@ input[class^=follow]:checked+.followanswer:before {
     overflow-x: auto;
 }
 .fc-basic-view {
-    min-width: 450px;
+    min-width: 480px;
 }
 
 /*隱藏table的"統編"及"status"*/

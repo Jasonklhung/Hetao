@@ -651,7 +651,7 @@ h4.title-deco {
 
 /*dtatatable*/
 .dtr-details tr td:nth-child(odd) {
-    wdith: 80px;
+    width: 80px;
 }
 @media screen and (max-width: 1025px) {
     div.dataTables_wrapper div.dataTables_filter {
@@ -951,9 +951,9 @@ input:checked+.slider:before {
     max-width: 600px;
     margin: 6vh auto;
 }
-.meeting.modal-dialog {
+/* .meeting.modal-dialog {
     max-width: 400px;
-}
+} */
 .modal {
     padding-right: 0 !important;
 }
@@ -1710,7 +1710,7 @@ input[class^=follow]:checked+.followanswer:before {
 }
 #meet .modal-body, #job1 .modal-body, #person .modal-body, #job .modal-body {
    max-height: 80vh;
-   overflow-y: scroll;
+   overflow-y: auto;
 }
 
 .fc-content .fc-title {

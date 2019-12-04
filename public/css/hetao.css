@@ -1790,6 +1790,7 @@ input[class^=follow]:checked+.followanswer:before {
     border-radius: 20px;
     letter-spacing: .07rem;
     padding: 5px 15px;
+    margin: 3px 5px;
 }
 table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before {
     display: none;

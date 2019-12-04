@@ -194,7 +194,7 @@
 <!-- Modal 會議對象 -->
 <div id="person" class="modal fade" role="dialog" style="z-index: 9999;">
     <div class="modal-dialog">
-        <div class="modal-content modal-sm">
+        <div class="modal-content">
             <div class="modal-body">
                 <div>
                     <select class='form-control mb-s company' name="company">

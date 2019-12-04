@@ -345,7 +345,7 @@ small {
 }
 
 .float-right {
-    display: inline-block;
+    display: block;
     float: right;
 }
 
@@ -633,7 +633,7 @@ h4.title-deco {
     top: 14px;
 }
 
-.fc-right .form-group, . {
+.fc-right .form-group {
     margin-bottom: 0;
 }
 
@@ -775,7 +775,7 @@ h4.title-deco {
 /*switch*/
 .switch {
     position: relative;
-    display: inline-block;
+    display: block;
     width: 46px;
     height: 20px;
     float: right;
@@ -1093,9 +1093,6 @@ ul li .m-j-list:nth-child(2) {
 }
 
 @media screen and (max-width: 1540px) {
-    .pt-l {
-        margin-top: 
-    }
     .addcalendar.col-md-12 {
         width: 100%;
         padding-top: 50px;

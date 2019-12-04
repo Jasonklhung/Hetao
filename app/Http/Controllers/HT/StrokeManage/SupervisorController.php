@@ -202,7 +202,7 @@ class SupervisorController extends Controller
             $supervisor->work_type = $request->work_type;
             $supervisor->time = $request->time;
             $supervisor->owner = $dept[0]['name'];
-            $supervisor->status = $request->status;
+            $supervisor->status = '';
             $supervisor->save();
         }
 

@@ -136,20 +136,14 @@
                                                     @endforeach
                                                 </select>
                                                 <select class='form-control mb-s role' id="job2" name="job2">
+                                                    <option value="" disabled="">請選擇職稱</option>
                                                     <option value="助理">助理</option>
-                                                    <option selected="" value="主管">主管</option>
+                                                    <option value="主管">主管</option>
                                                     <option value="員工">員工</option>
                                                     <option value="其他">其他</option>
                                                 </select>
-                                                <select class='form-control mb-s staffname' id="name2" name="name2">
-                                                    @if($user->isEmpty())
-                                                    <option selected disabled>沒有人員</option>
-                                                    @else
-                                                    <option selected disabled hidden>員工名稱</option>
-                                                    @foreach($user as $data)
-                                                    <option value="{{$data->token}}">{{$data->name}}</option>
-                                                    @endforeach
-                                                    @endif
+                                                <select class='form-control mb-s staffname' id="name2" name="name2" disabled="">
+
                                                 </select>
                                                 <button type="button" class="btn btn-primary add-member">+</button>
                                             </div>
@@ -225,7 +219,7 @@
                     <div class="memberwrap">
                     </div>    
                 </div>
-                <div class="text-center"><button type="button" class="btn btn-primary add-member">新增</button><button type="button" class="btn btn-primary finish" data-dismiss="modal">完成</button></div>
+                <div class="text-center"><button type="button" class="btn btn-primary add-member" id="addName">新增</button><button type="button" class="btn btn-primary finish" data-dismiss="modal">完成</button></div>
             </div>
         </div>
     </div>
@@ -929,8 +923,7 @@
                     'job':job
                 },              
                 success:function(res){
-                    
-                    
+
                     if(res == ""){
                         var selOpts = "<option selected disabled hidden>員工名稱</option><option disabled>沒有人員</option>";
                     }
@@ -939,7 +932,12 @@
                     }
 
                     $.each(res, function (i, item) {
-                        selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
+                        if(array.indexOf(item.token) == -1){
+                            selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
+                        }
+                        else{
+                            selOpts += "<option hidden value='"+item.token+"'>"+item.name+"</option>";
+                        }
                     })
 
                     $("select[name='name']").empty();
@@ -972,7 +970,12 @@
                     }
                     
                     $.each(res, function (i, item) {
-                        selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
+                        if(array.indexOf(item.token) == -1){
+                            selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
+                        }
+                        else{
+                            selOpts += "<option hidden value='"+item.token+"'>"+item.name+"</option>";
+                        }
                     })
 
                     $("select[name='name2']").empty();
@@ -1052,6 +1055,17 @@
 
         $("#meeting,#notice").focus(function(){
             document.activeElement.blur();
+        })
+    </script>
+    <script type="text/javascript">
+        $('#addName').on('click',function(){
+            var val  = $("select[name='name']").val();
+            var numbers = $("select[name='name']").find("option");
+            for (var j = 0; j < numbers.length; j++) {
+                if ($(numbers[j]).val() == val) {
+                    $(numbers[j]).attr("hidden", "hidden");
+                }
+            }
         })
     </script>
 @endsection

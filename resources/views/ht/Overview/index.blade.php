@@ -175,7 +175,7 @@
 <!-- Modal 新增通知 -->
 <div id="newalert" class="modal fade" role="dialog" style="z-index: 9999;">
     <div class="modal-dialog">
-        <div class="modal-content modal-sm">
+        <div class="modal-content">
             <div class="modal-body">
                 <div class="mb-s">
                     <input class="form-control" type="number" min="1" value="10">

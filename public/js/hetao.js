@@ -479,11 +479,11 @@ $('body').on('click', '#person .finish', function(){
     var noxxx = token.replace(/\×/g, ',')
     if($('#person .memberwrap span').hasClass('tag')) {
         // $('.main .o2').html(noxx);
-        $('input[name="meeting"]').val(noxx);
+        // $('input[name="meeting"]').val(noxx);
         console.log(noxx)
         console.log(noxxx)
-        $('.main .o2').append("<input type='hidden' name='meeting' value='"+noxx+"'>");
-        $('.main .o2').append("<input type='hidden' name='meetingToken' value='"+noxxx+"'>");
+        $('.main .o2').after("<input type='hidden' name='meeting' value='"+noxx+"'>");
+        $('.main .o2').after("<input type='hidden' name='meetingToken' value='"+noxxx+"'>");
     }else {
         $('.main .o2').text('會議對象');
     }

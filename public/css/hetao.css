@@ -12,7 +12,7 @@
 }
 
 .panel-body {
-    color: #464646;
+    color: #000;
     position: relative;
 }
 
@@ -84,7 +84,7 @@ input, textarea {
 .coupon .search button {
     border-radius: 4px;
     border-color: #4194d4;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .coupon {
@@ -114,6 +114,13 @@ input, textarea {
 .form-control .search input {
     width: 130px;
 }
+
+.form-control {
+    font-size: inherit;
+    color: #000;
+    font-weight: bold;
+}
+
 @media screen and (min-width: 1310px) {
     .btn-wrap {
         display: inline-block;
@@ -134,7 +141,7 @@ input, textarea {
 }
 
 .dataTable tbody>tr>td {
-    text-align: center;
+    text-align: left;
     vertical-align: middle;
     height: 30px;
     position: relative;
@@ -155,7 +162,7 @@ input, textarea {
 }
 
 .table>thead>tr>th {
-    text-align: center;
+    text-align: left;
 }
 
 div.dataTables_wrapper div.dataTables_filter input {
@@ -168,7 +175,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 
 .bootstrap-datetimepicker-widget th:hover {
-    color: #555 !important;
+    color: #000 !important;
 }
 
 .dataTables_filter input[type="search"] {
@@ -176,7 +183,7 @@ div.dataTables_wrapper div.dataTables_filter input {
     padding: 6px 12px;
     font-size: 17px;
     line-height: 1.42857143;
-    color: #555;
+    color: #000;
     background-color: #fff;
     background-image: none;
     border-radius: 4px;
@@ -245,6 +252,7 @@ div.dataTables_wrapper div.dataTables_filter label, .dataTables_filter .form-gro
 .nav-tabs>li>a {
     border: none;
     color: #5f5f5f;
+    font-weight: bold;
 }
 
 .datetime {
@@ -491,6 +499,9 @@ ul {
     max-width: 280px;
     width: auto !important;
 }
+.bootstrap-datetimepicker-widget th {
+    font-weight: bold !important;
+}
 
 /* 行程管理-助理
 =================================*/
@@ -607,7 +618,7 @@ h4.title-deco {
 /*全選*/
 .sall {
    /* display: none;*/
-    width: 60px;
+    /*width: 60px;*/
     color: #4194d4;
     margin: 0 6px;
     text-align: center !important;
@@ -849,6 +860,7 @@ input:checked+.slider:before {
     color: #464646;
     left: -36px;
     top: -1px;
+    font-weight: bold;
 }
 @media screen and (max-width: 767px) {
     .dayy {
@@ -919,6 +931,7 @@ input:checked+.slider:before {
 }
 .addcalendar .form-inline input.form-control.day-select, .addcalendar  .form-inline input.form-control.time-select {
     width: 50%;   
+/*    display: inline-block;*/
 }
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
     background-color: transparent;
@@ -935,14 +948,14 @@ input:checked+.slider:before {
 }
 .modal-dialog {
     width:90%;
-    max-width: 300px;
-    margin: 20% auto;
+    max-width: 600px;
+    margin: 6vh auto;
 }
 .meeting.modal-dialog {
     max-width: 400px;
 }
 .modal {
-    padding-right: 0;
+    padding-right: 0 !important;
 }
 .addcalendar input, .addcalendar select {
     -webkit-box-shadow: none;
@@ -1011,7 +1024,7 @@ input:checked+.slider:before {
     position: absolute;
     top: 11px;
     left: 11px;
-    color: #555;    
+    color: #000;    
 }
 .addcalendar li i.fa-users {
     left: 8px;
@@ -1462,8 +1475,6 @@ input[type="text"].datime {
 .design-form .panel-body {
     overflow-y: scroll;
     height: 500px;
-    z-index: 1;
-    position: relative;
 }
 .section .fa-check-circle {
     display: none;
@@ -1472,7 +1483,7 @@ input[type="text"].datime {
     display: inline-block;
 }
 .design-form .nav-tabs a {
-    color: #777;
+    color: #000;
 }
 .toolbar .rwdmenu {
     display: none;
@@ -1487,6 +1498,7 @@ input[type="text"].datime {
 }
 .meeting .modal-body {
     margin-bottom: 0;
+    margin-right: 0;
 }
 .followanswer {
     margin: 9px 0;
@@ -1616,7 +1628,7 @@ input[class^=follow]:checked+.followanswer:before {
 .dtr-details tr td:nth-child(2) {
     word-break: normal;
     line-height: 1.5;
-    padding: 4px 8px;
+    padding: 0 8px;
 
 }
 
@@ -1670,7 +1682,7 @@ input[class^=follow]:checked+.followanswer:before {
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
-    color: #555;
+    color: #000;
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;
@@ -1693,11 +1705,12 @@ input[class^=follow]:checked+.followanswer:before {
 }
 
 .modal-open .modal {
-   overflow-y: inherit;
+   overflow-y: hidden;
+   padding-right: 0;
 }
 #meet .modal-body, #job1 .modal-body, #person .modal-body, #job .modal-body {
-   height: 330px;
-   overflow-y: auto;
+   max-height: 80vh;
+   overflow-y: scroll;
 }
 
 .fc-content .fc-title {
@@ -1713,13 +1726,13 @@ input[class^=follow]:checked+.followanswer:before {
 }
 
 /*隱藏table的"統編"及"status"*/
-/*助理派工單*/#hetao-list-a-2.assistant .child tr:nth-child(10), 
-/*助理行程回報*/#hetao-list-s-2.assistant .child tr:nth-child(9),  
+/*助理線上預約*/#hetao-list-a-2.assistant .child tr:nth-child(9), 
+/*助理派工單*/#hetao-list-s-2.assistant .child tr:nth-child(9),  
 /*助理行程回報*/#hetao-list-s-2.assistant .child tr:nth-child(10), 
 /*助理已完成*/#hetao-list-ss-2.assistant .child tr:nth-child(9),
-/*主管待指派*/#hetao-list-su.supervisor .child tr:nth-child(11),
-/*主管已完成*/#hetao-list-su.supervisor .child tr:nth-child(12),
-/*主管已指派*/#hetao-list-su-2.supervisor .child tr:nth-child(11),
+/*主管待指派*/#hetao-list-su.supervisor .child tr:nth-child(10),
+/*主管已完成*/#hetao-list-su.supervisor .child tr:nth-child(11),
+/*主管已指派*/#hetao-list-su-2.supervisor .child tr:nth-child(10),
 /*主管行程回報*/#hetao-list-s-2.supervisor .child tr:nth-child(10),
 /*主管行程回報*/#hetao-list-s-2.supervisor .child tr:nth-child(11),
 /*主管已完成*/#hetao-list-ss-2.supervisor .child tr:nth-child(10),
@@ -1731,6 +1744,16 @@ input[class^=follow]:checked+.followanswer:before {
     display: none;
 }
 
+.fc-event {
+    padding: 6px 2px !important;
+}
+.fc-day-top.fc-tue.fc-today {
+    height: auto !important;
+}
+.fc-content-skeleton td {
+    height: auto;
+}
+
 @media screen and (min-width: 1025px) {
     div.dataTables_wrapper {
         width: 100%;
@@ -1740,6 +1763,15 @@ input[class^=follow]:checked+.followanswer:before {
     div.dataTables_scroll {
         min-width: 1024px;
     }
+    .child {
+        display: none;
+    }
+    .rwdhide {
+        display: table-header-group;
+    }
+    tr.odd, tr.even {
+        display: table-row;
+    }
 }
 .color-btn{
     background: #000;
@@ -1748,8 +1780,3 @@ input[class^=follow]:checked+.followanswer:before {
     letter-spacing: .07rem;
     padding: 5px 15px;
 }
-
-.past.parent+tr.child {
- opacity: 0.5;
-}
-

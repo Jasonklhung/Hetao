@@ -16005,10 +16005,8 @@ h2.word-rotator-title {
 }
 
 .fc .fc-toolbar h2 {
-	color: #171717;
 	font-size: 22.4px;
-/*	font-size: 1.4rem;*/
-	font-weight: normal;
+	font-weight: bold;
 }
 
 .fc .fc-toolbar h2:before {

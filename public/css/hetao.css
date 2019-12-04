@@ -637,6 +637,12 @@ h4.title-deco {
     margin-bottom: 0;
 }
 
+.dataTables_wrapper table.dataTable {
+	border-collapse: collapse !important;
+	margin: 0 !important;
+	width: 1580px !important;
+}
+
 @media screen and (max-width: 860px) {
     .batchwrap {
         display: block;

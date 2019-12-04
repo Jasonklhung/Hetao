@@ -7688,12 +7688,6 @@ html.dark .colorpicker:after {
 	padding-right: 21px !important;
 }
 
-.dataTables_wrapper table.dataTable {
-	border-collapse: collapse !important;
-	margin: 0 !important;
-	width: 1580px !important;
-}
-
 .dataTables_wrapper div.dataTables_info {
 	font-size: 11.2px;
 	font-size: 0.7rem;

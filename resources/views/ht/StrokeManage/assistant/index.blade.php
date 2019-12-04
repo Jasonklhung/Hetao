@@ -1194,7 +1194,7 @@
                     "responsive": {
                         "breakpoints": [
                         { name: 'desktop', width: Infinity},
-                        { name: 'tablet',  width: 1007},
+                        { name: 'tablet',  width: 1024},
                         ],
                         "details": {
                             "display": $.fn.dataTable.Responsive.display.childRowImmediate,

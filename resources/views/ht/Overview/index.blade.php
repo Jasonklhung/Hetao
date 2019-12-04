@@ -42,7 +42,9 @@
                                                             <li class="mb-s"><i class="fas fa-bell"></i><input id="notice" id="notice" name="tN" placeholder="新增通知" required="" class="opmodal o1 form-control" data-toggle="modal" data-target="#newalert"></li>
                                                             <input type="hidden" name="notice">
                                                             <input type="hidden" name="noticeTime">
-                                                            <li class="mb-s"><i class="fas fa-users"></i><input name="meeting" id="meeting" placeholder="會議對象" required="" class="opmodal o2 form-control" data-toggle="modal" data-target="#person"></li>
+                                                            <li class="mb-s"><i class="fas fa-users"></i>
+                                                                <textarea name="meeting" id="meeting" placeholder="會議對象" required="" class="opmodal o2 form-control" data-toggle="modal" data-target="#person"></textarea>
+                                                                <!-- <input name="meeting" id="meeting" placeholder="會議對象" required="" class="opmodal o2 form-control" data-toggle="modal" data-target="#person"> --></li>
                                                             <li class="mb-s"><i class="fas fa-align-left"></i><input class="form-control ps" type="text" name="description" placeholder="新增說明" required=""></li>
                                                             <li class="text-center"><div class="coupon"><button type="submit">儲存</button></div></li>
                                                         </ul>

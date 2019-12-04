@@ -931,7 +931,6 @@ input:checked+.slider:before {
 }
 .addcalendar .form-inline textarea.form-control {
     width: 100% !important;
-    height: 34px !important;
     resize: none;
     overflow: hidden;
     min-height: 34px;

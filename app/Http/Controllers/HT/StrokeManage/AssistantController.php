@@ -28,6 +28,8 @@ class AssistantController extends Controller
                         ->where('reservation_answers.department_id',Auth::user()->department_id)
                         ->get();
 
+        $contact = ContactAnswer::all();
+
         $job = Auth::user()->job;
         if($job == '員工'){
             $client = new \GuzzleHttp\Client();
@@ -89,7 +91,7 @@ class AssistantController extends Controller
             $caseCount = count($countArray);
         }
 
-    	return view('ht.StrokeManage.assistant.index',compact('organization','reservation','caseCount'));
+    	return view('ht.StrokeManage.assistant.index',compact('organization','reservation','contact','caseCount'));
     }
 
     public function index2(Organization $organization)

@@ -1780,3 +1780,6 @@ input[class^=follow]:checked+.followanswer:before {
     letter-spacing: .07rem;
     padding: 5px 15px;
 }
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before {
+    display: none;
+}

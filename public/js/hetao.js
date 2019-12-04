@@ -638,3 +638,8 @@ $(document).ready(function ()
     }
 });
 
+// 新增活動textarea自動高度
+function auto_grow(element) {
+    element.style.height = "34px";
+    element.style.height = (element.scrollHeight)+"px";
+}

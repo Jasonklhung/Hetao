@@ -926,9 +926,14 @@ input:checked+.slider:before {
     width: 45%;
     display: inline-block;
 }
-.addcalendar .form-inline input.form-control  {
+.addcalendar .form-inline input.form-control {
     width: 100%;
 }
+.addcalendar .form-inline input.form-control {
+    width: 100%;
+    height: 34px;
+    resize: none;
+}    
 .addcalendar .form-inline input.form-control.day-select, .addcalendar  .form-inline input.form-control.time-select {
     width: 50%;   
 /*    display: inline-block;*/

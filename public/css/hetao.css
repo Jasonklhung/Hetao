@@ -1770,6 +1770,9 @@ input[class^=follow]:checked+.followanswer:before {
     .child {
         display: none;
     }
+    /* .rwdhide .parent td {
+        display: table-cell;
+    } */
     .rwdhide {
         display: table-header-group;
     }

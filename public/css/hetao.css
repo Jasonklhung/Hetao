@@ -929,10 +929,12 @@ input:checked+.slider:before {
 .addcalendar .form-inline input.form-control {
     width: 100%;
 }
-.addcalendar .form-inline input.form-control {
+.addcalendar .form-inline textarea.form-control {
     width: 100% !important;
     height: 34px !important;
     resize: none;
+    overflow: hidden;
+    min-height: 34px;
 }    
 .addcalendar .form-inline input.form-control.day-select, .addcalendar  .form-inline input.form-control.time-select {
     width: 50%;   

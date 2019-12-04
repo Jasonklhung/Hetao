@@ -485,9 +485,11 @@ $('body').on('click', '#person .finish', function(){
         $('.main .o2').after("<input type='hidden' name='meeting' value='"+noxx+"'>");
         $('.main .o2').after("<input type='hidden' name='meetingToken' value='"+noxxx+"'>");
         $('textarea[name="meeting"]').css('height', 'auto');
+        getElementById('meeting').style.height = "34px";
+        getElementById('meeting').style.height = (getElementById('meeting').scrollHeight)+"px";
     }else {
         $('.main .o2').text('會議對象');
-        $('textarea[name="meeting"]').css('height', 'min-content');
+        $('textarea[name="meeting"]').css('height', '34px');
     }
 });
 
@@ -640,8 +642,8 @@ $(document).ready(function ()
     }
 });
 
-// 新增活動textarea自動高度
-function auto_grow(element) {
-    element.style.height = "34px";
-    element.style.height = (element.scrollHeight)+"px";
-}
+// // 新增活動textarea自動高度
+// function auto_grow(element) {
+//     element.style.height = "34px";
+//     element.style.height = (element.scrollHeight)+"px";
+// }

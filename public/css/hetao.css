@@ -1735,25 +1735,6 @@ input[class^=follow]:checked+.followanswer:before {
     min-width: 480px;
 }
 
-/*隱藏table的"統編"及"status"*/
-/*助理線上預約*/#hetao-list-a-2.assistant .child tr:nth-child(9), 
-/*助理派工單*/#hetao-list-s-2.assistant .child tr:nth-child(9),  
-/*助理行程回報*/#hetao-list-s-2.assistant .child tr:nth-child(10), 
-/*助理已完成*/#hetao-list-ss-2.assistant .child tr:nth-child(9),
-/*主管待指派*/#hetao-list-su.supervisor .child tr:nth-child(10),
-/*主管已完成*/#hetao-list-su.supervisor .child tr:nth-child(11),
-/*主管已指派*/#hetao-list-su-2.supervisor .child tr:nth-child(10),
-/*主管行程回報*/#hetao-list-s-2.supervisor .child tr:nth-child(10),
-/*主管行程回報*/#hetao-list-s-2.supervisor .child tr:nth-child(11),
-/*主管已完成*/#hetao-list-ss-2.supervisor .child tr:nth-child(10),
-/*員工行程回報*/#hetao-list-s-2.staff .child tr:nth-child(9),
-/*員工行程回報*/#hetao-list-s-2.staff .child tr:nth-child(10),
-/*員工已完成*/#hetao-list-s-3.staff .child tr:nth-child(9),
-/*員工已完成*/#hetao-list-s-3.staff .child tr:nth-child(10)
-{
-    display: none;
-}
-
 .fc-event {
     padding: 6px 2px !important;
 }
@@ -1796,4 +1777,23 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before,
 }
 table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child {
     padding-left: 8px;
+}
+
+/*隱藏table的"統編"及"status"*/
+/*助理線上預約*/#hetao-list-a-2.assistant .child tr:nth-child(9), 
+/*助理派工單*/#hetao-list-s-2.assistant .child tr:nth-child(9),  
+/*助理行程回報*/#hetao-list-s-2.assistant .child tr:nth-child(10), 
+/*助理已完成*/#hetao-list-ss-2.assistant .child tr:nth-child(9),
+/*主管待指派*/#hetao-list-su.supervisor .child tr:nth-child(10),
+/*主管已完成*/#hetao-list-su.supervisor .child tr:nth-child(11),
+/*主管已指派*/#hetao-list-su-2.supervisor .child tr:nth-child(10),
+/*主管行程回報*/#hetao-list-s-2.supervisor .child tr:nth-child(10),
+/*主管行程回報*/#hetao-list-s-2.supervisor .child tr:nth-child(11),
+/*主管已完成*/#hetao-list-ss-2.supervisor .child tr:nth-child(10),
+/*員工行程回報*/#hetao-list-s-2.staff .child tr:nth-child(9),
+/*員工行程回報*/#hetao-list-s-2.staff .child tr:nth-child(10),
+/*員工已完成*/#hetao-list-s-3.staff .child tr:nth-child(9),
+/*員工已完成*/#hetao-list-s-3.staff .child tr:nth-child(10)
+{
+    display: none;
 }

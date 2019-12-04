@@ -957,7 +957,7 @@ input:checked+.slider:before {
 .modal {
     padding-right: 0 !important;
 }
-.addcalendar input, .addcalendar select {
+.addcalendar input, .addcalendar select, .addcalendar textarea {
     -webkit-box-shadow: none;
     box-shadow: none;
     border: none;

@@ -1765,7 +1765,7 @@ input[class^=follow]:checked+.followanswer:before {
         overflow-x: auto;
     }
     div.dataTables_scroll {
-        min-width: 1580px;
+        min-width: 1600px;
     }
     .child {
         display: none;

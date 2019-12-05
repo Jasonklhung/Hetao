@@ -220,7 +220,7 @@
                                                                 @if($data->status == '' || $data->status == 'null' || $data->status == null)
                                                                     <td>執行中</td>
                                                                 @elseif($data->status == 'R')
-                                                                    <td style="color:yellow">轉單</td>
+                                                                    <td style="color:#DAA520">轉單</td>
                                                                 @elseif($data->status == 'F')
                                                                     <td style="color:red">延後</td>
                                                                 @else
@@ -518,8 +518,13 @@
                             + "<td>" + item.cuskey + "</td>"
                             + "<td>" + item.owner + "</td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                            + "<td>" + item.name + "</td>"
-                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                            if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td>" + item.reason + "</td>"
                             if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -575,8 +580,13 @@
                             + "<td>" + item.cuskey + "</td>"
                             + "<td>" + item.owner + "</td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                            + "<td>" + item.name + "</td>"
-                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                            if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td>" + item.reason + "</td>"
                             if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -612,7 +622,7 @@
                                 rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
                             }
                             rows += "<td hidden>" + item.GUI_number + "</td>"
-                            + "<td style='color:yellow'>轉單</td>"
+                            + "<td style='color:#DAA520'>轉單</td>"
                             + "</tr>";                     
                         }
                         else if(item.status == 'F'){
@@ -632,8 +642,13 @@
                             + "<td>" + item.cuskey + "</td>"
                             + "<td>" + item.owner + "</td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                            + "<td>" + item.name + "</td>"
-                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                            if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td>" + item.reason + "</td>"
                             if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -689,8 +704,13 @@
                             + "<td>" + item.cuskey + "</td>"
                             + "<td>" + item.owner + "</td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                            + "<td>" + item.name + "</td>"
-                            + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                            if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td>" + item.reason + "</td>"
                             if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -873,8 +893,13 @@
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
                               + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                              + "<td>" + item.name + "</td>"
-                              + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                              if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                               + "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -1092,8 +1117,13 @@
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
                               + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                              + "<td>" + item.name + "</td>"
-                              + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                              if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                               + "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -1140,8 +1170,13 @@
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
                               + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                              + "<td>" + item.name + "</td>"
-                              + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                              if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                               + "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -1357,8 +1392,13 @@
                               + "<td>" + item.CUSTKEY + "</td>"
                               + "<td>" + item.owner + "</td>"
                               + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                              + "<td>" + item.name + "</td>"
-                              + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                              if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                               + "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -1499,8 +1539,13 @@
                                   + "<td>" + item.CUSTKEY + "</td>"
                                   + "<td>" + item.owner + "</td>"
                                   + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                                  + "<td>" + item.name + "</td>"
-                                  + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                                  if(item.name == null || item.name == '' || item.name == 'null'){
+                                    rows += "<td></td>"
+                                }
+                                else{
+                                    rows += "<td>" + item.name + "</td>"
+                                }
+                                rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                   + "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -1744,8 +1789,13 @@
                                     + "<td>" + item.cuskey + "</td>"
                                     + "<td>" + item.owner + "</td>"
                                     + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                                    + "<td>" + item.name + "</td>"
-                                    + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                                    if(item.name == null || item.name == '' || item.name == 'null'){
+                                        rows += "<td></td>"
+                                    }
+                                    else{
+                                        rows += "<td>" + item.name + "</td>"
+                                    }
+                                    rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                     + "<td>" + item.reason + "</td>"
                                     if(item.work_type == '維修'){
                                         rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -1801,8 +1851,13 @@
                                     + "<td>" + item.cuskey + "</td>"
                                     + "<td>" + item.owner + "</td>"
                                     + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                                    + "<td>" + item.name + "</td>"
-                                    + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                                    if(item.name == null || item.name == '' || item.name == 'null'){
+                                        rows += "<td></td>"
+                                    }
+                                    else{
+                                        rows += "<td>" + item.name + "</td>"
+                                    }
+                                    rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                     + "<td>" + item.reason + "</td>"
                                     if(item.work_type == '維修'){
                                         rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -1838,7 +1893,7 @@
                                         rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
                                     }
                                     rows += "<td hidden>" + item.GUI_number + "</td>"
-                                    + "<td style='color:yellow'>轉單</td>"
+                                    + "<td style='color:#DAA520'>轉單</td>"
                                     + "</tr>";                           
                                 }
                                 else if(item.status == 'F'){
@@ -1858,8 +1913,13 @@
                                     + "<td>" + item.cuskey + "</td>"
                                     + "<td>" + item.owner + "</td>"
                                     + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                                    + "<td>" + item.name + "</td>"
-                                    + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                                    if(item.name == null || item.name == '' || item.name == 'null'){
+                                        rows += "<td></td>"
+                                    }
+                                    else{
+                                        rows += "<td>" + item.name + "</td>"
+                                    }
+                                    rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                     + "<td>" + item.reason + "</td>"
                                     if(item.work_type == '維修'){
                                         rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -1915,8 +1975,13 @@
                                     + "<td>" + item.cuskey + "</td>"
                                     + "<td>" + item.owner + "</td>"
                                     + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
-                                    + "<td>" + item.name + "</td>"
-                                    + "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                                    if(item.name == null || item.name == '' || item.name == 'null'){
+                                        rows += "<td></td>"
+                                    }
+                                    else{
+                                        rows += "<td>" + item.name + "</td>"
+                                    }
+                                    rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                     + "<td>" + item.reason + "</td>"
                                     if(item.work_type == '維修'){
                                         rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -2107,8 +2172,13 @@
                                   + "<td>" + item.CUSTKEY + "</td>"
                                   + "<td>" + item.owner + "</td>"
                                   + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                                  + "<td>" + item.name + "</td>"
-                                  + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                                  if(item.name == null || item.name == '' || item.name == 'null'){
+                                    rows += "<td></td>"
+                                }
+                                else{
+                                    rows += "<td>" + item.name + "</td>"
+                                }
+                                rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                   + "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -2155,8 +2225,13 @@
                                   + "<td>" + item.CUSTKEY + "</td>"
                                   + "<td>" + item.owner + "</td>"
                                   + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                                  + "<td>" + item.name + "</td>"
-                                  + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                                  if(item.name == null || item.name == '' || item.name == 'null'){
+                                    rows += "<td></td>"
+                                }
+                                else{
+                                    rows += "<td>" + item.name + "</td>"
+                                }
+                                rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                   + "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -2384,8 +2459,13 @@
                                   + "<td>" + item.CUSTKEY + "</td>"
                                   + "<td>" + item.owner + "</td>"
                                   + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                                  + "<td>" + item.name + "</td>"
-                                  + "<td><a href='tel:"+item.mobile+"'>" + item.mobile + "</a></td>"
+                                  if(item.name == null || item.name == '' || item.name == 'null'){
+                                    rows += "<td></td>"
+                                }
+                                else{
+                                    rows += "<td>" + item.name + "</td>"
+                                }
+                                rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                   + "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"

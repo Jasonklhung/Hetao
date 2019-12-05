@@ -402,6 +402,10 @@ small {
     opacity: 0.5;
 }
 
+.past+.child {
+    opacity: 0.5;
+}
+
 .tab-pane table {
     width: 100%;
     word-break: keep-all;

@@ -1805,3 +1805,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child, table.
 {
     display: none;
 }
+
+/*主管已指派日期不斷行*/#hetao-list-su-2.supervisor tr td:nth-child(3) {
+    white-space: nowrap;
+}

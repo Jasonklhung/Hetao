@@ -226,8 +226,8 @@ ul {
 	color: #ffffff;
 }
 .sidebar .nav>a[data-toggle="collapse"] .icon-submenu {
-	display: inline-block;
-	vertical-align: middle;
+	display: block;
+	/* vertical-align: middle; */
 	-webkit-transition: all 0.2s ease-out;
 	-moz-transition: all 0.2s ease-out;
 	-ms-transition: all 0.2s ease-out;

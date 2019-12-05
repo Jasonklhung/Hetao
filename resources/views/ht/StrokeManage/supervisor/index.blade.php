@@ -190,7 +190,11 @@
                                                                     <td>{{ $data->cuskey }}</td>
                                                                     <td>{{ $data->owner }}</td>
                                                                     <td><a href="https://www.google.com.tw/maps/place/{{ $data->address }}" target="_blank">{{ $data->address }}</a></td>
+                                                                    @if($data->name == 'null' || $data->name == '' $data->name == null)
+                                                                    <td> </td>
+                                                                    @else
                                                                     <td>{{ $data->name }}</td>
+                                                                    @endif
                                                                     <td><a href="tel:{{ $data->mobile }}">{{ $data->mobile }}</a></td>
                                                                     <td>{{ $data->reason }}</td>
 

@@ -188,7 +188,7 @@
                                                                     <td>{{ $data->cuskey }}</td>
                                                                     <td>{{ $data->owner }}</td>
                                                                     <td><a href="https://www.google.com.tw/maps/place/{{ $data->address }}" target="_blank">{{ $data->address }}</a></td>
-                                                                    @if($data->name == 'null' || $data->name == '' $data->name == null)
+                                                                    @if($data->name == 'null' || $data->name == '' || $data->name == null)
                                                                     <td> </td>
                                                                     @else
                                                                     <td>{{ $data->name }}</td>

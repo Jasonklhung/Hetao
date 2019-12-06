@@ -126,7 +126,7 @@
                                                     @endif
                                                         <div class='coupon'>
                                                             <form class='form-inline'>
-                                                                <input type="text" id="text-search__container" class="form-control mr-s searchInput searchInput_su2" placeholder="請輸入關鍵字">
+                                                                <input type="search" id="text-search__container" class="form-control mr-s searchInput searchInput_su2" placeholder="請輸入關鍵字">
                                                                 <div class="form-group mr-s">
                                                                     <select class="form-control" id="searchStatus">
                                                                         <option value="notselect">所有狀態</option>

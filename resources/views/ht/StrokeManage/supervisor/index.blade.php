@@ -408,7 +408,6 @@
         },
     });
     $("#text-search__container").on("keyup", function() {
-        alert('text' + this.value)
         table_su2.search(this.value).draw();
     });
 

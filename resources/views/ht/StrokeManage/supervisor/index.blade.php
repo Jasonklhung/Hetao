@@ -407,7 +407,7 @@
             }
         },
     });
-    $("#text-search__container").on("keyup", function() {
+    $("#text-search__container").on("blur", function() {
         table_su2.search(this.value).draw();
         
     });

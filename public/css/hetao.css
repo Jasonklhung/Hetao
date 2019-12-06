@@ -1661,9 +1661,9 @@ input[class^=follow]:checked+.followanswer:before {
 }
 
 /*20191031 表格搜尋列設定*/
-.dataTables_filter {
+/* .dataTables_filter {
     display: none;
-}
+} */
 .coupon {
     margin: 20px 0;
 }

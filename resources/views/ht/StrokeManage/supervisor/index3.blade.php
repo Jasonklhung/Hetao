@@ -698,7 +698,7 @@
                         else{
                             rows += "<tr>"
                             + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
-                            + "<option value="" selected disabled>已完成</option>"
+                            + "<option value='' selected disabled>已完成</option>"
                             rows += "</select></td>"
                             + "<td>" + item.case_id + "</td>"
                             + "<td>" + item.time + "</td>"
@@ -1962,7 +1962,7 @@
                                 else{
                                     rows += "<tr>"
                                     + "<td><select class='form-control' name='assign2' style='margin-right:28px;'>";
-                                    + "<option value="" selected disabled>已完成</option>"
+                                    + "<option value='' selected disabled>已完成</option>"
                                     rows += "</select></td>"
                                     + "<td>" + item.case_id + "</td>"
                                     + "<td>" + item.time + "</td>"

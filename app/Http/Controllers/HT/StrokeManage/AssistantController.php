@@ -340,7 +340,7 @@ class AssistantController extends Controller
 
         $response = $response->getBody()->getContents();
 
-        return redirect()->route('ht.StrokeManage.assistant.index',['tab'=>'case'],compact('organization'))->with('success','編輯成功');
+        return redirect()->route('ht.StrokeManage.assistant.index',compact('organization'))->with('success','編輯成功');
     }
 
     public function show(Organization $organization,$id)

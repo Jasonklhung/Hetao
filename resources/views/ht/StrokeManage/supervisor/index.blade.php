@@ -406,9 +406,11 @@
                 "target": ''
             }
         },
+        "search": {"regex": true}
     });
     $("#text-search__container").on("keyup", function() {
         table_su2.search(this.value).draw();
+        
     });
 
 

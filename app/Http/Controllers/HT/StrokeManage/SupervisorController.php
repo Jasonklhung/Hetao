@@ -18,7 +18,9 @@ class SupervisorController extends Controller
 {
     public function index(Organization $organization)
     {
-    	$supervisor = SupervisorCase::where('user_id',Auth::user()->id)->whereIn('status',['','null'])->get();
+    	//$supervisor = SupervisorCase::where('user_id',Auth::user()->id)->whereIn('status',['','null'])->get();
+
+        $supervisor = SupervisorCase::where('user_id',Auth::user()->id)->where('status','')->orWhere('status','null')->get();
 
         $assign = User::where('organization_id',Auth::user()->organization_id)->get();
 

@@ -408,9 +408,7 @@
         },
     });
     $("#text-search__container").on("keyup", function() {
-        var su2val = $("#text-search__container").val();
-        // table_su2.search(this.value).draw();
-        $('#hetao-list-su-2_filter input').val(su2val);
+        table_su2.search(this.value).draw();
     });
 
 

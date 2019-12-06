@@ -18,7 +18,9 @@ class OverviewController extends Controller
 {
     public function index(Organization $organization)
     {
+
         $job = Auth::user()->job;
+
         if($job == '員工'){
             $client = new \GuzzleHttp\Client();
             $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
@@ -77,10 +79,11 @@ class OverviewController extends Controller
             }
 
             $caseCount = count($countArray);
-
-            $company = Organization::all();
-            $user = User::where('organization_id',Auth::user()->organization_id)->where('job','主管')->get();
         }
+        
+        $user = User::where('organization_id',Auth::user()->organization_id)->where('job','主管')->get();
+
+        $company = Organization::all();
 
         return view('ht.Overview.index',compact('organization','caseCount','company','user'));
     }

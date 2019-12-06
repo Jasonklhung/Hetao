@@ -407,11 +407,10 @@
             }
         },
     });
-
-    $('#text-search__container').on("keyup", function() {
-        var table_su2Value = $('#text-search__container').val();
-        var table_su2regExSearch = '^\\s' + table_su2Value +'\\s*$';
-        table_su2.search(table_su2regExSearch, true, false).draw();
+    $("#text-search__container").on("keyup", function() {
+        var su2val = $("#text-search__container").val();
+        // table_su2.search(this.value).draw();
+        $('#hetao-list-su-2_filter input').val(su2val);
     });
 
 

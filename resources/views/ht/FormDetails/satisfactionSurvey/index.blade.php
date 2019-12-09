@@ -53,7 +53,7 @@
                                                         <table class="table table-hover dt-responsive table-striped" id="hetao-list-ab">
                                                             <thead class="rwdhide">
                                                                 <tr>
-                                                                    <th class="desktop">工單id</th>
+                                                                    <th class="desktop">工單編號</th>
                                                                     <th class="desktop">姓名</th>
                                                                     <th class="desktop">客戶代碼</th>
                                                                     <th class="desktop">填寫時間</th>
@@ -144,8 +144,8 @@
         var end = $('#endDate4').val()
 
         var date = new Date(end);
-        var end = date.setTime(date.getTime()+24*60*60*1000);
-        var resEnd = date.getFullYear()+"-" + ('0' + (date.getMonth()+1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2)
+        //var end = date.setTime(date.getTime()+24*60*60*1000);
+        //var resEnd = date.getFullYear()+"-" + ('0' + (date.getMonth()+1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2)
 
         $.ajax({
             method:'post',
@@ -153,7 +153,7 @@
             data:{
                 '_token':'{{csrf_token()}}',
                 'start':start,
-                'end':resEnd,
+                'end':end,
             },
             dataType:'json',
             success:function(res){

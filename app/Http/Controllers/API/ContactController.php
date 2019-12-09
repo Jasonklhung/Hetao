@@ -25,7 +25,33 @@ class ContactController extends Controller
              $form[$key] = $value;
         }
 
+        $date = Carbon::now()->format('Y-m-d');
+        $caseDate = explode('-',$date)[0].explode('-',$date)[1].explode('-',$date)[2];
+        $case = ContactAnswer::all();
+
+        if($case->isNotEmpty()){
+            foreach ($case as $key => $value) {
+                $cDate = explode(' ', $value->created_at)[0];
+
+                if($cDate == $date){
+                    $all = ContactAnswer::whereDate('created_at',$date)->get();
+                    $count = count($all)+1;
+                    $count=str_pad($count,4,0,STR_PAD_LEFT); 
+                    $number = $caseDate.$count;
+                }
+                else{
+                    $number = $caseDate.'0001';
+                }
+            }
+        }
+        else{
+
+            $caseDate = explode('-',$date)[0].explode('-',$date)[1].explode('-',$date)[2];
+            $number = $caseDate.'0001';
+        }
+
     	$res = new ContactAnswer;
+        $res->number = $number;
     	$res->form = json_encode($form);
     	$res->save();   
 

@@ -53,6 +53,7 @@
                                                         <table class="table table-hover dt-responsive table-striped" id="hetao-list-ab">
                                                             <thead class="rwdhide">
                                                                 <tr>
+                                                                    <th class="desktop">預約編號</th>
                                                                     <th class="desktop">預約日期</th>
                                                                     <th class="desktop">查看</th>
                                                                 </tr>
@@ -64,6 +65,7 @@
                                                                 @else
                                                                 <tr class="watch">
                                                                 @endif
+                                                                    <td>{{ $data->number }}</td>
                                                                     <td>{{ $data->created_at }}</td>
                                                                     <td><button type='button' class='btn status' onclick="javascript:location.href='{{ route('ht.FormDetails.ContactUs.show',['organization'=>$organization,'id'=>base64_encode($data->id)]) }}'">查看</button></td>
                                                                 </tr>
@@ -138,8 +140,8 @@
         var end = $('#endDate4').val()
 
         var date = new Date(end);
-        var end = date.setTime(date.getTime()+24*60*60*1000);
-        var resEnd = date.getFullYear()+"-" + ('0' + (date.getMonth()+1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2)
+        //var end = date.setTime(date.getTime()+24*60*60*1000);
+        //var resEnd = date.getFullYear()+"-" + ('0' + (date.getMonth()+1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2)
 
         $.ajax({
             method:'post',
@@ -147,7 +149,7 @@
             data:{
                 '_token':'{{csrf_token()}}',
                 'start':start,
-                'end':resEnd,
+                'end':end,
             },
             dataType:'json',
             success:function(res){
@@ -163,7 +165,13 @@
 
                     $.each(res, function (i, item) {
 
-                        rows += "<tr class='watch'>"
+                        if(item.views == 'Y'){
+                            rows += "<tr class='past'>"
+                        }
+                        else{
+                            rows += "<tr class='watch'>"
+                        }
+                        rows += "<td>" + item.number + "</td>"
                         + "<td>" + item.created_at + "</td>"
                         + "<td><button type='button' class='btn status' onclick='javascript:location.href='{{ route('ht.FormDetails.ContactUs.show',['organization'=>$organization,'id'=>base64_encode("+item.id+")]) }}''>查看</button></td>"
                         + "</tr>";                

@@ -242,6 +242,7 @@
                                                         <table class="table table-hover dt-responsive table-striped assistant" id="hetao-list-s-2">
                                                             <thead class="rwdhide">
                                                                 <tr>
+                                                                    <th class="desktop">工單狀態</th>
                                                                     <th class="desktop">工單編號</th>
                                                                     <th class="desktop">工單日期</th>
                                                                     <th class="desktop">客戶代碼</th>
@@ -253,7 +254,6 @@
                                                                     <th class="desktop">派工類型</th>
                                                                     <th hidden="">統編</th>
                                                                     <th hidden="">status</th>
-                                                                    <th class="desktop">工單狀態</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -645,6 +645,7 @@
                     if(item.status == '' || item.status == null){
 
                         rows += "<tr>"
+                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                               + "<td>" + item.id + "</td>"
                               + "<td>" + item.time + "</td>"
                               + "<td>" + item.CUSTKEY + "</td>"
@@ -693,11 +694,11 @@
                             }
                               rows += `<td hidden> ${itemtt}</td>`
                               + "<td hidden></td>"
-                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                          + "</tr>";
                     }
                     else if(item.status == 'F'){
                         rows += "<tr>"
+                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                               + "<td>" + item.id + "</td>"
                               + "<td>" + item.time + "</td>"
                               + "<td>" + item.CUSTKEY + "</td>"
@@ -746,7 +747,6 @@
                             }
                               rows += `<td hidden> ${itemtt}</td>`
                               + "<td hidden>" + item.status + "</td>"
-                              + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                          + "</tr>";
                     }
                     
@@ -797,10 +797,10 @@
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].textContent 
+                        var id = $(this).parents('tr').children('td')[1].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
+                        var id = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
                     }
 
                     $.ajax({
@@ -830,10 +830,10 @@
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].textContent 
+                        var id = $(this).parents('tr').children('td')[1].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
+                        var id = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
                     }
 
                     $.ajax({
@@ -863,10 +863,10 @@
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].textContent 
+                        var id = $(this).parents('tr').children('td')[1].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
+                        var id = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
                     }
                     // var time = $(this).parents('tr').children('td')[1].textContent 
                     // var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 
@@ -1397,6 +1397,7 @@
                         if(item.status == '' || item.status == null){
 
                             rows += "<tr>"
+                                  + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                                   + "<td>" + item.id + "</td>"
                                   + "<td>" + item.time + "</td>"
                                   + "<td>" + item.CUSTKEY + "</td>"
@@ -1445,11 +1446,11 @@
                                 }
                                   rows += `<td hidden> ${itemtt}</td>`
                                   + "<td hidden></td>"
-                                  + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                              + "</tr>";
                         }
                         else if(item.status == 'F'){
                             rows += "<tr>"
+                                  + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                                   + "<td>" + item.id + "</td>"
                                   + "<td>" + item.time + "</td>"
                                   + "<td>" + item.CUSTKEY + "</td>"
@@ -1498,7 +1499,6 @@
                                 }
                                   rows += `<td hidden> ${itemtt}</td>`
                                   + "<td hidden>" + item.status + "</td>"
-                                  + "<td><button type='button' class='btn status transfer'>轉單</button><button type='button' class='btn status btn-primary late'>延後</button><button type='button' class='btn status finish'>完成</button></td>"
                              + "</tr>";
                         }
                     }
@@ -1549,10 +1549,10 @@
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].textContent 
+                        var id = $(this).parents('tr').children('td')[1].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
+                        var id = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
                     }
 
                     $.ajax({
@@ -1582,10 +1582,10 @@
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].textContent 
+                        var id = $(this).parents('tr').children('td')[1].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
+                        var id = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
                     }
 
                     $.ajax({
@@ -1615,10 +1615,10 @@
                     var RWD = $(this).parents('table').parents('tr').find('.child').length;
 
                     if(RWD == 0){
-                        var id = $(this).parents('tr').children('td')[0].textContent 
+                        var id = $(this).parents('tr').children('td')[1].textContent 
                     }
                     else if(RWD == 1){
-                        var id = $(this).closest('tbody').find("tr:eq(0)").children("td")[1].textContent;
+                        var id = $(this).closest('tbody').find("tr:eq(1)").children("td")[1].textContent;
                     }
                     // var time = $(this).parents('tr').children('td')[1].textContent 
                     // var CUSTKEY = $(this).parents('tr').children('td')[2].textContent 

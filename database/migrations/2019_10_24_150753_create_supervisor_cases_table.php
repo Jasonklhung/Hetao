@@ -15,7 +15,7 @@ class CreateSupervisorCasesTable extends Migration
     {
         Schema::create('supervisor_cases', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->comment('主管userId');
+            $table->bigInteger('organization_id')->comment('組織id');
             $table->string('case_id')->comment('工單編號');
             $table->string('cuskey')->comment('客戶代碼');
             $table->string('mobile')->comment('手機號碼');

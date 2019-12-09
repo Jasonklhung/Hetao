@@ -455,6 +455,38 @@ class AssistantController extends Controller
 
         $dept_name = $dept_name[0]['name'];
 
+        $supervisor = SupervisorCase::where('case_id',$request->id)->get();
+        if($supervisor->isNotEmpty()){
+            $supervisor = SupervisorCase::find($supervisor[0]['id']);
+            $supervisor->organization_id = Auth::user()->organization_id;
+            $supervisor->case_id = $request->id;
+            $supervisor->cuskey = $request->name;
+            $supervisor->mobile = $request->mobile;
+            $supervisor->GUI_number = $request->GUI_number;
+            $supervisor->address = $request->address;
+            $supervisor->name = $request->case_name;
+            $supervisor->reason = $request->reason;
+            $supervisor->work_type = $request->work_type;
+            $supervisor->time = $request->time;
+            $supervisor->owner = $dept[0]['name'];
+            $supervisor->status = '';
+            $supervisor->save();
+        }else{
+            $supervisor = new SupervisorCase;
+            $supervisor->organization_id = Auth::user()->organization_id;
+            $supervisor->case_id = $request->id;
+            $supervisor->cuskey = $request->name;
+            $supervisor->mobile = $request->mobile;
+            $supervisor->GUI_number = $request->GUI_number;
+            $supervisor->name = $request->case_name;
+            $supervisor->address = $request->address;
+            $supervisor->reason = $request->reason;
+            $supervisor->work_type = $request->work_type;
+            $supervisor->time = $request->time;
+            $supervisor->owner = $dept[0]['name'];
+            $supervisor->status = '';
+            $supervisor->save();
+        }
         
         $case = TransferCase::where('case_id',$request->id)->get();
 

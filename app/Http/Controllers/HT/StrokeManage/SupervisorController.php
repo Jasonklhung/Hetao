@@ -18,7 +18,7 @@ class SupervisorController extends Controller
 {
     public function index(Organization $organization)
     {
-    	$supervisor = SupervisorCase::where('user_id',Auth::user()->id)->whereIn('status',['','null'])->get();
+    	$supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->whereIn('status',['','null'])->get();
 
         //$supervisor = SupervisorCase::where('user_id',Auth::user()->id)->where('status','')->orWhere('status','null')->get();
 
@@ -90,7 +90,7 @@ class SupervisorController extends Controller
 
     public function index3(Organization $organization)
     {
-        $supervisor = SupervisorCase::where('user_id',Auth::user()->id)->get();
+        $supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->whereIn('status',['','null'])->get();
 
         $assign = User::where('organization_id',Auth::user()->organization_id)->get();
 
@@ -180,7 +180,7 @@ class SupervisorController extends Controller
         $supervisor = SupervisorCase::where('case_id',$request->id)->get();
         if($supervisor->isNotEmpty()){
             $supervisor = SupervisorCase::find($supervisor[0]['id']);
-            $supervisor->user_id = Auth::user()->id;
+            $supervisor->organization_id = Auth::user()->organization_id;
             $supervisor->case_id = $request->id;
             $supervisor->cuskey = $request->name;
             $supervisor->mobile = $request->mobile;
@@ -195,7 +195,7 @@ class SupervisorController extends Controller
             $supervisor->save();
         }else{
             $supervisor = new SupervisorCase;
-            $supervisor->user_id = Auth::user()->id;
+            $supervisor->organization_id = Auth::user()->organization_id;
             $supervisor->case_id = $request->id;
             $supervisor->cuskey = $request->name;
             $supervisor->mobile = $request->mobile;
@@ -339,7 +339,7 @@ class SupervisorController extends Controller
     {
         $end = date("Y-m-d",strtotime("+1 day",strtotime($request->end)));
 
-        $supervisor = SupervisorCase::where('user_id',Auth::user()->id)->whereBetween('time',[$request->start,$end])->get();
+        $supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->whereBetween('time',[$request->start,$end])->get();
 
         return $supervisor;
     }
@@ -349,13 +349,13 @@ class SupervisorController extends Controller
         $status = $request->status;
 
         if($status == 'null'){
-            $super = SupervisorCase::where('user_id',Auth::user()->id)->where('status',$status)->orWhere('status','')->get();
+            $super = SupervisorCase::where('organization_id',Auth::user()->organization_id)->where('status',$status)->orWhere('status','')->get();
         }
         elseif($status == 'notselect'){
-            $super = SupervisorCase::where('user_id',Auth::user()->id)->get();
+            $super = SupervisorCase::where('organization_id',Auth::user()->organization_id)->get();
         }
         else{
-            $super = SupervisorCase::where('user_id',Auth::user()->id)->where('status',$status)->get();
+            $super = SupervisorCase::where('organization_id',Auth::user()->organization_id)->where('status',$status)->get();
         }
 
         $assign = User::where('organization_id',Auth::user()->organization_id)->get();
@@ -366,7 +366,7 @@ class SupervisorController extends Controller
     public function searchAssign(Organization $organization,Request $request)
     {
 
-        $super = SupervisorCase::where('user_id',Auth::user()->id)->whereBetween('time',[$request->start,$request->end])->get();
+        $super = SupervisorCase::where('organization_id',Auth::user()->organization_id)->whereBetween('time',[$request->start,$request->end])->get();
 
         return $super;
     }

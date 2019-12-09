@@ -1791,9 +1791,10 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child, table.
 
 /*隱藏table的"統編"及"status"*/
 /*助理線上預約*/#hetao-list-a-2.assistant .child tr:nth-child(11), 
+/*助理線上預約*/#hetao-list-a-2.assistant .child tr:nth-child(12), 
 /*助理派工單*/#hetao-list-s-2.assistant .child tr:nth-child(10),  
 /*助理行程回報*/#hetao-list-s-2.assistant .child tr:nth-child(11), 
-/*助理已完成*/#hetao-list-ss-2.assistant .child tr:nth-child(9),
+/*助理已完成*/#hetao-list-ss-2.assistant .child tr:nth-child(10),
 
 /*主管待指派*/#hetao-list-su.supervisor .child tr:nth-child(11),
 /*主管已完成*/#hetao-list-su.supervisor .child tr:nth-child(12),

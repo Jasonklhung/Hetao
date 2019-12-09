@@ -61,6 +61,7 @@ class CrontabController extends Controller
                                     'mobile' => $v->mobile,
                                     'cust' => $v->name,
                                     'phone' => $DEPT[0]->phone,
+                                    'case_id' => $v->id,
                                 ])
                              ]);
                           }
@@ -117,6 +118,7 @@ class CrontabController extends Controller
                                     'mobile' => $v->mobile,
                                     'cust' => $v->name,
                                     'phone' => $DEPT[0]->phone,
+                                    'case_id' => $v->id,
                                 ])
                              ]);
                             }

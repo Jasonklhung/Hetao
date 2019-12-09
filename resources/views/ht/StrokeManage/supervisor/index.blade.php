@@ -411,9 +411,9 @@
     // $("#text-search__container").on("keyup", function() {
     //     table_su2.search(this.value).draw();
     // });
-    var su2v = $('#text-search__container')
+    var su2v = $('#text-search__container').val()
     $('.searchbtn').on('click', function(){
-        table_su2.search(su2v.value).draw();
+        table_su2.search(su2v).draw();
     });
 
 

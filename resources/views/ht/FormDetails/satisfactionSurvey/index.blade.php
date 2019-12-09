@@ -181,7 +181,7 @@
                         + "<td>" + item.cuskey +"</td>"
                         + "<td>" + item.created_at +"</td>"
                         + "<td>" + item.owner +"</td>"
-                        + "<td><button type='button' class='btn status' onclick='javascript:location.href='{{ route('ht.FormDetails.satisfactionSurvey.show',['organization'=>$organization,'id'=>base64_encode("+item.id+")]) }}''>查看</button></td>"
+                        + "<td><button type='button' class='btn status' href='Javascript:void(0);' onclick='goDetail("+item.id+")'>查看</button></td>"
                         + "</tr>";                
                     });
                     $('#hetao-list-ab tbody').append(rows);
@@ -228,6 +228,14 @@
             }
         })
     })
+</script>
+<script type="text/javascript">
+    function goDetail(id)
+    {
+        var baseId = btoa(id)
+
+        window.location = 'show/'+baseId+''
+    }
 </script>
 <script type="text/javascript">
     $("#SD4").on("dp.change", function (e) {

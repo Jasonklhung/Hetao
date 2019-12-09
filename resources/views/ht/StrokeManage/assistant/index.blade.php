@@ -1073,7 +1073,7 @@
                         + "<td>" + item.name + "</td>"
                         + "<td>" + item.cuskey + "</td>"
                         + "<td>" + item.created_at + "</td>"
-                        + "<td><button type='button' class='btn status' onclick='javascript:location.href='{{ route('ht.StrokeManage.assistant.show',['organization'=>$organization,'id'=>base64_encode("+item.id+")]) }}''>查看</button></td>"
+                        + "<td><button type='button' class='btn status' href='Javascript:void(0);' onclick='goDetail("+item.id+")'>查看</button></td>"
                         + "</tr>";                
                     });
                     $('#hetao-list-a tbody').append(rows);
@@ -1882,6 +1882,14 @@
             }
         }
     })
+</script>
+<script type="text/javascript">
+    function goDetail(id)
+    {
+        var baseId = btoa(id)
+
+        window.location = 'show/'+baseId+''
+    }
 </script>
 <script type="text/javascript">
     $("#SD1").on("dp.change", function (e) {

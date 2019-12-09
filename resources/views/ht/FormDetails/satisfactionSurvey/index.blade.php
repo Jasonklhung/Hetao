@@ -57,6 +57,7 @@
                                                                     <th class="desktop">姓名</th>
                                                                     <th class="desktop">客戶代碼</th>
                                                                     <th class="desktop">填寫時間</th>
+                                                                    <th class="desktop">負責員工</th>
                                                                     <th class="desktop">查看</th>
                                                                 </tr>
                                                             </thead>
@@ -71,6 +72,7 @@
                                                                     <td>{{ $data->name }}</td>
                                                                     <td>{{ $data->cuskey }}</td>
                                                                     <td>{{ $data->created_at }}</td>
+                                                                    <td>{{ $data->owner }}</td>
                                                                     <td><button type='button' class='btn status' onclick="javascript:location.href='{{ route('ht.FormDetails.satisfactionSurvey.show',['organization'=>$organization,'id'=>base64_encode($data->id)]) }}'">查看</button></td>
                                                                 </tr>
                                                                 @endforeach
@@ -105,7 +107,7 @@
             "search": "",
             "searchPlaceholder": "請輸入關鍵字",
             "paginate": { "previous": "上一頁", "next": "下一頁" },
-            "emptyTable":     "目前無與我聯繫表單",
+            "emptyTable":     "目前無滿意度調查表單",
             "zeroRecords":    "沒有符合的搜尋結果",
         },
         "dom": "Bfrtip",
@@ -113,7 +115,7 @@
             "extend": 'colvis',
             "collectionLayout": 'fixed two-column'
         }],
-        "order": [[ 2, "desc" ]],
+        "order": [[ 3, "desc" ]],
         "columnDefs": [{
             "targets": [0],
             "orderable": false,
@@ -168,11 +170,17 @@
                     $('#hetao-list-ab tbody').empty();
 
                     $.each(res, function (i, item) {
-                        rows += "<tr class='watch'>"
-                        + "<td>" + item.case_id + "</td>"
+                        if(item.views == 'Y'){
+                            rows += "<tr class='watch'>"
+                        }
+                        else{
+                            rows += "<tr class='past'>"
+                        }
+                        rows += "<td>" + item.case_id + "</td>"
                         + "<td>" + item.name + "</td>"
                         + "<td>" + item.cuskey +"</td>"
                         + "<td>" + item.created_at +"</td>"
+                        + "<td>" + item.owner +"</td>"
                         + "<td><button type='button' class='btn status' onclick='javascript:location.href='{{ route('ht.FormDetails.satisfactionSurvey.show',['organization'=>$organization,'id'=>base64_encode("+item.id+")]) }}''>查看</button></td>"
                         + "</tr>";                
                     });

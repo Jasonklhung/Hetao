@@ -76,7 +76,7 @@ class satisfactionSurveyController extends Controller
         }
 
         $satisfaction = DB::table('satisfaction_answers')
-                        ->select('satisfaction_answers.id','satisfaction_answers.case_id','satisfaction_answers.views','accounts.cuskey','accounts.name','satisfaction_answers.created_at')
+                        ->select('satisfaction_answers.id','satisfaction_answers.case_id','satisfaction_answers.owner','satisfaction_answers.views','accounts.cuskey','accounts.name','satisfaction_answers.created_at')
                         ->leftjoin('accounts','satisfaction_answers.account_id','=','accounts.id')
                         ->where('satisfaction_answers.department_id',Auth::user()->department_id)
                         ->get();
@@ -132,7 +132,7 @@ class satisfactionSurveyController extends Controller
         $end = date("Y-m-d",strtotime("+1 day",strtotime($request->end)));
 
         $data = DB::table('satisfaction_answers')
-                        ->select('satisfaction_answers.id','satisfaction_answers.case_id','accounts.cuskey','accounts.name','satisfaction_answers.created_at')
+                        ->select('satisfaction_answers.id','satisfaction_answers.case_id','satisfaction_answers.owner','accounts.cuskey','accounts.name','satisfaction_answers.created_at')
                         ->leftjoin('accounts','satisfaction_answers.account_id','=','accounts.id')
                         ->where('satisfaction_answers.department_id',Auth::user()->department_id)
                         ->whereBetween('satisfaction_answers.created_at',[$request->start,$end])

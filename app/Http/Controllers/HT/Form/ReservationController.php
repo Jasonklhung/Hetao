@@ -39,7 +39,7 @@ class ReservationController extends Controller
                     $array = $value;
 
                     foreach ($array as $k => $v) {
-                        if($v->status == null || $v->owner == '' || $v->owner == 'F'){
+                        if($v->status == null || $v->status == '' || $v->status == 'F'){
                             array_push($countArray,$v);
                         }
                     }
@@ -68,7 +68,7 @@ class ReservationController extends Controller
                     $array = $value;
 
                     foreach ($array as $k => $v) {
-                        if($v->owner == null || $v->owner == ''){
+                        if($v->owner == null || $v->owner == '' || $v->status == 'R'){
                             array_push($countArray,$v);
                         }
                     }

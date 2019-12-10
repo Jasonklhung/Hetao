@@ -52,7 +52,7 @@ class AssistantController extends Controller
                     $array = $value;
 
                     foreach ($array as $k => $v) {
-                        if($v->status == null || $v->owner == '' || $v->owner == 'F'){
+                        if($v->status == null || $v->status == '' || $v->status == 'F'){
                             array_push($countArray,$v);
                         }
                     }
@@ -81,7 +81,7 @@ class AssistantController extends Controller
                     $array = $value;
 
                     foreach ($array as $k => $v) {
-                        if($v->owner == null || $v->owner == ''){
+                        if($v->owner == null || $v->owner == '' || $v->status == 'R'){
                             array_push($countArray,$v);
                         }
                     }
@@ -104,34 +104,66 @@ class AssistantController extends Controller
 
         $contact = ContactAnswer::all();
 
-        $client = new \GuzzleHttp\Client();
-        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
-            'headers' => ['Content-Type' => 'application/json'],
-            'body' => json_encode([
+        $job = Auth::user()->job;
+        if($job == '員工'){
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
+                'headers' => ['Content-Type' => 'application/json'],
+                'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
                 'DEPT' => Auth::user()->department->name//Auth::user()->department->name
             ])
-        ]);
+            ]);
 
-        $response = $response->getBody()->getContents();
+            $response = $response->getBody()->getContents();
 
-        $data = json_decode($response);
+            $data = json_decode($response);
 
-        $countArray = array();
+            $countArray = array();
 
-        foreach ($data as $key => $value) {
-            if($key == 'data'){
-                $array = $value;
+            foreach ($data as $key => $value) {
+                if($key == 'data'){
+                    $array = $value;
 
-                foreach ($array as $k => $v) {
-                    if($v->owner == null || $v->owner == ''){
-                        array_push($countArray,$v);
+                    foreach ($array as $k => $v) {
+                        if($v->status == null || $v->status == '' || $v->status == 'F'){
+                            array_push($countArray,$v);
+                        }
                     }
                 }
             }
-        }
 
-        $caseCount = count($countArray);
+            $caseCount = count($countArray);
+        }else{
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+                'headers' => ['Content-Type' => 'application/json'],
+                'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+            ])
+            ]);
+
+            $response = $response->getBody()->getContents();
+
+            $data = json_decode($response);
+
+            $countArray = array();
+
+            foreach ($data as $key => $value) {
+                if($key == 'data'){
+                    $array = $value;
+
+                    foreach ($array as $k => $v) {
+                        if($v->owner == null || $v->owner == '' || $v->status == 'R'){
+                            array_push($countArray,$v);
+                        }
+                    }
+                }
+            }
+
+            $caseCount = count($countArray);
+        }
 
         return view('ht.StrokeManage.assistant.index2',compact('organization','reservation','contact','caseCount'));
     }
@@ -146,68 +178,132 @@ class AssistantController extends Controller
 
         $contact = ContactAnswer::all();
 
-        $client = new \GuzzleHttp\Client();
-        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
-            'headers' => ['Content-Type' => 'application/json'],
-            'body' => json_encode([
+        $job = Auth::user()->job;
+        if($job == '員工'){
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
+                'headers' => ['Content-Type' => 'application/json'],
+                'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
                 'DEPT' => Auth::user()->department->name//Auth::user()->department->name
             ])
-        ]);
+            ]);
 
-        $response = $response->getBody()->getContents();
+            $response = $response->getBody()->getContents();
 
-        $data = json_decode($response);
+            $data = json_decode($response);
 
-        $countArray = array();
+            $countArray = array();
 
-        foreach ($data as $key => $value) {
-            if($key == 'data'){
-                $array = $value;
+            foreach ($data as $key => $value) {
+                if($key == 'data'){
+                    $array = $value;
 
-                foreach ($array as $k => $v) {
-                    if($v->owner == null || $v->owner == ''){
-                        array_push($countArray,$v);
+                    foreach ($array as $k => $v) {
+                        if($v->status == null || $v->status == '' || $v->status == 'F'){
+                            array_push($countArray,$v);
+                        }
                     }
                 }
             }
-        }
 
-        $caseCount = count($countArray);
+            $caseCount = count($countArray);
+        }else{
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+                'headers' => ['Content-Type' => 'application/json'],
+                'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+            ])
+            ]);
+
+            $response = $response->getBody()->getContents();
+
+            $data = json_decode($response);
+
+            $countArray = array();
+
+            foreach ($data as $key => $value) {
+                if($key == 'data'){
+                    $array = $value;
+
+                    foreach ($array as $k => $v) {
+                        if($v->owner == null || $v->owner == '' || $v->status == 'R'){
+                            array_push($countArray,$v);
+                        }
+                    }
+                }
+            }
+
+            $caseCount = count($countArray);
+        }
 
         return view('ht.StrokeManage.assistant.index3',compact('organization','reservation','contact','caseCount'));
     }
 
     public function create(Organization $organization)
     {
-        $client = new \GuzzleHttp\Client();
-        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
-            'headers' => ['Content-Type' => 'application/json'],
-            'body' => json_encode([
+        $job = Auth::user()->job;
+        if($job == '員工'){
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
+                'headers' => ['Content-Type' => 'application/json'],
+                'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
                 'DEPT' => Auth::user()->department->name//Auth::user()->department->name
             ])
-        ]);
+            ]);
 
-        $response = $response->getBody()->getContents();
+            $response = $response->getBody()->getContents();
 
-        $data = json_decode($response);
+            $data = json_decode($response);
 
-        $countArray = array();
+            $countArray = array();
 
-        foreach ($data as $key => $value) {
-            if($key == 'data'){
-                $array = $value;
+            foreach ($data as $key => $value) {
+                if($key == 'data'){
+                    $array = $value;
 
-                foreach ($array as $k => $v) {
-                    if($v->owner == null || $v->owner == ''){
-                        array_push($countArray,$v);
+                    foreach ($array as $k => $v) {
+                        if($v->status == null || $v->status == '' || $v->status == 'F'){
+                            array_push($countArray,$v);
+                        }
                     }
                 }
             }
-        }
 
-        $caseCount = count($countArray);
+            $caseCount = count($countArray);
+        }else{
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+                'headers' => ['Content-Type' => 'application/json'],
+                'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+            ])
+            ]);
+
+            $response = $response->getBody()->getContents();
+
+            $data = json_decode($response);
+
+            $countArray = array();
+
+            foreach ($data as $key => $value) {
+                if($key == 'data'){
+                    $array = $value;
+
+                    foreach ($array as $k => $v) {
+                        if($v->owner == null || $v->owner == '' || $v->status == 'R'){
+                            array_push($countArray,$v);
+                        }
+                    }
+                }
+            }
+
+            $caseCount = count($countArray);
+        }
 
     	return view('ht.StrokeManage.assistant.create',compact('organization','caseCount'));
     }
@@ -286,34 +382,66 @@ class AssistantController extends Controller
             }
         }
 
-        $client = new \GuzzleHttp\Client();
-        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
-            'headers' => ['Content-Type' => 'application/json'],
-            'body' => json_encode([
+        $job = Auth::user()->job;
+        if($job == '員工'){
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
+                'headers' => ['Content-Type' => 'application/json'],
+                'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
                 'DEPT' => Auth::user()->department->name//Auth::user()->department->name
             ])
-        ]);
+            ]);
 
-        $response = $response->getBody()->getContents();
+            $response = $response->getBody()->getContents();
 
-        $data = json_decode($response);
+            $data = json_decode($response);
 
-        $countArray = array();
+            $countArray = array();
 
-        foreach ($data as $key => $value) {
-            if($key == 'data'){
-                $array = $value;
+            foreach ($data as $key => $value) {
+                if($key == 'data'){
+                    $array = $value;
 
-                foreach ($array as $k => $v) {
-                    if($v->owner == null || $v->owner == ''){
-                        array_push($countArray,$v);
+                    foreach ($array as $k => $v) {
+                        if($v->status == null || $v->status == '' || $v->status == 'F'){
+                            array_push($countArray,$v);
+                        }
                     }
                 }
             }
-        }
 
-        $caseCount = count($countArray);
+            $caseCount = count($countArray);
+        }else{
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+                'headers' => ['Content-Type' => 'application/json'],
+                'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+            ])
+            ]);
+
+            $response = $response->getBody()->getContents();
+
+            $data = json_decode($response);
+
+            $countArray = array();
+
+            foreach ($data as $key => $value) {
+                if($key == 'data'){
+                    $array = $value;
+
+                    foreach ($array as $k => $v) {
+                        if($v->owner == null || $v->owner == '' || $v->status == 'R'){
+                            array_push($countArray,$v);
+                        }
+                    }
+                }
+            }
+
+            $caseCount = count($countArray);
+        }
 
     	return view('ht.StrokeManage.assistant.edit',compact('organization','res','caseCount'));
     }
@@ -357,34 +485,66 @@ class AssistantController extends Controller
         $view->views = 'Y';
         $view->save();
 
-        $client = new \GuzzleHttp\Client();
-        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
-            'headers' => ['Content-Type' => 'application/json'],
-            'body' => json_encode([
+        $job = Auth::user()->job;
+        if($job == '員工'){
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
+                'headers' => ['Content-Type' => 'application/json'],
+                'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
                 'DEPT' => Auth::user()->department->name//Auth::user()->department->name
             ])
-        ]);
+            ]);
 
-        $response = $response->getBody()->getContents();
+            $response = $response->getBody()->getContents();
 
-        $data = json_decode($response);
+            $data = json_decode($response);
 
-        $countArray = array();
+            $countArray = array();
 
-        foreach ($data as $key => $value) {
-            if($key == 'data'){
-                $array = $value;
+            foreach ($data as $key => $value) {
+                if($key == 'data'){
+                    $array = $value;
 
-                foreach ($array as $k => $v) {
-                    if($v->owner == null || $v->owner == ''){
-                        array_push($countArray,$v);
+                    foreach ($array as $k => $v) {
+                        if($v->status == null || $v->status == '' || $v->status == 'F'){
+                            array_push($countArray,$v);
+                        }
                     }
                 }
             }
-        }
 
-        $caseCount = count($countArray);
+            $caseCount = count($countArray);
+        }else{
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+                'headers' => ['Content-Type' => 'application/json'],
+                'body' => json_encode([
+                'token' => Auth::user()->token,//Auth::user()->token,
+                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+            ])
+            ]);
+
+            $response = $response->getBody()->getContents();
+
+            $data = json_decode($response);
+
+            $countArray = array();
+
+            foreach ($data as $key => $value) {
+                if($key == 'data'){
+                    $array = $value;
+
+                    foreach ($array as $k => $v) {
+                        if($v->owner == null || $v->owner == '' || $v->status == 'R'){
+                            array_push($countArray,$v);
+                        }
+                    }
+                }
+            }
+
+            $caseCount = count($countArray);
+        }
 
     	return view('ht.StrokeManage.assistant.show',compact('organization','res','caseCount'));
     }

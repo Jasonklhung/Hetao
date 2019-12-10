@@ -35,8 +35,6 @@
                                                                 <tr>
                                                                     <th class="desktop">人員職稱</th>
                                                                     <th class="desktop">人員名稱</th>
-                                                                    <th class="desktop">分公司</th>
-                                                                    <th class="desktop">電話</th>
                                                                     <th class="desktop">最後登入時間</th>
                                                                     <th class="desktop">編輯/刪除</th>
                                                                 </tr>
@@ -46,8 +44,6 @@
                                                                 <tr>
                                                                     <td>{{ $data->job }}</td>
                                                                     <td>{{ $data->name }}</td>
-                                                                    <td>{{ $data->company }}</td>
-                                                                    <td><a href="tel:{{ $data->mobile }}">{{ $data->mobile }}</a></td>
                                                                     <td>{{ $data->updated_at }}</td>
                                                                     <td>
                                                                         <a href="{{ route('ht.Permission.edit',['organization'=>$organization,'id'=>$data->id]) }}"><button type="button" class="btn btn-primary">編輯</button></a>

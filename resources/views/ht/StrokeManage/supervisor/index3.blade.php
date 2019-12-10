@@ -414,6 +414,10 @@
         table_su2.search(this.value).draw();
     });
 
+    $("#text-search__container").on("keyup", function() {
+        table_su2.search(this.value).draw();
+    });
+
 
     //已指派中指派
     $('select[name="assign2"]').on('change', function () {
@@ -815,6 +819,10 @@
                         table_a.search(this.value).draw();
                     });
 
+                    $(".searchInput_su2").on("keyup", function() {
+                        table_a.search(this.value).draw();
+                    });
+
                     $('select[name="assign2"]').on('change', function () {
 
                         var RWD = $(this).parents('table').parents('tr').find('.child').length;
@@ -929,8 +937,13 @@
                             else{
                                 rows += `<td> ${itemtt}</td>`
                             }
-                            rows += "<td>" + item.owner + "</td>"
-                            + "<td>" + item.remarks + "</td>"
+                            if(item.owner == null || item.owner == '' || item.owner == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.owner + "</td>"
+                            }
+                            rows += "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span><input class='chkall hide' type='checkbox' value='' name='oneforall' /></td>"
                             }
@@ -1007,6 +1020,10 @@
                     },
                 });
                 $(".searchInput_su").on("blur", function() {
+                    table_su.search(this.value).draw();
+                });
+
+                $(".searchInput_su").on("keyup", function() {
                     table_su.search(this.value).draw();
                 });
 
@@ -1159,8 +1176,13 @@
                             else{
                                 rows += `<td> ${itemtt}</td>`
                             }
-                            rows += "<td>" + item.owner + "</td>"
-                            + "<td>" + item.remarks + "</td>"
+                            if(item.owner == null || item.owner == '' || item.owner == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.owner + "</td>"
+                            }
+                            rows += "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
                             }
@@ -1217,8 +1239,13 @@
                             else{
                                 rows += `<td> ${itemtt}</td>`
                             }
-                            rows += "<td>" + item.owner + "</td>"
-                            + "<td>" + item.remarks + "</td>"
+                            if(item.owner == null || item.owner == '' || item.owner == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.owner + "</td>"
+                            }
+                            rows += "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
                             }
@@ -1294,6 +1321,10 @@
                     },
                 });
                 $(".searchInput_s2").on("blur", function() {
+                    table_s2.search(this.value).draw();
+                });
+
+                $(".searchInput_s2").on("keyup", function() {
                     table_s2.search(this.value).draw();
                 });
 
@@ -1443,8 +1474,13 @@
                             else{
                                 rows += `<td> ${itemtt}</td>`
                             }
-                            rows += "<td>" + item.owner + "</td>"
-                            + "<td>" + item.remarks + "</td>"
+                            if(item.owner == null || item.owner == '' || item.owner == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.owner + "</td>"
+                            }
+                            rows += "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
                             }
@@ -1523,6 +1559,10 @@
                 $(".searchInput_ss2").on("blur", function() {
                     table_s2.search(this.value).draw();
                 });
+
+                $(".searchInput_ss2").on("keyup", function() {
+                    table_s2.search(this.value).draw();
+                });
             }
         })
         //end
@@ -1595,8 +1635,13 @@
                                 else{
                                     rows += `<td> ${itemtt}</td>`
                                 }
-                                rows += "<td>" + item.owner + "</td>"
-                                + "<td>" + item.remarks + "</td>"
+                                if(item.owner == null || item.owner == '' || item.owner == 'null'){
+                                    rows += "<td></td>"
+                                }
+                                else{
+                                    rows += "<td>" + item.owner + "</td>"
+                                }
+                                rows += "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span><input class='chkall hide' type='checkbox' value='' name='oneforall' /></td>"
                                 }
@@ -1674,6 +1719,10 @@
                     },
                 });
                 $(".searchInput_su").on("blur", function() {
+                    table_su.search(this.value).draw();
+                });
+
+                $(".searchInput_su").on("keyup", function() {
                     table_su.search(this.value).draw();
                 });
 
@@ -2124,6 +2173,10 @@
                                 table_a.search(this.value).draw();
                             });
 
+                            $(".searchInput_su2").on("keyup", function() {
+                                table_a.search(this.value).draw();
+                            });
+
                             $('select[name="assign2"]').on('change', function () {
 
                                 var RWD = $(this).parents('table').parents('tr').find('.child').length;
@@ -2247,8 +2300,13 @@
                                 else{
                                     rows += `<td> ${itemtt}</td>`
                                 }
-                                rows += "<td>" + item.owner + "</td>"
-                                + "<td>" + item.remarks + "</td>"
+                                if(item.owner == null || item.owner == '' || item.owner == 'null'){
+                                    rows += "<td></td>"
+                                }
+                                else{
+                                    rows += "<td>" + item.owner + "</td>"
+                                }
+                                rows += "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
                                 }
@@ -2305,8 +2363,13 @@
                                 else{
                                     rows += `<td> ${itemtt}</td>`
                                 }
-                                rows += "<td>" + item.owner + "</td>"
-                                + "<td>" + item.remarks + "</td>"
+                                if(item.owner == null || item.owner == '' || item.owner == 'null'){
+                                    rows += "<td></td>"
+                                }
+                                else{
+                                    rows += "<td>" + item.owner + "</td>"
+                                }
+                                rows += "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
                                 }
@@ -2384,6 +2447,10 @@
                     },
                 });
                 $(".searchInput_s2").on("blur", function() {
+                    table_s2.search(this.value).draw();
+                });
+
+                $(".searchInput_s2").on("keyup", function() {
                     table_s2.search(this.value).draw();
                 });
 
@@ -2543,8 +2610,13 @@
                                 else{
                                     rows += `<td> ${itemtt}</td>`
                                 }
-                                rows += "<td>" + item.owner + "</td>"
-                                + "<td>" + item.remarks + "</td>"
+                                if(item.owner == null || item.owner == '' || item.owner == 'null'){
+                                    rows += "<td></td>"
+                                }
+                                else{
+                                    rows += "<td>" + item.owner + "</td>"
+                                }
+                                rows += "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
                                 }
@@ -2622,6 +2694,10 @@
                     },
                 });
                 $(".searchInput_s2").on("blur", function() {
+                    table_s2.search(this.value).draw();
+                });
+
+                $(".searchInput_s2").on("keyup", function() {
                     table_s2.search(this.value).draw();
                 });
             }

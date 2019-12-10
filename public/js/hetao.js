@@ -218,6 +218,10 @@ $(".searchInput_s2").on("blur", function() {
     table_s2.search(this.value).draw();
 });
 
+$(".searchInput_s2").on("keyup", function() {
+    table_s2.search(this.value).draw();
+});
+
 //員工-派工單filter
 // $('#hetao-list-s-2_filter').append(
     // "<div class='form-group mr-s batch-select'><select class='form-control' id='sel1'><option selected>所有狀態</option><option>執行中</option><option>延後</option><option>已完成</option></select></div>"+
@@ -337,7 +341,7 @@ var table_authority = $("#hetao-list-authority").DataTable({
     }],
     "order": [],
     "columnDefs": [{
-        "targets": [5],
+        "targets": [0],
         "orderable": false,
     }],
     "responsive": {
@@ -354,6 +358,10 @@ var table_authority = $("#hetao-list-authority").DataTable({
     },
 });
 $(".searchInput_authority").on("blur", function() {
+    table_authority.search(this.value).draw();
+});
+
+$(".searchInput_authority").on("keyup", function() {
     table_authority.search(this.value).draw();
 });
 

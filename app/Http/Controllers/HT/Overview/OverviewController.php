@@ -20,7 +20,6 @@ class OverviewController extends Controller
     {
 
         $job = Auth::user()->job;
-
         if($job == '員工'){
             $client = new \GuzzleHttp\Client();
             $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
@@ -42,7 +41,7 @@ class OverviewController extends Controller
                     $array = $value;
 
                     foreach ($array as $k => $v) {
-                        if($v->status == null || $v->owner == '' || $v->owner == 'F'){
+                        if($v->status == null || $v->status == '' || $v->status == 'F'){
                             array_push($countArray,$v);
                         }
                     }
@@ -71,7 +70,7 @@ class OverviewController extends Controller
                     $array = $value;
 
                     foreach ($array as $k => $v) {
-                        if($v->owner == null || $v->owner == ''){
+                        if($v->owner == null || $v->owner == '' || $v->status == 'R'){
                             array_push($countArray,$v);
                         }
                     }

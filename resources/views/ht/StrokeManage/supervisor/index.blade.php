@@ -407,12 +407,12 @@
             }
         },
     });
-    // $("#text-search__container").on("keydown", function() {
-    //     table_su2.search(this.value).draw();
-    // });
-    $("#text-search__container").on("keydown", function() {
-        table_su2.search(this.value +"&nbsp;").draw();
+    $("#text-search__container").on("keyup", function() {
+        table_su2.search(this.value).draw();
     });
+    // $("#text-search__container").on("keydown", function() {
+    //     table_su2.search(this.value +"&nbsp;").draw();
+    // });
 
 
     //已指派中指派

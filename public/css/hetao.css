@@ -1815,6 +1815,9 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child, table.
 /*員工已完成日期不斷行*/#hetao-list-s-3.staff tr td:nth-child(2),
 /*主管行程回報日期不斷行*/#hetao-list-s-2.supervisor tr td:nth-child(3),
 /*助理行程回報日期不斷行*/#hetao-list-s-2.assistant tr td:nth-child(3),
-/*員工行程回報日期不斷行*/#hetao-list-s-2.staff tr td:nth-child(3) {
+/*員工行程回報日期不斷行*/#hetao-list-s-2.staff tr td:nth-child(3),
+/*主管已完成日期不斷行*/#hetao-list-ss-2.supervisor tr td:nth-child(2),
+/*主管待指派日期不斷行*/#hetao-list-su.supervisor tr td:nth-child(3),
+/*助理已完成日期不斷行*/#hetao-list-ss-2.assistant tr td:nth-child(2){
     white-space: nowrap;
 }

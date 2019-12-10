@@ -407,7 +407,7 @@
             }
         },
     });
-    $("#text-search__container").on("keyup", function() {
+    $("#text-search__container").on("blur", function() {
         table_su2.search(this.value).draw();
     });
 
@@ -788,7 +788,7 @@
                             }
                         },
                     });
-                    $(".searchInput_su2").on("keyup", function() {
+                    $(".searchInput_su2").on("blur", function() {
                         table_a.search(this.value).draw();
                     });
 
@@ -978,7 +978,7 @@
                         }
                     },
                 });
-                $(".searchInput_su").on("keyup", function() {
+                $(".searchInput_su").on("blur", function() {
                     table_su.search(this.value).draw();
                 });
 
@@ -1255,7 +1255,7 @@
                         }
                     },
                 });
-                $(".searchInput_s2").on("keyup", function() {
+                $(".searchInput_s2").on("blur", function() {
                     table_s2.search(this.value).draw();
                 });
 
@@ -1477,7 +1477,7 @@
                         }
                     },
                 });
-                $(".searchInput_ss2").on("keyup", function() {
+                $(".searchInput_ss2").on("blur", function() {
                     table_s2.search(this.value).draw();
                 });
             }
@@ -1625,7 +1625,7 @@
                         }
                     },
                 });
-                $(".searchInput_su").on("keyup", function() {
+                $(".searchInput_su").on("blur", function() {
                     table_su.search(this.value).draw();
                 });
 
@@ -2052,7 +2052,7 @@
                                     }
                                 },
                             });
-                            $(".searchInput_su2").on("keyup", function() {
+                            $(".searchInput_su2").on("blur", function() {
                                 table_a.search(this.value).draw();
                             });
 
@@ -2305,7 +2305,7 @@
                         }
                     },
                 });
-                $(".searchInput_s2").on("keyup", function() {
+                $(".searchInput_s2").on("blur", function() {
                     table_s2.search(this.value).draw();
                 });
 
@@ -2538,7 +2538,7 @@
                         }
                     },
                 });
-                $(".searchInput_s2").on("keyup", function() {
+                $(".searchInput_s2").on("blur", function() {
                     table_s2.search(this.value).draw();
                 });
             }

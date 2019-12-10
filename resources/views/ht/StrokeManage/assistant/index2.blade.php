@@ -365,7 +365,7 @@
             }
         },
     });
-    $(".searchInput_a").on("keyup", function() {
+    $(".searchInput_a").on("blur", function() {
         table_a.search(this.value).draw();
     });
     //end
@@ -502,7 +502,7 @@
                         }
                     },
                 });
-                $(".searchInput_a2").on("keyup", function() {
+                $(".searchInput_a2").on("blur", function() {
                     table_a2.search(this.value).draw();
                 });
 
@@ -788,7 +788,7 @@
                         }
                     },
                 });
-                $(".searchInput_s2").on("keyup", function() {
+                $(".searchInput_s2").on("blur", function() {
                     table_s2.search(this.value).draw();
                 });
 
@@ -1009,7 +1009,7 @@
                         }
                     },
                 });
-                $(".searchInput_ss2").on("keyup", function() {
+                $(".searchInput_ss2").on("blur", function() {
                     table_s2.search(this.value).draw();
                 });
             }
@@ -1113,7 +1113,7 @@
                             }
                         },
                     });
-                    $(".searchInput_a").on("keyup", function() {
+                    $(".searchInput_a").on("blur", function() {
                         table_a.search(this.value).draw();
                     });
                 }
@@ -1243,7 +1243,7 @@
                         }
                     },
                 });
-                $(".searchInput_a2").on("keyup", function() {
+                $(".searchInput_a2").on("blur", function() {
                     table_a2.search(this.value).draw();
                 });
 
@@ -1540,7 +1540,7 @@
                         }
                     },
                 });
-                $(".searchInput_s2").on("keyup", function() {
+                $(".searchInput_s2").on("blur", function() {
                     table_s2.search(this.value).draw();
                 });
 
@@ -1772,7 +1772,7 @@
                         }
                     },
                 });
-                $(".searchInput_ss2").on("keyup", function() {
+                $(".searchInput_ss2").on("blur", function() {
                     table_s2.search(this.value).draw();
                 });
             }

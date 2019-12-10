@@ -299,7 +299,7 @@ $(document).ready(function(){
                             }
                         },
                     });
-                $(".searchInput_s2").on("keyup", function() {
+                $(".searchInput_s2").on("blur", function() {
                     table_s2.search(this.value).draw();
                 });
 
@@ -522,7 +522,7 @@ $(document).ready(function(){
                             }
                         },
                     });
-                $(".searchInput_s3").on("keyup", function() {
+                $(".searchInput_s3").on("blur", function() {
                     table_s3.search(this.value).draw();
                 });
             }
@@ -707,7 +707,7 @@ $(document).ready(function(){
                             }
                         },
                     });
-                $(".searchInput_s2").on("keyup", function() {
+                $(".searchInput_s2").on("blur", function() {
                     table_s2.search(this.value).draw();
                 });
 
@@ -943,7 +943,7 @@ $(document).ready(function(){
                             }
                         },
                     });
-                $(".searchInput_s3").on("keyup", function() {
+                $(".searchInput_s3").on("blur", function() {
                     table_s3.search(this.value).draw();
                 });
             }

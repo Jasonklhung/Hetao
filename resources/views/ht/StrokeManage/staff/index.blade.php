@@ -59,10 +59,10 @@
                                                                     <th class="desktop">承辦人員</th>
                                                                     <th class="desktop">聯絡電話</th>
                                                                     <th class="desktop">聯絡地址</th>
+                                                                    <th class="desktop">統一編號</th>
                                                                     <th class="desktop">負責員工</th>
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
-                                                                    <th hidden="">統編</th>
                                                                     <th hidden="">status</th>
                                                                 </tr>
                                                             </thead>
@@ -103,10 +103,10 @@
                                                                     <th class="desktop">承辦人員</th>
                                                                     <th class="desktop">聯絡電話</th>
                                                                     <th class="desktop">聯絡地址</th>
+                                                                    <th class="desktop">統一編號</th>
                                                                     <th class="desktop">負責員工</th>
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
-                                                                    <th hidden="">統編</th>
                                                                     <th hidden="">status</th>
                                                                     <th class="desktop">工單狀態</th>
                                                                 </tr>
@@ -165,7 +165,13 @@ $(document).ready(function(){
                             }
                             rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                            + "<td>" + item.owner + "</td>"
+                            if(itemtt == null || itemtt == '' || itemtt == 'null'){
+                                rows += `<td></td>`
+                            }
+                            else{
+                                rows += `<td> ${itemtt}</td>`
+                            }
+                            rows += "<td>" + item.owner + "</td>"
                             + "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -200,8 +206,7 @@ $(document).ready(function(){
                             else if(item.work_type == '送貨'){
                                 rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
                             }
-                              rows += `<td hidden> ${itemtt}</td>`
-                              + "<td hidden></td>"
+                              rows += "<td hidden></td>"
                          + "</tr>";
                     }
                     else if(item.status == 'F'){
@@ -218,7 +223,13 @@ $(document).ready(function(){
                             }
                             rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                            + "<td>" + item.owner + "</td>"
+                            if(itemtt == null || itemtt == '' || itemtt == 'null'){
+                                rows += `<td></td>`
+                            }
+                            else{
+                                rows += `<td> ${itemtt}</td>`
+                            }
+                            rows += "<td>" + item.owner + "</td>"
                             + "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -253,8 +264,7 @@ $(document).ready(function(){
                             else if(item.work_type == '送貨'){
                                 rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
                             }
-                              rows += `<td hidden> ${itemtt}</td>`
-                              + "<td hidden>" + item.status + "</td>"
+                              rows += "<td hidden>" + item.status + "</td>"
                          + "</tr>";
                     }
                     
@@ -278,7 +288,7 @@ $(document).ready(function(){
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 10, "asc" ]],
+                    "order": [[ 2, "desc" ], [ 11, "asc" ]],
                     "columnDefs": [{
                         "targets": [],
                         "orderable": false,
@@ -440,7 +450,13 @@ $(document).ready(function(){
                             }
                             rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                            + "<td>" + item.owner + "</td>"
+                            if(itemtt == null || itemtt == '' || itemtt == 'null'){
+                                rows += `<td></td>`
+                            }
+                            else{
+                                rows += `<td> ${itemtt}</td>`
+                            }
+                            rows += "<td>" + item.owner + "</td>"
                             + "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
                                 rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -475,8 +491,7 @@ $(document).ready(function(){
                             else if(item.work_type == '送貨'){
                                 rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
                             }
-                              rows += `<td hidden> ${itemtt}</td>`
-                              + "<td hidden>" + item.status + "</td>"
+                              rows += "<td hidden>" + item.status + "</td>"
                               + "<td>已完成</td>"
                          + "</tr>";
                     }
@@ -573,7 +588,13 @@ $(document).ready(function(){
                                 }
                                 rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                 + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                                + "<td>" + item.owner + "</td>"
+                                if(itemtt == null || itemtt == '' || itemtt == 'null'){
+                                    rows += `<td></td>`
+                                }
+                                else{
+                                    rows += `<td> ${itemtt}</td>`
+                                }
+                                rows += "<td>" + item.owner + "</td>"
                                 + "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -608,8 +629,7 @@ $(document).ready(function(){
                                 else if(item.work_type == '送貨'){
                                     rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
                                 }
-                                  rows += `<td hidden> ${itemtt}</td>`
-                                  + "<td hidden></td>"
+                                  rows += "<td hidden></td>"
                              + "</tr>";
                         }
                         else if(item.status == 'F'){
@@ -626,7 +646,13 @@ $(document).ready(function(){
                                 }
                                 rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                 + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                                + "<td>" + item.owner + "</td>"
+                                if(itemtt == null || itemtt == '' || itemtt == 'null'){
+                                    rows += `<td></td>`
+                                }
+                                else{
+                                    rows += `<td> ${itemtt}</td>`
+                                }
+                                rows += "<td>" + item.owner + "</td>"
                                 + "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -661,8 +687,7 @@ $(document).ready(function(){
                                 else if(item.work_type == '送貨'){
                                     rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
                                 }
-                                  rows += `<td hidden> ${itemtt}</td>`
-                                  + "<td hidden>" + item.status + "</td>"
+                                  rows += "<td hidden>" + item.status + "</td>"
                              + "</tr>";
                         }
                     }
@@ -686,7 +711,7 @@ $(document).ready(function(){
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 10, "asc" ]],
+                    "order": [[ 2, "desc" ], [ 11, "asc" ]],
                     "columnDefs": [{
                         "targets": [],
                         "orderable": false,
@@ -861,7 +886,13 @@ $(document).ready(function(){
                                 }
                                 rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                 + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
-                                + "<td>" + item.owner + "</td>"
+                                if(itemtt == null || itemtt == '' || itemtt == 'null'){
+                                    rows += `<td></td>`
+                                }
+                                else{
+                                    rows += `<td> ${itemtt}</td>`
+                                }
+                                rows += "<td>" + item.owner + "</td>"
                                 + "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
                                     rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
@@ -896,8 +927,7 @@ $(document).ready(function(){
                                 else if(item.work_type == '送貨'){
                                     rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
                                 }
-                                  rows += `<td hidden> ${itemtt}</td>`
-                                  + "<td hidden>" + item.status + "</td>"
+                                  rows += "<td hidden>" + item.status + "</td>"
                                   + "<td>已完成</td>"
                              + "</tr>";
                         }

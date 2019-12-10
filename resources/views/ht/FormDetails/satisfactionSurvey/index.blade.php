@@ -133,7 +133,7 @@
             }
         },
     });
-    $(".searchInput_ab").on("keyup", function() {
+    $(".searchInput_ab").on("blur", function() {
         table_ab.search(this.value).draw();
     });
 </script>
@@ -221,7 +221,7 @@
                             }
                         },
                     });
-                    $(".searchInput_ab").on("keyup", function() {
+                    $(".searchInput_ab").on("blur", function() {
                         table_ab.search(this.value).draw();
                     });
                 }

@@ -131,7 +131,7 @@ $.fn.dataTable.Responsive.defaults
 //         }
 //     },
 // });
-// $(".searchInput_a").on("keyup", function() {
+// $(".searchInput_a").on("blur", function() {
 //     table_a.search(this.value).draw();
 // });
 //助理-派工單
@@ -169,7 +169,7 @@ $.fn.dataTable.Responsive.defaults
 //         }
 //     },
 // });
-// $(".searchInput_a2").on("keyup", function() {
+// $(".searchInput_a2").on("blur", function() {
 //     table_a2.search(this.value).draw();
 // });
 
@@ -214,7 +214,7 @@ var table_s2 = $("#hetao-list-s-2").DataTable({
         }
     },
 });
-$(".searchInput_s2").on("keyup", function() {
+$(".searchInput_s2").on("blur", function() {
     table_s2.search(this.value).draw();
 });
 
@@ -274,7 +274,7 @@ $(".searchInput_s2").on("keyup", function() {
 //         }
 //     },
 // });
-// $(".searchInput_su").on("keyup", function() {
+// $(".searchInput_su").on("blur", function() {
 //     table_su.search(this.value).draw();
 // });
 
@@ -313,7 +313,7 @@ $(".searchInput_s2").on("keyup", function() {
 //         }
 //     },
 // });
-// $(".searchInput_su2").on("keyup", function() {
+// $(".searchInput_su2").on("blur", function() {
 //     table_su2.search(this.value).draw();
 // });
 
@@ -353,7 +353,7 @@ var table_authority = $("#hetao-list-authority").DataTable({
         }
     },
 });
-$(".searchInput_authority").on("keyup", function() {
+$(".searchInput_authority").on("blur", function() {
     table_authority.search(this.value).draw();
 });
 

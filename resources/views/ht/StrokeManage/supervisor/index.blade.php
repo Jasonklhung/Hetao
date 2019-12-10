@@ -408,7 +408,7 @@
         },
     });
     $("#text-search__container").on("keydown", function() {
-        table_su2.search(this.value).draw();
+        table_su2.search(this.value +" ").draw();
     });
 
 

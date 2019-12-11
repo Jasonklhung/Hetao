@@ -647,7 +647,7 @@ h4.title-deco {
     left: 8px;
     top: 14px;
 }
-.assistant select {
+.assistant select, .supervisor select {
     margin-left: 25px;
 }
 

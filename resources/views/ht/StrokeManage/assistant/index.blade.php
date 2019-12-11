@@ -440,39 +440,39 @@
                             else{
                                 rows += "<td>" + item.owner + "</td>"
                             }
-                            rows += "<td>" + item.remarks + "<input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
+                            rows += "<td>" + item.remarks + "</td>"
                               if(item.work_type == '維修'){
-                                rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
+                                rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                             }
                             else if(item.work_type == '洽機'){
-                                rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span></td>"
+                                rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                             }
                             else if(item.work_type == '收款'){
-                                rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span></td>"
+                                rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                             }
                             else if(item.work_type == '送水'){
-                                rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span></td>"
+                                rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                             }
                             else if(item.work_type == '裝機'){
-                                rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span></td>"
+                                rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                             }
                             else if(item.work_type == '拆機'){
-                                rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span></td>"
+                                rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                             }
                             else if(item.work_type == '回機'){
-                                rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span></td>"
+                                rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                             }
                             else if(item.work_type == '保養'){
-                                rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span></td>"
+                                rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                             }
                             else if(item.work_type == '合約'){
-                                rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span></td>"
+                                rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                             }
                             else if(item.work_type == '其他'){
-                                rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span></td>"
+                                rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                             }
                             else if(item.work_type == '送貨'){
-                                rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
+                                rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                             }
                               rows += "<td><a href='edit/"+window.btoa(item.id)+"'><button type='button' class='btn btn-primary' style='margin-right: 28px;display:none''>編輯</button></a></td>"
                          + "</tr>";
@@ -1237,41 +1237,41 @@
                                 else{
                                     rows += "<td>" + item.owner + "</td>"
                                 }
-                                rows += "<td>" + item.remarks + "<input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
+                                rows += "<td>" + item.remarks + "</td>"
                                   if(item.work_type == '維修'){
-                                    rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
+                                    rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                                 }
                                 else if(item.work_type == '洽機'){
-                                    rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span></td>"
+                                    rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                                 }
                                 else if(item.work_type == '收款'){
-                                    rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span></td>"
+                                    rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                                 }
                                 else if(item.work_type == '送水'){
-                                    rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span></td>"
+                                    rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                                 }
                                 else if(item.work_type == '裝機'){
-                                    rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span></td>"
+                                    rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                                 }
                                 else if(item.work_type == '拆機'){
-                                    rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span></td>"
+                                    rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                                 }
                                 else if(item.work_type == '回機'){
-                                    rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span></td>"
+                                    rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                                 }
                                 else if(item.work_type == '保養'){
-                                    rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span></td>"
+                                    rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                                 }
                                 else if(item.work_type == '合約'){
-                                    rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span></td>"
+                                    rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                                 }
                                 else if(item.work_type == '其他'){
-                                    rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span></td>"
+                                    rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                                 }
                                 else if(item.work_type == '送貨'){
-                                    rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
+                                    rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span><input id='chk' name='oneforall' class='chkall hide' type='checkbox' value='' /></td>"
                                 }
-                                  rows += "<td><a href='edit/"+window.btoa(item.id)+"'><button type='button' class='btn btn-primary' style='margin-right: 28px;''>編輯</button></a></td>"
+                                  rows += "<td><a href='edit/"+window.btoa(item.id)+"'><button type='button' class='btn btn-primary' style='margin-right: 28px;display:none''>編輯</button></a></td>"
                              + "</tr>";
                          }
                     }   

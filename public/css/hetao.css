@@ -653,6 +653,9 @@ h4.title-deco {
 .assistant select, .supervisor select {
     margin-left: 25px;
 }
+.assistant .chkall.hide+select, .supervisor .chkall.hide+select {
+    margin-left: 0;
+}
 
 .fc-right .form-group {
     margin-bottom: 0;

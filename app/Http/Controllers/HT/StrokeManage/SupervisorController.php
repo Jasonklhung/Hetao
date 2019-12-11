@@ -22,7 +22,7 @@ class SupervisorController extends Controller
 
         //$supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->where('status','')->orWhere('status','null')->get();
 
-        $assign = User::where('organization_id',Auth::user()->organization_id)->get();
+        $assign = User::where('organization_id',Auth::user()->organization_id)->where('token','!=','')->get();
 
         $job = Auth::user()->job;
         if($job == '員工'){
@@ -94,7 +94,7 @@ class SupervisorController extends Controller
 
         //$supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->where('status','')->orWhere('status','null')->get();
 
-        $assign = User::where('organization_id',Auth::user()->organization_id)->get();
+        $assign = User::where('organization_id',Auth::user()->organization_id)->where('token','!=','')->get();
 
         $job = Auth::user()->job;
         if($job == '員工'){
@@ -194,7 +194,7 @@ class SupervisorController extends Controller
 
     public function getAssign(Organization $organization)
     {
-    	$data = User::where('organization_id',Auth::user()->organization_id)->get();
+    	$data = User::where('organization_id',Auth::user()->organization_id)->where('token','!=','')->get();
 
     	return $data;
     }

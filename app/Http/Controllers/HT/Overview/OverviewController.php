@@ -80,7 +80,7 @@ class OverviewController extends Controller
             $caseCount = count($countArray);
         }
         
-        $user = User::where('organization_id',Auth::user()->organization_id)->where('job','主管')->get();
+        $user = User::where('organization_id',Auth::user()->organization_id)->where('job','主管')->where('token','!=','')->get();
 
         $company = Organization::all();
 
@@ -635,14 +635,14 @@ class OverviewController extends Controller
         if($request->job != '其他'){
 
             $org = Organization::where('name',$request->company)->get(); 
-            $name = User::where('organization_id',$org[0]['id'])->where('job',$request->job)->get();
+            $name = User::where('organization_id',$org[0]['id'])->where('job',$request->job)->where('token','!=','')->get();
 
             return $name;
         }
         else{
 
             $org = Organization::where('name',$request->company)->get(); 
-            $name = User::where('organization_id',$org[0]['id'])->get();
+            $name = User::where('organization_id',$org[0]['id'])->where('token','!=','')->get();
 
             return $name;
         }

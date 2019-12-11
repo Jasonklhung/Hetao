@@ -598,7 +598,7 @@ class AssistantController extends Controller
 
     public function getSupervisor(Organization $organization)
     {
-    	$data = User::where('organization_id','28')->get();
+    	$data = User::where('organization_id',Auth::user()->organization_id)->where('token','!=','')->get();
 
     	return $data;
     }

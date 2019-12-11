@@ -35,6 +35,7 @@
                                                                 <tr>
                                                                     <th class="desktop">人員職稱</th>
                                                                     <th class="desktop">人員名稱</th>
+                                                                    <th class="desktop">是否完成驗證</th>
                                                                     <th class="desktop">最後登入時間</th>
                                                                     <th class="desktop">編輯/刪除</th>
                                                                 </tr>
@@ -44,6 +45,11 @@
                                                                 <tr>
                                                                     <td>{{ $data->job }}</td>
                                                                     <td>{{ $data->name }}</td>
+                                                                    @if($data->is_verified == 'N')
+                                                                    <td>否</td>
+                                                                    @else
+                                                                    <td>是</td>
+                                                                    @endif
                                                                     <td>{{ $data->updated_at }}</td>
                                                                     <td>
                                                                         <a href="{{ route('ht.Permission.edit',['organization'=>$organization,'id'=>$data->id]) }}"><button type="button" class="btn btn-primary">編輯</button></a>

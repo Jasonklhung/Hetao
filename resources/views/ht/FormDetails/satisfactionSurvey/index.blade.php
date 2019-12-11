@@ -136,6 +136,10 @@
     $(".searchInput_ab").on("blur", function() {
         table_ab.search(this.value).draw();
     });
+
+    $(".searchInput_ab").on("keyup", function() {
+        table_ab.search(this.value).draw();
+    });
 </script>
 <script type="text/javascript">
 
@@ -222,6 +226,10 @@
                         },
                     });
                     $(".searchInput_ab").on("blur", function() {
+                        table_ab.search(this.value).draw();
+                    });
+
+                    $(".searchInput_ab").on("keyup", function() {
                         table_ab.search(this.value).draw();
                     });
                 }

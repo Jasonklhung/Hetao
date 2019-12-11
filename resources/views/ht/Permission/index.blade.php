@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-        <div class="main">
+        <div class="main permission">
             <div class="main-content">
                 <div class="container-fluid">
                     <!-- 活動分析 -->
@@ -30,7 +30,7 @@
                                                             </form>
                                                         </div>
 
-                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-authority" style="width: 100% !important;">
+                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-authority">
                                                             <thead class="rwdhide">
                                                                 <tr>
                                                                     <th class="desktop">人員職稱</th>

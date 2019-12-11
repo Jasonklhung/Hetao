@@ -657,6 +657,9 @@ h4.title-deco {
 	margin: 0 !important;
 	width: 1580px !important;
 }
+.permission .dataTables_wrapper table.dataTable {
+	width: 100% !important;
+}
 .dataTables_wrapper table.dataTable#hetao-list-ab {
 	width: 100% !important;
 }

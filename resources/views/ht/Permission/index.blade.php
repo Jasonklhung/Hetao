@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-        <div class="main">
+        <div class="main permission">
             <div class="main-content">
                 <div class="container-fluid">
                     <!-- 活動分析 -->

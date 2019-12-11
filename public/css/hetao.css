@@ -592,6 +592,8 @@ h4.title-deco {
 
 .batchwrap {
     display: inline-block;
+}
+.batchwrap select {
     margin-bottom: 6px;
 }
 

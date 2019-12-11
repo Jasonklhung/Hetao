@@ -1587,22 +1587,27 @@
             FormName.push(name)
         }
 
-        $.ajax({
-            method:'post',
-            url:'{{ route('ht.Form.reservation.store',['organization'=>$organization]) }}',
-            data:{
-                '_token':'{{csrf_token()}}',
-                'name':FormName,
-                'form':DataArray,
-            },
-            dataType:'json',
-            success:function(res){
-                if(res.success == 'ok'){
-                    window.location = '{{ route('ht.Form.reservation.index',['organization'=>$organization]) }}';
-                    alert('新增成功')
-                }
-            },
-        })
+        if(FormName.indexOf("") == -1){
+            $.ajax({
+                method:'post',
+                url:'{{ route('ht.Form.reservation.store',['organization'=>$organization]) }}',
+                data:{
+                    '_token':'{{csrf_token()}}',
+                    'name':FormName,
+                    'form':DataArray,
+                },
+                dataType:'json',
+                success:function(res){
+                    if(res.success == 'ok'){
+                        window.location = '{{ route('ht.Form.reservation.index',['organization'=>$organization]) }}';
+                        alert('新增成功')
+                    }
+                },
+            })
+        }
+        else{
+            alert('表單名稱不能為空')
+        }
     })
 </script>
 @endsection

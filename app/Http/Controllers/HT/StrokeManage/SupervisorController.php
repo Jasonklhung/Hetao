@@ -18,9 +18,9 @@ class SupervisorController extends Controller
 {
     public function index(Organization $organization)
     {
-    	$supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->whereIn('status',['','null'])->get();
+    	//$supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->whereIn('status',['','null'])->get();
 
-        //$supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->where('status','')->orWhere('status','null')->get();
+        $supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->where('status','')->orWhere('status','null')->get();
 
         $assign = User::where('organization_id',Auth::user()->organization_id)->get();
 
@@ -90,9 +90,9 @@ class SupervisorController extends Controller
 
     public function index3(Organization $organization)
     {
-        $supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->whereIn('status',['','null'])->get();
+        //$supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->whereIn('status',['','null'])->get();
 
-        //$supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->where('status','')->orWhere('status','null')->get();
+        $supervisor = SupervisorCase::where('organization_id',Auth::user()->organization_id)->where('status','')->orWhere('status','null')->get();
 
         $assign = User::where('organization_id',Auth::user()->organization_id)->get();
 

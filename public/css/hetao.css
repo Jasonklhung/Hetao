@@ -780,11 +780,13 @@ h4.title-deco {
     }
     .chkall {
         position: absolute;
+        left: inherit;
         right: 10px;
         top: 14px;
     }
-    .assistant select {
+    .assistant select, .supervisor select {
         margin-left: 0;
+        width: 180px;
     }
 }
 

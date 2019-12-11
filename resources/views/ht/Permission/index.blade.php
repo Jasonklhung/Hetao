@@ -30,7 +30,7 @@
                                                             </form>
                                                         </div>
 
-                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-authority">
+                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-authority" style="width: 100% !important;">
                                                             <thead class="rwdhide">
                                                                 <tr>
                                                                     <th class="desktop">人員職稱</th>

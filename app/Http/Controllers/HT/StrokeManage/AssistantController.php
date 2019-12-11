@@ -615,52 +615,6 @@ class AssistantController extends Controller
 
         $dept_name = $dept_name[0]['name'];
 
-        $supervisor = SupervisorCase::where('case_id',$request->id)->get();
-        if($supervisor->isNotEmpty()){
-            $supervisor = SupervisorCase::find($supervisor[0]['id']);
-            $supervisor->organization_id = Auth::user()->organization_id;
-            $supervisor->case_id = $request->id;
-            $supervisor->cuskey = $request->name;
-            $supervisor->mobile = $request->mobile;
-            $supervisor->GUI_number = $request->GUI_number;
-            $supervisor->address = $request->address;
-            $supervisor->name = $request->case_name;
-            $supervisor->reason = $request->reason;
-            $supervisor->work_type = $request->work_type;
-            $supervisor->time = $request->time;
-            $supervisor->owner = $dept[0]['name'];
-            $supervisor->status = '';
-            $supervisor->save();
-        }else{
-            $supervisor = new SupervisorCase;
-            $supervisor->organization_id = Auth::user()->organization_id;
-            $supervisor->case_id = $request->id;
-            $supervisor->cuskey = $request->name;
-            $supervisor->mobile = $request->mobile;
-            $supervisor->GUI_number = $request->GUI_number;
-            $supervisor->name = $request->case_name;
-            $supervisor->address = $request->address;
-            $supervisor->reason = $request->reason;
-            $supervisor->work_type = $request->work_type;
-            $supervisor->time = $request->time;
-            $supervisor->owner = $dept[0]['name'];
-            $supervisor->status = '';
-            $supervisor->save();
-        }
-        
-        $case = TransferCase::where('case_id',$request->id)->get();
-
-        if($case->isNotEmpty()){
-            DB::table('transfer_cases')
-                ->where('case_id',$request->id)
-                ->update(['user_id' => Auth::user()->id]);
-        }else{
-            $transfer = new TransferCase;
-            $transfer->user_id = Auth::user()->id;
-            $transfer->case_id = $request->id;
-            $transfer->save();
-        }
-
         //api update status
         $client = new \GuzzleHttp\Client();
         $response2 = $client->post('http://60.251.216.90:8855/api_/update-case-status', [
@@ -695,7 +649,58 @@ class AssistantController extends Controller
 
     	$response = $response->getBody()->getContents();
 
-        return $response;
+        if(json_decode($response)->status == 200){
+            $supervisor = SupervisorCase::where('case_id',$request->id)->get();
+            if($supervisor->isNotEmpty()){
+                $supervisor = SupervisorCase::find($supervisor[0]['id']);
+                $supervisor->organization_id = Auth::user()->organization_id;
+                $supervisor->case_id = $request->id;
+                $supervisor->cuskey = $request->name;
+                $supervisor->mobile = $request->mobile;
+                $supervisor->GUI_number = $request->GUI_number;
+                $supervisor->address = $request->address;
+                $supervisor->name = $request->case_name;
+                $supervisor->reason = $request->reason;
+                $supervisor->work_type = $request->work_type;
+                $supervisor->time = $request->time;
+                $supervisor->owner = $dept[0]['name'];
+                $supervisor->status = '';
+                $supervisor->save();
+            }else{
+                $supervisor = new SupervisorCase;
+                $supervisor->organization_id = Auth::user()->organization_id;
+                $supervisor->case_id = $request->id;
+                $supervisor->cuskey = $request->name;
+                $supervisor->mobile = $request->mobile;
+                $supervisor->GUI_number = $request->GUI_number;
+                $supervisor->name = $request->case_name;
+                $supervisor->address = $request->address;
+                $supervisor->reason = $request->reason;
+                $supervisor->work_type = $request->work_type;
+                $supervisor->time = $request->time;
+                $supervisor->owner = $dept[0]['name'];
+                $supervisor->status = '';
+                $supervisor->save();
+            }
+
+            $case = TransferCase::where('case_id',$request->id)->get();
+
+            if($case->isNotEmpty()){
+                DB::table('transfer_cases')
+                ->where('case_id',$request->id)
+                ->update(['user_id' => Auth::user()->id]);
+            }else{
+                $transfer = new TransferCase;
+                $transfer->user_id = Auth::user()->id;
+                $transfer->case_id = $request->id;
+                $transfer->save();
+            }
+
+            return $response;
+        }
+        else{
+            return $response;
+        }
     }
 
     public function updateStatus(Organization $organization,Request $request)

@@ -555,7 +555,7 @@ h4.title-deco {
     color: #fff;
     border-radius: 20px;
     letter-spacing: .07rem;
-    padding: 5px 15px;
+    padding: 5px 25px 5px 15px;
     margin: 3px 5px;
 }
 @media screen and (max-width: 400px) {

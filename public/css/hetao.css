@@ -556,7 +556,7 @@ h4.title-deco {
     border-radius: 20px;
     letter-spacing: .07rem;
     padding: 5px 15px;
-    margin: 3px 25px 3px 5px;
+    margin: 3px 45px 3px 5px;
 }
 @media screen and (max-width: 400px) {
     .btn.status {
@@ -657,7 +657,7 @@ h4.title-deco {
 	margin: 0 !important;
 	width: 1580px !important;
 }
-.permission .dataTables_wrapper table.dataTable {
+.permission .dataTables_wrapper table.dataTable, .assistant#hetao-list-a {
 	width: 100% !important;
 }
 .dataTables_wrapper table.dataTable#hetao-list-ab {

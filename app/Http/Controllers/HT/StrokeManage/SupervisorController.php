@@ -383,7 +383,7 @@ class SupervisorController extends Controller
         $status = $request->status;
 
         if($status == 'null'){
-            $super = SupervisorCase::where('organization_id',Auth::user()->organization_id)->where('status',$status)->orWhere('status','')->get();
+            $super = SupervisorCase::where('organization_id',Auth::user()->organization_id)->whereIn('status',['','null'])->get();
         }
         elseif($status == 'notselect'){
             $super = SupervisorCase::where('organization_id',Auth::user()->organization_id)->get();

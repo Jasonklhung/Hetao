@@ -592,6 +592,7 @@ h4.title-deco {
 
 .batchwrap {
     display: inline-block;
+    margin-bottom: 6px;
 }
 
 /* 新增/編輯派工單

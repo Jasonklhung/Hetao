@@ -165,7 +165,7 @@ class AssistantController extends Controller
             $caseCount = count($countArray);
         }
 
-        return view('ht.StrokeManage.assistant.index',compact('organization','reservation','contact','caseCount'));
+        return view('ht.StrokeManage.assistant.index2',compact('organization','reservation','contact','caseCount'));
     }
 
     public function index3(Organization $organization)
@@ -239,7 +239,7 @@ class AssistantController extends Controller
             $caseCount = count($countArray);
         }
 
-        return view('ht.StrokeManage.assistant.index',compact('organization','reservation','contact','caseCount'));
+        return view('ht.StrokeManage.assistant.index3',compact('organization','reservation','contact','caseCount'));
     }
 
     public function create(Organization $organization)

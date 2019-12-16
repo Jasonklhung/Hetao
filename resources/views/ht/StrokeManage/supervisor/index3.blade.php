@@ -63,8 +63,6 @@
                                                     <!-- 待指派工單 -->
                                                     @if($tab == 'case')
                                                     <div class="tab-pane active" id="viewers-tab-01">
-                                                    @elseif($tab == '')
-                                                    <div class="tab-pane active" id="viewers-tab-01">
                                                     @else
                                                     <div class="tab-pane" id="viewers-tab-01">
                                                     @endif
@@ -246,6 +244,8 @@
                                                     </div>
                                                     <!-- 行程回報 -->
                                                     @if($tab == 'report')
+                                                    <div class="tab-pane active" id="viewers-tab-03">
+                                                    @elseif($tab == '')
                                                     <div class="tab-pane active" id="viewers-tab-03">
                                                     @else
                                                     <div class="tab-pane" id="viewers-tab-03">

@@ -97,7 +97,7 @@ class AssistantController extends Controller
     public function index2(Organization $organization)
     {
         $reservation = DB::table('reservation_answers')
-                        ->select('reservation_answers.id','accounts.cuskey','accounts.name','reservation_answers.created_at')
+                        ->select('reservation_answers.id','reservation_answers.views','accounts.cuskey','accounts.name','reservation_answers.created_at')
                         ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
                         ->where('reservation_answers.department_id',Auth::user()->department_id)
                         ->get();
@@ -171,7 +171,7 @@ class AssistantController extends Controller
     public function index3(Organization $organization)
     {
         $reservation = DB::table('reservation_answers')
-                        ->select('reservation_answers.id','accounts.cuskey','accounts.name','reservation_answers.created_at')
+                        ->select('reservation_answers.id','reservation_answers.views','accounts.cuskey','accounts.name','reservation_answers.created_at')
                         ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
                         ->where('reservation_answers.department_id',Auth::user()->department_id)
                         ->get();

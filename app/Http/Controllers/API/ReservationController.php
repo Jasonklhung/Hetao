@@ -205,53 +205,59 @@ class ReservationController extends Controller
 
     public function update(Request $request)
     {
-        $id = $request->id;
-        $type = $request->type;
+        $data = $request->data;
 
-        if($type == 'reservation'){
-
-            $res = ReservationAnswer::find($id);
-
-            if($res == null){
-                return json_encode(array('status' => 400, 'message' => '無效的id')) ;
-            }
-            else{
-                $res->status = 'Y';
-                $res->save();
-                return json_encode(array('status' => 200, 'message' => '更新成功')) ;
-            }
-
+        foreach ($data as $key => $value) {
+            return $value->dept;
         }
-        elseif($type == 'satisfaction'){
 
-            $res = SatisfactionAnswer::find($id);
+        // $id = $request->id;
+        // $type = $request->type;
 
-            if($res == null){
-                return json_encode(array('status' => 400, 'message' => '無效的id')) ;
-            }
-            else{
-                $res->status = 'Y';
-                $res->save();
-                return json_encode(array('status' => 200, 'message' => '更新成功')) ;
-            }
+        // if($type == 'reservation'){
 
-        }
-        elseif($type == 'contact'){
+        //     $res = ReservationAnswer::find($id);
 
-            $res = ContactAnswer::find($id);
+        //     if($res == null){
+        //         return json_encode(array('status' => 400, 'message' => '無效的id')) ;
+        //     }
+        //     else{
+        //         $res->status = 'Y';
+        //         $res->save();
+        //         return json_encode(array('status' => 200, 'message' => '更新成功')) ;
+        //     }
 
-            if($res == null){
-                return json_encode(array('status' => 400, 'message' => '無效的id')) ;
-            }
-            else{
-                $res->status = 'Y';
-                $res->save();
-                return json_encode(array('status' => 200, 'message' => '更新成功')) ;
-            }
+        // }
+        // elseif($type == 'satisfaction'){
 
-        }
-        else{
-            return json_encode(array('status' => 400, 'message' => '無效的type')) ;
-        }
+        //     $res = SatisfactionAnswer::find($id);
+
+        //     if($res == null){
+        //         return json_encode(array('status' => 400, 'message' => '無效的id')) ;
+        //     }
+        //     else{
+        //         $res->status = 'Y';
+        //         $res->save();
+        //         return json_encode(array('status' => 200, 'message' => '更新成功')) ;
+        //     }
+
+        // }
+        // elseif($type == 'contact'){
+
+        //     $res = ContactAnswer::find($id);
+
+        //     if($res == null){
+        //         return json_encode(array('status' => 400, 'message' => '無效的id')) ;
+        //     }
+        //     else{
+        //         $res->status = 'Y';
+        //         $res->save();
+        //         return json_encode(array('status' => 200, 'message' => '更新成功')) ;
+        //     }
+
+        // }
+        // else{
+        //     return json_encode(array('status' => 400, 'message' => '無效的type')) ;
+        // }
     }
 }

@@ -219,7 +219,6 @@ class ReservationController extends Controller
                 else{
                     $res->status = 'Y';
                     $res->save();
-                    return json_encode(array('status' => 200, 'message' => '更新成功')) ;
                 }
             }
             elseif($value['type'] == 'satisfaction'){
@@ -232,7 +231,6 @@ class ReservationController extends Controller
                 else{
                     $res->status = 'Y';
                     $res->save();
-                    return json_encode(array('status' => 200, 'message' => '更新成功')) ;
                 }
             }
             elseif($value['type'] == 'contact'){
@@ -245,12 +243,13 @@ class ReservationController extends Controller
                 else{
                     $res->status = 'Y';
                     $res->save();
-                    return json_encode(array('status' => 200, 'message' => '更新成功')) ;
                 }
             }
             else{
                 return json_encode(array('status' => 400, 'message' => '無效的type')) ;
             }
         }
+
+        return json_encode(array('status' => 200, 'message' => '更新成功')) ;
     }
 }

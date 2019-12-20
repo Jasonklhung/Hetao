@@ -208,7 +208,7 @@ class ReservationController extends Controller
         $data = $request->data;
 
         foreach ($data as $key => $value) {
-            return $value->dept;
+            return $value['dept'];
         }
 
         // $id = $request->id;

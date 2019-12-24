@@ -540,7 +540,7 @@
                             rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
                             if(item.GUI_number == null || item.GUI_number == '' || item.GUI_number == 'null'){
-                                rows += `<td></td>`
+                                rows += "<td></td>"
                             }
                             else{
                                 rows += "<td>" + item.GUI_number + "</td>"
@@ -607,7 +607,7 @@
                             rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
                             if(item.GUI_number == null || item.GUI_number == '' || item.GUI_number == 'null'){
-                                rows += `<td></td>`
+                                rows += "<td></td>"
                             }
                             else{
                                 rows += "<td>" + item.GUI_number + "</td>"
@@ -674,7 +674,7 @@
                             rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
                             if(item.GUI_number == null || item.GUI_number == '' || item.GUI_number == 'null'){
-                                rows += `<td></td>`
+                                rows += "<td></td>"
                             }
                             else{
                                 rows += "<td>" + item.GUI_number + "</td>"
@@ -734,7 +734,7 @@
                             rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
                             if(item.GUI_number == null || item.GUI_number == '' || item.GUI_number == 'null'){
-                                rows += `<td></td>`
+                                rows += "<td></td>"
                             }
                             else{
                                 rows += "<td>" + item.GUI_number + "</td>"
@@ -932,7 +932,7 @@
                             rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
                             if(itemtt == null || itemtt == '' || itemtt == 'null'){
-                                rows += `<td></td>`
+                                rows += "<td></td>"
                             }
                             else{
                                 rows += `<td> ${itemtt}</td>`
@@ -1171,7 +1171,7 @@
                             rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
                             if(itemtt == null || itemtt == '' || itemtt == 'null'){
-                                rows += `<td></td>`
+                                rows += "<td></td>"
                             }
                             else{
                                 rows += `<td> ${itemtt}</td>`
@@ -1234,7 +1234,7 @@
                             rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
                             if(itemtt == null || itemtt == '' || itemtt == 'null'){
-                                rows += `<td></td>`
+                                rows += "<td></td>"
                             }
                             else{
                                 rows += `<td> ${itemtt}</td>`
@@ -1469,7 +1469,7 @@
                             rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                             + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
                             if(itemtt == null || itemtt == '' || itemtt == 'null'){
-                                rows += `<td></td>`
+                                rows += "<td></td>"
                             }
                             else{
                                 rows += `<td> ${itemtt}</td>`
@@ -1630,7 +1630,7 @@
                                 rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                 + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
                                 if(itemtt == null || itemtt == '' || itemtt == 'null'){
-                                    rows += `<td></td>`
+                                    rows += "<td></td>"
                                 }
                                 else{
                                     rows += `<td> ${itemtt}</td>`
@@ -1894,7 +1894,7 @@
                                     rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                     + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
                                     if(item.GUI_number == null || item.GUI_number == '' || item.GUI_number == 'null'){
-                                        rows += `<td></td>`
+                                        rows += "<td></td>"
                                     }
                                     else{
                                         rows += "<td>" + item.GUI_number + "</td>"
@@ -1961,7 +1961,7 @@
                                     rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                     + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
                                     if(item.GUI_number == null || item.GUI_number == '' || item.GUI_number == 'null'){
-                                        rows += `<td></td>`
+                                        rows += "<td></td>"
                                     }
                                     else{
                                         rows += "<td>" + item.GUI_number + "</td>"
@@ -2028,7 +2028,7 @@
                                     rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                     + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
                                     if(item.GUI_number == null || item.GUI_number == '' || item.GUI_number == 'null'){
-                                        rows += `<td></td>`
+                                        rows += "<td></td>"
                                     }
                                     else{
                                         rows += "<td>" + item.GUI_number + "</td>"
@@ -2088,7 +2088,7 @@
                                     rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                     + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
                                     if(item.GUI_number == null || item.GUI_number == '' || item.GUI_number == 'null'){
-                                        rows += `<td></td>`
+                                        rows += "<td></td>"
                                     }
                                     else{
                                         rows += "<td>" + item.GUI_number + "</td>"
@@ -2295,7 +2295,7 @@
                                 rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                 + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
                                 if(itemtt == null || itemtt == '' || itemtt == 'null'){
-                                    rows += `<td></td>`
+                                    rows += "<td></td>"
                                 }
                                 else{
                                     rows += `<td> ${itemtt}</td>`
@@ -2358,7 +2358,7 @@
                                 rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                 + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
                                 if(itemtt == null || itemtt == '' || itemtt == 'null'){
-                                    rows += `<td></td>`
+                                    rows += "<td></td>"
                                 }
                                 else{
                                     rows += `<td> ${itemtt}</td>`
@@ -2605,7 +2605,7 @@
                                 rows += "<td><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
                                 + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' onclick='window.open(this.href); return false;' >" + item.address + "</a></td>"
                                 if(itemtt == null || itemtt == '' || itemtt == 'null'){
-                                    rows += `<td></td>`
+                                    rows += "<td></td>"
                                 }
                                 else{
                                     rows += `<td> ${itemtt}</td>`

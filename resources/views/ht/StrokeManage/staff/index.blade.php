@@ -169,7 +169,7 @@ $(document).ready(function(){
                                 rows += "<td></td>"
                             }
                             else{
-                                rows += "<td> ${itemtt}</td>"
+                                rows += `<td> ${itemtt}</td>`
                             }
                             rows += "<td>" + item.owner + "</td>"
                             + "<td>" + item.remarks + "</td>"
@@ -227,7 +227,7 @@ $(document).ready(function(){
                                 rows += "<td></td>"
                             }
                             else{
-                                rows += "<td> ${itemtt}</td>"
+                                rows += `<td> ${itemtt}</td>`
                             }
                             rows += "<td>" + item.owner + "</td>"
                             + "<td>" + item.remarks + "</td>"
@@ -454,7 +454,7 @@ $(document).ready(function(){
                                 rows += "<td></td>"
                             }
                             else{
-                                rows += "<td> ${itemtt}</td>"
+                                rows += `<td> ${itemtt}</td>`
                             }
                             rows += "<td>" + item.owner + "</td>"
                             + "<td>" + item.remarks + "</td>"
@@ -592,7 +592,7 @@ $(document).ready(function(){
                                     rows += "<td></td>"
                                 }
                                 else{
-                                    rows += "<td> ${itemtt}</td>"
+                                    rows += `<td> ${itemtt}</td>`
                                 }
                                 rows += "<td>" + item.owner + "</td>"
                                 + "<td>" + item.remarks + "</td>"
@@ -650,7 +650,7 @@ $(document).ready(function(){
                                     rows += "<td></td>"
                                 }
                                 else{
-                                    rows += "<td> ${itemtt}</td>"
+                                    rows += `<td> ${itemtt}</td>`
                                 }
                                 rows += "<td>" + item.owner + "</td>"
                                 + "<td>" + item.remarks + "</td>"
@@ -890,7 +890,7 @@ $(document).ready(function(){
                                     rows += "<td></td>"
                                 }
                                 else{
-                                    rows += "<td> ${itemtt}</td>"
+                                    rows += `<td> ${itemtt}</td>`
                                 }
                                 rows += "<td>" + item.owner + "</td>"
                                 + "<td>" + item.remarks + "</td>"

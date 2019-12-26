@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->comment('密碼');
             $table->string('job')->comment('職稱');
             $table->enum('is_verified',array('Y','N'))->default('N')->comment('是否已驗證');
+            $table->string('code')->nullable()->comment('簡訊驗證碼');
             $table->string('UUID')->nullable()->unique()->comment('登入驗證');
             $table->timestamps();
             $table->softDeletes();

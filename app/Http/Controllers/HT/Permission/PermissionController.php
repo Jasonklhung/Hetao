@@ -265,34 +265,37 @@ class PermissionController extends Controller
             if($request->job == '員工'){
 
                 $userId = $user['token'];
-                $richmenuId = 'richmenu-378a6d5027112cad45cbb8c9964d42e4' ;
-                $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
-
                 $client = new \GuzzleHttp\Client();
-                $response = $client->post('https://api.line.me/v2/bot/user/'.$userId.'/richmenu/'.$richmenuId, [
-                    'headers' => ['Content-Length' => '0','Authorization' => 'Bearer '.$channel],
+                $response = $client->post('https://accunixwh.azurewebsites.net/api/LINEBot/5dfafa8e/authenticate/26', [
+                    'headers' => ['Content-Type' => 'application/json'],
+                    'body' => json_encode([
+                        'user_token' => $userId,
+                        'role'=>77,
+                    ])
                 ]);
             }
             elseif($request->job == '助理'){
 
                 $userId = $user['token'];
-                $richmenuId = 'richmenu-0b9890f50d5cd767db86c87dec17ebdd' ;
-                $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
-
                 $client = new \GuzzleHttp\Client();
-                $response = $client->post('https://api.line.me/v2/bot/user/'.$userId.'/richmenu/'.$richmenuId, [
-                    'headers' => ['Content-Length' => '0','Authorization' => 'Bearer '.$channel],
+                $response = $client->post('https://accunixwh.azurewebsites.net/api/LINEBot/5dfafa8e/authenticate/26', [
+                    'headers' => ['Content-Type' => 'application/json'],
+                    'body' => json_encode([
+                        'user_token' => $userId,
+                        'role'=>76,
+                    ])
                 ]);
             }
             elseif($request->job == '主管'){
 
                 $userId = $user['token'];
-                $richmenuId = 'richmenu-0b9890f50d5cd767db86c87dec17ebdd' ;
-                $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
-
                 $client = new \GuzzleHttp\Client();
-                $response = $client->post('https://api.line.me/v2/bot/user/'.$userId.'/richmenu/'.$richmenuId, [
-                    'headers' => ['Content-Length' => '0','Authorization' => 'Bearer '.$channel],
+                $response = $client->post('https://accunixwh.azurewebsites.net/api/LINEBot/5dfafa8e/authenticate/26', [
+                    'headers' => ['Content-Type' => 'application/json'],
+                    'body' => json_encode([
+                        'user_token' => $userId,
+                        'role'=>76,
+                    ])
                 ]);
             }
 
@@ -325,12 +328,21 @@ class PermissionController extends Controller
             return redirect()->route('ht.Permission.index',compact('organization'))->with('success','刪除成功');
         }
         else{
-            $richmenuId = 'richmenu-183e75de1b54741099d3b3c6952c21b0' ;
-            $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
+            // $richmenuId = 'richmenu-183e75de1b54741099d3b3c6952c21b0' ;
+            // $channel = 'kigQJsG6rQh2yJFhqcpQY0WMc/xSsUFLFwuoTs+N4zo0Xx7BmN+qxxXZ0m2IXSb31++yliJDSvyIeLYci3ZrOIHus58KTjVQrLydr2+fk6q+2TmnPThJUzcDtoaXy15KdbHuqdXkhhKM/oJ/33qLiAdB04t89/1O/w1cDnyilFU=' ;
+
+            // $client = new \GuzzleHttp\Client();
+            // $response = $client->post('https://api.line.me/v2/bot/user/'.$userId.'/richmenu/'.$richmenuId, [
+            //     'headers' => ['Content-Length' => '0','Authorization' => 'Bearer '.$channel],
+            // ]);
 
             $client = new \GuzzleHttp\Client();
-            $response = $client->post('https://api.line.me/v2/bot/user/'.$userId.'/richmenu/'.$richmenuId, [
-                'headers' => ['Content-Length' => '0','Authorization' => 'Bearer '.$channel],
+            $response = $client->post('https://accunixwh.azurewebsites.net/api/LINEBot/5dfafa8e/authenticate/26', [
+                'headers' => ['Content-Type' => 'application/json'],
+                'body' => json_encode([
+                    'user_token' => $userId,
+                    'role'=>79,
+                ])
             ]);
 
             $client = new \GuzzleHttp\Client();

@@ -21,7 +21,7 @@ class LoginController extends Controller
         $UUID = 'HT'.$random;
 
         $client = new Client;
-        $response = $client->request('GET','https://bot168.azurewebsites.net/api/qr/?https://line.me/R/oaMessage/@320hyrul/?'.$UUID.'')
+        $response = $client->request('GET','https://bot168.azurewebsites.net/api/qr/?https://line.me/R/oaMessage/@znm5920w/?'.$UUID.'')
         ->getBody()->getContents();
 
         $result = json_decode($response);

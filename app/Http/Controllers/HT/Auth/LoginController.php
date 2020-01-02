@@ -52,7 +52,7 @@ class LoginController extends Controller
                 $response = $client->post('https://accunixwh.azurewebsites.net/api/LINEBot/5de09125/sendMessages', [
                     'headers' => ['Content-Type' => 'application/json'],
                     'body' => json_encode([
-                        'token' => $user['token'],
+                        'user_token' => $user['token'],
                         'message' => [array('type'=>'text','text'=> '登入成功')]
                     ])
                 ]);

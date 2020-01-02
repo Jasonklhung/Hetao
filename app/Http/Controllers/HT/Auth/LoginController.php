@@ -48,6 +48,17 @@ class LoginController extends Controller
 
     			$users = User::where('id', $user['id'])->update(['UUID' => null]);
 
+                $client = new \GuzzleHttp\Client();
+                $response = $client->post('https://accunixwh.azurewebsites.net/api/LINEBot/5de09125/sendMessages', [
+                    'headers' => ['Content-Type' => 'application/json'],
+                    'body' => json_encode([
+                        'token' => $user['token'],
+                        'message' => [array('type'=>'text','text'=> '登入成功')]
+                    ])
+                ]);
+
+                $response = $response->getBody()->getContents();
+
     			return response()->json([
     				'redirect'=>route('ht.Overview.index',['organization'=>$user['organization_id']]),
     			],	200);

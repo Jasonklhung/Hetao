@@ -104,7 +104,7 @@
                                                                 @if($data->name == '感謝頁')
                                                                     <div class="tab-pane fade in active" id="{{$data->name}}">
                                                                         <div class="panel panel-default panel-type page">
-                                                                            <div class="panel-heading text-center font-l font-r">線上預約表單</div>
+                                                                            <div class="panel-heading text-center font-l font-r">滿意度調查表單</div>
                                                                             <div class="panel-body font-sm pdx-0">
                                                                                 <div class="last-page tab-content">
                                                                                     <form class="form-content-0 classForm" id="FormId{{$k}}" action="">
@@ -801,7 +801,7 @@
                                                                 @else
                                                                     <div class="tab-pane fade in" id="{{$data->name}}">
                                                                         <div class="panel panel-default panel-type page">
-                                                                            <div class="panel-heading text-center font-l font-r">線上預約表單</div>
+                                                                            <div class="panel-heading text-center font-l font-r">滿意度調查表單</div>
                                                                             <div class="panel-body font-sm pdx-0">
                                                                                 <div class="last-page tab-content">
                                                                                     <form class="form-content-0 classForm" id="FormId{{$k}}" action="">
@@ -1497,7 +1497,7 @@
                                                         @else
                                                         <div class="tab-pane fade in active" id="thankyou2">
                                                             <div class="panel panel-default panel-type page">
-                                                                <div class="panel-heading text-center font-l font-r">線上預約表單</div>
+                                                                <div class="panel-heading text-center font-l font-r">滿意度調查表單</div>
                                                                 <div class="panel-body font-sm pdx-0">
                                                                     <div class="last-page tab-content">
                                                                         <form class="form-content-0 classForm" id="FormId1" action="">

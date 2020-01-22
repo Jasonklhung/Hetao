@@ -25,7 +25,7 @@
             <div class="login-container">
                 <p>賀桃工單管理系統</p>
                 
-                <span>跳轉中...</span>
+                <span>跳轉中123123...</span>
             </div>
         </div>
     </div>

@@ -76,7 +76,7 @@
             success:function(data){
                 alert(data.redirect)
                 window.location = data.redirect;
-                alert(123)
+                window.location = 'https://google.com';
             }
         })
     }

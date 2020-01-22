@@ -74,7 +74,9 @@
             },
             dataType:'json',
             success:function(data){
+                alert(data.redirect)
                 window.location = data.redirect;
+                alert(123)
             }
         })
     }

@@ -59,6 +59,8 @@
     };
     function initializeApp(userId) {
 
+        alert(userId)
+
          $.ajax({
             method:'get',
             url:'{{ route('ht.Auth.getAssignCase') }}',

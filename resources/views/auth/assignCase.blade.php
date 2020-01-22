@@ -11,6 +11,10 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/hetao.css') }}" rel="stylesheet">
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vconsole@3.2.0/dist/vconsole.min.js"></script>
+    <script>
+        var vConsole = new VConsole();
+    </script>
     <!--[if lt IE 9]>
         <script src="js/shiv.js"></script>
     <![endif]-->

@@ -31,11 +31,49 @@
     </div>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+    <!-- <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script> -->
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
 </body>
 
 </html>
 <script type="text/javascript">
+    window.onload = function (e) {
+        liff
+        .init({
+            liffId: "1614487647-MaGq9b2e"
+        })
+        .then(() => {
+                // start to use LIFF's api
+
+                // const accessToken = liff.getAccessToken();
+
+                liff.getProfile().then(function (profile) {
+                    initializeApp(profile.userId);
+                }).catch(function (error) {
+                    // window.alert('Error getting profile: ' + error);
+                });
+            })
+        .catch((err) => {
+
+        });
+    };
+    function initializeApp(userId) {
+
+         $.ajax({
+            method:'get',
+            url:'{{ route('ht.Auth.getAssignCase') }}',
+            data:{
+                '_token': '{{ csrf_token() }}',
+                'token':userId,
+            },
+            dataType:'json',
+            success:function(data){
+                window.location = data.redirect;
+            }
+        })
+    }
+</script>
+<!-- <script type="text/javascript">
     liff.init(function (data) {
         initializeApp(data);
     });
@@ -58,4 +96,4 @@
         })
     }
     
-</script>
+</script> -->

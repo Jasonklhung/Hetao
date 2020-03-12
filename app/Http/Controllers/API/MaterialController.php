@@ -68,7 +68,7 @@ class MaterialController extends Controller
     		$material = array("status"=>200);
 
     		foreach ($res as $key => $value) {
-    			$material["data"][$value['organization_name'][] = array("materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
+    			$material["data"][$value['organization_name']][] = array("materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
     		}
 
     		return $material;
@@ -80,7 +80,7 @@ class MaterialController extends Controller
     		$material = array("status"=>200);
 
     		foreach ($res as $key => $value) {
-    			$material["data"][$value['organization_name'][] = array("materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
+    			$material["data"][$value['organization_name']][] = array("materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
     		}
 
     		return $material;

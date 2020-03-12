@@ -23,10 +23,8 @@ class MaterialController extends Controller
     	}
     	elseif(empty($date) && !empty($dept)){
 
-    		$org = Organization::where('name',$dept)->get();
-    		$org_id = $org[0]['id'];
-    		$receive = Material::where('organization_id',$org_id)->get();
-    		$back = MaterialBack::where('organization_id',$org_id)->get();
+    		$receive = Material::where('organization_name',$dept)->get();
+    		$back = MaterialBack::where('organization_name',$dept)->get();
     	}
     	elseif(!empty($date) && empty($dept)){
 
@@ -37,8 +35,8 @@ class MaterialController extends Controller
 
     		$org = Organization::where('name',$dept)->get();
     		$org_id = $org[0]['id'];
-    		$receive = Material::where('organization_id',$org_id)->whereDate('date','=',$date)->get();
-    		$back = MaterialBack::where('organization_id',$org_id)->whereDate('date','=',$date)->get();
+    		$receive = Material::where('organization_name',$dept)->whereDate('date','=',$date)->get();
+    		$back = MaterialBack::where('organization_name',$dept)->whereDate('date','=',$date)->get();
     	}
 
     	if($receive->isEmpty() && $back->isEmpty()){
@@ -48,11 +46,11 @@ class MaterialController extends Controller
     		$material = array("status"=>200);
 
     		foreach ($receive as $key => $value) {
-    			$material["receive"][] = array("date"=>$value->date,"emp_id"=>$value->emp_id,"emp_name"=>$value->emp_name,"materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
+    			$material["receive"][$value->organization_name] = array("date"=>$value->date,"emp_id"=>$value->emp_id,"emp_name"=>$value->emp_name,"materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
     		}
 
     		foreach ($back as $k => $v) {
-    			$material["back"][] = array("date"=>$v->date,"emp_id"=>$v->emp_id,"emp_name"=>$v->emp_name,"materials_number"=>$v->materials_number,"materials_spec"=>$v->materials_spec,"machine_number"=>$v->machine_number,"quantity"=>$v->quantity,"other"=>$v->other);
+    			$material["back"][$value->organization_name] = array("date"=>$v->date,"emp_id"=>$v->emp_id,"emp_name"=>$v->emp_name,"materials_number"=>$v->materials_number,"materials_spec"=>$v->materials_spec,"machine_number"=>$v->machine_number,"quantity"=>$v->quantity,"other"=>$v->other);
     		}
 
     		return $material;

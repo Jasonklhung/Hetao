@@ -38,6 +38,11 @@ Route::post('satisfaction','Api\SatisfactionController@show');
 //account
 Route::post('accountStore','Api\AccountController@store');
 
+//material
+Route::post('get_material_detail','Api\MaterialController@get_material_detail');
+Route::post('get_material','Api\MaterialController@get_material');
+
+
 
 //crontab
 Route::get('reservationFinish','Api\CrontabController@reservationFinish');

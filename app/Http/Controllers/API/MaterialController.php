@@ -45,7 +45,7 @@ class MaterialController extends Controller
     		return json_encode(array("status" => 400 , "message" => "沒有符合的資料"));
     	}
     	else{
-    		$material = array();
+    		$material = array("status"=>200);
 
     		foreach ($receive as $key => $value) {
     			$material["receive"][] = array("date"=>$value->date,"emp_id"=>$value->emp_id,"emp_name"=>$value->emp_name,"materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
@@ -67,7 +67,7 @@ class MaterialController extends Controller
 
     		$res = MaterialStock::all();
 
-    		$material = array();
+    		$material = array("status"=>200);
 
     		foreach ($res as $key => $value) {
     			$material[$value['organization_name']][] = array("materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
@@ -79,7 +79,7 @@ class MaterialController extends Controller
 
     		$res = MaterialStock::where("organization_name",$dept)->get();
 
-    		$material = array();
+    		$material = array("status"=>200);
 
     		foreach ($res as $key => $value) {
     			$material[$value['organization_name']][] = array("materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);

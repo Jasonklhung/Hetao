@@ -86,21 +86,4 @@ class MaterialController extends Controller
     		return $material;
     	}
     }
-
-    // public function get_material_test(Request $request)
-    // {
-    // 	$client = new \GuzzleHttp\Client();
-    // 	$response = $client->post('https://ht-web.accunix.net/api/get_material_detail', [
-    // 		'headers' => ['Content-Type' => 'application/json'],
-    // 		'body' => json_encode([
-                
-    //         ])
-    // 	]);
-
-    // 	$response = $response->getBody()->getContents();
-
-    	
-
-    // 	return $response;
-    // }
 }

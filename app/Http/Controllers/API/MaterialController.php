@@ -59,8 +59,33 @@ class MaterialController extends Controller
     	}
     }
 
-    public function get_material()
+    public function get_material(Request $request)
     {
+    	$dept = $request->dept;
 
+    	if(empty($dept)){
+
+    		$res = MaterialStock::all();
+
+    		$material = array();
+
+    		foreach ($res as $key => $value) {
+    			$material[$value['organization_name']][] = array("materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
+    		}
+
+    		return $material;
+    	}
+    	else{
+
+    		$res = MaterialStock::where("organization_name",$dept)->get();
+
+    		$material = array();
+
+    		foreach ($res as $key => $value) {
+    			$material[$value['organization_name']][] = array("materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
+    		}
+
+    		return $material;
+    	}
     }
 }

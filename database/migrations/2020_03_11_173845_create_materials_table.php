@@ -22,7 +22,7 @@ class CreateMaterialsTable extends Migration
             $table->string("materials_spec")->comment("品名規格");
             $table->string("machine_number")->comment("機號");
             $table->integer("quantity")->comment("數量");
-            $table->string("othrt")->nullable()->comment("備註");
+            $table->string("other")->nullable()->comment("備註");
             $table->timestamps();
         });
     }

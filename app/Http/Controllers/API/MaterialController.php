@@ -81,6 +81,9 @@ class MaterialController extends Controller
 
     			$res = MaterialBack::where('id',$id);
     		}
+    		else{
+    			return json_encode(array("status" => 400 , "message" => "無效的type參數"));
+    		}
     	}
     	elseif(empty($id) && !empty($date && empty($dept))){
 
@@ -95,6 +98,9 @@ class MaterialController extends Controller
     			$update = MaterialBack::whereDate('date', '=', $date)->update(['status' => 'Y']);
 
     			$res = MaterialBack::whereDate('date','=', $date)->get();
+    		}
+    		else{
+    			return json_encode(array("status" => 400 , "message" => "無效的type參數"));
     		}
     	}
     	elseif(empty($id) && !empty($date) && !empty($dept)){
@@ -111,6 +117,9 @@ class MaterialController extends Controller
     			$update = MaterialBack::whereDate('date', '=', $date)->where('organization_name',$dept)->update(['status' => 'Y']);
 
     			$res = MaterialBack::whereDate('date','=', $date)->where('organization_name',$dept)->get();
+    		}
+    		else{
+    			return json_encode(array("status" => 400 , "message" => "無效的type參數"));
     		}
     	}
     	elseif(empty($id) && empty($date) && !empty($dept)){

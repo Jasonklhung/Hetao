@@ -126,12 +126,17 @@ class MaterialController extends Controller
     		return json_encode(array("status" => 400 , "message" => "缺少date參數"));
     	}
 
-    	$material = array("status"=>200);
+    	if($res->isNotEmpty()){
+    		$material = array("status"=>200);
 
-    	foreach ($res as $key => $value) {
-    		$material["data"][] = array("id"=>$value->id,"dept"=>$value['organization_name'],"materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other,"status"=>$value->status);
+    		foreach ($res as $key => $value) {
+    			$material["data"][] = array("id"=>$value->id,"dept"=>$value['organization_name'],"materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other,"status"=>$value->status);
+    		}
+
+    		return $material;
     	}
-
-    	return $material;
+    	else{
+    		return json_encode(array("status" => 400 , "message" => "沒有符合的資料"));
+    	}
     }
 }

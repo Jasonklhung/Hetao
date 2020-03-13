@@ -42,7 +42,9 @@ Route::post('accountStore','Api\AccountController@store');
 Route::post('get_material_detail','Api\MaterialController@get_material_detail');
 Route::post('material_update','Api\MaterialController@material_update');
 
-
+//cycle
+Route::post('get_cycle_detail','Api\CycleController@get_cycle_detail');
+Route::post('cycle_update','Api\CycleController@cycle_update');
 
 //crontab
 Route::get('reservationFinish','Api\CrontabController@reservationFinish');

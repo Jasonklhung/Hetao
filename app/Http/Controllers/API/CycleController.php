@@ -53,7 +53,7 @@ class CycleController extends Controller
     	}
     }
 
-    public function material_update(Request $request)
+    public function cycle_update(Request $request)
     {
     	$id = $request->id;
     	$type = $request->type;

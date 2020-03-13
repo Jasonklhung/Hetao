@@ -50,7 +50,7 @@ class MaterialController extends Controller
     		}
 
     		foreach ($back as $k => $v) {
-    			$material["back"][] = array("id"=>$value->id,"dept"=>$value->organization_name,"date"=>$v->date,"emp_id"=>$v->emp_id,"emp_name"=>$v->emp_name,"materials_number"=>$v->materials_number,"materials_spec"=>$v->materials_spec,"machine_number"=>$v->machine_number,"quantity"=>$v->quantity,"other"=>$v->other,"status"=>$value->status);
+    			$material["back"][] = array("id"=>$v->id,"dept"=>$v->organization_name,"date"=>$v->date,"emp_id"=>$v->emp_id,"emp_name"=>$v->emp_name,"materials_number"=>$v->materials_number,"materials_spec"=>$v->materials_spec,"machine_number"=>$v->machine_number,"quantity"=>$v->quantity,"other"=>$v->other,"status"=>$v->status);
     		}
 
     		return $material;

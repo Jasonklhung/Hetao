@@ -46,7 +46,7 @@ class CycleController extends Controller
     		}
 
     		foreach ($turn as $k => $v) {
-    			$cycle["turn"][] = array("id"=>$value->id,"dept"=>$value->organization_name,"date"=>$value->date,"category"=>$value->category,"custkey"=>$value->custkey,"status"=>$value->status);
+    			$cycle["turn"][] = array("id"=>$v->id,"dept"=>$v->organization_name,"date"=>$v->date,"category"=>$v->category,"custkey"=>$v->custkey,"status"=>$v->status);
     		}
 
     		return $cycle;

@@ -46,44 +46,83 @@ class MaterialController extends Controller
     		$material = array("status"=>200);
 
     		foreach ($receive as $key => $value) {
-    			$material["receive"][] = array("dept"=>$value->organization_name,"date"=>$value->date,"emp_id"=>$value->emp_id,"emp_name"=>$value->emp_name,"materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
+    			$material["receive"][] = array("id"=>$value->id,"dept"=>$value->organization_name,"date"=>$value->date,"emp_id"=>$value->emp_id,"emp_name"=>$value->emp_name,"materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
     		}
 
     		foreach ($back as $k => $v) {
-    			$material["back"][] = array("dept"=>$value->organization_name,"date"=>$v->date,"emp_id"=>$v->emp_id,"emp_name"=>$v->emp_name,"materials_number"=>$v->materials_number,"materials_spec"=>$v->materials_spec,"machine_number"=>$v->machine_number,"quantity"=>$v->quantity,"other"=>$v->other);
+    			$material["back"][] = array("id"=>$value->id,"dept"=>$value->organization_name,"date"=>$v->date,"emp_id"=>$v->emp_id,"emp_name"=>$v->emp_name,"materials_number"=>$v->materials_number,"materials_spec"=>$v->materials_spec,"machine_number"=>$v->machine_number,"quantity"=>$v->quantity,"other"=>$v->other);
     		}
 
     		return $material;
     	}
     }
 
-    public function get_material(Request $request)
+    public function material_update(Request $request)
     {
+    	$id = $request->id;
+    	$type = $request->type;
     	$dept = $request->dept;
+    	$date = $request->date;
 
-    	if(empty($dept)){
-
-    		$res = MaterialStock::all();
-
-    		$material = array("status"=>200);
-
-    		foreach ($res as $key => $value) {
-    			$material["data"][] = array("dept"=>$value['organization_name'],"materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
-    		}
-
-    		return $material;
+    	if(empty($type)){
+    		return json_encode(array("status" => 400 , "message" => "缺少type參數"));
     	}
-    	else{
+    	elseif(!empty($id) && !empty($type)){
 
-    		$res = MaterialStock::where("organization_name",$dept)->get();
+    		if($type == 'receive'){
 
-    		$material = array("status"=>200);
+    			$update = Material::where('id', '=', $id)->update(['status' => 'Y']);
 
-    		foreach ($res as $key => $value) {
-    			$material["data"][] = array("dept"=>$value['organization_name'],"materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other);
+    			$res = Material::where('id',$id);
     		}
+    		elseif($type == 'back'){
 
-    		return $material;
+    			$update = MaterialBack::where('id', '=', $id)->update(['status' => 'Y']);
+
+    			$res = MaterialBack::where('id',$id);
+    		}
     	}
+    	elseif(empty($id) && !empty($date && empty($dept))){
+
+    		if($type == 'receive'){
+
+    			$update = Material::whereDate('date', '=', $date)->update(['status' => 'Y']);
+
+    			$res = Material::whereDate('date','=', $date)->get();
+    		}
+    		elseif($type == 'back'){
+
+    			$update = MaterialBack::whereDate('date', '=', $date)->update(['status' => 'Y']);
+
+    			$res = MaterialBack::whereDate('date','=', $date)->get();
+    		}
+    	}
+    	elseif(empty($id) && !empty($date) && !empty($dept)){
+
+    		if($type == 'receive'){
+
+    			$update = Material::whereDate('date', '=', $date)->where('organization_name',$dept)->update(['status' => 'Y']);
+
+    			$res = Material::whereDate('date','=', $date)->where('organization_name',$dept)->get();
+
+    		}
+    		elseif($type == 'back'){
+
+    			$update = MaterialBack::whereDate('date', '=', $date)->where('organization_name',$dept)->update(['status' => 'Y']);
+
+    			$res = MaterialBack::whereDate('date','=', $date)->where('organization_name',$dept)->get();
+    		}
+    	}
+    	elseif(empty($id) && empty($date) && !empty($dept)){
+    		return json_encode(array("status" => 400 , "message" => "缺少date參數"));
+    	}
+
+    	$material = array("status"=>200);
+
+    	foreach ($res as $key => $value) {
+    		$material["data"][] = array("id"=>$value->id,"dept"=>$value['organization_name'],"materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other,"status"=>$value->status);
+    	}
+
+    	return $material;
     }
 }

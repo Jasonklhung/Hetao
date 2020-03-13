@@ -40,7 +40,7 @@ Route::post('accountStore','Api\AccountController@store');
 
 //material
 Route::post('get_material_detail','Api\MaterialController@get_material_detail');
-Route::post('get_material','Api\MaterialController@get_material');
+Route::post('material_update','Api\MaterialController@material_update');
 
 
 

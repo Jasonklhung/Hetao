@@ -35,7 +35,7 @@ class CycleController extends Controller
     		$turn = CycleTurn::where('organization_name',$dept)->whereDate('date','=',$date)->get();
     	}
 
-    	if($receive->isEmpty() && $back->isEmpty()){
+    	if($finish->isEmpty() && $turn->isEmpty()){
     		return json_encode(array("status" => 400 , "message" => "沒有符合的資料"));
     	}
     	else{

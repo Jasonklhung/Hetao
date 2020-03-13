@@ -61,82 +61,44 @@ class MaterialController extends Controller
     {
     	$id = $request->id;
     	$type = $request->type;
-    	$dept = $request->dept;
-    	$date = $request->date;
 
     	if(empty($type)){
     		return json_encode(array("status" => 400 , "message" => "缺少type參數"));
     	}
-    	elseif(!empty($id) && !empty($type)){
-
-    		if($type == 'receive'){
-
-    			$update = Material::where('id', '=', $id)->update(['status' => 'Y']);
-
-    			$res = Material::where('id',$id)->get();
-    		}
-    		elseif($type == 'back'){
-
-    			$update = MaterialBack::where('id', '=', $id)->update(['status' => 'Y']);
-
-    			$res = MaterialBack::where('id',$id)->get();
-    		}
-    		else{
-    			return json_encode(array("status" => 400 , "message" => "無效的type參數"));
-    		}
-    	}
-    	elseif(empty($id) && !empty($date && empty($dept))){
-
-    		if($type == 'receive'){
-
-    			$update = Material::whereDate('date', '=', $date)->update(['status' => 'Y']);
-
-    			$res = Material::whereDate('date','=', $date)->get();
-    		}
-    		elseif($type == 'back'){
-
-    			$update = MaterialBack::whereDate('date', '=', $date)->update(['status' => 'Y']);
-
-    			$res = MaterialBack::whereDate('date','=', $date)->get();
-    		}
-    		else{
-    			return json_encode(array("status" => 400 , "message" => "無效的type參數"));
-    		}
-    	}
-    	elseif(empty($id) && !empty($date) && !empty($dept)){
-
-    		if($type == 'receive'){
-
-    			$update = Material::whereDate('date', '=', $date)->where('organization_name',$dept)->update(['status' => 'Y']);
-
-    			$res = Material::whereDate('date','=', $date)->where('organization_name',$dept)->get();
-
-    		}
-    		elseif($type == 'back'){
-
-    			$update = MaterialBack::whereDate('date', '=', $date)->where('organization_name',$dept)->update(['status' => 'Y']);
-
-    			$res = MaterialBack::whereDate('date','=', $date)->where('organization_name',$dept)->get();
-    		}
-    		else{
-    			return json_encode(array("status" => 400 , "message" => "無效的type參數"));
-    		}
-    	}
-    	elseif(empty($id) && empty($date) && !empty($dept)){
-    		return json_encode(array("status" => 400 , "message" => "缺少date參數"));
+    	elseif(empty($id)){
+    		return json_encode(array("status" => 400 , "message" => "缺少id參數"));
     	}
 
-    	if($res->isNotEmpty()){
-    		$material = array("status"=>200);
+    	$result = array();
 
-    		foreach ($res as $key => $value) {
-    			$material["data"][] = array("id"=>$value->id,"dept"=>$value['organization_name'],"materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other,"status"=>$value->status);
+    	if($type == 'receive'){
+
+    		foreach ($id as $key => $value) {
+    			$update = Material::where('id', '=', $value)->update(['status' => 'Y']);
+
+    			if($update == true){
+    				array_push($result, $value);
+    			}
     		}
+    	}
+    	elseif($type == 'back'){
 
-    		return $material;
+    		foreach ($id as $key => $value) {
+    			$update = MaterialBack::where('id', '=', $value)->update(['status' => 'Y']);
+
+    			if($update == true){
+    				array_push($result, $value);
+    			}
+    		}
+    	}
+
+    	$result = implode(',', $result);
+
+    	if(!empty($result)){
+    		return json_encode(array("status" => 200 , "message" => "id:".$result."更新成功"));
     	}
     	else{
-    		return json_encode(array("status" => 400 , "message" => "沒有符合的資料"));
+    		return json_encode(array("status" => 400 , "message" => "查無可更新的資料"));
     	}
     }
 }

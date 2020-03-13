@@ -57,82 +57,44 @@ class CycleController extends Controller
     {
     	$id = $request->id;
     	$type = $request->type;
-    	$dept = $request->dept;
-    	$date = $request->date;
 
     	if(empty($type)){
     		return json_encode(array("status" => 400 , "message" => "缺少type參數"));
     	}
-    	elseif(!empty($id) && !empty($type)){
-
-    		if($type == 'finish'){
-
-    			$update = CycleFinish::where('id', '=', $id)->update(['status' => 'Y']);
-
-    			$res = CycleFinish::where('id',$id)->get();
-    		}
-    		elseif($type == 'turn'){
-
-    			$update = CycleTurn::where('id', '=', $id)->update(['status' => 'Y']);
-
-    			$res = CycleTurn::where('id',$id)->get();
-    		}
-    		else{
-    			return json_encode(array("status" => 400 , "message" => "無效的type參數"));
-    		}
-    	}
-    	elseif(empty($id) && !empty($date && empty($dept))){
-
-    		if($type == 'finish'){
-
-    			$update = CycleFinish::whereDate('date', '=', $date)->update(['status' => 'Y']);
-
-    			$res = CycleFinish::whereDate('date','=', $date)->get();
-    		}
-    		elseif($type == 'turn'){
-
-    			$update = CycleTurn::whereDate('date', '=', $date)->update(['status' => 'Y']);
-
-    			$res = CycleTurn::whereDate('date','=', $date)->get();
-    		}
-    		else{
-    			return json_encode(array("status" => 400 , "message" => "無效的type參數"));
-    		}
-    	}
-    	elseif(empty($id) && !empty($date) && !empty($dept)){
-
-    		if($type == 'finish'){
-
-    			$update = CycleFinish::whereDate('date', '=', $date)->where('organization_name',$dept)->update(['status' => 'Y']);
-
-    			$res = CycleFinish::whereDate('date','=', $date)->where('organization_name',$dept)->get();
-
-    		}
-    		elseif($type == 'turn'){
-
-    			$update = CycleTurn::whereDate('date', '=', $date)->where('organization_name',$dept)->update(['status' => 'Y']);
-
-    			$res = CycleTurn::whereDate('date','=', $date)->where('organization_name',$dept)->get();
-    		}
-    		else{
-    			return json_encode(array("status" => 400 , "message" => "無效的type參數"));
-    		}
-    	}
-    	elseif(empty($id) && empty($date) && !empty($dept)){
-    		return json_encode(array("status" => 400 , "message" => "缺少date參數"));
+    	elseif(empty($id)){
+    		return json_encode(array("status" => 400 , "message" => "缺少id參數"));
     	}
 
-    	if($res->isNotEmpty()){
-    		$cycle = array("status"=>200);
+    	$result = array();
 
-    		foreach ($res as $key => $value) {
-    			$cycle["data"][] = array("id"=>$value->id,"dept"=>$value['organization_name'],"materials_number"=>$value->materials_number,"materials_spec"=>$value->materials_spec,"machine_number"=>$value->machine_number,"quantity"=>$value->quantity,"other"=>$value->other,"status"=>$value->status);
+    	if($type == 'finish'){
+
+    		foreach ($id as $key => $value) {
+    			$update = CycleFinish::where('id', '=', $value)->update(['status' => 'Y']);
+
+    			if($update == true){
+    				array_push($result, $value);
+    			}
     		}
+    	}
+    	elseif($type == 'turn'){
 
-    		return $cycle;
+    		foreach ($id as $key => $value) {
+    			$update = CycleTurn::where('id', '=', $value)->update(['status' => 'Y']);
+
+    			if($update == true){
+    				array_push($result, $value);
+    			}
+    		}
+    	}
+
+    	$result = implode(',', $result);
+
+    	if(!empty($result)){
+    		return json_encode(array("status" => 200 , "message" => "id:".$result."更新成功"));
     	}
     	else{
-    		return json_encode(array("status" => 400 , "message" => "沒有符合的資料"));
+    		return json_encode(array("status" => 400 , "message" => "查無可更新的資料"));
     	}
     }
 }

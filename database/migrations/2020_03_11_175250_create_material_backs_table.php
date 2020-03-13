@@ -15,6 +15,7 @@ class CreateMaterialBacksTable extends Migration
     {
         Schema::create('material_backs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string("organization_name")->comment("分公司");
             $table->date('date')->comment("退料日期");
             $table->string("emp_id")->comment("員編");
             $table->string("emp_name")->comment("員工姓名");

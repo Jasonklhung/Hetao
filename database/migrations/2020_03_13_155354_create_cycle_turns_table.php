@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMaterialStocksTable extends Migration
+class CreateCycleTurnsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateMaterialStocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('material_stocks', function (Blueprint $table) {
+        Schema::create('cycle_turns', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("organization_name")->comment("分公司");
-            $table->string("materials_number")->comment("產品料號");
-            $table->string("materials_spec")->comment("品名規格");
-            $table->string("machine_number")->comment("機號");
-            $table->integer("quantity")->comment("數量");
-            $table->string("other")->nullable()->comment("備註");
+            $table->date('date')->comment("轉單日期");
+            $table->string("category")->comment("週期類別");
+            $table->string("custkey")->comment("客戶代碼");
+            $table->enum('status',array('Y','N'))->default('N')->comment('是否更新');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateMaterialStocksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('material_stocks');
+        Schema::dropIfExists('cycle_turns');
     }
 }

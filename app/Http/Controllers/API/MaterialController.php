@@ -73,13 +73,13 @@ class MaterialController extends Controller
 
     			$update = Material::where('id', '=', $id)->update(['status' => 'Y']);
 
-    			$res = Material::where('id',$id);
+    			$res = Material::where('id',$id)->get();
     		}
     		elseif($type == 'back'){
 
     			$update = MaterialBack::where('id', '=', $id)->update(['status' => 'Y']);
 
-    			$res = MaterialBack::where('id',$id);
+    			$res = MaterialBack::where('id',$id)->get();
     		}
     		else{
     			return json_encode(array("status" => 400 , "message" => "無效的type參數"));

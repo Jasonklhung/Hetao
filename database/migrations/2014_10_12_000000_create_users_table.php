@@ -17,6 +17,8 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('organization_id')->comment('組織id');
             $table->bigInteger('department_id')->comment('部門id');
+            $table->string('organizations')->comment('多個分公司id');
+            $table->string('organizations_name')->comment('多個分公司name');
             $table->string('token')->nullable()->unique()->comment('Line token');
             $table->string('name')->comment('姓名');
             $table->string('ID_number')->unique()->comment('身分證字號');

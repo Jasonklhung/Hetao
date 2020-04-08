@@ -29,9 +29,25 @@ class CheckOrganization
 		if(Auth::user()->organization_id == $organization->id){
 			return $next($request);
 		}else{
+			
+			$all = explode(',',Auth::user()->organizations);
+			$count = 0;
+			foreach ($all as $key => $value) {
 
-			Auth::logout();
-    	 	return redirect()->route('ht.Auth.show');
+				if($value == $organization->id){
+					$count++;
+				}
+			}
+
+			if($count > 0){
+				
+				return $next($request);
+			}
+			else{
+
+				Auth::logout();
+				return redirect()->route('ht.Auth.show');
+			}
 		}
 
 	}

@@ -27,7 +27,7 @@ const toggleAbleOpenAttr = (config = {}, toggler = div.toggler()) => merge(confi
   }
 })
 
-component('side-bar', toggleAbleOpenAttr({
+  component('side-bar', toggleAbleOpenAttr({
   props: {
     accessors: {
       selected: {
@@ -57,91 +57,25 @@ component('side-bar', toggleAbleOpenAttr({
   }
 }))
 
-component('side-bar', toggleAbleOpenAttr({
-  props: {
-    accessors: {
-      selected: {
-        get (sb) {
-          const selected = sb.state.selected || sb.findOne('sb-item2.selected')
-          if (selected) return $(selected)
-        },
-        set (sb, selected) {
-          selected = $(selected)
-          if (selected.class.selected) return
-          selected.class.selected = true
-          if (sb.selected) {
-            (sb.selectedLast = sb.selected).class.selected = false
-          }
-          sb.state.selected = selected
-        }
-      }
-    }
-  },
-  mount (el) {
-    el.on.click(({target}) => {
-      if (target === el || target === el()) return
-      if ((target = $(target)).matches('sb-item2') && !target.class.selected) {
-        el.selected = target
-      }
-    })
-  }
-}))
 
-component('side-bar', toggleAbleOpenAttr({
-  props: {
-    accessors: {
-      selected: {
-        get (sb) {
-          const selected = sb.state.selected || sb.findOne('sb-item3.selected')
-          if (selected) return $(selected)
-        },
-        set (sb, selected) {
-          selected = $(selected)
-          if (selected.class.selected) return
-          selected.class.selected = true
-          if (sb.selected) {
-            (sb.selectedLast = sb.selected).class.selected = false
-          }
-          sb.state.selected = selected
-        }
-      }
-    }
-  },
-  mount (el) {
-    el.on.click(({target}) => {
-      if (target === el || target === el()) return
-      if ((target = $(target)).matches('sb-item3') && !target.class.selected) {
-        el.selected = target
-      }
-    })
-  }
-}))
-
+//rwd
 component('sb-menu', toggleAbleOpenAttr({}, 'sb-menu-title'))
 component('sb-menu2', toggleAbleOpenAttr({}, 'sb-menu-title2'))
 component('sb-menu3', toggleAbleOpenAttr({}, 'sb-menu-title3'))
+component('sb-menu4', toggleAbleOpenAttr({}, 'sb-menu-title4'))
+component('sb-menu5', toggleAbleOpenAttr({}, 'sb-menu-title5'))
+component('sb-menu6', toggleAbleOpenAttr({}, 'sb-menu-title6'))
+component('sb-menu7', toggleAbleOpenAttr({}, 'sb-menu-title7'))
+component('sb-menu8', toggleAbleOpenAttr({}, 'sb-menu-title8'))
+
 }
 
+
+//pc
 $('.c-l').click(function(){
-  if(!$('.collapse').hasClass('in')){
-    $('.c-l .float-right').text('-');  
+  if(!$(this).find('.collapse').hasClass('in')){
+    $(this).find('.float-right').text('-');  
   } else {
-    $('.c-l .float-right').text('+');  
-  }
-});
-
-$('.c-2').click(function(){
-  if(!$('.collapse').hasClass('in')){
-    $('.c-2 .float-right').text('-');  
-  } else {
-    $('.c-2 .float-right').text('+');  
-  }
-});
-
-$('.c-3').click(function(){
-  if(!$('.collapse').hasClass('in')){
-    $('.c-3 .float-right').text('-');  
-  } else {
-    $('.c-3 .float-right').text('+');  
+    $(this).find('.float-right').text('+');  
   }
 });

@@ -14,6 +14,7 @@
 .panel-body {
     color: #000;
     position: relative;
+    min-height: 100vh;
 }
 
 button {
@@ -34,10 +35,27 @@ input, textarea {
 ------------------------------------------------------------------*/
 
 .hetao-user {
+    text-align: left;
     width: 100%;
-    padding: 10px;
-    text-align: center;
+    padding: 30px;
+}
+
+.pc .hetao-user {
+    margin-bottom: 16px;
+    background: #0088cc;
+}
+
+.rwd .hetao-user select {
+    color: #000;
+}
+
+.hetao-user .title {
+    font-size: 22px;
     margin-bottom: 20px;
+    color: #fff;
+    border-left: 7px solid #ffffff80;
+    padding: 0 0 0 9px;
+    line-height: 24px;    
 }
 
 .hetao-user i {
@@ -46,9 +64,13 @@ input, textarea {
 }
 
 .hetao-user p {
-    padding-top: 10px;
+    padding: 16px 0 8px;
     color: #ffffff;
     margin-bottom: 0;
+}
+
+.hetao-user select {
+    width: 100%;
 }
 
 #manager .panel-title {
@@ -71,14 +93,29 @@ input, textarea {
 .coupon button {
     color: #ffffff;
     background-color: #4194d4;
-    border-radius: 20px;
+    border-radius: 6px;
     letter-spacing: .07rem;
     padding: 5px 15px;
+    vertical-align: text-bottom;
 }
 
 .coupon .btn-bright {
     color: #000;
     background-color: #fece78;
+    font-weight: bold;
+}
+
+.coupon .btn-bright:hover {
+    color: #000;
+}
+
+.coupon .btn-gray {
+    background-color: #e9e9e9;
+    color: #4194d4;
+}
+
+.coupon .btn-gray:hover {
+    color: #4194d4;
 }
 
 .coupon .search button {
@@ -119,6 +156,7 @@ input, textarea {
     font-size: inherit;
     color: #000;
     font-weight: bold;
+    padding: 4px 12px;
 }
 
 @media screen and (min-width: 1310px) {
@@ -284,7 +322,7 @@ div.dataTables_wrapper div.dataTables_filter label, .dataTables_filter .form-gro
         padding: 6px !important;
     }
 
-    .btn-wrap button, .fc-toolbar .btn-wrap button, .dataTables_filter label {
+    /*.btn-wrap button*/, .fc-toolbar .btn-wrap button, .dataTables_filter label {
         margin-bottom: 6px;
     }
 
@@ -350,7 +388,7 @@ small {
 }
 
 .mr-s {
-    margin-right: 6px !important;
+    margin-right: 8px !important;
 }
 
 .mr-m {
@@ -363,6 +401,9 @@ small {
 .ml-s {
     margin-left: 8px;
 }
+.ml-m {
+    margin-left: 16px;
+}
 .mx-s {
     margin-right: 6px;
     margin-left: 6px;
@@ -370,19 +411,31 @@ small {
 .mt-m {
     margin-top: 20px;
 }
+.my-xs {
+    margin: 3px 0;
+}
 .my-s {
-    margin-top: 6px;
-    margin-bottom: 6px;
+    margin-top: 6px!important;
+    margin-bottom: 6px!important;
 }
 .mb-xs {
     margin-bottom: 6px;
+    display: inline-block;
 }
 .mb-s {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+}
+
+.mb-m {
+    margin-bottom: 30px!important;
 }
 
 .mt-s {
-    margin-top: 12px;
+    margin-top: 12px!important;
+}
+
+.m-0 {
+    margin: 0!important;
 }
 
 .px-0 {
@@ -398,6 +451,18 @@ small {
     padding-top: 6px;
 }
 
+.p-s {
+    padding: 15px!important;
+}
+
+.pb-s {
+    padding-bottom: 8px;
+}
+
+.pl-m {
+    padding-left:26px;
+}
+
 .past td:not(.satisfied) {
     opacity: 0.5;
 }
@@ -411,7 +476,7 @@ small {
     word-break: keep-all;
 }
 
-.tab-pane table.collapsed ul {
+.tab-pane table.collapsed ul:not(.levelinfo-menu) {
     width: 100%;
     text-align: left;
 }
@@ -431,6 +496,10 @@ small {
 
 .d-block {
     display: block;
+}
+
+.d-none {
+    display: none!important;
 }
 
 .title-deco {
@@ -486,11 +555,7 @@ ul {
     padding-left: 0; 
 }
 
-.d-block {
-    display: block;
-}
-
-.choose {
+.choose, .d-none {
     display: none;
 }
 /*datetimepicker設定*/
@@ -570,7 +635,7 @@ h4.title-deco {
 
 /* 行程管理-主管
 =================================*/
-.ing:before, .delay:before {
+/*.ing:before, .delay:before {
     content: '';
     position: absolute;
     left: 14px;
@@ -587,15 +652,15 @@ h4.title-deco {
 }
 #hetao-list-su-2 td span:not(.color-btn) {
     padding-left: 25px;
-}
+}*/
 
 
 .batchwrap {
     display: inline-block;
 }
-.batchwrap select {
+/*.batchwrap select {
     margin-bottom: 6px;
-}
+}*/
 
 /* 新增/編輯派工單
 =================================*/
@@ -616,11 +681,11 @@ h4.title-deco {
     padding: 30px;
 }
 
-.dispatch-form .btn {
+/*.dispatch-form .btn {
     border-radius: 20px;
     padding: 4px 20px;
     margin: 0 5px;
-}
+}*/
 
 @media screen and (min-width: 768px) {
     .setting .form-item .form-inline .form-control {
@@ -640,6 +705,30 @@ h4.title-deco {
     color: #4194d4;
     margin: 0 6px;
     text-align: center !important;
+}
+
+.droptool-menu .sall {
+    margin: 0;
+    display: block;
+    text-align: left!important;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.droptool select, .droptool input {
+    box-shadow: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    border-bottom: 1px solid #4194d4;
+    border-radius: 0;
+    width: 160px!important;
+    padding: 3px 0;
+}
+
+.droptool select:focus {
+    box-shadow: none;
+    outline: none;    
 }
 
 #chkall {
@@ -664,8 +753,13 @@ h4.title-deco {
 .dataTables_wrapper table.dataTable {
 	border-collapse: collapse !important;
 	margin: 0 !important;
-	width: 1580px !important;
+	width: 1590px !important;
 }
+
+.iframe .dataTables_wrapper table.dataTable, .warehouse .dataTables_wrapper table.dataTable {
+    width: 100% !important;
+}
+
 .permission .dataTables_wrapper table.dataTable, .assistant#hetao-list-a {
 	width: 100% !important;
 }
@@ -689,6 +783,12 @@ h4.title-deco {
 .dtr-details tr td:nth-child(odd) {
     width: 80px;
 }
+
+.dataTables_wrapper div.dataTables_info {
+    font-size: 16px!important;
+    padding: 8px 4px;
+}
+
 @media screen and (max-width: 1041px) {
     div.dataTables_wrapper div.dataTables_filter {
         text-align: left;
@@ -704,7 +804,7 @@ h4.title-deco {
     }*/
 }
 
-@media screen and (max-width: 1041px) {
+@media screen and (max-width: 1030px) {
     .rwdhide {
         visibility: hidden;
     }
@@ -713,6 +813,11 @@ h4.title-deco {
     .even {
         visibility: hidden;
         display: none;
+    }
+
+    .noresponsive .odd, .noresponsive .even {
+        visibility: inherit;
+        display: table-row;
     }
 
     .dataTable tbody>tr>td {
@@ -732,7 +837,7 @@ h4.title-deco {
         /*width: 50%;*/
     }
 }
-@media screen and (max-width: 1041px) {
+@media screen and (max-width: 1030px) {
     #hetao-list-a .rwdhide {
         visibility: hidden;
     }
@@ -748,7 +853,66 @@ h4.title-deco {
     }
     .dataTables_wrapper table.dataTable#hetao-list-a {
         position: relative;
-        /*top: -30px;*/
+    }
+    #hetao-list-a .child .form-control {
+        display: inline-block;
+        width: 40%;
+    }
+}
+@media screen and (max-width: 1030px) {
+    #hetao-list-a-2 .rwdhide {
+        visibility: hidden;
+    }
+
+    #hetao-list-a-2 .odd,
+    #hetao-list-a-2 .even {
+        visibility: hidden;
+        display: none;
+    }
+
+    #hetao-list-a-2.dataTable tbody>tr>td {
+        text-align: left;
+    }
+    .dataTables_wrapper table.dataTable#hetao-list-a-2 {
+        position: relative;
+    }
+    #hetao-list-a-2 .child .form-control {
+        display: inline-block;
+    }
+    .batch-finish {
+        position: fixed;
+        bottom: 10px;
+        right: 20px;
+        z-index: 9999;
+        box-shadow: 0 2px 10px -3px rgba(0,0,0,0.5);
+    }
+    .chkall {
+        position: absolute;
+        left: inherit;
+        right: 10px;
+        top: 14px;
+    }
+    .assistant select, .supervisor select {
+        margin-left: 0;
+        width: 180px;
+    }
+}
+/*@media screen and (max-width: 1041px) {
+    #hetao-list-a .rwdhide {
+        visibility: hidden;
+    }
+
+    #hetao-list-a .odd,
+    #hetao-list-a .even {
+        visibility: hidden;
+        display: none;
+    }
+
+    #hetao-list-a.dataTable tbody>tr>td {
+        text-align: left;
+    }
+    .dataTables_wrapper table.dataTable#hetao-list-a {
+        position: relative;
     }
     #hetao-list-a .child .form-control {
         display: inline-block;
@@ -771,11 +935,9 @@ h4.title-deco {
     }
     .dataTables_wrapper table.dataTable#hetao-list-a-2 {
         position: relative;
-        /*top: -30px;*/
     }
     #hetao-list-a-2 .child .form-control {
         display: inline-block;
-        /*width: 40%;*/
     }
     .batch-finish {
         position: fixed;
@@ -794,7 +956,7 @@ h4.title-deco {
         margin-left: 0;
         width: 180px;
     }
-}
+}*/
 
 
 /* 權限管理
@@ -946,7 +1108,11 @@ input:checked+.slider:before {
     }
 }
 
-
+@media screen and (max-width: 414px) {
+    .nav>li>a {
+        font-size: 14px;
+    }
+}
 
 
 /* 總覽-新增活動
@@ -988,6 +1154,7 @@ input:checked+.slider:before {
 }
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
     background-color: transparent;
+    opacity: 0.5;
 }
 .opmodal {
     cursor: pointer;
@@ -1026,11 +1193,11 @@ input:checked+.slider:before {
 .addcalendar input:focus, .addcalendar select.form-control:focus {
     box-shadow: none;
 }
-#meet .add-member, #job2 .add-member {
+#meet .add-member, #job2 .add-member, .Overview-set .add-member {
     width: 30px;
     height: 30px;
     padding: 0;
-    float: right;
+    /*float: right;*/
     margin-bottom: 12px;
 }
 
@@ -1122,7 +1289,7 @@ ul li .m-j-list:nth-child(2) {
 }
 
 /*會議對象tag*/
-.tag {
+.tag, .bg-gray {
     background-color: #f1f1f1;
     border-radius: 4px;
     padding: 5px;
@@ -1137,6 +1304,28 @@ ul li .m-j-list:nth-child(2) {
 }
 .memberwrap {
     margin-bottom: 15px;
+}
+
+/*總覽-切換個人 全站*/
+.overview-mode+label {
+    border: 1px solid #ccc;
+    color: #555;
+    padding: 3px 6px;
+    width: 75px;
+    text-align: center;
+    transition: .5s;
+    cursor: pointer;
+} 
+.overview-mode:checked+label {
+    border: 1px solid #4194d4;
+    color: #4194d4;
+} 
+.overview-mode+label i {
+    display: none;
+    margin-right: 6px;
+}
+.overview-mode:checked+label i {
+    display: inline-block;
 }
 
 @media screen and (min-width: 1541px) {
@@ -1161,6 +1350,7 @@ ul li .m-j-list:nth-child(2) {
         text-align: left;
     }
 }
+
 
 
 /* 表單樣式區域
@@ -1542,7 +1732,7 @@ input[type="text"].datime {
     margin-bottom: 15px;
 }
 
-.meeting .close {
+.meeting .close, .Overview-set .close {
     margin: 0 5px;
     font-size: 30px;
 }
@@ -1657,17 +1847,20 @@ input[class^=follow]:checked+.followanswer:before {
 }
 
 /*modal*/
-#newalert i {
+#newalert i, .Overview-set i {
     margin-right: 8px;
 }
-#newalert input[type="radio"]+label:before {
+#newalert input[type="radio"]+label.chooseitem:before, .Overview-set input[type="radio"]+label.chooseitem:before {
     content: '\f111';
     font-family: "Font Awesome 5 Free"; 
     font-weight: 400;
     color: #464646;
     margin-right: 6px;
+    position: absolute;
+    left: 0;    
 }
-#newalert input[type="radio"]:checked+label:before {
+
+#newalert input[type="radio"]:checked+label:before, .Overview-set input[type="radio"]:checked+label:before {
     content: '\f058';
     font-family: "Font Awesome 5 Free"; 
     font-weight: 900;
@@ -1686,16 +1879,17 @@ input[class^=follow]:checked+.followanswer:before {
 .dataTables_filter {
     display: none;
 }
-.coupon {
+/*.coupon {
     margin: 20px 0;
-}
+}*/
 .searchInput {
     width: 180px;
     background: url(../img/search-solid.svg);
     background-size: 16px;
     background-repeat: no-repeat;
     background-position: right 6px center;    
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
+    margin-bottom: 14px;
     display: block;
 }
 .coupon .datetime {
@@ -1703,14 +1897,20 @@ input[class^=follow]:checked+.followanswer:before {
     width: 180px;
 }
 .coupon .form-inline .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 .btn-wrap {
     vertical-align: text-bottom;
+    margin-bottom: 12px; 
 }
 .coupon .form-inline .batchwrap .form-group {
     margin-bottom: 0;
 }
+
+.fc-toolbar .fc-right {
+    float: left!important;
+}
+
 @media screen and (max-width: 767px) {
     .searchInput, .coupon .datetime {
         width: 100%;
@@ -1721,9 +1921,9 @@ input[class^=follow]:checked+.followanswer:before {
     }
 }
 
-.dtr-details tr td:nth-child(odd) {
+/*.dtr-details tr td:nth-child(odd) {
     width: 80px;
-}
+}*/
 /*20191104編輯活動*/
 /*.edit input[type="number"] {
     display: block;
@@ -1758,7 +1958,7 @@ input[class^=follow]:checked+.followanswer:before {
    overflow-y: hidden;
    padding-right: 0;
 }
-#meet .modal-body, #job1 .modal-body, #person .modal-body, #job .modal-body {
+#meet .modal-body, #job1 .modal-body, #person .modal-body, #job .modal-body, .Overview-set .modal-body {
    max-height: 80vh;
    overflow-y: auto;
 }
@@ -1786,11 +1986,13 @@ input[class^=follow]:checked+.followanswer:before {
 }
 
 @media screen and (min-width: 1042px) {
-    div.dataTables_wrapper {
-        width: 100%;
+
+    .iframe div.dataTables_wrapper {
+        width: auto;
         margin: 0 auto;
-        overflow-x: auto;
+        overflow: inherit;
     }
+
     .child {
         display: none;
     }
@@ -1804,6 +2006,15 @@ input[class^=follow]:checked+.followanswer:before {
         display: table-row;
     }
 }
+
+@media screen and (min-width: 1031px) {
+    div.dataTables_wrapper {
+        width: 100%;
+        margin: 0 auto;
+        overflow-x: auto;
+    }    
+}
+
 table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before {
     display: none;
 }
@@ -1854,3 +2065,564 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child, table.
 #hetao-list-s-3.staff tr td:nth-child(5){
     white-space: nowrap;
 }
+
+
+/*****第二階段新增*****/
+
+/*datatable*/
+.dataTables_wrapper table.dataTable#hetao-overview {
+    width: 100% !important;
+    /*min-width: 480px;*/
+}
+
+#hetao-overview.dataTable tbody>tr>td {
+    vertical-align: baseline;
+}
+
+#hetao-overview.dataTable tbody>tr>td:nth-child(odd) {
+    width: 60px;
+}
+
+/*datetimepicker*/
+.Overview-set .bootstrap-datetimepicker-widget:before, .Overview-set .bootstrap-datetimepicker-widget:after {
+    display: none;
+}
+
+.Overview-set .bootstrap-datetimepicker-widget {
+    top: 0!important;
+    width: 100%!important;
+    max-width: 100%;
+    height: 100%!important;
+    left: 0!important;
+    position: fixed!important;  
+    padding: 36px 20px;  
+}
+
+.Overview-set .glyphicon-remove:before {
+    content: '\f00c  確認'!important;
+    font-family: "Font Awesome 5 Free", "Microsoft JhengHei";
+    font-weight: 900;
+    top: -2px;
+    position: relative;
+}
+
+.Overview-set .bootstrap-datetimepicker-widget .picker-switch td {
+    width: 50%;
+}
+
+.Overview-set .bootstrap-datetimepicker-widget tr td, .bootstrap-datetimepicker-widget th {
+    padding: 18px 3px !important; 
+}
+
+
+/*自訂*/
+.text-bright {
+    color: #fece78;
+}
+
+.bg-white {
+    background: #fff;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.dataTables_wrapper table.dataTable.W-100 {
+    width: 100% !important;
+}
+.border-none {
+    border: none;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.w-60px {
+    width: 60px;
+}
+
+.w-105px {
+    width: 105px;
+}
+
+.w-auto {
+    width: auto;
+}
+
+.w-20px {
+    width: 20px;
+}
+
+.h-50 {
+    height: 50%;
+}
+
+.linehiight2 {
+    line-height: 2;
+}
+
+.bd-bottom {
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 8px;
+    margin-bottom: 0;
+}
+
+.clear {
+    clear: both;
+}
+
+.toicon {
+    position: relative;
+    top: -14px;
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
+
+.v-align-bottom {
+    vertical-align: bottom!important;
+}
+
+.overflow-x {
+    overflow-x: auto;
+}
+
+.bg-red {
+    background-color: rgba(216, 84, 79, 0.8);
+    color: #fff;
+}
+
+.bg-orange {
+    background-color: rgba(240, 173, 78, 0.8);
+    color: #fff;
+}
+
+.progress-bar {
+    opacity: 0.8;
+}
+
+/*工具列*/
+.droptool {
+    display: inline-block;
+    vertical-align: text-bottom;
+    position: relative;
+    /*margin-bottom: 12px;*/
+}
+
+.droptool button {
+    margin: 0;
+}
+
+.droptool-menu {
+    position: absolute;
+    z-index: 10;
+    background: #fff;
+    color: #5f5f5f;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 5px 0;
+    display: none;
+}
+
+.droptool-menu a {
+    color: #5f5f5f; 
+    display: block;   
+}
+
+.droptool-menu li {
+    min-width: 160px;
+    padding: 3px 20px;
+    white-space: nowrap;    
+}
+
+.droptool-menu li.divider {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 3px;
+}
+
+/*通知設定*/
+.week select, .week input {
+    width: 100%!important;
+    margin-right: 4px!important;
+}
+
+.Overview-set .add-member {
+    width: auto;
+    height: 30px;
+    padding: 0 12px;
+    float: right;
+    margin: 0 0 12px 0;
+}
+
+.Overview-set .add-member:hover {
+    color: #4194d4;
+}
+
+/*案件紀錄*/
+
+
+/*派工單*/
+.nav.nav-tabs {
+    margin-bottom: 16px;
+}
+
+/*工具列*/
+.coupon input, .coupon select, .coupon div {
+    vertical-align: text-bottom!important;
+}
+.coupon .span-d {
+    vertical-align: super;
+}
+
+/*表單選取方塊*/
+.td-icon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
+}
+
+
+.td-icon input[type="checkbox"].chkall {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.td-icon i {
+    margin-left: 16px;
+}
+
+/*轉mail*/
+#tomail .modal-lg {
+    max-width: 1240px;
+}
+#tomail .modal-body {
+    height: 100%;
+    min-height: 400px;
+    margin: 0;
+    display: flex;
+}
+
+#tomail iframe {
+    width: 100%;
+    min-height: 400px;
+    border: 0;
+}
+
+#mailall+label:before, .droptool-menu input+label:before  {
+    content: '全選';
+    color: #4194d4;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#mailall:checked+label:before, .droptool-menu input:checked+label:before {
+    content: '取消全選';
+}
+
+.tomailday {
+    display: flex;
+}
+
+/*hover tooltips*/
+.levelinfo {
+    position: relative;
+    background: none;
+    z-index: 9;
+}
+.levelinfo-menu {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    background: #fff;
+    color: #5f5f5f;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 5px 0;
+    text-align: left;
+}
+.levelinfo-menu li {
+    min-width: 180px;
+    padding: 3px 20px;
+    white-space: nowrap;
+}
+
+.levelinfo:hover .levelinfo-menu {
+    display: block;
+}
+
+div[id^="hetao-list-norwd"] {
+    width: 100%;
+    margin: 0 auto;
+    overflow-x: auto;
+}
+
+
+div[id^="hetao-list-norwd"] .odd, div[id^="hetao-list-norwd"] .even {
+    visibility: inherit;
+    display: table-row;
+}
+
+/*table摺疊*/
+/*.tb-child {
+    margin: 0 90px;
+}*/
+.tb-child td {
+    width: 33.3%;
+}
+
+.even .details-control .lnr, .odd .details-control .lnr {
+    cursor: pointer;
+    transition: .3s;
+    color: #4194d4;
+    font-weight: bold;    
+}
+
+.even.shown .details-control .lnr, .odd.shown .details-control .lnr {
+    transform: rotateX(180deg);
+    display: block;
+}
+
+/*圖表*/
+.chartwrap {
+    display: flex;
+}
+
+.chart-border>div, .charts-border {
+    width: 90%;
+    min-height: 405px;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    text-align: left;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin: 15px auto;
+    background-color: #fbfbfb;
+}
+.charts-border {
+    width: 100%;
+}
+.chart-border ul {
+    width: 90%;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.charts-border table, .chartwrap table {
+    border: 1px solid #d0e5f1;    
+}
+
+.charts-border .d-flex {
+    align-items: center;
+}
+
+.chartwrap table th {
+    background-color: #d0e5f1;
+    padding: 10px 15px;
+}
+
+.chartwrap table td {
+    padding: 10px 15px;
+}
+
+.chartwrap select {
+    width: auto;
+}
+
+/*個人業務-新增/編輯*/
+.switch.follow-status {
+    margin: 0;
+}
+.switch.follow-status input + .slider::after {
+    content: "未追蹤";
+    color: rgb(70, 70, 70);
+    position: absolute;
+    left: -58px;
+    width: 60px;
+    top: -2px;
+}
+.switch.follow-status input:checked + .slider::after {
+    content: "追蹤中";
+    color: rgb(83, 168, 233);
+    position: absolute;
+    left: -58px;
+    width: 60px;
+    top: -2px;
+}
+.upload+label {
+    cursor: pointer;
+}
+
+.dollar {
+    position: relative;
+}
+
+.dollar:after {
+    position: absolute;
+    right: 10px;
+    content: '元';
+    top: 35px;
+}
+
+.modal-footer .btn+.btn {
+    margin-bottom: 5px;
+}
+
+/*週期循環*/
+.droptool-menu .bootstrap-datetimepicker-widget.dropdown-menu.top:before, .droptool-menu .bootstrap-datetimepicker-widget.dropdown-menu.top:after {
+    border: 0;
+}
+
+.chooseitem {
+    padding-left: 24px;
+    position: relative;
+}
+
+table.calendar-table>thead>tr>th, table.calendar-table>tbody>tr>td:not(.nametitle) {
+    text-align: center;
+}
+
+table.calendar-table>tbody>tr>td:not(.nametitle) {
+    height: 80px;
+    padding: 0;
+}
+
+table.calendar-table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+.square {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+/*客戶資料查詢*/
+.customer-info>ul {
+    padding: 20px 0;
+    margin: 20px 0;
+}
+
+.customer-info>ul>li {
+    padding: 3px 0;
+}
+
+.customer-info>ul>li>span {
+    display: inline-block;
+    width: calc(100% - 105px); 
+    vertical-align: top;   
+}
+
+.info2 .tb-child td {
+    width: 20%;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  padding-right: 30px;
+}
+
+
+@media screen and (max-width: 1420px) {
+    /*除了很長的選單 變成往上*/
+    .droptool-menu:not(.lg) {
+        bottom: 26px;    
+    }
+}
+
+@media screen and (max-width: 1041px) {
+    .td-icon {
+        flex-direction: row-reverse;
+    }
+
+    .droptool:not(.no-fixed) {
+        position: fixed;
+        bottom: 12px;
+        right: 12px;
+        z-index: 10;
+    }
+
+    .droptool-menu:not(.no-fixed) {
+        bottom: 28px;
+        right: 1px;
+    }
+
+    .droptool .bootstrap-datetimepicker-widget {
+        right: -1px!important;
+        bottom: -3px!important;
+        top: initial!important;
+    }     
+}
+
+@media screen and (min-width: 1031px) {
+    #hetao-list-s-1 .rwdhide, #hetao-list-s-1 .rwdhide, #hetao-list-s-3 .rwdhide {
+        visibility: inherit;
+    }
+
+    #hetao-list-s-1 .odd, #hetao-list-s-1 .even, #hetao-list-s-2 .odd, #hetao-list-s-2 .even, #hetao-list-s-3 .odd, #hetao-list-s-3 .even {
+         visibility: inherit; 
+         display: table-row; 
+    }
+}
+
+
+@media screen and (max-width: 1024px) {
+    .chartwrap {
+        flex-direction: column;
+    } 
+    .chartwrap .w-50 {
+        width: 100%;
+    }  
+} 
+
+@media screen and (min-width: 768px) {
+    .bd-right {
+        border-right: 1px solid #ccc;
+    }  
+} 
+
+@media screen and (max-width: 767px) {
+    .charts-border .d-flex {
+        flex-direction: column;
+    }
+
+    .r-w-100 {
+        width: 100%;
+    }
+
+}
+
+@media screen and (max-width: 575px) {
+    .levelinfo-menu {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }    
+    .levelinfo-menu li {
+        white-space: inherit;
+    }
+    .tomailday {
+        flex-direction: column;
+    }
+}
+

@@ -44,10 +44,19 @@ ul {
 	list-style-type: none;
 }
 .btn {
-	border-radius: 20px;
+	border-radius: 6px;
     padding: 4px 16px;
     margin: 3px 5px;
 }
+
+h4 {
+	font-weight: bold!important;
+}
+
+tspan {
+	font-family: 微軟正黑體;
+}
+
 /* sidebar
 =================================*/
 
@@ -67,6 +76,7 @@ ul {
 	background: -webkit-linear-gradient(-45deg, #3eb5ff 0%, #4194d4 50%, #3eb5ff 100%);
 	background: linear-gradient(135deg, #3eb5ff 0%, #4194d4 50%, #3eb5ff 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4194d4', endColorstr='#4194d4', GradientType=1);
+	overflow-y: scroll;
 }
 .main {
 	-webkit-transition: all 0.3s ease-in-out;
@@ -116,6 +126,28 @@ ul {
 .pagination {
 	font-size: 13px;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e8e8e8; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ccc; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #bbb; 
+}
+
 /* navbar
 =================================*/
 
@@ -201,6 +233,10 @@ ul {
 .navbar-nav>a img {
 	width: 22px;
 	margin-right: 2px;
+}
+
+nav {
+	margin-bottom: 20px;
 }
 
 /* sidebar
@@ -332,4 +368,20 @@ ul {
     /*top: 50%;*/
     right: 50%;	
     font-size: 16px;
+}
+
+
+.hetao-user a {
+	color: #8cd6ff;
+    font-size: 15px;
+	margin-top: 8px;
+    padding: 3px 3px 3px 0;
+}
+
+.hetao-user a:hover {
+	color: #fece78;
+}
+
+.hetao-user span {
+	color: #8cd6ff;
 }

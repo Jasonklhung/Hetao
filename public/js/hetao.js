@@ -26,6 +26,8 @@ $(document).ready(function() {
     }
     revealOnScroll();
 
+
+});
     /*-----------------------------------/
       nav
     /*----------------------------------*/
@@ -79,211 +81,99 @@ $(document).ready(function() {
         });
     });
 
+    $(function() {
+        $('.date-set').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm',
+            ignoreReadonly: true,
+            allowInputToggle: true,
+            locale: 'ZH-TW',
+            useCurrent: false,
+            ignoreReadonly: true,
+            defaultDate: new Date(),
+            toolbarPlacement: 'bottom',
+            showClose: true,
+        });
+    });
 
+    $(function () {
+        $('.time-set').datetimepicker({
+            format: 'HH:mm',
+            ignoreReadonly: true,
+            allowInputToggle: true,
+            ignoreReadonly: true,
+            toolbarPlacement: 'bottom',
+            showClose: true,
+            locale: 'ZH-TW',
+        });
+    });
+
+    $(function() {
+        $('.day-set').datetimepicker({
+            format: 'YYYY-MM-DD',
+            ignoreReadonly: true,
+            allowInputToggle: true,
+            locale: 'ZH-TW',
+            useCurrent: false,
+            ignoreReadonly: true,
+            defaultDate: new Date(),
+            // toolbarPlacement: 'bottom',
+            // showClose: true,
+            locale: 'ZH-TW',         
+        });
+    });
+
+     $(function() {
+        $('.day-set-c').datetimepicker({
+            format: 'YYYY-MM-DD',
+            ignoreReadonly: true,
+            allowInputToggle: true,
+            locale: 'ZH-TW',
+            useCurrent: false,
+            ignoreReadonly: true,
+            defaultDate: new Date(),
+            // toolbarPlacement: 'bottom',
+            // showClose: true,
+            locale: 'ZH-TW',          
+        });
+    });
 
     $(function() {
         $('.time-select').datetimepicker({
             format: 'HH:mm',
             ignoreReadonly: true,
             allowInputToggle: true,
-            ignoreReadonly: true
+            ignoreReadonly: true,
+            locale: 'ZH-TW',
         });
     });
-});
+
+    $(function() {
+        $('.month-select').datetimepicker({
+            format: 'YYYY-MM',
+            ignoreReadonly: true,
+            allowInputToggle: true,
+            ignoreReadonly: true,
+            defaultDate: new Date(),
+            locale: 'ZH-TW',
+            debug: true,
+            viewMode: 'months',
+        });
+    });
+
+    $('.month-select').on('dp.hide', function(event){
+        setTimeout(function(){
+            $('.month-select').data('DateTimePicker').viewMode('months');
+        },1);
+    });
 
 /*-----------------------------------/
   datatables設定
 /*----------------------------------*/
 
 $.fn.dataTable.Responsive.defaults
-//助理-預約表單
-// var table_a = $("#hetao-list-a").DataTable({
-//     "bPaginate": true,
-//     "searching": true,
-//     "info": false,
-//     "bLengthChange": false,
-//     "bServerSide": false,
-//     "language": {
-//         "search": "",
-//         "searchPlaceholder": "請輸入關鍵字",
-//         "paginate": { "previous": "上一頁", "next": "下一頁" },
-//     },
-//     "dom": "Bfrtip",
-//     "buttons": [{
-//         "extend": 'colvis',
-//         "collectionLayout": 'fixed two-column'
-//     }],
-//     "order": [],
-//     "columnDefs": [{
-//         "targets": [5],
-//         "orderable": false,
-//     }],
-//     "responsive": {
-//         "breakpoints": [
-//         { name: 'desktop', width: Infinity},
-//         { name: 'tablet',  width: 1300},
-//         ],
-//         "details": {
-//             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-//             "type": 'none',
-//             renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
-//             "target": ''
-//         }
-//     },
-// });
-// $(".searchInput_a").on("blur", function() {
-//     table_a.search(this.value).draw();
-// });
-//助理-派工單
-// var table_a2 = $("#hetao-list-a-2").DataTable({
-//     "bPaginate": true,
-//     "searching": true,
-//     "info": false,
-//     "bLengthChange": false,
-//     "bServerSide": false,
-//     "language": {
-//         "search": "",
-//         "searchPlaceholder": "請輸入關鍵字",
-//         "paginate": { "previous": "上一頁", "next": "下一頁" },
-//     },
-//     "dom": "Bfrtip",
-//     "buttons": [{
-//         "extend": "colvis",
-//         "collectionLayout": "fixed two-column"
-//     }],
-//     "order": [],
-//     "columnDefs": [{
-//         "targets": [9],
-//         "orderable": false,
-//     }],
-//     "responsive": {
-//         "breakpoints": [
-//         { name: 'desktop', width: Infinity},
-//         { name: 'tablet',  width: 1370},
-//         ],
-//         "details": {
-//             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-//             "type": 'none',
-//             renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
-//             "target": ''
-//         }
-//     },
-// });
-// $(".searchInput_a2").on("blur", function() {
-//     table_a2.search(this.value).draw();
-// });
-
-//助理-預約表單rwd的頁面連結
-
 
 //員工-已接受的工單
-var table_s2 = $("#hetao-list-s-2").DataTable({
-    "bPaginate": true,
-    "searching": true,
-    "info": false,
-    "bLengthChange": false,
-    "bServerSide": false,
-    "language": {
-        "search": "",
-        "searchPlaceholder": "請輸入關鍵字",
-        "paginate": { "previous": "上一頁", "next": "下一頁" },
-    },
-    "dom": "Bfrtip",
-    "buttons": [{
-        "extend": "colvis",
-        "collectionLayout": "fixed two-column"
-    }],
-    "order": [],
-    "columnDefs": [{
-        "targets": [],
-        "orderable": false,
-    },{ 
-        "width": "80px", 
-        "targets": 8 }
-    ],
-    "responsive": {
-        "breakpoints": [
-        { name: 'desktop', width: Infinity},
-        { name: 'tablet',  width: 1024},
-        ],
-        "details": {
-            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-            "type": 'none',
-            "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
-            "target": ''
-        }
-    },
-});
-$(".searchInput_s2").on("blur", function() {
-    table_s2.search(this.value).draw();
-});
-
-$(".searchInput_s2").on("keyup", function() {
-    table_s2.search(this.value).draw();
-});
-
-//員工-派工單filter
-// $('#hetao-list-s-2_filter').append(
-    // "<div class='form-group mr-s batch-select'><select class='form-control' id='sel1'><option selected>所有狀態</option><option>執行中</option><option>延後</option><option>已完成</option></select></div>"+
-//     "<div class='coupon'>" +
-//     "<form class='form-inline'>" +
-//     "<div class='form-group'>" +
-//     "<div class='datetime'>" +
-//     "<div class='input-group date date-select'>" +
-//     "<input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div></div><span class='rwd-hide'>~</span><div class='datetime'>" +
-//     "<div class='input-group date date-select mr-s'>" +
-//     "<input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>" +
-//     "</div>" +
-//     "</div>" +
-//     "</div>" +
-//     "<div class='btn-wrap'>" +
-//     "<button class='mr-s' href=''>確認送出</button>" +
-//     "<button class='mr-s' href=''>重新設定時間</button>" +
-//     "</div>" +
-//     "</form>" +
-//     "</div>"
-// );
-
-// var table_su = $("#hetao-list-su").DataTable({
-//     "bPaginate": true,
-//     "searching": true,
-//     "info": false,
-//     "bLengthChange": false,
-//     "bServerSide": false,
-//     "language": {
-//         "search": "",
-//         "searchPlaceholder": "請輸入關鍵字",
-//         "paginate": { "previous": "上一頁", "next": "下一頁" },
-//     },
-//     "dom": "Bfrtip",
-//     "buttons": [{
-//         "extend": 'colvis',
-//         "collectionLayout": 'fixed two-column'
-//     }],
-//     "order": [],
-//     "columnDefs": [{
-//         "targets": [8],
-//         "orderable": false,
-//     }],
-//     "responsive": {
-//         "breakpoints": [
-//         { name: 'desktop', width: Infinity},
-//         { name: 'tablet',  width: 1300},
-//         ],
-//         "details": {
-//             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-//             "type": 'none',
-//             renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
-//             "target": ''
-//         }
-//     },
-// });
-// $(".searchInput_su").on("blur", function() {
-//     table_su.search(this.value).draw();
-// });
-
-//主管-已指派工單
-// var table_su2 = $("#hetao-list-su-2").DataTable({
+// var table_s2 = $("#hetao-list-s-2").DataTable({
 //     "bPaginate": true,
 //     "searching": true,
 //     "info": false,
@@ -301,24 +191,31 @@ $(".searchInput_s2").on("keyup", function() {
 //     }],
 //     "order": [],
 //     "columnDefs": [{
-//         "targets": [9],
+//         "targets": [],
 //         "orderable": false,
-//     }],
+//     },{ 
+//         "width": "80px", 
+//         "targets": 8 }
+//     ],
 //     "responsive": {
 //         "breakpoints": [
 //         { name: 'desktop', width: Infinity},
-//         { name: 'tablet',  width: 1300},
+//         { name: 'tablet',  width: 1024},
 //         ],
 //         "details": {
 //             "display": $.fn.dataTable.Responsive.display.childRowImmediate,
 //             "type": 'none',
-//             renderer: $.fn.dataTable.Responsive.renderer.tableAll(),
+//             "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
 //             "target": ''
 //         }
 //     },
 // });
-// $(".searchInput_su2").on("blur", function() {
-//     table_su2.search(this.value).draw();
+// $(".searchInput_s2").on("blur", function() {
+//     table_s2.search(this.value).draw();
+// });
+
+// $(".searchInput_s2").on("keyup", function() {
+//     table_s2.search(this.value).draw();
 // });
 
 
@@ -341,7 +238,7 @@ var table_authority = $("#hetao-list-authority").DataTable({
     }],
     "order": [],
     "columnDefs": [{
-        "targets": [0],
+        "targets": [5],
         "orderable": false,
     }],
     "responsive": {
@@ -380,6 +277,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 /*----------------------------------*/
 // $('.chkall').addClass('hide');
 $('.sall').addClass('hide');
+$('.droptool-menu .sall').removeClass('hide');
 $('.batch').on('click', function() {
     $('.batch-select').removeClass('hide');
     $('.batch-finish').removeClass('hide');
@@ -408,6 +306,31 @@ $('input#chkall').change(function() {
         $('.sall').text('全選');
     }
 });
+
+$('.droptool input[type="checkbox"]').click(function() {
+    $(this).parents('.tab-pane').find('input.chkall').prop('checked', this.checked);
+
+});
+$('input.chkall').click(function() {
+    var check = ($(this).parents('.tab-pane').find('input.chkall').filter(":checked").length == $(this).parents('.tab-pane').find('input.chkall').length);
+    $(this).parents('.tab-pane').find('.droptool input').prop("checked", check);
+});
+
+
+
+// 轉mail
+$('input#mailall').click(function() {
+    $('input.mailall').prop('checked', this.checked);
+});
+
+$('input.mailall').click(function() {
+    var check = ($('input.mailall').filter(":checked").length == $('input.mailall').length);
+    $('input#mailall').prop("checked", check);
+});
+
+
+
+
 
 /*-----------------------------------/
   執行中/延後/已完成 狀態切換
@@ -455,30 +378,36 @@ $('body').on('click', '#person .add-member', function(){
     if(array.indexOf(token) == -1){
         array.push(token)
         if((company && role && staffname) !== null){
-            $('#person .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button></span><span class="tok" hidden>'+token+'×</span>');
+            $(this).parents('#person').find('.memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button></span><span class="tok" hidden>'+token+'×</span>');
         }
     }
     else{
         alert('此人員已新增')
     }
 });
+
 /*刪除會議對象*/
 $('body').on('click', '#person .close', function(){
     $(this).parent('#person .tag').remove();
 });
+
 /*選了分公司才能選職稱*/
 $('body').on('change', '#person .company', function(){
     if($(this).val() !== "") {
         $('#person .role').prop('disabled','');
     }
 });
+
 /*選了職稱才能選員工*/
 $('body').on('change', '#person .role', function(){
     if($(this).val() !== "") {
         $('#person .staffname').prop('disabled','');
-        $('#person .staffname').val('小美');
+        $('#person .staffname').val('');
     }
 });
+
+
+
 /*會議對象按下完成*/
 $('body').on('click', '#person .finish', function(){
     var member = $('#person .tag').text()
@@ -650,8 +579,30 @@ $(document).ready(function ()
     }
 });
 
-// // 新增活動textarea自動高度
-// function auto_grow(element) {
-//     element.style.height = "34px";
-//     element.style.height = (element.scrollHeight)+"px";
-// }
+
+// 隱藏rwd沒有標題的:
+$(document).ready(function(){
+    $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+        if($(this).text()==":") {
+            $(this).css('visibility', 'hidden');
+        }
+    });
+    $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+        if($(this).text()==":") {
+            $(this).css('visibility', 'hidden');
+        }
+    });
+});
+
+$(window).on('resize', function(){
+    $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+        if($(this).text()==":") {
+            $(this).css('visibility', 'hidden');
+        }
+    });
+    $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+        if($(this).text()==":") {
+            $(this).css('visibility', 'hidden');
+        }
+    });
+});

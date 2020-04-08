@@ -13,16 +13,16 @@
                                 <div class="col-md-12 wrap">
                                     <div class="panel" id="manager">
                                         <div class="panel-title">
-                                            <i class="fas fa-user-tie"></i>人員權限管理
+                                            <i class="fas fa-cog"></i>人員權限管理
                                         </div>
                                         <div class="panel-body">
                                             <div class="tabbable">
-                                                <form method="post" action="{{ route('ht.Permission.store',['organization'=>$organization]) }}">
+                                                <form method="post" action="{{ route('ht.Permission.store',['organization'=>$organization]) }}" id="permissionForm">
                                                     @csrf
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">人員職稱</label>
                                                         <div class='form-group batch-select'><select class='form-control' name="job" id="job" required="">
-                                                                <option value="" selected>請選擇職務</option>
+                                                                <option value="" selected disabled="">請選擇職務</option>
                                                                 <option value="助理">助理</option>
                                                                 <option value="主管">主管</option>
                                                                 <option value="員工">員工</option>
@@ -46,90 +46,205 @@
                                                     </div>
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">分公司</label>
-                                                        <div class='form-group batch-select'><select class='form-control' id="company" name="company" required="">
-                                                                <option selected disabled hidden>請選擇分公司</option>
-                                                                @foreach($company as $company)
-                                                                <option value="{{$company->id}}">{{$company->name}}</option>
+                                                        <div class="">
+                                                            <table>
+                                                                @foreach($company_res as $key => $value)
+                                                                <tr class="bd-bottom">
+                                                                    <td class="py-s"><span class="mr-s text-nowrap">{{ $key }}：</span></td>
+                                                                    <td>
+                                                                        @foreach($value as $k => $v)
+                                                                        <label class="mr-s" for="newtaipei1"><input type="checkbox" class="companyInput" name="company[]" value="{{$v['id']}}"> {{$v['name']}}</label>
+                                                                        @endforeach
+                                                                    </td>
+                                                                </tr>
                                                                 @endforeach
-                                                            </select></div>
+                                                            </table>
+                                                        </div>
                                                     </div>
-                                                    <!-- <div class="form-item">
-                                                        <label class="d-block title-deco">人員部門</label>
-                                                        <div class='form-group batch-select'><select class='form-control' name="dept" id="dept" required="">
-                                                                
-                                                            </select></div>
-                                                    </div> -->
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">預設權限</label>
                                                         <div class="form-control authority">
                                                             <ul>
                                                                 <li>
-                                                                    <span class="text-left">總覽</span>
+                                                                    <span class="text-left"><i class="w-20px fas fa-calendar-alt"></i> 總覽</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">行程總覽
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="overview" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">通知設定
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="notice" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px far fa-list-alt"></i> 派工單</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">個人工單
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="assistant" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">全站工單
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="supervisor" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">工單進度
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="staff" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px fas fa-sync-alt"></i> 週期循環</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">個人週期
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="cycle_self" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">全站週期
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="cycle_all" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">全站進度
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="cycle_now" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px fas fa-boxes"></i> 領退料管理</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">領料申請
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="material" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">料單管理
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="material_case" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">庫存管理
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="material_stock" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px fas fa-info-circle"></i> 客戶資料查詢</span>
                                                                     <label class="switch">
-                                                                        <input type="checkbox" checked>
+                                                                        <input type="checkbox" name="custom_info" checked>
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </li>
                                                                 <li>
-                                                                    <span class="text-left">行程管理</span>
-                                                                    <ul class="text-left">
-                                                                        <li class="si">助理<label class="switch">
-                                                                                <input type="checkbox" id="assistant" name="assistant" checked>
+                                                                    <span class="text-left"><i class="w-20px fas fa-briefcase"></i> 業務管理</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">個人業務
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="business_self" checked>
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        <li class="si">主管<label class="switch">
-                                                                                <input type="checkbox" id="supervisor" name="supervisor" checked>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">全站業務
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="business_all" checked>
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        <li class="si">員工<label class="switch">
-                                                                                <input type="checkbox" id="staff" name="staff" checked>
-                                                                                <span class="slider round"></span>
-                                                                            </label></li>
+                                                                            </label>
+                                                                        </li>
                                                                     </ul>
                                                                 </li>
                                                                 <li>
-                                                                    <span class="text-left">表單設定</span>
-                                                                    <ul class="text-left">
-                                                                        <li class="si">線上預約<label class="switch">
+                                                                    <span class="text-left"><i class="w-20px far fa-chart-bar"></i> 業績查詢</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">個人業績
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="performance_self" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">全站業績
+                                                                            <label class="switch">
+                                                                                <input type="checkbox" name="performance_all" checked>
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px far fa-file-alt"></i> 表單設定</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">線上預約
+                                                                            <label class="switch">
                                                                                 <input type="checkbox" name="reservation" checked>
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        <li class="si">滿意度調查<label class="switch">
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">滿意度調查
+                                                                            <label class="switch">
                                                                                 <input type="checkbox" name="satisfaction" checked>
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        <li class="si">與我聯繫<label class="switch">
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">與我聯繫
+                                                                            <label class="switch">
                                                                                 <input type="checkbox" name="contact" checked>
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
+                                                                            </label>
+                                                                        </li>
                                                                     </ul>
                                                                 </li>
                                                                 <li>
-                                                                    <span class="text-left">推播時間設定</span>
-                                                                    <label class="switch">
-                                                                        <input type="checkbox" id="timeset" name="timeset" checked>
-                                                                        <span class="slider round"></span>
-                                                                    </label>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="text-left">權限管理</span>
-                                                                    <label class="switch">
-                                                                        <input type="checkbox" id="permission" name="permission">
-                                                                        <span class="slider round"></span>
-                                                                    </label>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="text-left">與我聯繫/滿意度表單</span>
-                                                                    <ul class="text-left">
-                                                                        <li class="si">與我聯繫<label class="switch">
+                                                                    <span class="text-left"><i class="w-20px fas fa-search"></i> 表單查看</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">與我聯繫
+                                                                            <label class="switch">
                                                                                 <input type="checkbox" name="contactUs" checked>
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        <li class="si">滿意度調查<label class="switch">
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">滿意度調查
+                                                                            <label class="switch">
                                                                                 <input type="checkbox" name="satisfactionSurvey" checked>
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
+                                                                            </label>
+                                                                        </li>
                                                                     </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px far fa-clock"></i> 推播時間設定</span>
+                                                                    <label class="switch">
+                                                                        <input type="checkbox" name="timeset" checked>
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px fas fa-cog"></i> 權限管理</span>
+                                                                    <label class="switch">
+                                                                        <input type="checkbox" name="permission" checked>
+                                                                        <span class="slider round"></span>
+                                                                    </label>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -155,28 +270,19 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
-        // $('#company').on('change',function(){
+        $('#permissionForm').on('submit',function(){
+           var res = $('.companyInput:checkbox:checked').length
+           
+            if(res == 0){
 
-        //     var value = $('#company').val();
+                alert("請填選分公司")
+                
+                $('.companyInput').focus()
 
-        //     $.ajax({
-        //         url:"{{ route('ht.Permission.getCompany',['organization'=>$organization]) }}", 
-        //         method:"POST",
-        //         data:{
-        //             '_token': '{{ csrf_token() }}',
-        //             'value':value,
-        //         },                  
-        //         success:function(res){
-        //             var selOpts = "<option value='' selected='selected' disabled='true'>請選擇部門</option>";
-        //             $.each(res, function (i, item) {
-        //                 selOpts += "<option value='"+item.id+"'>"+item.name+"</option>";
-        //             })
-        //             $("#dept").empty();
-        //             $('#dept').append(selOpts);
-        //         }
-        //     })
-        // });
+                return false
+            }
 
+        })
 
 
         $('#job').on('change',function(){
@@ -184,8 +290,8 @@
 
             if(value == '助理'){
                 document.all.assistant.checked = true;
-                document.all.supervisor.checked = false;
-                document.all.staff.checked = false;
+                document.all.supervisor.checked = true;
+                document.all.staff.checked = true;
 
                 document.all.reservation.checked = true;
                 document.all.satisfaction.checked = true;
@@ -195,9 +301,9 @@
                 document.all.permission.checked = false;
             }
             else if(value == '主管'){
-                document.all.assistant.checked = false;
+                document.all.assistant.checked = true;
                 document.all.supervisor.checked = true;
-                document.all.staff.checked = false;
+                document.all.staff.checked = true;
 
                 document.all.reservation.checked = false;
                 document.all.satisfaction.checked = false;
@@ -207,7 +313,7 @@
                 document.all.permission.checked = false;
             }
             else if(value == '員工'){
-                document.all.assistant.checked = false;
+                document.all.assistant.checked = true;
                 document.all.supervisor.checked = false;
                 document.all.staff.checked = true;
 

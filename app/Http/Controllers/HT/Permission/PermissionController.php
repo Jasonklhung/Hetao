@@ -85,7 +85,24 @@ class PermissionController extends Controller
 
     public function create(Organization $organization)
     {
-    	$company = Organization::all();
+        $companyArray = array();
+        $company_res = array();
+
+    	$company = Organization::where('name','!=','愛酷智能科技')->distinct()->get('area');
+
+        foreach ($company as $key => $value) {
+            array_push($companyArray, $value['area']);
+        }
+
+        $company = Organization::where('name','!=','愛酷智能科技')->get();
+
+        foreach ($companyArray as $key => $value) {
+            foreach ($company as $k => $v) {
+                if($value == $v['area']){
+                    $company_res[$value][] = array('name'=>$v['name'].$v['company_name'],'id'=>$v['id']);
+                }
+            }
+        }
 
         $client = new \GuzzleHttp\Client();
         $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
@@ -116,7 +133,7 @@ class PermissionController extends Controller
 
         $caseCount = count($countArray);
 
-    	return view('ht.Permission.create',compact('organization','company','caseCount'));
+    	return view('ht.Permission.create',compact('organization','company_res','caseCount'));
     }
 
     public function getCompany(Organization $organization,Request $request)
@@ -130,9 +147,17 @@ class PermissionController extends Controller
 
     public function store(Organization $organization,Permission $permission,Request $request)
     {
+        $organizations_name = array();
+        foreach ($request->company as $key => $value) {
+            $rs = Organization::find($value);
+            array_push($organizations_name, $rs['name'].$rs['company_name']);
+        }
+
     	$user = new User;
-    	$user->organization_id = $request->company;
-    	$user->department_id = $request->company;
+    	$user->organization_id = $request->company[0];
+    	$user->department_id = $request->company[0];
+        (count($request->company) > 1)? $user->organizations = implode(',', $request->company) : $user->organizations = null; 
+        (count($request->company) > 1)? $user->organizations_name = implode(',', $organizations_name) : $user->organizations_name = null; 
     	$user->name = $request->name;
     	$user->ID_number = $request->ID_number;
     	$user->mobile = $request->mobile;
@@ -143,9 +168,22 @@ class PermissionController extends Controller
 
     	$permission = new Permission;
     	$permission->user_id = $user->id;
+        (isset($request->overview))? $permission->overview = 'Y' : $permission->overview = 'N';
+        (isset($request->notice))? $permission->notice = 'Y' : $permission->notice = 'N';
     	(isset($request->assistant))? $permission->assistant = 'Y' : $permission->assistant = 'N';
     	(isset($request->supervisor))? $permission->supervisor = 'Y' : $permission->supervisor = 'N';
     	(isset($request->staff))? $permission->staff = 'Y' : $permission->staff = 'N';
+        (isset($request->cycle_self))? $permission->cycle_self = 'Y' : $permission->cycle_self = 'N';
+        (isset($request->cycle_all))? $permission->cycle_all = 'Y' : $permission->cycle_all = 'N';
+        (isset($request->cycle_now))? $permission->cycle_now = 'Y' : $permission->cycle_now = 'N';
+        (isset($request->material))? $permission->material = 'Y' : $permission->material = 'N';
+        (isset($request->material_case))? $permission->material_case = 'Y' : $permission->material_case = 'N';
+        (isset($request->material_stock))? $permission->material_stock = 'Y' : $permission->material_stock = 'N';
+        (isset($request->custom_info))? $permission->custom_info = 'Y' : $permission->custom_info = 'N';
+        (isset($request->business_self))? $permission->business_self = 'Y' : $permission->business_self = 'N';
+        (isset($request->business_all))? $permission->business_all = 'Y' : $permission->business_all = 'N';
+        (isset($request->performance_self))? $permission->performance_self = 'Y' : $permission->performance_self = 'N';
+        (isset($request->performance_all))? $permission->performance_all = 'Y' : $permission->performance_all = 'N';
     	(isset($request->reservation))? $permission->reservation = 'Y' : $permission->reservation = 'N';
     	(isset($request->satisfaction))? $permission->satisfaction = 'Y' : $permission->satisfaction = 'N';
     	(isset($request->contact))? $permission->contact = 'Y' : $permission->contact = 'N';
@@ -161,8 +199,28 @@ class PermissionController extends Controller
     public function edit(Organization $organization,$id)
     {
     	$user = User::find($id);
+        $user_organization = explode(',', $user->organizations);
     	$permission = User::find($id)->permission;
-    	$company = Organization::all();
+
+    	$companyArray = array();
+        $company_res = array();
+
+        $company = Organization::where('name','!=','愛酷智能科技')->distinct()->get('area');
+
+        foreach ($company as $key => $value) {
+            array_push($companyArray, $value['area']);
+        }
+
+        $company = Organization::where('name','!=','愛酷智能科技')->get();
+
+        foreach ($companyArray as $key => $value) {
+            foreach ($company as $k => $v) {
+                if($v['area'] == $value){
+                    $company_res[$value][] = array('name'=>$v['name'].$v['company_name'],'id'=>$v['id']);
+                }
+            }
+        }
+
     	$dept = Organization::find($user->organization_id)->departments;
 
         $job = Auth::user()->job;
@@ -226,32 +284,53 @@ class PermissionController extends Controller
             $caseCount = count($countArray);
         }
 
-    	return view('ht.Permission.edit',compact('organization','user','permission','company','dept','caseCount'));
+    	return view('ht.Permission.edit',compact('organization','user','permission','company_res','dept','caseCount','user_organization'));
     }
 
     public function update(Organization $organization,Request $request)
     {
+        $organizations_name = array();
+
+        foreach ($request->company as $key => $value) {
+            $rs = Organization::find($value);
+            array_push($organizations_name, $rs['name'].$rs['company_name']);
+        }
 
     	$user = User::find($request->id);
-        $user->organization_id = $request->company;
-    	$user->department_id = $request->company;
-    	$user->name = $request->name;
-    	$user->ID_number = $request->ID_number;
-    	$user->mobile = $request->mobile;
-    	$user->emp_id = $request->emp_id;
-    	$user->password = bcrypt($request->emp_id);
-    	$user->job = $request->job;
+        $user->organization_id = $request->company[0];
+        $user->department_id = $request->company[0];
+        (count($request->company) > 1)? $user->organizations = implode(',', $request->company) : $user->organizations = null;
+        (count($request->company) > 1)? $user->organizations_name = implode(',', $organizations_name) : $user->organizations_name = null; 
+        $user->name = $request->name;
+        $user->ID_number = $request->ID_number;
+        $user->mobile = $request->mobile;
+        $user->emp_id = $request->emp_id;
+        $user->password = bcrypt($request->emp_id);
+        $user->job = $request->job;
     	$user->save();
 
     	$permission = User::find($request->id)->permission;
-    	(isset($request->assistant))? $permission->assistant = 'Y' : $permission->assistant = 'N';
-    	(isset($request->supervisor))? $permission->supervisor = 'Y' : $permission->supervisor = 'N';
-    	(isset($request->staff))? $permission->staff = 'Y' : $permission->staff = 'N';
-    	(isset($request->reservation))? $permission->reservation = 'Y' : $permission->reservation = 'N';
-    	(isset($request->satisfaction))? $permission->satisfaction = 'Y' : $permission->satisfaction = 'N';
-    	(isset($request->contact))? $permission->contact = 'Y' : $permission->contact = 'N';
-    	(isset($request->timeset))? $permission->timeset = 'Y' : $permission->timeset = 'N';
-    	(isset($request->permission))? $permission->permission = 'Y' : $permission->permission = 'N';
+    	(isset($request->overview))? $permission->overview = 'Y' : $permission->overview = 'N';
+        (isset($request->notice))? $permission->notice = 'Y' : $permission->notice = 'N';
+        (isset($request->assistant))? $permission->assistant = 'Y' : $permission->assistant = 'N';
+        (isset($request->supervisor))? $permission->supervisor = 'Y' : $permission->supervisor = 'N';
+        (isset($request->staff))? $permission->staff = 'Y' : $permission->staff = 'N';
+        (isset($request->cycle_self))? $permission->cycle_self = 'Y' : $permission->cycle_self = 'N';
+        (isset($request->cycle_all))? $permission->cycle_all = 'Y' : $permission->cycle_all = 'N';
+        (isset($request->cycle_now))? $permission->cycle_now = 'Y' : $permission->cycle_now = 'N';
+        (isset($request->material))? $permission->material = 'Y' : $permission->material = 'N';
+        (isset($request->material_case))? $permission->material_case = 'Y' : $permission->material_case = 'N';
+        (isset($request->material_stock))? $permission->material_stock = 'Y' : $permission->material_stock = 'N';
+        (isset($request->custom_info))? $permission->custom_info = 'Y' : $permission->custom_info = 'N';
+        (isset($request->business_self))? $permission->business_self = 'Y' : $permission->business_self = 'N';
+        (isset($request->business_all))? $permission->business_all = 'Y' : $permission->business_all = 'N';
+        (isset($request->performance_self))? $permission->performance_self = 'Y' : $permission->performance_self = 'N';
+        (isset($request->performance_all))? $permission->performance_all = 'Y' : $permission->performance_all = 'N';
+        (isset($request->reservation))? $permission->reservation = 'Y' : $permission->reservation = 'N';
+        (isset($request->satisfaction))? $permission->satisfaction = 'Y' : $permission->satisfaction = 'N';
+        (isset($request->contact))? $permission->contact = 'Y' : $permission->contact = 'N';
+        (isset($request->timeset))? $permission->timeset = 'Y' : $permission->timeset = 'N';
+        (isset($request->permission))? $permission->permission = 'Y' : $permission->permission = 'N';
         (isset($request->contactUs))? $permission->contactUs = 'Y' : $permission->contactUs = 'N';
         (isset($request->satisfactionSurvey))? $permission->satisfactionSurvey = 'Y' : $permission->satisfactionSurvey = 'N';
     	$permission->save();

@@ -19,6 +19,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('phone')->comment('電話');
             $table->string('company_name')->comment('公司名稱');
             $table->string('company_name_out')->comment('對外公司名稱');
+            $table->string('area')->comment('縣市');
             $table->timestamps();
         });
     }

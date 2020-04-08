@@ -46,6 +46,46 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/Overview/search','HT\Overview\OverviewController@search')->name('ht.Overview.search');
 		Route::post('/HT/{organization}/Overview/searchAct','HT\Overview\OverviewController@searchAct')->name('ht.Overview.searchAct');
 
+		//總攬-通知設定
+		Route::get('/HT/{organization}/Overview/notice/index','HT\Overview\NoticeController@index')->name('ht.Overview.notice.index');
+
+		//週期循環-個人
+		Route::get('/HT/{organization}/Cycle/self/index','HT\Cycle\SelfController@index')->name('ht.Cycle.self.index');
+
+		//週期循環-全站
+		Route::get('/HT/{organization}/Cycle/all/index','HT\Cycle\AllController@index')->name('ht.Cycle.all.index');
+
+		//週期循環-進度
+		Route::get('/HT/{organization}/Cycle/now/index','HT\Cycle\NowController@index')->name('ht.Cycle.now.index');
+
+		//領退料管理-領料申請
+		Route::get('/HT/{organization}/Material/material/index','HT\Material\MaterialController@index')->name('ht.Material.material.index');
+
+		//領退料管理-料單管理
+		Route::get('/HT/{organization}/Material/case/index','HT\Material\CaseController@index')->name('ht.Material.case.index');
+
+		//領退料管理-庫存管理
+		Route::get('/HT/{organization}/Material/stock/index','HT\Material\StockController@index')->name('ht.Material.stock.index');
+
+		//客戶資料查詢
+		Route::get('/HT/{organization}/Customer/index','HT\Customer\CustomerController@index')->name('ht.Customer.index');
+		Route::get('/HT/{organization}/Customer/show/{id}','HT\Customer\CustomerController@show')->name('ht.Customer.show');
+
+		//業務管理-個人業務
+		Route::get('/HT/{organization}/Business/self/index','HT\Business\SelfController@index')->name('ht.Business.self.index');
+		Route::get('/HT/{organization}/Business/self/create','HT\Business\SelfController@create')->name('ht.Business.self.create');
+		Route::get('/HT/{organization}/Business/self/visitEdit/{id}','HT\Business\SelfController@visitEdit')->name('ht.Business.self.visitEdit');
+		Route::get('/HT/{organization}/Business/self/trackEdit/{id}','HT\Business\SelfController@trackEdit')->name('ht.Business.self.trackEdit');
+
+		//業績查詢-個人業績
+		Route::get('/HT/{organization}/Performance/self/index','HT\Performance\SelfController@index')->name('ht.Performance.self.index');
+
+		//業績查詢-全站業績
+		Route::get('/HT/{organization}/Performance/all/index','HT\Performance\AllController@index')->name('ht.Performance.all.index');
+
+		//業務管理-全站業務
+		Route::get('/HT/{organization}/Business/all/index','HT\Business\AllController@index')->name('ht.Business.all.index');
+
 		//行程管理-助理
 		Route::get('/HT/{organization}/StrokeManage/assistant/index','HT\StrokeManage\AssistantController@index')->name('ht.StrokeManage.assistant.index');
 

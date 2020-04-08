@@ -12,9 +12,7 @@ body {
 }
 
 side-bar,
-sb-menu,
-sb-menu2,
-sb-menu3 {
+.sb-menu {
     display: flex;
     justify-content: flex-start;
     align-content: center;
@@ -27,10 +25,10 @@ side-bar {
     display: flex;
     text-align: center;
     height: 100vh;
-    width: 200px;
+    width: 230px;
     background: var(--side-bar-bg);
-    -webkit-transform: translateX(200px);
-    transform: translateX(200px);
+    -webkit-transform: translateX(230px);
+    transform: translateX(230px);
     color: #fff;
     right: 0px;
     top: 0;
@@ -46,10 +44,10 @@ side-bar[open] {
 }
 
 side-bar .selected,
-sb-menu[open]>.selected, sb-menu2[open]>.selected, sb-menu3[open]>.selected {
+.sb-menu[open]>.selected {
     background: rgba(99, 222, 255, 0.3) !important;
 }
-sb-item, sb-item:hover, sb-item2, sb-item2:hover, sb-item3, sb-item3:hover {
+.sb-item, .sb-item:hover {
     color: #fff;
 }
 side-bar .selected:hover {
@@ -84,7 +82,7 @@ side-bar[open]>.toggler {
     background-size: 40%;
 }
 
-sb-menu, sb-menu2, sb-menu3 {
+.sb-menu {
     width: 100%;
     margin-top: .5em;
     border-top: 1px solid transparent;
@@ -92,19 +90,15 @@ sb-menu, sb-menu2, sb-menu3 {
     position: relative;
 }
 
-sb-menu,
-sb-menu-title,
-sb-menu2,
-sb-menu-title2,
-sb-menu3,
-sb-menu-title3, {
+.sb-menu,
+.sb-menu-title {
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
     margin: 0;
     color: #fff;
 }
 
-sb-menu>sb-menu-title::before, sb-menu2>sb-menu-title2::before, sb-menu3>sb-menu-title3::before {
+.sb-menu>.sb-menu-title::before {
     display: inline-block;
     margin-right: 5px;
     font-weight: bold;
@@ -113,67 +107,49 @@ sb-menu>sb-menu-title::before, sb-menu2>sb-menu-title2::before, sb-menu3>sb-menu
     right: 12px;    
 }
 
-sb-menu[open]>sb-menu-title::before, sb-menu2[open]>sb-menu-title2::before, sb-menu3[open]>sb-menu-title3::before {
+.sb-menu[open]>.sb-menu-title::before {
     content: '-';
 }
 
-sb-menu[open], sb-menu2[open], sb-menu3[open] {
-/*    border-top: 1px solid hsla(0, 0%, 100%, .15);
-    border-bottom: 1px solid hsla(0, 0%, 100%, .15);*/
-    /*background-color: rgba(99, 222, 255, 0.3) !important;*/
-}
-
-sb-menu>.selected, sb-menu2>.selected, sb-menu3>.selected {
+.sb-menu>.selected {
     height: 0;
     margin: 0;
 }
 
-sb-menu[open]>sb-menu-title, sb-menu2[open]>sb-menu-title2, sb-menu3[open]>sb-menu-title3 {
-/*    border-bottom: 1px solid hsla(0, 0%, 100%, .15);
-    box-shadow: 0 1px 6px rgba(0, 0, 0, .12);
-    margin-bottom: .75em;*/
+.sb-menu[open]>.sb-menu-title {
     background-color: transparent !important;
 }
 
-.sidebar sb-menu:hover, .sidebar sb-menu:focus, .sidebar sb-item:hover, .sidebar sb-item:focus, .sidebar sb-menu2:hover, .sidebar sb-menu2:focus, .sidebar sb-item2:hover, .sidebar sb-item2:focus , .sidebar sb-menu3:hover, .sidebar sb-menu3:focus, .sidebar sb-item3:hover, .sidebar sb-item3:focus {
+.sidebar .sb-menu:hover, .sidebar .sb-menu:focus, .sidebar .sb-item:hover, .sidebar .sb-item:focus {
     color: #fff;
     background-color: rgba(99, 222, 255, 0.3) !important;
 }
 
-/*sb-menu:hover {
-    border-top: 1px solid hsla(0, 0%, 100%, .2);
-    border-bottom: 1px solid hsla(0, 0%, 100%, .2);
-}*/
-
-sb-menu>sb-item, sb-menu2>sb-item2, sb-menu3>sb-item3 {
+.sb-menu>.sb-item {
     opacity: 0;
     height: 0;
     pointer-events: none;
     padding-left: 60px;
 }
 
-sb-menu[open]>sb-item, sb-menu2[open]>sb-item2, sb-menu3[open]>sb-item3 {
+.sb-menu[open]>.sb-item {
     opacity: 1;
     height: 3.5em;
     pointer-events: auto;
 }
 
-sb-item a, sb-item a:hover, sb-menu-title, sb-item2 a, sb-item2 a:hover, sb-menu-title2, sb-item3 a, sb-item3 a:hover, sb-menu-title3 {
+.sb-item a, .sb-item a:hover, .sb-menu-title {
     font-size: 17px;
     color: #fff;    
 }
 
-sb-item,
-sb-menu-title,
-sb-item2,
-sb-menu-title2,
-sb-item3,
-sb-menu-title3 {
+.sb-item,
+.sb-menu-title {
     display: flex;
     justify-content: left;
     align-content: center;
     align-items: center;
-    padding: 0 6px;
+    padding: 0 6px 0 30px;
     width: 100%;
     height: 3.5em;
     cursor: pointer;
@@ -184,6 +160,7 @@ sb-menu-title3 {
     user-select: none;
     user-drag: none;
     transition: all 140ms ease-in-out;
+    position: relative;
 }
 
 .fa-fw {

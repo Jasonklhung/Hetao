@@ -1350,13 +1350,13 @@ html .card-group .card-accordion-light {
 	background: #ffffff;
 }
 
-.progress-bar {
+/*.progress-bar {
 	background-color: #0088cc;
-}
+}*/
 
-.progress .progress-bar-primary {
+/*.progress .progress-bar-primary {
 	background-color: #0088cc;
-}
+}*/
 
 .toggle label {
 	border-left-color: #0088cc;
@@ -2251,13 +2251,13 @@ html.dark .radio-primary input[type="radio"]:checked + label:after,
 	background: #0088cc;
 }
 
-.progress-bar {
+/*.progress-bar {
 	background-color: #0088cc;
 }
 
 .progress .progress-bar-primary {
 	background-color: #0088cc;
-}
+}*/
 
 .slider-primary .ui-slider-range,
 .slider-primary .ui-slider-handle {

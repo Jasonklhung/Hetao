@@ -51,6 +51,17 @@
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('js/zh-tw.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#organizations').on('change',function(){
+
+                var org = ($('#organizations').val())
+                var url = '{{route('ht.Overview.index',['organization'=>':org'])}}'
+                url = url.replace(':org',org);
+                location.href = url
+            })
+        })
+    </script>
     @yield('scripts')
 </body>
 

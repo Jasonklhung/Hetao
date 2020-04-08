@@ -13,17 +13,17 @@
                                 <div class="col-md-12 wrap">
                                     <div class="panel" id="manager">
                                         <div class="panel-title">
-                                            <i class="fas fa-user-tie"></i>人員權限管理
+                                            <i class="fas fa-cog"></i>人員權限管理
                                         </div>
                                         <div class="panel-body">
                                             <div class="tabbable">
-                                                <form method="post" action="{{ route('ht.Permission.update',['organization'=>$organization]) }}">
+                                                <form method="post" action="{{ route('ht.Permission.update',['organization'=>$organization]) }}" id="permissionForm">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{$user->id}}">
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">人員職稱</label>
-                                                        <div class='form-group batch-select'><select class='form-control' id="job" name="job">
-                                                                <option value="" selected>請選擇職務</option>
+                                                        <div class='form-group batch-select'><select class='form-control' name="job" id="job" required="">
+                                                                <option value="" selected disabled="">請選擇職務</option>
                                                                 <option value="助理">助理</option>
                                                                 <option value="主管">主管</option>
                                                                 <option value="員工">員工</option>
@@ -47,180 +47,273 @@
                                                     </div>
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">分公司</label>
-                                                        <div class='form-group batch-select'><select class='form-control' id="company" name="company">
-                                                            <option value="" selected disabled="true">請選擇分公司</option>
-                                                            @foreach($company as $company)
-                                                            <option value="{{$company->id}}">{{$company->name}}</option>
-                                                            @endforeach
-                                                            </select></div>
+                                                        <div class="">
+                                                            <table>
+                                                                @foreach($company_res as $key => $value)
+                                                                <tr class="bd-bottom">
+                                                                    <td class="py-s"><span class="mr-s text-nowrap">{{ $key }}：</span></td>
+                                                                    <td>
+                                                                        @foreach($value as $k => $v)
+                                                                            @if(in_array($v['id'],$user_organization))
+                                                                        <label class="mr-s" for="newtaipei1"><input type="checkbox" class="companyInput" name="company[]" value="{{$v['id']}}" checked=""> {{$v['name']}}</label>
+                                                                            @else
+                                                                        <label class="mr-s" for="newtaipei1"><input type="checkbox" class="companyInput" name="company[]" value="{{$v['id']}}"> {{$v['name']}}</label>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </td>
+                                                                </tr>
+                                                                @endforeach
+                                                            </table>
+                                                        </div>
                                                     </div>
-                                                    <!-- <div class="form-item">
-                                                        <label class="d-block title-deco">人員部門</label>
-                                                        <div class='form-group batch-select'><select class='form-control' name="dept" id="dept" required="">
-                                                             <option value="" selected disabled="true">請選擇部門</option>
-                                                             @foreach($dept as $dept)
-                                                             <option value="{{$dept->id}}">{{$dept->name}}</option>
-                                                             @endforeach
-                                                            </select></div>
-                                                    </div> -->
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">預設權限</label>
                                                         <div class="form-control authority">
                                                             <ul>
                                                                 <li>
-                                                                    <span class="text-left">總覽</span>
-                                                                    @if($permission->overview == 'Y')
-                                                                    <label class="switch">
-                                                                        <input type="checkbox" checked>
-                                                                        <span class="slider round"></span>
-                                                                    </label>
-                                                                    @else
-                                                                    <label class="switch">
-                                                                        <input type="checkbox">
-                                                                        <span class="slider round"></span>
-                                                                    </label>
-                                                                    @endif
-                                                                </li>
-                                                                <li>
-                                                                    <span class="text-left">行程管理</span>
-                                                                    <ul class="text-left">
-
-                                                                        @if($permission->assistant == 'Y')
-                                                                        <li class="si">助理<label class="switch">
-                                                                                <input type="checkbox" id="assistant" name="assistant" checked>
+                                                                    <span class="text-left"><i class="w-20px fas fa-calendar-alt"></i> 總覽</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">行程總覽
+                                                                            <label class="switch">
+                                                                                @if($permission->overview == 'Y')
+                                                                                <input type="checkbox" name="overview" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="overview">
+                                                                                @endif
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @else
-                                                                        <li class="si">助理<label class="switch">
-                                                                                <input type="checkbox" id="assistant" name="assistant">
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">通知設定
+                                                                            <label class="switch">
+                                                                                @if($permission->notice == 'Y')
+                                                                                <input type="checkbox" name="notice" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="notice">
+                                                                                @endif
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @endif
-
-                                                                        @if($permission->supervisor == 'Y')
-                                                                        <li class="si">主管<label class="switch">
-                                                                                <input type="checkbox" id="supervisor" name="supervisor" checked>
-                                                                                <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @else
-                                                                        <li class="si">主管<label class="switch">
-                                                                                <input type="checkbox" id="supervisor" name="supervisor">
-                                                                                <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @endif
-
-                                                                        @if($permission->staff == 'Y')
-                                                                        <li class="si">員工<label class="switch">
-                                                                                <input type="checkbox" id="staff" name="staff" checked>
-                                                                                <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @else
-                                                                        <li class="si">員工<label class="switch">
-                                                                                <input type="checkbox" id="staff" name="staff">
-                                                                                <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @endif
+                                                                            </label>
+                                                                        </li>
                                                                     </ul>
                                                                 </li>
                                                                 <li>
-                                                                    <span class="text-left">表單設定</span>
-                                                                    <ul class="text-left">
-
-                                                                        @if($permission->reservation == 'Y')
-                                                                        <li class="si">線上預約<label class="switch">
+                                                                    <span class="text-left"><i class="w-20px far fa-list-alt"></i> 派工單</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">個人工單
+                                                                            <label class="switch">
+                                                                                @if($permission->assistant == 'Y')
+                                                                                <input type="checkbox" name="assistant" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="assistant">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">全站工單
+                                                                            <label class="switch">
+                                                                                @if($permission->supervisor == 'Y')
+                                                                                <input type="checkbox" name="supervisor" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="supervisor">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">工單進度
+                                                                            <label class="switch">
+                                                                                @if($permission->staff == 'Y')
+                                                                                <input type="checkbox" name="staff" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="staff">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px fas fa-sync-alt"></i> 週期循環</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">個人週期
+                                                                            <label class="switch">
+                                                                                @if($permission->cycle_self == 'Y')
+                                                                                <input type="checkbox" name="cycle_self" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="cycle_self">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">全站週期
+                                                                            <label class="switch">
+                                                                                @if($permission->cycle_all == 'Y')
+                                                                                <input type="checkbox" name="cycle_all" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="cycle_all">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">全站進度
+                                                                            <label class="switch">
+                                                                                @if($permission->cycle_now == 'Y')
+                                                                                <input type="checkbox" name="cycle_now" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="cycle_now">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px fas fa-boxes"></i> 領退料管理</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">領料申請
+                                                                            <label class="switch">
+                                                                                @if($permission->material == 'Y')
+                                                                                <input type="checkbox" name="material" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="material">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">料單管理
+                                                                            <label class="switch">
+                                                                                @if($permission->material_case == 'Y')
+                                                                                <input type="checkbox" name="material_case" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="material_case">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">庫存管理
+                                                                            <label class="switch">
+                                                                                @if($permission->material_stock == 'Y')
+                                                                                <input type="checkbox" name="material_stock" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="material_stock">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px fas fa-info-circle"></i> 客戶資料查詢</span>
+                                                                    <label class="switch">
+                                                                        @if($permission->custom_info == 'Y')
+                                                                        <input type="checkbox" name="custom_info" checked>
+                                                                        @else
+                                                                        <input type="checkbox" name="custom_info">
+                                                                        @endif
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px fas fa-briefcase"></i> 業務管理</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">個人業務
+                                                                            <label class="switch">
+                                                                                @if($permission->business_self == 'Y')
+                                                                                <input type="checkbox" name="business_self" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="business_self">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">全站業務
+                                                                            <label class="switch">
+                                                                                @if($permission->business_all == 'Y')
+                                                                                <input type="checkbox" name="business_all" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="business_all">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px far fa-chart-bar"></i> 業績查詢</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">個人業績
+                                                                            <label class="switch">
+                                                                                @if($permission->performance_self == 'Y')
+                                                                                <input type="checkbox" name="performance_self" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="performance_self">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">全站業績
+                                                                            <label class="switch">
+                                                                                @if($permission->performance_all == 'Y')
+                                                                                <input type="checkbox" name="performance_all" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="performance_all">
+                                                                                @endif
+                                                                                <span class="slider round"></span>
+                                                                            </label>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px far fa-file-alt"></i> 表單設定</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">線上預約
+                                                                            <label class="switch">
                                                                                 <input type="checkbox" name="reservation" checked>
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @else
-                                                                        <li class="si">線上預約<label class="switch">
-                                                                                <input type="checkbox" name="reservation">
-                                                                                <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @endif
-
-                                                                        @if($permission->satisfaction == 'Y')
-                                                                        <li class="si">滿意度調查<label class="switch">
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">滿意度調查
+                                                                            <label class="switch">
                                                                                 <input type="checkbox" name="satisfaction" checked>
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @else
-                                                                        <li class="si">滿意度調查<label class="switch">
-                                                                                <input type="checkbox" name="satisfaction">
-                                                                                <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @endif
-
-                                                                        @if($permission->contact == 'Y')
-                                                                        <li class="si">與我聯繫<label class="switch">
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">與我聯繫
+                                                                            <label class="switch">
                                                                                 <input type="checkbox" name="contact" checked>
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @else
-                                                                        <li class="si">與我聯繫<label class="switch">
-                                                                                <input type="checkbox" name="contact">
-                                                                                <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @endif
+                                                                            </label>
+                                                                        </li>
                                                                     </ul>
                                                                 </li>
                                                                 <li>
-                                                                    <span class="text-left">推播時間設定</span>
-
-                                                                    @if($permission->timeset == 'Y')
-                                                                    <label class="switch">
-                                                                        <input type="checkbox" id="timeset" name="timeset" checked>
-                                                                        <span class="slider round"></span>
-                                                                    </label>
-                                                                    @else
-                                                                    <label class="switch">
-                                                                        <input type="checkbox" id="timeset" name="timeset">
-                                                                        <span class="slider round"></span>
-                                                                    </label>
-                                                                    @endif
-                                                                </li>
-                                                                <li>
-                                                                    <span class="text-left">權限管理</span>
-
-                                                                    @if($permission->permission == 'Y')
-                                                                    <label class="switch">
-                                                                        <input type="checkbox" id="permission" name="permission" checked="">
-                                                                        <span class="slider round"></span>
-                                                                    </label>
-                                                                    @else
-                                                                    <label class="switch">
-                                                                        <input type="checkbox" id="permission" name="permission">
-                                                                        <span class="slider round"></span>
-                                                                    </label>
-                                                                    @endif
-                                                                </li>
-                                                                <li>
-                                                                    <span class="text-left">與我聯繫/滿意度表單</span>
-                                                                    <ul class="text-left">
-
-                                                                        @if($permission->contactUs == 'Y')
-                                                                        <li class="si">與我聯繫<label class="switch">
+                                                                    <span class="text-left"><i class="w-20px fas fa-search"></i> 表單查看</span>
+                                                                    <ul class="text-left pl-m">
+                                                                        <li class="si">與我聯繫
+                                                                            <label class="switch">
                                                                                 <input type="checkbox" name="contactUs" checked>
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @else
-                                                                        <li class="si">與我聯繫<label class="switch">
-                                                                                <input type="checkbox" name="contactUs">
-                                                                                <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @endif
-
-                                                                        @if($permission->satisfactionSurvey == 'Y')
-                                                                        <li class="si">滿意度調查<label class="switch">
+                                                                            </label>
+                                                                        </li>
+                                                                        <li class="si">滿意度調查
+                                                                            <label class="switch">
                                                                                 <input type="checkbox" name="satisfactionSurvey" checked>
                                                                                 <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @else
-                                                                        <li class="si">滿意度調查<label class="switch">
-                                                                                <input type="checkbox" name="satisfactionSurvey">
-                                                                                <span class="slider round"></span>
-                                                                            </label></li>
-                                                                        @endif
+                                                                            </label>
+                                                                        </li>
                                                                     </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px far fa-clock"></i> 推播時間設定</span>
+                                                                    <label class="switch">
+                                                                        <input type="checkbox" name="timeset" checked>
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="text-left"><i class="w-20px fas fa-cog"></i> 權限管理</span>
+                                                                    <label class="switch">
+                                                                        <input type="checkbox" name="permission" checked>
+                                                                        <span class="slider round"></span>
+                                                                    </label>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -245,35 +338,49 @@
 @section('scripts')
 <script type="text/javascript">
 
-        $.ajax({
-            method:'get',
-            url:'{{ route('ht.Permission.getUserInfo',['organization'=>$organization]) }}',
-            data:{ 'user_id':'{{$user->id}}' },
-            dataType:'json',
-            success:function(data){
+        $(document).ready(function(){
+            $('#permissionForm').on('submit',function(){
+                 var res = $('.companyInput:checkbox:checked').length
 
-                var job = $("#job").find("option");
-                for (var j = 1; j < job.length; j++) {
-                    if ($(job[j]).val() == data[0].job) {
-                        $(job[j]).attr("selected", "selected");
-                    }
+                 if(res == 0){
+
+                    alert("請填選分公司")
+                    
+                    $('.companyInput').focus()
+
+                    return false
                 }
+            })
 
-                var company = $("#company").find("option");
-                for (var j = 1; j < company.length; j++) {
-                    if ($(company[j]).val() == data[1].id) {
-                        $(company[j]).attr("selected", "selected");
+            $.ajax({
+                method:'get',
+                url:'{{ route('ht.Permission.getUserInfo',['organization'=>$organization]) }}',
+                data:{ 'user_id':'{{$user->id}}' },
+                dataType:'json',
+                success:function(data){
+
+                    var job = $("#job").find("option");
+                    for (var j = 1; j < job.length; j++) {
+                        if ($(job[j]).val() == data[0].job) {
+                            $(job[j]).attr("selected", "selected");
+                        }
                     }
-                }
 
-                // var dept = $("#dept").find("option");
-                // for (var j = 1; j < dept.length; j++) {
-                //     if ($(dept[j]).val() == data[2].id) {
-                //         $(dept[j]).attr("selected", "selected");
-                //     }
-                // }
-            }
+                    var company = $("#company").find("option");
+                    for (var j = 1; j < company.length; j++) {
+                        if ($(company[j]).val() == data[1].id) {
+                            $(company[j]).attr("selected", "selected");
+                        }
+                    }
+
+                    // var dept = $("#dept").find("option");
+                    // for (var j = 1; j < dept.length; j++) {
+                    //     if ($(dept[j]).val() == data[2].id) {
+                    //         $(dept[j]).attr("selected", "selected");
+                    //     }
+                    // }
+                }
+            })
         })
-
 </script>
 @endsection

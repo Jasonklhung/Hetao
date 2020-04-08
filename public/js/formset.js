@@ -8,88 +8,28 @@ $('body').on('click', '.fa-trash-alt', function() {
 });
 
 //標題
-var tn = document.getElementsByClassName('title');
-if(tn.length == 0){
-    var t = 0
-}
-else{
-
-    for (var i = 0; i < tn.length; i++) {
-       var aa = tn[i].name
-   }
-
-   var t = aa.split("title")[1];
-}
-
 $('.toolbar').on('click', '.t01', function() {
-    t++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="tp-title pd-l"><button class="close" type="button"><i class="far fa-trash-alt"></i></button><input class="form-control title" name="title'+t+'" type="text" placeholder="填寫標題"></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="tp-title pd-l"><button class="close" type="button"><i class="far fa-trash-alt"></i></button><input class="form-control" type="text" placeholder="填寫標題"></div>');
 });
 //文章
-var an = document.getElementsByClassName('article');
-
-if(an.length == 0){
-    var article = 0
-}
-else{
-
-    for (var i = 0; i < an.length; i++) {
-       var bb = an[i].name
-   }
-
-   var article = bb.split("article")[1];
-}
-
 $('.toolbar').on('click', '.t02', function() {
-    article++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="form-group mgy-sm pd-l"><button class="close" type="button"><i class="far fa-trash-alt"></i></button><input type="text" name="article'+article+'" class="form-control article" placeholder="輸入文字"></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="form-group mgy-sm pd-l"><button class="close" type="button"><i class="far fa-trash-alt"></i></button><input type="text" class="form-control" placeholder="輸入文字"></div>');
 });
 //分隔線
-var ln = document.getElementsByClassName('line');
-
-if(ln.length == 0){
-    var line = 0
-}
-else{
-
-    for (var i = 0; i < ln.length; i++) {
-       var cc = ln[i].name
-   }
-
-   var line = cc.split("line")[1];
-}
-
 $('.toolbar').on('click', '.t03', function() {
-    line++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l"><hr><input type="hidden" class="line" name="line'+line+'"><button class="close" type="button"><i class="far fa-trash-alt"></i></button></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l"><hr><button class="close" type="button"><i class="far fa-trash-alt"></i></button></div>');
 });
 //單選
-var rn = document.getElementsByClassName('radio');
-
-if(rn.length == 0){
-    var radio = 0
-}
-else{
-
-    for (var i = 0; i < rn.length; i++) {
-       var dd = rn[i].name
-   }
-
-   var radio = dd.split("radio")[1];
-}
-
+var radio = 0
 $('.toolbar').on('click', '.t04', function() {
     radio++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control radio" name="radio'+radio+'" type="text" placeholder="未命名的問題"></p><div class="select-con"><div class="mb-s"><button class="close" type="button">&times;</button><div class="out mr-s"></div><input type="text" name="radio'+radio+'Opt" placeholder="填寫選項文字"><select class="form-control" name="radio'+radio+'Href"></select></div></div><a href="javascript:void(0)" class="select-fun"><div class="out mr-s"></div>新增選項</a><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="radio'+radio+'Req"><span class="slider round"></span></label><input class="followw" name="radio'+radio+'follow1'+radio+'" id="follow1'+radio+'" type="checkbox"><label class="followanswer" for="follow1'+radio+'">依答案至相關頁面</label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" placeholder="未命名的問題"></p><div class="select-con"><div class="mb-s"><button class="close" type="button">&times;</button><div class="out mr-s"></div><input type="text" placeholder="填寫選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select></div></div><a href="javascript:void(0)" class="select-fun"><div class="out mr-s"></div>新增選項</a><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label><input class="followw" id="follow1'+radio+'" type="checkbox"><label class="followanswer" for="follow1'+radio+'">依答案至相關頁面</label></div></div>');
     // option()
 });
 
 /*單選新增選項*/
-var opt = 1;
 $('body').on('click', '.select-fun', function() {
-    opt++
-    var name = $(this).parents('.item').children('.title-deco').children('.form-control').attr('name')
-    $(this).parents('.item').children('.select-con').append('<div class="mb-s"> <button class="close" type ="button">&times;</button> <div class="out mr-s"> </div><input type="text" name="'+name+'Opt" placeholder="填寫選項文字"><select class="form-control" name="'+name+'Href"></select> </div>');
+    $(this).parents('.item').children('.select-con').append('<div class="mb-s"> <button class="close" type ="button">&times;</button> <div class="out mr-s"> </div><input type="text" placeholder="填寫選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select> </div>');
 });
 
 /*單選選項刪除*/
@@ -98,30 +38,14 @@ $('body').on('click', '.select-con .close', function() {
 });
 
 //多選
-var mn = document.getElementsByClassName('multi');
-
-if(mn.length == 0){
-    var multi = 0
-}
-else{
-
-    for (var i = 0; i < mn.length; i++) {
-       var ee = mn[i].name
-   }
-
-   var multi = ee.split("multi")[1];
-}
-
+var multi = 0
 $('.toolbar').on('click', '.t05', function() {
     multi++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control multi" type="text" name="multi'+multi+'" placeholder="未命名的問題"></p><div class="multi-con"><div class="mb-s"><button class="close" type="button">&times;</button><div class="shape mr-s"></div><input type="text" name="multi'+multi+'Opt" placeholder="選項文字"><select class="form-control"></select></div></div><a href="javascript:void(0)" class="multi-fun"><div class="shape mr-s"></div>新增選項</a><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="multi'+multi+'Req"><span class="slider round"></span></label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" placeholder="未命名的問題"></p><div class="multi-con"><div class="mb-s"><button class="close" type="button">&times;</button><div class="shape mr-s"></div><input type="text" placeholder="選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select></div></div><a href="javascript:void(0)" class="multi-fun"><div class="shape mr-s"></div>新增選項</a><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label><input class="followw" id="follow2'+multi+'" type="checkbox"><label class="followanswer" for="follow2'+multi+'">依答案至相關頁面</label></div></div>');
 });
-
 /*多選新增選項*/
-var multiOpt = 1
 $('body').on('click', '.multi-fun', function() {
-    var multiname = $(this).parents('.item').children('.title-deco').children('.form-control').attr('name')
-    $(this).parents('.item').children('.multi-con').append('<div class="mb-s"> <button class="close" type ="button">&times;</button> <div class="shape mr-s"> </div><input type="text" name="'+multiname+'Opt" placeholder="填寫選項文字"><select class="form-control"></select>  </div>');
+    $(this).parents('.item').children('.multi-con').append('<div class="mb-s"> <button class="close" type ="button">&times;</button> <div class="shape mr-s"> </div><input type="text" placeholder="填寫選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select>  </div>');
 });
 
 /*多選選項刪除*/
@@ -130,30 +54,15 @@ $('body').on('click', '.multi-con .close', function() {
 });
 
 //下拉
-var sn = document.getElementsByClassName('select');
-
-if(sn.length == 0){
-    var sele = 0
-}
-else{
-
-    for (var i = 0; i < sn.length; i++) {
-       var ff = sn[i].name
-   }
-
-   var sele = ff.split("select")[1];
-}
-
+var sele = 0
 $('.toolbar').on('click', '.t06', function() {
     sele++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control select" name="select'+sele+'" type="text" placeholder="未命名的問題"></p><ol class="drop-con"><li class="mb-s"><button class="close" type="button">&times;</button><input type="text"  name="select'+sele+'Opt" placeholder="選項文字"><select class="form-control" name="select'+sele+'Href"></select></li><li class="mb-s drop-fun-dot"><a href="javascript:void(0)" class="drop-fun">新增選項</a></li></ol><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="select'+sele+'Req"><span class="slider round"></span></label><input class="followw" name="select'+sele+'follow3'+sele+'" id="follow3'+sele+'" type="checkbox"><label class="followanswer" for="follow3'+sele+'">依答案至相關頁面</label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" placeholder="未命名的問題"></p><ol class="drop-con"><li class="mb-s"><button class="close" type="button">&times;</button><input type="text" placeholder="選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select></li><li class="mb-s drop-fun-dot"><a href="javascript:void(0)" class="drop-fun">新增選項</a></li></ol><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label><input class="followw" id="follow3'+sele+'" type="checkbox"><label class="followanswer" for="follow3'+sele+'">依答案至相關頁面</label></div></div>');
 });
 
 /*下拉新增選項*/
-var selectOpt = 1
 $('body').on('click', '.drop-fun', function() {
-    var selectname = $(this).parents('.item').children('.title-deco').children('.form-control').attr('name')
-    $(this).parents('.drop-con').children('.drop-fun-dot').before('<li class="mb-s"><button class="close" type="button">&times;</button><input type="text" name="'+selectname+'Opt" placeholder="選項文字"><select class="form-control" name="'+selectname+'Href"></select> </li>');
+    $(this).parents('.drop-con').children('.drop-fun-dot').before('<li class="mb-s"><button class="close" type="button">&times;</button><input type="text" placeholder="選項文字"><select class="form-control"><option class="thxpage">感謝頁</option></select> </li>');
 });
 
 /*下拉選項刪除*/
@@ -162,90 +71,51 @@ $('body').on('click', '.drop-con li .close', function() {
 });
 
 //簡答
-var qn = document.getElementsByClassName('qa');
-
-if(qn.length == 0){
-    var qa = 0
-}
-else{
-
-    for (var i = 0; i < qn.length; i++) {
-       var gg = qn[i].name
-   }
-
-   var qa = gg.split("qa")[1];
-}
-
 $('.toolbar').on('click', '.t07', function() {
-    qa++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control qa" type="text" name="qa'+qa+'" placeholder="未命名的問題"></p><input class="lock" type="text" value="簡答文字" disabled><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="qa'+qa+'Req"><span class="slider round"></span></label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" placeholder="未命名的問題"></p><input class="lock" type="text" value="簡答文字" disabled><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div></div>');
 });
 //段落
-var pn = document.getElementsByClassName('part');
-
-if(pn.length == 0){
-    var part = 0
-}
-else{
-
-    for (var i = 0; i < pn.length; i++) {
-       var hh = pn[i].name
-   }
-
-   var part = hh.split("part")[1];
-}
-
 $('.toolbar').on('click', '.t08', function() {
-    part++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control part" type="text" name="part'+part+'" placeholder="未命名的問題"></p><input class="lock" type="text" value="詳答文字" disabled><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="part'+part+'Req"><span class="slider round"></span></label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" placeholder="未命名的問題"></p><input class="lock" type="text" value="詳答文字" disabled><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div></div>');
 });
 //日期
-var dn = document.getElementsByClassName('date');
-
-if(dn.length == 0){
-    var date = 0
-}
-else{
-
-    for (var i = 0; i < dn.length; i++) {
-       var ii = dn[i].name
-   }
-
-   var date = ii.split("date")[1];
-
-}
-
 $('.toolbar').on('click', '.t09', function() {
-    date++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control date" type="text" name="date'+date+'" placeholder="未命名的問題"></p><input class="lock datime" type="text" value="年/月/日" disabled><span class="glyphicon glyphicon-calendar date-icon" aria-hidden="true"></span><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="date'+date+'Req"><span class="slider round"></span></label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" placeholder="未命名的問題"></p><input class="lock datime" type="text" value="年/月/日" disabled><span class="glyphicon glyphicon-calendar date-icon" aria-hidden="true"></span><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div></div>');
 });
 //時間
-var timen = document.getElementsByClassName('time');
-
-if(timen.length == 0){
-    var time = 0
-}
-else{
-
-    for (var i = 0; i < timen.length; i++) {
-       var jj = timen[i].name
-   }
-
-   var time = jj.split("time")[1];
-}
-
 $('.toolbar').on('click', '.t10', function() {
-    time ++
-    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control time" type="text" name="time'+time+'" placeholder="未命名的問題"></p><input class="lock datime" type="text" value="時：分" disabled><span class="glyphicon glyphicon-time time-icon" aria-hidden="true"></span><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox" name="time'+time+'Req"><span class="slider round"></span></label></div></div>');
+    $(this).parents('.tab-pane').find('.tab-pane.active.in .form-content-0').append('<div class="pd-l item"><p class="title-deco"><input class="form-control" type="text" placeholder="未命名的問題"></p><input class="lock datime" type="text" value="時：分" disabled><span class="glyphicon glyphicon-time time-icon" aria-hidden="true"></span><div class="itemfoot"><button class="ml-s close" type="button"><i class="far fa-trash-alt"></i></button><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div></div>');
 });
 
 
 //頁面切換tab效果
 $('body').on('click', '.design-form .tab-pane .nav-tabs .section label', function(){
-   $('.design-form .tab-pane .nav-tabs .section').removeClass('active');
-   $(this).closest('.section').addClass('active');
+	$('.design-form .tab-pane .nav-tabs .section').removeClass('active');
+	$(this).closest('.section').addClass('active');
 });
 
+//新增頁面
+var i = 1
+$('body').on('click', '.add-section', function(){
+	i++
+	$(this).parent().children('.sec01').before('<div class="sec-1-'+ i +' section mr-s"><label for="sec-1-'+ i +'"><i class="fas fa-check-circle fa-fw"></i><a data-toggle="tab" href="#p-1-'+ i +'"><input class="form-control" type="text" placeholder="未命名"></a><input type="checkbox" id="sec-1-'+ i +'" class="form-sec-btn"></label><button class="close"type="button">&times;</button></div>');
+	$(this).parent().parent().append('<div class="tab-pane fade" id="p-1-'+ i +'"><div class="panel panel-default panel-type page"><div class="panel-heading text-center font-l font-r">線上預約表單</div><div class="panel-body font-sm pdx-0"><div class="last-page tab-content"><form class="form-content-0" action=""></form></div></div></div></div>');
+	$(".add-section").parent().find('.thx').siblings(".section:last").click();
+});
+var j = 1
+$('body').on('click', '.add-section2', function(){
+    j++
+    $(this).parent().children('.sec02').before('<div class="sec-2-'+ j +' section mr-s"><label for="sec-2-'+ j +'"><i class="fas fa-check-circle fa-fw"></i><a data-toggle="tab" href="#p-2-'+ j +'"><input class="form-control" type="text" placeholder="未命名"></a><input type="checkbox" id="sec-2-'+ j +'" class="form-sec-btn"></label><button class="close"type="button">&times;</button></div>');
+    $(this).parent().parent().append('<div class="tab-pane fade" id="p-2-'+ j +'"><div class="panel panel-default panel-type page"><div class="panel-heading text-center font-l font-r">線上預約表單</div><div class="panel-body font-sm pdx-0"><div class="last-page tab-content"><form class="form-content-0" action=""></form></div></div></div></div>');
+    $(".add-section").parent().find('.thx').siblings(".section:last").click();
+});
+var k = 1
+$('body').on('click', '.add-section3', function(){
+    k++
+    $(this).parent().children('.sec03').before('<div class="sec-3-'+ k +' section mr-s"><label for="sec-3-'+ k +'"><i class="fas fa-check-circle fa-fw"></i><a data-toggle="tab" href="#p-3-'+ k +'"><input class="form-control" type="text" placeholder="未命名"></a><input type="checkbox" id="sec-3-'+ k +'" class="form-sec-btn"></label><button class="close"type="button">&times;</button></div>');
+    $(this).parent().parent().append('<div class="tab-pane fade" id="p-3-'+ k +'"><div class="panel panel-default panel-type page"><div class="panel-heading text-center font-l font-r">線上預約表單</div><div class="panel-body font-sm pdx-0"><div class="last-page tab-content"><form class="form-content-0" action=""></form></div></div></div></div>');
+    $(".add-section").parent().find('.thx').siblings(".section:last").click();
+});
 
 //刪除頁面
 $('body').on('click', '.design-form .viewers .nav-tabs .section .close', function(){
@@ -354,7 +224,7 @@ $('body').on('change','.section input', function(){
 $('body').on('change','.followw', function(){
     var id=$(this).parents(".viewers").attr("id")
     if(id=='viewers-tab-01') {
-        option1();        
+        option1();      
     }
     if(id=='viewers-tab-02') {
         option2();        
@@ -377,38 +247,20 @@ $('body').on('change','.followw', function(){
 // });
 
 function option1() {
-    var arr4 = []
-    var change = $(".item select")
-    change.each(function(){
-            var change_value=$(this).val()
-            arr4.push(change_value)
-            console.log(arr4)
-        })
     var inputs = $("#viewers-tab-01 .nav-tabs input[type='text']")
     arr1 = []
     $('#viewers-tab-01 .item.link .form-control option:not(.thxpage)').remove();
     inputs.each(
         function() {
             var input = $(this);
-            arr1.push(input.val());
+            arr1.push(input.val())
         }
     )
-    $('#viewers-tab-01 .item.link .form-control').append('<option value="">請選擇</option>');
     for (var i = 0; i < arr1.length; i++) {
-        $('#viewers-tab-01 .item.link .form-control').append('<option value="'+arr1[i]+'">' + arr1[i] + '</option>');
+        $('#viewers-tab-01 .item.link .form-control').append('<option>' + arr1[i] + '</option>');
     }
-    for(var i=0;i<arr4.length;i++){
-            $(".item select").eq(i).val(arr4[i])
-        }
 }
 function option2() {
-    var arr4 = []
-    var change = $(".item select")
-    change.each(function(){
-            var change_value=$(this).val()
-            arr4.push(change_value)
-            console.log(arr4)
-        })
     var inputs = $("#viewers-tab-02 .nav-tabs input[type='text']")
     arr2 = []
     $('#viewers-tab-02 .item.link .form-control option:not(.thxpage)').remove();
@@ -418,22 +270,11 @@ function option2() {
             arr2.push(input.val())
         }
     )
-    $('#viewers-tab-02 .item.link .form-control').append('<option value="">請選擇</option>');
     for (var i = 0; i < arr2.length; i++) {
-        $('#viewers-tab-02 .item.link .form-control').append('<option value="'+arr2[i]+'">' + arr2[i] + '</option>');
+        $('#viewers-tab-02 .item.link .form-control').append('<option>' + arr2[i] + '</option>');
     }
-    for(var i=0;i<arr4.length;i++){
-            $(".item select").eq(i).val(arr4[i])
-        }
 }
 function option3() {
-    var arr4 = []
-    var change = $(".item select")
-    change.each(function(){
-            var change_value=$(this).val()
-            arr4.push(change_value)
-            console.log(arr4)
-        })
     var inputs = $("#viewers-tab-03 .nav-tabs input[type='text']")
     arr3 = []
     $('#viewers-tab-03 .item.link .form-control option:not(.thxpage)').remove();
@@ -443,11 +284,7 @@ function option3() {
             arr3.push(input.val())
         }
     )
-    $('#viewers-tab-03 .item.link .form-control').append('<option value="">請選擇</option>');    
     for (var i = 0; i < arr3.length; i++) {
-        $('#viewers-tab-03 .item.link .form-control').append('<option value="'+arr3[i]+'">' + arr3[i] + '</option>');
+        $('#viewers-tab-03 .item.link .form-control').append('<option>' + arr3[i] + '</option>');
     }
-    for(var i=0;i<arr4.length;i++){
-            $(".item select").eq(i).val(arr4[i])
-        }    
 }

@@ -60,12 +60,15 @@ Route::group(['middleware' => ['auth']], function () {
 
 		//領退料管理-領料申請
 		Route::get('/HT/{organization}/Material/material/index','HT\Material\MaterialController@index')->name('ht.Material.material.index');
+		Route::get('/HT/{organization}/Material/material/materialsNumberSearch','HT\Material\MaterialController@materialsNumberSearch')->name('ht.Material.material.materialsNumberSearch');
+		Route::post('/HT/{organization}/Material/material/store','HT\Material\MaterialController@store')->name('ht.Material.material.store');
 
 		//領退料管理-料單管理
 		Route::get('/HT/{organization}/Material/case/index','HT\Material\CaseController@index')->name('ht.Material.case.index');
 
 		//領退料管理-庫存管理
 		Route::get('/HT/{organization}/Material/stock/index','HT\Material\StockController@index')->name('ht.Material.stock.index');
+		Route::get('/HT/{organization}/Material/stock/stockApi','HT\Material\StockController@stockApi')->name('ht.Material.stock.stockApi');
 
 		//客戶資料查詢
 		Route::get('/HT/{organization}/Customer/index','HT\Customer\CustomerController@index')->name('ht.Customer.index');

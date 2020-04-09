@@ -18,7 +18,8 @@ class CreateMaterialStocksTable extends Migration
             $table->string("organization_name")->comment("分公司");
             $table->string("materials_number")->comment("產品料號");
             $table->string("materials_spec")->comment("品名規格");
-            $table->string("machine_number")->comment("機號");
+            $table->string("machine_number")->nullable()->comment("機號");
+            $table->string("suppkey")->nullable()->comment("供應廠商");
             $table->integer("quantity")->comment("數量");
             $table->string("other")->nullable()->comment("備註");
             $table->timestamps();

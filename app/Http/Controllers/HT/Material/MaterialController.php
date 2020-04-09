@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Organization;
 use GuzzleHttp\Client;
 use Auth;
+use App\MaterialStock;
+use App\Material;
 
 class MaterialController extends Controller
 {
@@ -71,8 +73,60 @@ class MaterialController extends Controller
             }
 
             $caseCount = count($countArray);
+
+            //個人領料資訊
+            $materialN =  Material::where('user_id',Auth::user()->id)->where('status','N')->get();
+
+            $materialY =  Material::where('user_id',Auth::user()->id)->where('status','Y')->get();
         }
 
-        return view('ht.Material.material.index',compact('organization','caseCount'));
+        return view('ht.Material.material.index',compact('organization','caseCount','materialN','materialY'));
+    }
+
+    public function materialsNumberSearch(Organization $organization,Request $request)
+    {
+        $dept = Organization::where('id',$organization->id)->get();
+
+        $res = MaterialStock::where('organization_name',$dept[0]['name'])->where('materials_number','like','%'.$request->value.'%')->get();
+
+
+        $result = array();
+
+        foreach ($res as $key => $value) {
+            array_push($result, $value['materials_number']);
+        }
+
+        $spec = MaterialStock::where('organization_name',$dept[0]['name'])->where('materials_number',$request->value)->get();
+
+        return [$result,$spec];
+    }
+
+    public function store(Organization $organization,Request $request)
+    {
+
+        $dept = Organization::where('id',$organization->id)->get();
+        $name = $dept[0]['name'];
+
+        $count = count($request->materials_number);
+
+        for ($i=0; $i < $count ; $i++) { 
+
+            $material = new Material;
+            $material->user_id = Auth::user()->id;
+            $material->organization_name = $name;
+            $material->date = $request->date;
+            $material->emp_id = $request->emp_id;
+            $material->emp_name = $request->emp_name;
+
+            $material->materials_number = $request->materials_number[$i];
+            $material->materials_spec = $request->materials_spec[$i];
+            ($request->machine_number[$i] == 'null')? $material->machine_number = '' : $material->machine_number = $request->machine_number[$i];
+            $material->quantity = $request->quantity[$i];
+
+            $material->save();
+
+        }
+
+        return redirect()->route('ht.Material.material.index',compact('organization'))->with('success','新增成功');
     }
 }

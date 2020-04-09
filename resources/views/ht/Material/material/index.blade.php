@@ -6,6 +6,7 @@
                 <div class="container-fluid">
                     <!-- 活動分析 -->
                     <h3 class="page-title">領退料管理</h3>
+                    @include('common.message')
                     <div class="panel bg-transparent">
                         <div class="panel-body">
                             <div class="row">
@@ -33,7 +34,8 @@
                                                 <div class="tab-content">
                                                     <!-- 領料單填寫 -->
                                                     <div class="tab-pane active" id="viewers-tab-01">
-                                                        <form>
+                                                        <form method="post" action="{{ route('ht.Material.material.store',['organization'=>$organization]) }}">
+                                                            @csrf
                                                             <div class="text-primary mx-s">
                                                                 <h4 class="bd-bottom">領料單 <i class="fas fa-caret-right"></i></h4>
                                                             </div>
@@ -43,17 +45,17 @@
                                                                         <label class="d-block">領料日期</label>
                                                                         <div class="datetime">
                                                                             <div class="input-group date day-set">
-                                                                                <input class="form-control" placeholder="請選擇日期" type="text"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                                <input class="form-control" placeholder="請選擇日期" name="date" type="text"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-item">
                                                                         <label class="d-block">員工編號</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="emp_id" value="{{Auth::user()->emp_id}}">
                                                                     </div>
                                                                     <div class="form-item">
                                                                         <label class="d-block">員工姓名</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="emp_name" value="{{Auth::user()->name}}">
                                                                     </div>
                                                                     <div class="form-item">
                                                                         <label class="d-block">備註</label>
@@ -66,19 +68,22 @@
                                                                         <a style="display: none;" class="del" href="javascript:void(0)"><i class="fas fa-minus-circle text-danger float-right"></i></a>
                                                                         <div class="form-item">
                                                                             <label class="d-block"><span class="text-danger">* </span>產品料號</label>
-                                                                            <input type="text" class="form-control" required>
+                                                                            <input type="text" class="form-control" name="materials_number[]" id="materials_number" required>
                                                                         </div>
                                                                         <div class="form-item">
                                                                             <label class="d-block"><span class="text-danger">* </span>品名規格</label>
-                                                                            <input type="text" class="form-control" required>
+                                                                            <input type="text" class="form-control" name="materials_spec[]" id="materials_spec" required>
                                                                         </div>
                                                                         <div class="form-item">
                                                                             <label class="d-block">機號</label>
-                                                                            <input type="text" class="form-control">
+                                                                            <select class="form-control" name="machine_number[]" id="machine_number">
+                                                                                <option value="" selected="">請選擇機號</option>
+                                                                                <option value="null" >無</option>
+                                                                            </select>
                                                                         </div>
                                                                         <div class="form-item">
                                                                             <label class="d-block"><span class="text-danger">* </span>領料數量</label>
-                                                                            <input type="number" class="form-control" min="1" required>
+                                                                            <input type="number" class="form-control" min="1" name="quantity[]" required>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -123,94 +128,16 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
+                                                                    @foreach($materialN as $materialN => $data)
+                                                                    <tr>
+                                                                        <td>{{ $data->date }}</td>
+                                                                        <td>{{ $data->materials_number }}</td>
+                                                                        <td>{{ $data->materials_spec }}</td>
+                                                                        <td>{{ $data->machine_number }}</td>
+                                                                        <td>{{ $data->quantity }}</td>
+                                                                        <td>{{ $data->other }}</td>
                                                                     </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                    </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -251,105 +178,17 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
+                                                                    @foreach($materialY as $materialY => $data)
+                                                                    <tr>
+                                                                        <td>{{ $data->date }}</td>
+                                                                        <td>{{ $data->materials_number }}</td>
+                                                                        <td>{{ $data->materials_spec }}</td>
+                                                                        <td>{{ $data->machine_number }}</td>
+                                                                        <td>{{ $data->quantity }}</td>
+                                                                        <td>{{ $data->other }}</td>
                                                                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">退料</button></td>
                                                                     </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">退料</button></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">退料</button></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">退料</button></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">退料</button></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">退料</button></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">退料</button></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">退料</button></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">退料</button></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">退料</button></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>2020-03-26</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">退料</button></td>
-                                                                    </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -424,19 +263,22 @@
                     <a class="del" href="javascript:void(0)"><i class="fas fa-minus-circle text-danger float-right"></i></a>
                     <div class="form-item">
                         <label class="d-block"><span class="text-danger">* </span>產品料號</label>
-                        <input type="text" class="form-control" required>
+                        <input type="text" class="form-control materials_number" name="materials_number[]" required>
                     </div>
                     <div class="form-item">
                         <label class="d-block"><span class="text-danger">* </span>品名規格</label>
-                        <input type="text" class="form-control" required>
+                        <input type="text" class="form-control materials_spec" name="materials_spec[]" required>
                     </div>
                     <div class="form-item">
                         <label class="d-block">機號</label>
-                        <input type="text" class="form-control">
+                        <select class="form-control machine_number" name="machine_number[]">
+                            <option value="" selected="">請選擇機號</option>
+                            <option value="null" >無</option>
+                        </select>
                     </div>
                     <div class="form-item">
                         <label class="d-block"><span class="text-danger">* </span>領料數量</label>
-                        <input type="number" class="form-control" min="1" required>
+                        <input type="number" class="form-control" min="1" name="quantity[]" required>
                     </div>
                 </div>
                 `)
@@ -445,6 +287,75 @@
         } else {
             $('.del').hide();
         }
+
+        //即時搜尋
+        $('.materials_number').on('keyup',function(){
+            
+            var result = $('.materials_number').val();
+
+            $.ajax({
+                type:'get',
+                url:'{{ route('ht.Material.material.materialsNumberSearch',['organization'=>$organization]) }}',
+                data:{
+                    'value':result
+                },
+                success:function(res){
+                    var availableTags = res[0];
+                    $( ".materials_number" ).autocomplete({
+                      source: availableTags,
+                          select: function (event, ui) {
+
+                            var result = ui.item.label;
+                            
+                            $.ajax({
+                                type:'get',
+                                url:'{{ route('ht.Material.material.materialsNumberSearch',['organization'=>$organization]) }}',
+                                data:{
+                                    'value':result
+                                },
+                                success:function(ress){
+
+                                    if(ress[1][0] != null){
+                                        $('.materials_spec').val(ress[1][0].materials_spec)
+
+                                        if(ress[1][0].machine_number != null){
+                                            var number = ress[1][0].machine_number.split(",")
+                                            number.pop();
+                                            var selOpts = "<option value='' selected='selected' disabled='true'>請選擇機號</option>";
+                                            selOpts += "<option value='null'>無</option>";
+                                            $.each(number, function (i, item) {
+
+                                                selOpts += "<option value='"+item+"'>"+item+"</option>";    
+                                            })
+                                            $(".machine_number").empty();
+                                            $('.machine_number').append(selOpts);
+                                        }
+                                    }              
+                                }
+                            })
+                        },
+                    });
+
+                    if(res[1][0] != null){
+                        $('.materials_spec').val(ress[1][0].materials_spec)
+
+                        if(res[1][0].machine_number != null){
+                            var number = res[1][0].machine_number.split(",")
+                            number.pop();
+                            var selOpts = "<option value='none' selected='selected' disabled='true'>請選擇機號</option>";
+                            selOpts += "<option value='null'>無</option>";
+                            $.each(number, function (i, item) {
+
+                                selOpts += "<option value='"+item+"'>"+item+"</option>";    
+                            })
+                            $(".machine_number").empty();
+                            $('.machine_number').append(selOpts);
+                        }
+                    }
+
+                }
+            })
+        })
     });
     //刪除
     $('body').on('click', '.del', function() {
@@ -556,5 +467,78 @@
     $(".searchInput_s2").on("keyup", function() {
         table.search(this.value).draw();
     });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        //即時搜尋
+        $('#materials_number').on('keyup',function(){
+
+            var result = $('#materials_number').val();
+
+            $.ajax({
+                type:'get',
+                url:'{{ route('ht.Material.material.materialsNumberSearch',['organization'=>$organization]) }}',
+                data:{
+                    'value':result
+                },
+                success:function(res){
+                    var availableTags = res[0];
+                    $( "#materials_number" ).autocomplete({
+                      source: availableTags,
+                          select: function (event, ui) {
+
+                            var result = ui.item.label;
+                            
+                            $.ajax({
+                                type:'get',
+                                url:'{{ route('ht.Material.material.materialsNumberSearch',['organization'=>$organization]) }}',
+                                data:{
+                                    'value':result
+                                },
+                                success:function(ress){
+
+                                    if(ress[1][0] != null){
+                                        $('#materials_spec').val(ress[1][0].materials_spec)
+
+                                        if(ress[1][0].machine_number != null){
+                                            var number = ress[1][0].machine_number.split(",")
+                                            number.pop();
+                                            var selOpts = "<option value='none' selected='selected' disabled='true'>請選擇機號</option>";
+                                            selOpts += "<option value='null'>無</option>";
+                                            $.each(number, function (i, item) {
+
+                                                selOpts += "<option value='"+item+"'>"+item+"</option>";    
+                                            })
+                                            $("#machine_number").empty();
+                                            $('#machine_number').append(selOpts);
+                                        }
+                                    }              
+                                }
+                            })
+                        },
+                    });
+
+                    if(res[1][0] != null){
+                        $('#materials_spec').val(ress[1][0].materials_spec)
+
+                        if(res[1][0].machine_number != null){
+                            var number = res[1][0].machine_number.split(",")
+                            number.pop();
+                            var selOpts = "<option value='none' selected='selected' disabled='true'>請選擇機號</option>";
+                            selOpts += "<option value='null'>無</option>";
+                            $.each(number, function (i, item) {
+
+                                selOpts += "<option value='"+item+"'>"+item+"</option>";    
+                            })
+                            $("#machine_number").empty();
+                            $('#machine_number').append(selOpts);
+                        }
+                    }
+
+                }
+            })
+        })
+    })
 </script>
 @endsection

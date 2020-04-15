@@ -17,7 +17,7 @@
                                         </div>
                                         <div class="panel-body tab-pane">
                                             <div class="tabbable">
-                                                <h4 class="text-primary mx-s">客戶代碼：愛酷智能</h4>
+                                                <h4 class="text-primary mx-s">客戶代碼：{{$custkey}}</h4>
                                                 <div class="coupon">
                                                     <select class="form-control mr-s mb-s infoselect" name="" id="">
                                                         <option value="基本資料" selected>基本資料</option>
@@ -48,60 +48,68 @@
                                                         <div class="tab-pane active" id="viewers-tab-01">
                                                             <div class="field customer-info">
                                                                 <ul>
-                                                                    <li><label class="w-105px">建檔日期：</label><span>2020-3-27</span></li>
-                                                                    <li><label class="w-105px">客戶卡號：</label><span>00100000</span></li>
-                                                                    <li><label class="w-105px">客戶全銜：</label><span>愛酷智能科技股份有限公司</span></li>
-                                                                    <li><label class="w-105px">客戶代碼：</label><span>愛酷智能</span></li>
-                                                                    <li><label class="w-105px">承辦人員：</label><span>Cindy</span></li>
-                                                                    <li><label class="w-105px">客戶類別：</label><span></span></li>
-                                                                    <li><label class="w-105px">區域代碼：</label><span>0000012338</span></li>
-                                                                    <li><label class="w-105px">統一編號：</label><span>1234567</span></li>
-                                                                    <li><label class="w-105px">週期：</label><span></span></li>
-                                                                    <li><label class="w-105px">備註：</label><span>備註備註備註備註備註備註備註備註備註備註備註備註備註備註備註備註</span></li>
-                                                                    <li><label class="w-105px">預收款結餘：</label><span>$1000000</span></li>
+                                                                    @foreach($info as $key =>$data)
+                                                                    <li><label class="w-105px">建檔日期：</label><span>{{ $data->DATE }}</span></li>
+                                                                    <li><label class="w-105px">客戶卡號：</label><span>{{ $data->CARDNO }}</span></li>
+                                                                    <li><label class="w-105px">客戶全銜：</label><span>{{ $data->FULLNAME }}</span></li>
+                                                                    <li><label class="w-105px">客戶代碼：</label><span>{{ $data->CUSTKEY }}</span></li>
+                                                                    <li><label class="w-105px">承辦人員：</label><span>{{ $data->TOUCH }}</span></li>
+                                                                    <li><label class="w-105px">客戶類別：</label><span>{{ $data->CUSTCLASS }}</span></li>
+                                                                    <li><label class="w-105px">區域代碼：</label><span>{{ $data->AREA }}</span></li>
+                                                                    <li><label class="w-105px">統一編號：</label><span>{{ $data->TAXNO }}</span></li>
+                                                                    <li><label class="w-105px">週期：</label><span>{{ $data->WAT_CYCLE }}</span></li>
+                                                                    <li><label class="w-105px">備註：</label><span>{{ $data->MEMO }}</span></li>
+                                                                    <li><label class="w-105px">預收款結餘：</label><span>{{ $data->MONEY }}</span></li>
+                                                                    @endforeach
                                                                 </ul>
                                                             </div>
-                                                            <a href="客戶資料查詢.html"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
+                                                            <a href="{{ route('ht.Customer.index',['organization'=>$organization]) }}"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
                                                         </div>
                                                         <div class="tab-pane" id="viewers-tab-02">
                                                             <div class="field customer-info">
                                                                 <ul>
-                                                                    <li><label class="w-105px">公司電話：</label><span><a href="tel:0212345678">02-12345678</a></span></li>
-                                                                    <li><label class="w-105px">公司分機：</label><span>001</span></li>
-                                                                    <li><label class="w-105px">家裡電話：</label><span><a href="tel:0212345678">02-12345678</a></span></li>
-                                                                    <li><label class="w-105px">家裡分機：</label><span>123</span></li>
-                                                                    <li><label class="w-105px">行動電話：</label><span><a href="tel:0912345678">0912345678</a></span></li>
-                                                                    <li><label class="w-105px">機器地址：</label><span></span></li>
-                                                                    <li><label class="w-105px">收款地址：</label><span>愛酷智能</span></li>
-                                                                    <li><label class="w-105px">傳真機：</label><span>Cindy</span></li>
-                                                                    <li><label class="w-105px">電子郵件：</label><span><a href="mailto:123@aaa.com">123@aaa.com</a></span></li>
-                                                                    <li><label class="w-105px">網址：</label><span><a target="_blank" href="https://google.com">https://google.com</a></span></li>
+                                                                    @foreach($info as $key =>$data)
+                                                                    <li><label class="w-105px">公司電話：</label><span><a href="tel:{{ $data->COMTEL }}">{{ $data->COMTEL }}</a></span></li>
+                                                                    <li><label class="w-105px">公司分機：</label><span>{{ $data->COMEXT }}</span></li>
+                                                                    <li><label class="w-105px">家裡電話：</label><span><a href="tel:{{ $data->HOMETEL }}">{{ $data->HOMETEL }}</a></span></li>
+                                                                    <li><label class="w-105px">家裡分機：</label><span>{{ $data->HOMEEXT }}</span></li>
+                                                                    <li><label class="w-105px">行動電話：</label><span><a href="tel:{{ $data->MPHONE }}">{{ $data->MPHONE }}</a></span></li>
+                                                                    <li><label class="w-105px">機器地址：</label><span>{{ $data->MACHINE }}</span></li>
+                                                                    <li><label class="w-105px">收款地址：</label><span>{{ $data->PAYMENT }}</span></li>
+                                                                    <li><label class="w-105px">傳真機：</label><span>{{ $data->FAX }}</span></li>
+                                                                    <li><label class="w-105px">電子郵件：</label><span><a href="mailto:{{ $data->EMAIL }}">{{ $data->EMAIL }}</a></span></li>
+                                                                    <li><label class="w-105px">網址：</label><span><a target="_blank" href="{{ $data->HTTP }}">{{ $data->HTTP }}</a></span></li>
+                                                                    @endforeach
                                                                 </ul>
                                                             </div>
-                                                            <a href="客戶資料查詢.html"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
+                                                            <a href="{{ route('ht.Customer.index',['organization'=>$organization]) }}"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
                                                         </div>
                                                         <div class="tab-pane" id="viewers-tab-03">
                                                             <div class="field customer-info">
                                                                 <ul>
-                                                                    <li><label class="w-105px">水卡號：</label><span></span></li>
-                                                                    <li><label class="w-105px">水瓶押金：</label><span></span></li>
-                                                                    <li><label class="w-105px">未退瓶：</label><span></span></li>
-                                                                    <li><label class="w-105px">未送：</label><span></span></li>
-                                                                    <li><label class="w-105px">前次送水：</label><span></span></li>
+                                                                    @foreach($info as $key =>$data)
+                                                                    <li><label class="w-105px">水卡號：</label><span>{{ $data->WAT_NO }}</span></li>
+                                                                    <li><label class="w-105px">水瓶押金：</label><span>{{ $data->BOTTLE1 }}</span></li>
+                                                                    <li><label class="w-105px">未退瓶：</label><span>{{ $data->BOTTLE2 }}</span></li>
+                                                                    <li><label class="w-105px">未送：</label><span>{{ $data->WAT_DEBT }}</span></li>
+                                                                    <li><label class="w-105px">前次送水：</label><span>{{ $data->LBW_DAT }}</span></li>
+                                                                    @endforeach
                                                                 </ul>
                                                             </div>
-                                                            <a href="客戶資料查詢.html"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
+                                                            <a href="{{ route('ht.Customer.index',['organization'=>$organization]) }}"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
                                                         </div>
                                                         <div class="tab-pane" id="viewers-tab-04">
                                                             <div class="field customer-info">
                                                                 <ul>
-                                                                    <li><label class="w-105px">收款日期：</label><span></span></li>
-                                                                    <li><label class="w-105px">收款備註：</label><span></span></li>
-                                                                    <li><label class="w-105px">最後往來：</label><span></span></li>
-                                                                    <li><label class="w-105px">往來內容：</label><span></span></li>
+                                                                    @foreach($info as $key =>$data)
+                                                                    <li><label class="w-105px">收款日期：</label><span>{{ $data->ACCDATE }}</span></li>
+                                                                    <li><label class="w-105px">收款備註：</label><span>{{ $data->ACCMEMO }}</span></li>
+                                                                    <li><label class="w-105px">最後往來：</label><span>{{ $data->LDATE }}</span></li>
+                                                                    <li><label class="w-105px">往來內容：</label><span>{{ $data->SUBT }}</span></li>
+                                                                    @endforeach
                                                                 </ul>
                                                             </div>
-                                                            <a href="客戶資料查詢.html"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
+                                                            <a href="{{ route('ht.Customer.index',['organization'=>$organization]) }}"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -147,7 +155,7 @@
                                                             </tr>
                                                         </thead>
                                                     </table>
-                                                    <a href="客戶資料查詢.html"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
+                                                    <a href="{{ route('ht.Customer.index',['organization'=>$organization]) }}"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
                                                 </div>
                                                 <div class="info3">
                                                     <div class='coupon'>
@@ -185,25 +193,19 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach($arap as $key => $data)
                                                             <tr>
-                                                                <td class="text-nowrap">2020-03-20</td>
-                                                                <td>012345678</td>
-                                                                <td>$100000</td>
-                                                                <td>XX123456</td>
-                                                                <td class="text-nowrap">2020-03-20</td>
-                                                                <td>Cindy</td>
+                                                                <td class="text-nowrap">{{ $data->DATE }}</td>
+                                                                <td>{{ $data->SALENUM }}</td>
+                                                                <td>${{ $data->RECEIVES }}</td>
+                                                                <td>{{ $data->INVOICE }}</td>
+                                                                <td class="text-nowrap">{{ $data->ACCPDAY }}</td>
+                                                                <td>{{ $data->FAMILY }}</td>
                                                             </tr>
-                                                            <tr>
-                                                                <td class="text-nowrap">2020-03-20</td>
-                                                                <td>012345678</td>
-                                                                <td>$100000</td>
-                                                                <td>XX123456</td>
-                                                                <td class="text-nowrap">2020-03-20</td>
-                                                                <td>Cindy</td>
-                                                            </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
-                                                    <a href="客戶資料查詢.html"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
+                                                    <a href="{{ route('ht.Customer.index',['organization'=>$organization]) }}"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
                                                 </div>
                                                 <div class="info4">
                                                     <div class='coupon'>
@@ -242,33 +244,27 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach($cycle as $key => $data)
                                                             <tr>
-                                                                <td class="text-nowrap">2020-03-20</td>
-                                                                <td>012345678</td>
-                                                                <td>2</td>
-                                                                <td>$28000</td>
-                                                                <td></td>
-                                                                <td class="text-nowrap">2020-03-20</td>
-                                                                <td class="text-nowrap">2020-03-20</td>
-                                                                <td>123456789789</td>
-                                                                <td></td>
-                                                                <td class="text-nowrap">2020-03-20</td>
+                                                                <td class="text-nowrap">{{ $data->BGNDATE }}</td>
+                                                                <td>{{ $data->CODE }}</td>
+                                                                <td>{{ $data->NUM }}</td>
+                                                                <td>${{ $data->PRICE }}</td>
+                                                                <td>{{ $data->CYCLE }}</td>
+                                                                <td class="text-nowrap">{{ $data->LSTDATE }}</td>
+                                                                <td class="text-nowrap">{{ $data->NXTDATE }}</td>
+                                                                <td>{{ $data->MEMO }}</td>
+                                                                @if($data->CEASE == '1')
+                                                                <td>是</td>
+                                                                @elseif($data->CEASE == null || $data->CEASE == '0')
+                                                                <td>否</td>
+                                                                @endif
+                                                                <td class="text-nowrap">{{ $data->STOPDATE }}</td>
                                                             </tr>
-                                                            <tr>
-                                                                <td class="text-nowrap">2020-03-20</td>
-                                                                <td>012345678</td>
-                                                                <td>2</td>
-                                                                <td>$28000</td>
-                                                                <td></td>
-                                                                <td class="text-nowrap">2020-03-20</td>
-                                                                <td class="text-nowrap">2020-03-20</td>
-                                                                <td>123456789789</td>
-                                                                <td></td>
-                                                                <td class="text-nowrap">2020-03-20</td>
-                                                            </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
-                                                    <a href="客戶資料查詢.html"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
+                                                    <a href="{{ route('ht.Customer.index',['organization'=>$organization]) }}"><button class="btn btn-primary mt-s" type="button">返回</button> </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -307,81 +303,66 @@
     });
 
 
+    var trade = {!! json_encode($trade) !!}; //php變數轉換
 
+    var data = new Array();
 
-    var data = [{
-            day: "<span class='text-nowrap'>2020-03-20</span>",
-            number: "12345678",
-            staff: "Cindy",
-            name: "愛酷智能",
-            invoice: "XX12345678",
-            productid: "",
-            productquantity: "",
-            price: "",
-            ps1: "",
-            ps2: "",
-            tax: "",
-            notax: "",
-            includetax: "",
-            cash: "",
-            check: "",
-            checknum: "",
-            exchangeday: "",
-            electric: "",
-            discount: "",
-            receivable: "",
-            prepaid: "",
-            prepaidprice: "",
-            prepaidday: "",
-            group: "",
-            ifprepaid: "",
-            allocate: "",
-            note: "",
-            other: "",
-            return: "",
-            damaged: "",
-            mortgage: "",
-            bottle: "",
-            noreturn: "",
-            notto: "",
-        },
-        {
-            day: "<span class='text-nowrap'>2020-03-20</span>",
-            number: "12345678",
-            staff: "Cindy",
-            name: "愛酷智能",
-            invoice: "XX12345678",
-            productid: "",
-            productquantity: "",
-            price: "",
-            ps1: "",
-            ps2: "",
-            tax: "",
-            notax: "",
-            includetax: "",
-            cash: "",
-            check: "",
-            checknum: "",
-            exchangeday: "",
-            electric: "",
-            discount: "",
-            receivable: "",
-            prepaid: "",
-            prepaidprice: "",
-            prepaidday: "",
-            group: "",
-            ifprepaid: "",
-            allocate: "",
-            note: "",
-            other: "",
-            return: "",
-            damaged: "",
-            mortgage: "",
-            bottle: "",
-            noreturn: "",
-            notto: "",
-        },
-    ];
+    $.each(trade, function (i, item) {
+
+        if(item.STATUS == 'S'){
+            var status = '送貨單'
+        }
+        else if(item.STATUS == 'P'){
+            var status = '預收貨款'
+        }
+        else if(item.STATUS == 'G'){
+            var status = '轉帳傳票'
+        }
+
+        if(item.TRANS == 'T'){
+            var trans = '是'
+        }
+        else{
+            var trans = '否'
+        }
+
+        data[i] = {
+            day: item.DATE,
+            number: item.SALENUM,
+            staff: item.FAMILY,
+            name: item.CUSTKEY,
+            invoice: item.INVOICE,
+            productid: item.CODE,
+            productquantity: item.MATE,
+            price: item.PRICE,
+            ps1: item.SPC1,
+            ps2: item.SPC2,
+            tax: item.TAX,
+            notax: item.AMOUNT,
+            includetax: item.TAXAMOUNT,
+            cash: item.CASH,
+            check: item.CHEQUE,
+            checknum: item.CHECKNO,
+            exchangeday: item.CASHDAY,
+            electric: item.TTT,
+            discount: item.DISCOUNT,
+            receivable: item.RECEIVES,
+            prepaid: item.PREMONEY,
+            prepaidprice: item.PREPLUS,
+            prepaidday: item.ACCPDAY,
+            group: item.TYPE,
+            ifprepaid: status,
+            allocate: trans,
+            note: item.MEMO1,
+            other: item.MEMO2,
+            return: item.RETNBOTT,
+            damaged: item.BRKGBOTT,
+            mortgage: item.DEPOSITE,
+            bottle: item.BOTINCOME,
+            noreturn: item.BOTTLE,
+            notto: item.WAT_DEBT,
+        }
+    })
 
     function format(d) {
         return (
@@ -490,7 +471,7 @@
             "zeroRecords": "沒有符合的搜尋結果",
             "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
             "lengthMenu": "呈現筆數 _MENU_",
-            "emptyTable": "目前無工單",
+            "emptyTable": "目前無應收帳款",
             "infoFiltered": "(從 _MAX_ 筆中篩選)",
         },
         "dom": '<"top"i>rt<"bottom"flp><"clear">',
@@ -538,7 +519,7 @@
             "zeroRecords": "沒有符合的搜尋結果",
             "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
             "lengthMenu": "呈現筆數 _MENU_",
-            "emptyTable": "目前無工單",
+            "emptyTable": "目前無週期循環",
             "infoFiltered": "(從 _MAX_ 筆中篩選)",
         },
         "dom": '<"top"i>rt<"bottom"flp><"clear">',

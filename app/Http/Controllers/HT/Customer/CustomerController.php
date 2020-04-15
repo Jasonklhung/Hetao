@@ -79,7 +79,6 @@ class CustomerController extends Controller
 
     public function show(Organization $organization, $id)
     {
-
     	$job = Auth::user()->job;
         if($job == '員工'){
             $client = new \GuzzleHttp\Client();
@@ -141,7 +140,102 @@ class CustomerController extends Controller
             $caseCount = count($countArray);
         }
 
-        return view('ht.Customer.show',compact('organization','caseCount'));
+        //客戶代碼 = id
+        $custkey = $id;
+
+        //基本資料
+        $dept = Organization::where('id',$organization->id)->get();
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/search-info', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'DEPT' => $dept[0]['name'],
+                'TYPE' => 'CUST',
+                "CUSTKEY"  => $id,
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $info = $value;
+            }
+        }
+
+        //交易資料
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/search-info', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'DEPT' => $dept[0]['name'],
+                'TYPE' => 'HISSAL',
+                "CUSTKEY"  => $id,
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $trade = $value;
+            }
+        }
+
+        //應收帳款
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/search-info', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'DEPT' => $dept[0]['name'],
+                'TYPE' => 'ARAP',
+                "CUSTKEY"  => $id,
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $arap = $value;
+            }
+            else{
+                $arap = [];
+            }
+        }
+
+        //週期循環
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/search-info', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'DEPT' => $dept[0]['name'],
+                'TYPE' => 'CLIENTS',
+                "CUSTKEY"  => $id,
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $cycle = $value;
+            }
+            else{
+                $cycle = [];
+            }
+        }
+
+        return view('ht.Customer.show',compact('organization','caseCount','custkey','info','trade','arap','cycle'));
     }
 
     public function search(Organization $organization,Request $request)
@@ -166,11 +260,7 @@ class CustomerController extends Controller
 
         foreach ($data as $key => $value) {
             if($key == 'data'){
-                $array = $value;
-
-                foreach ($array as $k => $v) {
-                    $customerArray[] = array("CARDNO"=>$v->CARDNO,"FULLNAME"=>$v->FULLNAME,"CUSTKEY"=>$v->CUSTKEY,"MACHINE"=>$v->MACHINE,"COMTEL"=>$v->COMTEL,"MPHONE"=>$v->MPHONE,"TAXNO"=>$v->TAXNO);
-                }
+                $customerArray = $value;
             }
         }
 

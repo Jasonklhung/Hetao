@@ -48,90 +48,15 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($stock as $key => $data)
                                                         <tr>
-                                                            <td>UF-593</td>
-                                                            <td>第一道PP濾心</td>
-                                                            <td></td>
-                                                            <td>1</td>
-                                                            <td></td>
+                                                            <td>{{ $data->materials_number }}</td>
+                                                            <td>{{ $data->materials_spec }}</td>
+                                                            <td>{{ $data->machine_number }}</td>
+                                                            <td>{{ $data->quantity }}</td>
+                                                            <td>{{ $data->other }}</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>UF-593</td>
-                                                            <td>第一道PP濾心</td>
-                                                            <td></td>
-                                                            <td>1</td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>UF-593</td>
-                                                            <td>第一道PP濾心</td>
-                                                            <td></td>
-                                                            <td>1</td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>UF-593</td>
-                                                            <td>第一道PP濾心</td>
-                                                            <td></td>
-                                                            <td>1</td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>UF-593</td>
-                                                            <td>第一道PP濾心</td>
-                                                            <td></td>
-                                                            <td>1</td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>UF-593</td>
-                                                            <td>第一道PP濾心</td>
-                                                            <td></td>
-                                                            <td>1</td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>UF-593</td>
-                                                            <td>第一道PP濾心</td>
-                                                            <td></td>
-                                                            <td>1</td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>UF-593</td>
-                                                            <td>第一道PP濾心</td>
-                                                            <td></td>
-                                                            <td>1</td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>UF-593</td>
-                                                            <td>第一道PP濾心</td>
-                                                            <td></td>
-                                                            <td>1</td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>UF-593</td>
-                                                            <td>第一道PP濾心</td>
-                                                            <td></td>
-                                                            <td>1</td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>UF-593</td>
-                                                            <td>第一道PP濾心</td>
-                                                            <td></td>
-                                                            <td>1</td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>UF-593</td>
-                                                            <td>第一道PP濾心</td>
-                                                            <td></td>
-                                                            <td>1</td>
-                                                            <td></td>
-                                                        </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>

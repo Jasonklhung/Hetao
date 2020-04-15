@@ -76,7 +76,11 @@ class StockController extends Controller
             $caseCount = count($countArray);
         }
 
-        return view('ht.Material.stock.index',compact('organization','caseCount'));
+        //庫存管理
+        $dept = Organization::where('id',$organization->id)->get();
+        $stock = MaterialStock::where('organization_name',$dept[0]['name'])->get();
+
+        return view('ht.Material.stock.index',compact('organization','caseCount','stock'));
     }
 
     public function stockApi(Organization $organization)

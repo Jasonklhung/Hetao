@@ -186,7 +186,7 @@
                                                                         <td>{{ $data->machine_number }}</td>
                                                                         <td>{{ $data->quantity }}</td>
                                                                         <td>{{ $data->other }}</td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">退料</button></td>
+                                                                        <td><button type="button" class="btn btn-primary backs" value="{{ $data->id }}">退料</button></td>
                                                                     </tr>
                                                                     @endforeach
                                                                 </tbody>
@@ -215,38 +215,40 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body m-0">
-                    <form action="">
+                    <form method="post" action="{{ route('ht.Material.material.storeBack',['organization'=>$organization]) }}">
+                        @csrf
                         <ul>
                             <li class="mb-s">
                                 <span class="mb-xs">退料日期</span>
-                                <input class="form-control day-set" type="text" placeholder="">
+                                <input type="hidden" name="id" id="id" placeholder="">
+                                <input class="form-control day-set" type="text" name="back_date" id="back_date" placeholder="">
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">產品料號</span>
-                                <input class="form-control" type="text" disabled>
+                                <input class="form-control" type="text" id="back_materials_number" disabled>
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">品名規格</span>
-                                <input class="form-control" type="text" disabled>
+                                <input class="form-control" type="text" id="back_materials_spec" disabled>
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">機號</span>
-                                <input class="form-control" type="text" disabled>
+                                <input class="form-control" type="text" id="back_machine_number" disabled>
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">領料數量</span>
-                                <input class="form-control" type="number" min="1" disabled>
+                                <input class="form-control" type="number" id="back_quantity" min="1" disabled>
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">退料數量</span>
-                                <input class="form-control" type="number" min="1" placeholder="">
+                                <input class="form-control" type="number" name="back_quantity" min="1" placeholder="">
                             </li>
                         </ul>
-                    </form> 
-                    <div class="text-center">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">確認</button>  
-                    </div>         
+                        <div class="text-center">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">確認</button>
+                        </div>    
+                    </form>      
                 </div>
             </div>
         </div>
@@ -540,5 +542,29 @@
             })
         })
     })
+</script>
+<script type="text/javascript">
+
+//退料
+
+$('.backs').on('click', function(){
+
+    var date = $(this).parents('tr').find("td:eq(0)").text();
+    var materials_number = $(this).parents('tr').find("td:eq(1)").text();
+    var materials_spec = $(this).parents('tr').find("td:eq(2)").text();
+    var machine_number = $(this).parents('tr').find("td:eq(3)").text();
+    var quantity = $(this).parents('tr').find("td:eq(4)").text();
+    var id = $(this).parents('tr').find("td:eq(6)").children('button').val();
+
+    $("#back_date").val(date);
+    $("#back_materials_number").val(materials_number);
+    $("#back_materials_spec").val(materials_spec);
+    $("#back_machine_number").val(machine_number);
+    $("#back_quantity").val(quantity);
+    $("#id").val(id);
+
+    $('#cancel').modal('show');
+
+});
 </script>
 @endsection

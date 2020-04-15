@@ -25,6 +25,7 @@ class CreateMaterialsTable extends Migration
             $table->integer("quantity")->comment("數量");
             $table->string("other")->nullable()->comment("備註");
             $table->enum('status',array('Y','N'))->default('N')->comment('是否領料');
+            $table->enum('statusEdit',array('Y','N'))->default('N')->comment('是否編輯');
             $table->enum('statusDL',array('Y','N'))->default('N')->comment('是否下載');
             $table->enum('statusERP',array('Y','N'))->default('N')->comment('ERP');
             $table->timestamps();

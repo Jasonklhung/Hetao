@@ -6,6 +6,7 @@
                 <div class="container-fluid">
                     <!-- 活動分析 -->
                     <h3 class="page-title">領退料管理</h3>
+                    @include('common.message')
                     <div class="panel bg-transparent">
                         <div class="panel-body">
                             <div class="row">
@@ -91,40 +92,29 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    @foreach($materialing as $key => $data)
                                                                     <tr class="watch">
                                                                         <td>
                                                                             <div class="td-icon">
-                                                                                <input class="chkall" type="checkbox" value="">
+                                                                                <input class="chkall" name="material_case" type="checkbox" value="{{ $data->id }}">
                                                                             </div>
                                                                         </td>
-                                                                        <td class="text-nowrap">2020-03-26</td>
-                                                                        <td>00575</td>
-                                                                        <td>曾曾</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
+                                                                        <td class="text-nowrap">{{ $data->date }}</td>
+                                                                        <td>{{ $data->emp_id }}</td>
+                                                                        <td>{{ $data->emp_name }}</td>
+                                                                        <td>{{ $data->materials_number }}</td>
+                                                                        <td>{{ $data->materials_spec }}</td>
+                                                                        <td>{{ $data->machine_number }}</td>
+                                                                        <td>{{ $data->quantity }}</td>
+                                                                        <td>{{ $data->other }}</td>
+                                                                        @if($data->statusEdit == 'Y')
                                                                         <td>已編輯</td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit">編輯</button></td>
+                                                                        @else
+                                                                        <td>未編輯</td>
+                                                                        @endif
+                                                                        <td><button type="button" class="btn btn-primary materialing" value="{{ $data->id }}">編輯</button></td>
                                                                     </tr>
-                                                                    <tr class="watch">
-                                                                        <td>
-                                                                            <div class="td-icon">
-                                                                                <input class="chkall" type="checkbox" value="">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td class="text-nowrap">2020-03-26</td>
-                                                                        <td>00575</td>
-                                                                        <td>曾曾</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                        <td>已編輯</td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit">編輯</button></td>
-                                                                    </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -165,7 +155,7 @@
                                                                                 <input class="d-none" id='chkall2' type='checkbox' value='' /><label for='chkall2' class='sall'></label>
                                                                             </li>
                                                                             <li class="divider"></li>
-                                                                            <li><a data-toggle="modal" data-target="#op-alert" href="#">批次下載</a></li>
+                                                                            <li><a data-toggle="modal" data-target="#op2-alert" href="#">批次下載</a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -189,40 +179,34 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    @foreach($materialFinish as $key => $data)
                                                                     <tr class="watch">
                                                                         <td>
                                                                             <div class="td-icon">
-                                                                                <input class="chkall" type="checkbox" value="">
+                                                                                <input class="chkall" name="material_download" type="checkbox" value="{{ $data->id }}">
                                                                             </div>
                                                                         </td>
-                                                                        <td class="text-nowrap">2020-03-26</td>
-                                                                        <td>00575</td>
-                                                                        <td>曾曾</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
+                                                                        <td class="text-nowrap">{{ $data->date }}</td>
+                                                                        <td>{{ $data->emp_id }}</td>
+                                                                        <td>{{ $data->emp_name }}</td>
+                                                                        <td>{{ $data->materials_number }}</td>
+                                                                        <td>{{ $data->materials_spec }}</td>
+                                                                        <td>{{ $data->machine_number }}</td>
+                                                                        <td>{{ $data->quantity }}</td>
+                                                                        <td>{{ $data->other }}</td>
+                                                                        @if($data->statusDL == 'Y')
                                                                         <td><span class="text-success">已下載</span></td>
-                                                                        <td><span class="text-success">已轉入</span></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>
-                                                                            <div class="td-icon">
-                                                                                <input class="chkall" type="checkbox" value="">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td class="text-nowrap">2020-03-26</td>
-                                                                        <td>00575</td>
-                                                                        <td>曾曾</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
+                                                                        @else
                                                                         <td><span class="text-danger">未下載</span></td>
+                                                                        @endif
+
+                                                                        @if($data->statusERP == 'Y')
+                                                                        <td><span class="text-success">已轉入</span></td>
+                                                                        @else
                                                                         <td><span class="text-danger">未轉入</span></td>
+                                                                        @endif
                                                                     </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -257,7 +241,7 @@
                                                                                 <input class="d-none" id='chkall3' type='checkbox' value='' /><label for='chkall3' class='sall'></label>
                                                                             </li>
                                                                             <li class="divider"></li>
-                                                                            <li><a data-toggle="modal" data-target="#op-alert" href="#">批次完成</a></li>
+                                                                            <li><a data-toggle="modal" data-target="#op3-alert" href="#">批次完成</a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -282,42 +266,30 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    @foreach($materialBack as $key => $data)
                                                                     <tr class="watch">
                                                                         <td>
                                                                             <div class="td-icon">
-                                                                                <input class="chkall" type="checkbox" value="">
+                                                                                <input class="chkall" type="checkbox" name="material_back" value="{{ $data->id }}">
                                                                             </div>
                                                                         </td>
-                                                                        <td class="text-nowrap">2020-03-26</td>
-                                                                        <td>00575</td>
-                                                                        <td>曾曾</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td>1</td>
-                                                                        <td></td>
+                                                                        <td class="text-nowrap">{{ $data->date }}</td>
+                                                                        <td>{{ $data->emp_id }}</td>
+                                                                        <td>{{ $data->emp_name }}</td>
+                                                                        <td>{{ $data->materials_number }}</td>
+                                                                        <td>{{ $data->materials_spec }}</td>
+                                                                        <td>{{ $data->machine_number }}</td>
+                                                                        <td>{{ $data->quantity }}</td>
+                                                                        <td>{{ $data->back_quantity }}</td>
+                                                                        <td>{{ $data->other }}</td>
+                                                                        @if($data->statusEdit == 'Y')
                                                                         <td>已編輯</td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit">編輯</button></td>
+                                                                        @else
+                                                                        <td>未編輯</td>
+                                                                        @endif
+                                                                        <td><button type="button" class="btn btn-primary editBack" value="{{ $data->id }}">編輯</button></td>
                                                                     </tr>
-                                                                    <tr class="watch">
-                                                                        <td>
-                                                                            <div class="td-icon">
-                                                                                <input class="chkall" type="checkbox" value="">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td class="text-nowrap">2020-03-26</td>
-                                                                        <td>00575</td>
-                                                                        <td>曾曾</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit">編輯</button></td>
-                                                                    </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -358,7 +330,7 @@
                                                                                 <input class="d-none" id='chkall4' type='checkbox' value='' /><label for='chkall4' class='sall'></label>
                                                                             </li>
                                                                             <li class="divider"></li>
-                                                                            <li><a data-toggle="modal" data-target="#op-alert" href="#">批次下載</a></li>
+                                                                            <li><a data-toggle="modal" data-target="#op4-alert" href="#">批次下載</a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -383,42 +355,35 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    @foreach($materialBackFinish as $key => $data)
                                                                     <tr class="watch">
                                                                         <td>
                                                                             <div class="td-icon">
-                                                                                <input class="chkall" type="checkbox" value="">
+                                                                                <input class="chkall" name="material_back_download" type="checkbox" value="{{ $data->id }}">
                                                                             </div>
                                                                         </td>
-                                                                        <td class="text-nowrap">2020-03-26</td>
-                                                                        <td>00575</td>
-                                                                        <td>曾曾</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td>1</td>
-                                                                        <td></td>
+                                                                        <td class="text-nowrap">{{ $data->date }}</td>
+                                                                        <td>{{ $data->emp_id }}</td>
+                                                                        <td>{{ $data->emp_name }}</td>
+                                                                        <td>{{ $data->materials_number }}</td>
+                                                                        <td>{{ $data->material_spec }}</td>
+                                                                        <td>{{ $data->machine_number }}</td>
+                                                                        <td>{{ $data->quantity }}</td>
+                                                                        <td>{{ $data->back_quantity }}</td>
+                                                                        <td>{{ $data->other }}</td>
+                                                                        @if($data->statusDL == 'Y')
                                                                         <td><span class="text-success">已下載</span></td>
-                                                                        <td><span class="text-success">已轉入</span></td>
-                                                                    </tr>
-                                                                    <tr class="watch">
-                                                                        <td>
-                                                                            <div class="td-icon">
-                                                                                <input class="chkall" type="checkbox" value="">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td class="text-nowrap">2020-03-26</td>
-                                                                        <td>00575</td>
-                                                                        <td>曾曾</td>
-                                                                        <td>UF-593</td>
-                                                                        <td>第一道PP濾心</td>
-                                                                        <td></td>
-                                                                        <td>1</td>
-                                                                        <td>1</td>
-                                                                        <td></td>
+                                                                        @else
                                                                         <td><span class="text-danger">未下載</span></td>
+                                                                        @endif
+
+                                                                        @if($data->statusERP == 'Y')
+                                                                        <td><span class="text-success">已轉入</span></td>
+                                                                        @else
                                                                         <td><span class="text-danger">未轉入</span></td>
+                                                                        @endif
                                                                     </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -437,58 +402,119 @@
 @endsection
 
 @section('modal')
-<div class="modal fade Overview-set" id="edit" role="dialog">
+    <!-- 領料編輯 -->
+    <div class="modal fade Overview-set" id="edit" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-none">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body m-0">
-                    <form action="">
+                    <form method="post" action="{{ route('ht.Material.case.material_edit',['organization'=>$organization]) }}">
+                        @csrf
                         <ul>
                             <li class="mb-s">
                                 <span class="mb-xs">領料日期</span>
-                                <input class="form-control day-set" type="text" disabled>
+                                <input type="hidden" name="id" id="id">
+                                <input class="form-control day-set" type="text" id="date" disabled>
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">員工編號</span>
-                                <input class="form-control" type="text" disabled>
+                                <input class="form-control" type="text" id="emp_id" disabled>
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">員工姓名</span>
-                                <input class="form-control" type="text" disabled>
+                                <input class="form-control" type="text" id="emp_name" disabled>
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">產品料號</span>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" name="materials_number" id="materials_number">
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">品名規格</span>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" name="materials_spec" id="materials_spec">
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">機號</span>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" name="machine_number" id="machine_number">
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">領料數量</span>
-                                <input class="form-control" type="number" min="1">
+                                <input class="form-control" type="number" name="quantity" min="1" id="quantity">
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">備註</span>
-                                <input class="form-control" type="number" min="1" disabled>
+                                <input class="form-control" type="number" min="1" id="other" disabled>
                             </li>
                         </ul>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">確認</button>
+                        </div> 
                     </form>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">確認</button>  
-                    </div> 
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal-alert -->
+    <!-- 退料編輯 -->
+    <div class="modal fade Overview-set" id="editBack" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body m-0">
+                    <form method="post" action="{{ route('ht.Material.case.materialBackEdit',['organization'=>$organization]) }}">
+                        @csrf
+                        <ul>
+                            <li class="mb-s">
+                                <span class="mb-xs">領料日期</span>
+                                <input type="hidden" name="back_id" id="back_id">
+                                <input class="form-control day-set" type="text" id="back_date" disabled>
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">員工編號</span>
+                                <input class="form-control" type="text" id="back_emp_id" disabled>
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">員工姓名</span>
+                                <input class="form-control" type="text" id="back_emp_name" disabled>
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">產品料號</span>
+                                <input class="form-control" type="text" name="back_materials_number" id="back_materials_number">
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">品名規格</span>
+                                <input class="form-control" type="text" name="back_materials_spec" id="back_materials_spec">
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">機號</span>
+                                <input class="form-control" type="text" name="back_machine_number" id="back_machine_number">
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">領料數量</span>
+                                <input class="form-control" type="number" name="quantity" min="1" id="backs_quantity">
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">退料數量</span>
+                                <input class="form-control" type="number" name="back_quantity" min="1" id="back_quantity">
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">備註</span>
+                                <input class="form-control" type="number" min="1" id="back_other" disabled>
+                            </li>
+                        </ul>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">確認</button>
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 領料待處理 -->
     <div class="modal fade" id="op-alert" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -497,7 +523,49 @@
                 </div>
                 <div class="modal-body text-center"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">確認</button>
+                    <button type="button" class="btn btn-primary" id="caseSubmit" data-dismiss="modal">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 領料已完成 -->
+    <div class="modal fade" id="op2-alert" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="caseDownload" data-dismiss="modal">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 退料待處理 -->
+    <div class="modal fade" id="op3-alert" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="backSubmit" data-dismiss="modal">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 退料已完成 -->
+    <div class="modal fade" id="op4-alert" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="backDownload" data-dismiss="modal">確認</button>
                 </div>
             </div>
         </div>
@@ -769,5 +837,249 @@
             `)
         }
     });
+
+    $('a[data-target="#op2-alert"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op2-alert .modal-body').html(`
+                <p>確定要` + text + `所選案件嗎？</p>
+            `)
+        } else {
+            $('#op2-alert .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+
+    $('a[data-target="#op3-alert"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op3-alert .modal-body').html(`
+                <p>確定要` + text + `所選案件嗎？</p>
+            `)
+        } else {
+            $('#op2-alert .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+
+    $('a[data-target="#op4-alert"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op4-alert .modal-body').html(`
+                <p>確定要` + text + `所選案件嗎？</p>
+            `)
+        } else {
+            $('#op2-alert .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        //領料單編輯
+        $('.materialing').on('click',function(){
+
+            var date = $(this).parents('tr').find("td:eq(1)").text();
+            var emp_id = $(this).parents('tr').find("td:eq(2)").text();
+            var emp_name = $(this).parents('tr').find("td:eq(3)").text();
+            var materials_number = $(this).parents('tr').find("td:eq(4)").text();
+            var materials_spec = $(this).parents('tr').find("td:eq(5)").text();
+            var machine_number = $(this).parents('tr').find("td:eq(6)").text();
+            var quantity = $(this).parents('tr').find("td:eq(7)").text();
+            var other = $(this).parents('tr').find("td:eq(8)").text();
+            var id = $(this).parents('tr').find("td:eq(10)").children('button').val();
+
+            $("#date").val(date);
+            $("#emp_id").val(emp_id);
+            $("#emp_name").val(emp_name);
+            $("#materials_number").val(materials_number);
+            $("#materials_spec").val(materials_spec);
+            $("#machine_number").val(machine_number);
+            $("#quantity").val(quantity);
+            $("#other").val(other);
+            $("#id").val(id);
+
+            $('#edit').modal('show');
+        })
+
+        //領料單送出
+        $('#caseSubmit').on('click',function(){
+
+            var count = 0
+
+            $('input[name="material_case"]:checked').each(function(){
+
+                 var id = $(this).val()
+
+                 $.ajax({
+                    type:'post',
+                    url:"{{ route('ht.Material.case.material_confirm',['organization'=>$organization]) }}",
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'id':id
+                    },
+                    success:function(res){
+                        if(res.status == 200 && count == 0){
+                            count += 1;
+                            alert('領料單已完成');
+                            window.location = '{{ route('ht.Material.case.index',['organization'=>$organization]) }}'
+                        }
+                    }
+                 })
+            })
+        })
+
+        //領料單下載
+        $('#caseDownload').on('click',function(){
+
+            var download = new Array()
+
+            $('input[name="material_download"]:checked').each(function(){
+
+                 var id = $(this).val()
+
+                 download.push(id)
+            })
+
+            $.ajax({
+                xhrFields: {
+                    responseType: 'blob',
+                },
+                type:'post',
+                url:"{{ route('ht.Material.case.material_download',['organization'=>$organization]) }}",
+                data:{
+                    '_token':'{{csrf_token()}}',
+                    'id':download
+                },
+                success: function(result, status, xhr) {
+
+                    var disposition = xhr.getResponseHeader('content-disposition');
+                    var matches = /"([^"]*)"/.exec(disposition);
+                    var filename = (matches != null && matches[1] ? matches[1] : '報備明細表.xlsx');
+
+                    var blob = new Blob([result], {
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = filename;
+
+                    document.body.appendChild(link);
+
+                    link.click();
+                    document.body.removeChild(link);
+
+                    window.location = '{{ route('ht.Material.case.index',['organization'=>$organization]) }}'
+                }
+            })
+        })
+
+        //退料單編輯
+        $('.editBack').on('click',function(){
+
+            var date = $(this).parents('tr').find("td:eq(1)").text();
+            var emp_id = $(this).parents('tr').find("td:eq(2)").text();
+            var emp_name = $(this).parents('tr').find("td:eq(3)").text();
+            var materials_number = $(this).parents('tr').find("td:eq(4)").text();
+            var materials_spec = $(this).parents('tr').find("td:eq(5)").text();
+            var machine_number = $(this).parents('tr').find("td:eq(6)").text();
+            var quantity = $(this).parents('tr').find("td:eq(7)").text();
+            var back_quantity = $(this).parents('tr').find("td:eq(8)").text();
+            var other = $(this).parents('tr').find("td:eq(9)").text();
+            var id = $(this).parents('tr').find("td:eq(11)").children('button').val();
+
+            $("#back_date").val(date);
+            $("#back_emp_id").val(emp_id);
+            $("#back_emp_name").val(emp_name);
+            $("#back_materials_number").val(materials_number);
+            $("#back_materials_spec").val(materials_spec);
+            $("#back_machine_number").val(machine_number);
+            $("#backs_quantity").val(quantity);
+            $("#back_quantity").val(back_quantity);
+            $("#back_other").val(other);
+            $("#back_id").val(id);
+
+            $('#editBack').modal('show');
+        })
+
+        //退料單送出
+        $('#backSubmit').on('click',function(){
+
+            var count = 0
+
+            $('input[name="material_back"]:checked').each(function(){
+
+                 var id = $(this).val()
+
+                 $.ajax({
+                    type:'post',
+                    url:"{{ route('ht.Material.case.materialBackConfirm',['organization'=>$organization]) }}",
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'id':id
+                    },
+                    success:function(res){
+                        if(res.status == 200 && count == 0){
+                            count += 1;
+                            alert('退料單已完成');
+                            window.location = '{{ route('ht.Material.case.index',['organization'=>$organization]) }}'
+                        }
+                    }
+                 })
+            })
+        })
+
+        //退料單下載
+        $('#backDownload').on('click',function(){
+
+            var download = new Array()
+
+            $('input[name="material_back_download"]:checked').each(function(){
+
+                 var id = $(this).val()
+
+                 download.push(id)
+            })
+
+            $.ajax({
+                xhrFields: {
+                    responseType: 'blob',
+                },
+                type:'post',
+                url:"{{ route('ht.Material.case.materialBackDownload',['organization'=>$organization]) }}",
+                data:{
+                    '_token':'{{csrf_token()}}',
+                    'id':download
+                },
+                success: function(result, status, xhr) {
+
+                    var disposition = xhr.getResponseHeader('content-disposition');
+                    var matches = /"([^"]*)"/.exec(disposition);
+                    var filename = (matches != null && matches[1] ? matches[1] : '報備明細表.xlsx');
+
+                    var blob = new Blob([result], {
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = filename;
+
+                    document.body.appendChild(link);
+
+                    link.click();
+                    document.body.removeChild(link);
+
+                    window.location = '{{ route('ht.Material.case.index',['organization'=>$organization]) }}'
+                }
+            })
+        })
+    })
 </script>
 @endsection

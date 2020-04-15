@@ -22,9 +22,11 @@ class CreateMaterialBacksTable extends Migration
             $table->string("materials_number")->comment("產品料號");
             $table->string("materials_spec")->comment("品名規格");
             $table->string("machine_number")->comment("機號");
-            $table->integer("quantity")->comment("數量");
+            $table->integer("quantity")->comment("領料數量");
+            $table->integer("back_quantity")->comment("退料數量");
             $table->string("other")->nullable()->comment("備註");
             $table->enum('status',array('Y','N'))->default('N')->comment('是否退料');
+            $table->enum('statusEdit',array('Y','N'))->default('N')->comment('是否編輯');
             $table->enum('statusDL',array('Y','N'))->default('N')->comment('是否下載');
             $table->enum('statusERP',array('Y','N'))->default('N')->comment('ERP');
             $table->timestamps();

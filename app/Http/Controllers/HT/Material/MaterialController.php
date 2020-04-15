@@ -8,6 +8,7 @@ use App\Organization;
 use GuzzleHttp\Client;
 use Auth;
 use App\MaterialStock;
+use App\MaterialBack;
 use App\Material;
 
 class MaterialController extends Controller
@@ -75,9 +76,11 @@ class MaterialController extends Controller
             $caseCount = count($countArray);
 
             //個人領料資訊
-            $materialN =  Material::where('user_id',Auth::user()->id)->where('status','N')->get();
+            $dept = Organization::where('id',$organization->id)->get();
 
-            $materialY =  Material::where('user_id',Auth::user()->id)->where('status','Y')->get();
+            $materialN =  Material::where('user_id',Auth::user()->id)->where('organization_name',$dept[0]['name'])->where('status','N')->get();
+
+            $materialY =  Material::where('user_id',Auth::user()->id)->where('organization_name',$dept[0]['name'])->where('status','Y')->get();
         }
 
         return view('ht.Material.material.index',compact('organization','caseCount','materialN','materialY'));
@@ -127,6 +130,27 @@ class MaterialController extends Controller
 
         }
 
-        return redirect()->route('ht.Material.material.index',compact('organization'))->with('success','新增成功');
+        return redirect()->route('ht.Material.material.index',compact('organization'))->with('success','領料單已送出');
+    }
+
+    public function storeBack(Organization $organization,Request $request)
+    {
+        $res = Material::find($request->id);
+
+        $back = new MaterialBack;
+        $back->user_id = Auth::user()->id;
+        $back->organization_name = $res->organization_name;
+        $back->date = $request->back_date;
+        $back->emp_id = $res->emp_id;
+        $back->emp_name = $res->emp_name;
+        $back->materials_number = $res->materials_number;
+        $back->materials_spec = $res->materials_spec;
+        $back->machine_number = $res->machine_number;
+        $back->quantity = $res->quantity;
+        $back->back_quantity = $request->back_quantity;
+        $back->other = $res->other;
+        $back->save();
+
+        return redirect()->route('ht.Material.material.index',compact('organization'))->with('success','退料單已送出');
     }
 }

@@ -62,9 +62,16 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/HT/{organization}/Material/material/index','HT\Material\MaterialController@index')->name('ht.Material.material.index');
 		Route::get('/HT/{organization}/Material/material/materialsNumberSearch','HT\Material\MaterialController@materialsNumberSearch')->name('ht.Material.material.materialsNumberSearch');
 		Route::post('/HT/{organization}/Material/material/store','HT\Material\MaterialController@store')->name('ht.Material.material.store');
+		Route::post('/HT/{organization}/Material/material/storeBack','HT\Material\MaterialController@storeBack')->name('ht.Material.material.storeBack');
 
 		//領退料管理-料單管理
 		Route::get('/HT/{organization}/Material/case/index','HT\Material\CaseController@index')->name('ht.Material.case.index');
+		Route::post('/HT/{organization}/Material/case/material_edit','HT\Material\CaseController@material_edit')->name('ht.Material.case.material_edit');
+		Route::post('/HT/{organization}/Material/case/material_confirm','HT\Material\CaseController@material_confirm')->name('ht.Material.case.material_confirm');
+		Route::post('/HT/{organization}/Material/case/material_download','HT\Material\CaseController@material_download')->name('ht.Material.case.material_download');
+		Route::post('/HT/{organization}/Material/case/materialBackEdit','HT\Material\CaseController@materialBackEdit')->name('ht.Material.case.materialBackEdit');
+		Route::post('/HT/{organization}/Material/case/materialBackConfirm','HT\Material\CaseController@materialBackConfirm')->name('ht.Material.case.materialBackConfirm');
+		Route::post('/HT/{organization}/Material/case/materialBackDownload','HT\Material\CaseController@materialBackDownload')->name('ht.Material.case.materialBackDownload');
 
 		//領退料管理-庫存管理
 		Route::get('/HT/{organization}/Material/stock/index','HT\Material\StockController@index')->name('ht.Material.stock.index');

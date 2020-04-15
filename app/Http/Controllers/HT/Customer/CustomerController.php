@@ -77,8 +77,9 @@ class CustomerController extends Controller
         return view('ht.Customer.index',compact('organization','caseCount'));
     }
 
-    public function show(Request $request , $id)
+    public function show(Organization $organization, $id)
     {
+
     	$job = Auth::user()->job;
         if($job == '員工'){
             $client = new \GuzzleHttp\Client();
@@ -141,5 +142,38 @@ class CustomerController extends Controller
         }
 
         return view('ht.Customer.show',compact('organization','caseCount'));
+    }
+
+    public function search(Organization $organization,Request $request)
+    {
+        $dept = Organization::where('id',$organization->id)->get();
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/search-cust', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'DEPT' => $dept[0]['name'],
+                'TYPE' => $request->type,
+                "KEY"  => $request->key,
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $customerArray = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+
+                foreach ($array as $k => $v) {
+                    $customerArray[] = array("CARDNO"=>$v->CARDNO,"FULLNAME"=>$v->FULLNAME,"CUSTKEY"=>$v->CUSTKEY,"MACHINE"=>$v->MACHINE,"COMTEL"=>$v->COMTEL,"MPHONE"=>$v->MPHONE,"TAXNO"=>$v->TAXNO);
+                }
+            }
+        }
+
+        return $customerArray;
     }
 }

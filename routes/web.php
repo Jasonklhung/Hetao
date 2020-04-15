@@ -80,6 +80,7 @@ Route::group(['middleware' => ['auth']], function () {
 		//客戶資料查詢
 		Route::get('/HT/{organization}/Customer/index','HT\Customer\CustomerController@index')->name('ht.Customer.index');
 		Route::get('/HT/{organization}/Customer/show/{id}','HT\Customer\CustomerController@show')->name('ht.Customer.show');
+		Route::post('/HT/{organization}/Customer/search','HT\Customer\CustomerController@search')->name('ht.Customer.search');
 
 		//業務管理-個人業務
 		Route::get('/HT/{organization}/Business/self/index','HT\Business\SelfController@index')->name('ht.Business.self.index');

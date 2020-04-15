@@ -18,19 +18,22 @@
                                         <div class="panel-body tab-pane">
                                             <div class="tabbable">
                                                 <div class='coupon'>
-                                                    <form class='form-inline'>
-                                                        <select class="form-control mr-s mb-s" name="" id="">
-                                                            <option value="" select>客戶卡號</option>
-                                                            <option value="">客戶全銜</option>
-                                                            <option value="">客戶代碼</option>
-                                                            <option value="">機器地址</option>
-                                                            <option value="">客戶電話</option>
-                                                            <option value="">行動電話</option>
-                                                            <option value="">統一編號</option>
+                                                    <form class='form-inline' method="post" id="customerSearch">
+                                                        @csrf
+                                                        <select class="form-control mr-s mb-s" name="type" required="">
+                                                            <option value="" selected="" disabled="">請選擇條件</option>
+                                                            <option value="CARDNO">客戶卡號</option>
+                                                            <option value="FULLNAME">客戶全銜</option>
+                                                            <option value="CUSTKEY">客戶代碼</option>
+                                                            <option value="MACHINE">機器地址</option>
+                                                            <option value="COMTEL">客戶電話</option>
+                                                            <option value="HOMETEL">家裡電話</option>
+                                                            <option value="MPHONE">行動電話</option>
+                                                            <option value="TAXNO">統一編號</option>
                                                         </select>
-                                                        <input type="text" class="form-control mr-s searchInput searchInput_s1" placeholder="請輸入關鍵字">
+                                                        <input type="text" class="form-control mr-s searchInput searchInput_s1" name="key" placeholder="請輸入關鍵字">
                                                         <div class='btn-wrap'>
-                                                            <button class='mr-s' type="button">查詢</button>
+                                                            <button class='mr-s' type="submit">查詢</button>
                                                             <button class='mr-s' type="button">重設</button>
                                                         </div>
                                                     </form>
@@ -49,7 +52,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <td>1102</td>
                                                             <td>愛酷智能科技有限公司</td>
                                                             <td>愛酷智能</td>
@@ -58,7 +61,7 @@
                                                             <td><a href="tel:0912345678">0912345678</a></td>
                                                             <td>12345678</td>
                                                             <td><a href="客戶資料-基本資料.html"><button type="button" class="btn btn-primary">進階查看</button></a></td>
-                                                        </tr>
+                                                        </tr> -->
                                                     </tbody>
                                                 </table>  
                                             </div>
@@ -93,7 +96,7 @@
             "zeroRecords": "沒有符合的搜尋結果",
             "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
             "lengthMenu": "呈現筆數 _MENU_",
-            "emptyTable": "目前無工單",
+            "emptyTable": "目前無資料",
             "infoFiltered": "(從 _MAX_ 筆中篩選)",
         },
         "dom": '<"top"i>rt<"bottom"flp><"clear">',
@@ -119,13 +122,97 @@
             }
         },
     });
-    $(".searchInput_s1").on("blur", function() {
-        table_s1.search(this.value).draw();
-    });
+    // $(".searchInput_s1").on("blur", function() {
+    //     table_s1.search(this.value).draw();
+    // });
 
-    $(".searchInput_s1").on("keyup", function() {
-        table_s1.search(this.value).draw();
-    });
+    // $(".searchInput_s1").on("keyup", function() {
+    //     table_s1.search(this.value).draw();
+    // });
 
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+       $('#customerSearch').on('submit',function(e){
+
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+                method:'post',
+                url:'{{ route('ht.Customer.search',['organization'=>$organization]) }}',
+                data:formData,
+                dataType:'json',
+                success:function(res){
+
+                    var rows;
+                    $('#hetao-list-s-1').DataTable().destroy();
+                    $('#hetao-list-s-1 tbody').empty();
+
+                    $.each(res, function (i, item) {
+
+                        id = item.CUSTKEY
+                        url = '{{ route('ht.Customer.show',['organization'=>$organization,'id'=>':id']) }}'
+                        url = url.replace(':id',id);
+
+                        rows += "<tr>"
+                        + "<td>" + item.CARDNO + "</td>"
+                        + "<td>" + item.FULLNAME + "</td>"
+                        + "<td>" + item.CUSTKEY + "</td>"
+                        + "<td><a href='https://www.google.com.tw/maps/place/"+item.MACHINE+"' target='_blank'>"+item.MACHINE+"</a></td>"
+                        + "<td class='text-nowrap'><a href='tel:"+item.COMTEL+"'>"+item.COMTEL+"</a></td>"
+                        + "<td class='text-nowrap'><a href='tel:"+item.MPHONE+"'>"+item.MPHONE+"</a></td>"
+                        + "<td>" + item.TAXNO + "</td>"
+                        + "<td><a href="+url+"><button type='button' class='btn btn-primary'>進階查看</button></a></td>"
+                        + "</tr>";
+                    });
+                    $('#hetao-list-s-1 tbody').append(rows);
+                    $("#hetao-list-s-1").DataTable({
+                        "bPaginate": true,
+                        "searching": true,
+                        "info": true,
+                        "bLengthChange": false,
+                        "bServerSide": false,
+                        "language": {
+                            "search": "",
+                            "searchPlaceholder": "請輸入關鍵字",
+                            "paginate": { "previous": "上一頁", "next": "下一頁" },
+                            "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                            "zeroRecords": "沒有符合的搜尋結果",
+                            "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                            "lengthMenu": "呈現筆數 _MENU_",
+                            "emptyTable": "查無資料",
+                            "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                        },
+                        "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                        "buttons": [{
+                            "extend": "colvis",
+                            "collectionLayout": "fixed two-column"
+                        }],
+                        "order": [],
+                        "columnDefs": [{
+                            "targets": [7],
+                            "orderable": false,
+                        }],
+                        "responsive": {
+                            "breakpoints": [
+                            { name: 'desktop', width: Infinity },
+                            { name: 'tablet', width: 1024 },
+                            ],
+                            "details": {
+                                "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                                "type": 'none',
+                                "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
+                                "target": ''
+                            }
+                        },
+                    });
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            })
+       })
+    })
 </script>
 @endsection

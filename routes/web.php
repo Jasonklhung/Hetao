@@ -85,17 +85,19 @@ Route::group(['middleware' => ['auth']], function () {
 		//業務管理-個人業務
 		Route::get('/HT/{organization}/Business/self/index','HT\Business\SelfController@index')->name('ht.Business.self.index');
 		Route::get('/HT/{organization}/Business/self/create','HT\Business\SelfController@create')->name('ht.Business.self.create');
+		Route::post('/HT/{organization}/Business/self/store','HT\Business\SelfController@store')->name('ht.Business.self.store');
+		Route::post('/HT/{organization}/Business/self/update/{id}','HT\Business\SelfController@update')->name('ht.Business.self.update');
 		Route::get('/HT/{organization}/Business/self/visitEdit/{id}','HT\Business\SelfController@visitEdit')->name('ht.Business.self.visitEdit');
 		Route::get('/HT/{organization}/Business/self/trackEdit/{id}','HT\Business\SelfController@trackEdit')->name('ht.Business.self.trackEdit');
+
+		//業務管理-全站業務
+		Route::get('/HT/{organization}/Business/all/index','HT\Business\AllController@index')->name('ht.Business.all.index');
 
 		//業績查詢-個人業績
 		Route::get('/HT/{organization}/Performance/self/index','HT\Performance\SelfController@index')->name('ht.Performance.self.index');
 
 		//業績查詢-全站業績
 		Route::get('/HT/{organization}/Performance/all/index','HT\Performance\AllController@index')->name('ht.Performance.all.index');
-
-		//業務管理-全站業務
-		Route::get('/HT/{organization}/Business/all/index','HT\Business\AllController@index')->name('ht.Business.all.index');
 
 		//行程管理-助理
 		Route::get('/HT/{organization}/StrokeManage/assistant/index','HT\StrokeManage\AssistantController@index')->name('ht.StrokeManage.assistant.index');

@@ -320,6 +320,13 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('js/amcharts/amcharts.js') }}"></script>
+<script src="{{ asset('js/amcharts/serial.js') }}"></script>
+<script src="{{ asset('js/amcharts/pie.js') }}"></script>
+<script src="{{ asset('js/amcharts/core.js') }}"></script>
+<script src="{{ asset('js/amcharts/charts.js') }}"></script>
+<script src="{{ asset('js/amcharts/animated.js') }}"></script>
+<script src="{{ asset('js/amcharts/responsive.min.js') }}"></script>
 <script>
     var table_s1 = $("#hetao-list-s-1").DataTable({
         "bPaginate": true,

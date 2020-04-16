@@ -6,6 +6,7 @@
                 <div class="container-fluid">
                     <!-- 活動分析 -->
                     <h3 class="page-title">業務管理</h3>
+                    @include('common.message')
                     <div class="panel bg-transparent">
                         <div class="panel-body">
                             <div class="row">
@@ -59,7 +60,7 @@
                                                                 <div class='btn-wrap'>
                                                                     <button class='mr-s' type="button">查詢</button>
                                                                     <button class='mr-s' type="button">重設</button>
-                                                                    <a href="個人業務-新增.html" target="_blank">   
+                                                                    <a href="{{ route('ht.Business.self.create',['organization'=>$organization]) }}">   
                                                                         <button class='btn-bright mr-s' type="button">新增</button>
                                                                     </a>     
                                                                     <div class="droptool mr-s">
@@ -96,41 +97,34 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                @foreach($visit as $key => $data)
                                                                 <tr>
                                                                     <td>
                                                                         <div class="td-icon">
-                                                                            <input class="chkall" type="checkbox" value="">
+                                                                            <input class="chkall" type="checkbox" name="businessVisit" value="{{ $data->id }}">
                                                                         </div>
                                                                     </td>
-                                                                    <td class="text-nowrap">2020-03-20</td>
-                                                                    <td>早上(AM)</td>
-                                                                    <td>賀桃企業</td>
-                                                                    <td>陌訪</td>
-                                                                    <td>介紹機器</td>
-                                                                    <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
-                                                                    <td><a class="text-nowrap" href="tel:0222346789">02-22346789</a></td>
+                                                                    <td class="text-nowrap">{{ $data->date }}</td>
+                                                                    <td>{{ $data->time }}</td>
+                                                                    <td>{{ $data->name }}</td>
+                                                                    <td>{{ $data->type }}</td>
+                                                                    <td>{{ $data->content }}</td>
+                                                                    <td><a href="https://www.google.com.tw/maps/place/{{ $data->city }}{{ $data->area }}{{ $data->address }}" target="_blank">{{ $data->city }}{{ $data->area }}{{ $data->address }}</a></td>
+                                                                    <td><a class="text-nowrap" href="tel:{{ $data->phone }}">{{ $data->phone }}</a></td>
+                                                                    @if($data->statusOpen == 'Y')
                                                                     <td><span class="text-success text-nowrap">已發布</span></td>
-                                                                    <td><span class="text-success text-nowrap">已追蹤</span></td>
-                                                                    <td><a target="_blank" href="個人業務-更新.html"><button class="btn btn-primary" type="button">查看</button></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="td-icon">
-                                                                            <input class="chkall" type="checkbox" value="">
-                                                                            <a href="#"><i class="fas fa-paperclip"></i></a>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="text-nowrap">2020-03-20</td>
-                                                                    <td>早上(AM)</td>
-                                                                    <td>賀桃企業</td>
-                                                                    <td>陌訪</td>
-                                                                    <td>介紹機器</td>
-                                                                    <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
-                                                                    <td><a class="text-nowrap" href="tel:0222346789">02-22346789</a></td>
+                                                                    @else
                                                                     <td><span class="text-danger text-nowrap">未發布</span></td>
+                                                                    @endif
+
+                                                                    @if($data->statusTrack == 'Y')
+                                                                    <td><span class="text-success text-nowrap">已追蹤</span></td>
+                                                                    @else
                                                                     <td><span class="text-danger text-nowrap">未追蹤</span></td>
-                                                                    <td><a target="_blank" href="個人業務-更新.html"><button class="btn btn-primary" type="button">查看</button></td>
+                                                                    @endif
+                                                                    <td><a href="{{ route('ht.Business.self.visitEdit',['organization'=>$organization,'id'=>$data->id]) }}"><button class="btn btn-primary" type="button">查看</button></td>
                                                                 </tr>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>

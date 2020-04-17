@@ -109,30 +109,14 @@
     var performance = {!! json_encode($performance) !!}; //php變數轉換
 
     var data = new Array();
-    var da = new Array();
-    var myResponse;
 
     $.each(performance, function (i, item) {
-
-        $.ajax({
-            method:'post',
-            url:'{{ route('ht.Performance.self.custSearch',['organization'=>$organization]) }}',
-            data:{
-                '_token':'{{csrf_token()}}',
-                'key':item.CUSTKEY
-            },
-            async:false,
-            dataType:'json',
-            success:function(res){
-                myResponse = res;
-             }
-        })
 
         data[i] = {
             day: "<span class='text-nowrap'>"+item.DATE+"</span>",
             number: item.SALENUM,
             name: item.CUSTKEY,
-            card: myResponse[0].CARDNO,
+            card: item.CARDNO,
             productid: item.CODE,
             productintro: item.DESCRIBE,
             kind: item.TYPE,
@@ -140,9 +124,9 @@
             price: item.PRICE,
             total: item.AMOUNT,
             invoice: item.INVOICE,
-            company: myResponse[0].FULLNAME,
-            staff: myResponse[0].TOUCH,
-            phone: "<a href='tel:"+myResponse[0].MPHONE+"'>"+myResponse[0].MPHONE+"</a>"
+            company: item.FULLNAME,
+            staff: item.TOUCH,
+            phone: "<a href='tel:"+item.COMTEL+"'>"+item.COMTEL+"</a>"
         }
     })
 

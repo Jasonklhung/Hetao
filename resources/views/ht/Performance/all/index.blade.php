@@ -42,34 +42,37 @@
                                                         <thead>
                                                             <tr class="text-center">
                                                                 <th>業務交易統計</th>
-                                                                <th>RO</th>
-                                                                <th>零件</th>
-                                                                <th>機器</th>
-                                                                <th>總和</th>
+                                                                @foreach($test as $key => $data)
+                                                                    
+                                                                <th>{{ $key }}</th>
+
+                                                                @endforeach
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach($total as $key => $data)
                                                             <tr>
-                                                                <td>Cindy</td>
-                                                                <td>8<br>16736</td>
-                                                                <td>14<br>19980</td>
-                                                                <td>14<br>19980</td>
-                                                                <td>39<br>63230</td>
+                                                                <td>{{$key}}</td>
+                                                                <td>{{ $data[0]['mount'] }}<br>{{ $data[0]['money'] }}</td>
+                                                                <td>{{ $data[1]['mount'] }}<br>{{ $data[1]['money'] }}</td>
+                                                                <td>{{ $data[2]['mount'] }}<br>{{ $data[2]['money'] }}</td>
+                                                                <td>{{ $data[3]['mount'] }}<br>{{ $data[3]['money'] }}</td>
+                                                                <td>{{ $data[4]['mount'] }}<br>{{ $data[4]['money'] }}</td>
+                                                                <td>{{ $data[5]['mount'] }}<br>{{ $data[5]['money'] }}</td>
+                                                                <td>{{ $data[6]['mount'] }}<br>{{ $data[6]['money'] }}</td>
+                                                                <td>{{ $data[7]['mount'] }}<br>{{ $data[7]['money'] }}</td>
+                                                                <td>{{ $data[8]['mount'] }}<br>{{ $data[8]['money'] }}</td>
+                                                                <td>{{ $data[9]['mount'] }}<br>{{ $data[9]['money'] }}</td>
+                                                                <td>{{ $data[10]['mount'] }}<br>{{ $data[10]['money'] }}</td>
+                                                                <td>{{ $data[11]['mount'] }}<br>{{ $data[11]['money'] }}</td>
+                                                                <td>{{ $data[12]['mount'] }}<br>{{ $data[12]['money'] }}</td>
+                                                                <td>{{ $data[13]['mount'] }}<br>{{ $data[13]['money'] }}</td>
+                                                                <td>{{ $data[14]['mount'] }}<br>{{ $data[14]['money'] }}</td>
+                                                                <td>{{ $data[15]['mount'] }}<br>{{ $data[15]['money'] }}</td>
+                                                                <td>{{ $data[16]['mount'] }}<br>{{ $data[16]['money'] }}</td>
+                                                                <td>{{ $data[17]['mount'] }}<br>{{ $data[17]['money'] }}</td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>曾曾</td>
-                                                                <td>8<br>16736</td>
-                                                                <td>14<br>19980</td>
-                                                                <td>14<br>19980</td>
-                                                                <td>39<br>63230</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>總和</td>
-                                                                <td>8<br>16736</td>
-                                                                <td>14<br>19980</td>
-                                                                <td>14<br>19980</td>
-                                                                <td>39<br>63230</td>
-                                                            </tr>
+                                                            @endforeach
                                                         </tbody>    
                                                     </table>
                                                 </div>
@@ -121,41 +124,31 @@
 
 @section('scripts')
 <script>
-    var data = [{
-            day: "<span class='text-nowrap'>2020-03-20</span>",
-            number: "",
-            sales: "小明",
-            name: "愛酷智能",
-            card: "15156",
-            productid: "UB-012HG-2",
-            productintro: "10加侖全自動開水",
-            kind: "機器",
-            quantity: "1",
-            price: "16190",
-            total: "16190",
-            invoice: "XX123456",
-            company: "愛酷智能科技",
-            staff: "Cindy",
-            phone: "<a href='tel:0912345678'>0912345678</a>"
-        },
-        {
-            day: "<span class='text-nowrap'>2020-03-20</span>",
-            number: "",
-            sales: "小明",
-            name: "愛酷智能",
-            card: "15156",
-            productid: "UB-012HG-2",
-            productintro: "10加侖全自動開水",
-            kind: "機器",
-            quantity: "1",
-            price: "16190",
-            total: "16190",
-            invoice: "XX123456",
-            company: "愛酷智能科技",
-            staff: "Cindy",
-            phone: "<a href='tel:0912345678'>0912345678</a>"
-        },
-    ];
+
+    var performance = {!! json_encode($performance) !!}; //php變數轉換
+
+    var data = new Array();
+
+    $.each(performance, function (i, item) {
+
+        data[i] = {
+            day: "<span class='text-nowrap'>"+item.DATE+"</span>",
+            number: item.SALENUM,
+            sales: item.NAME,
+            name: item.CUSTKEY,
+            card: item.CARDNO,
+            productid: item.CODE,
+            productintro: item.DESCRIBE,
+            kind: item.TYPE,
+            quantity: item.MATE,
+            price: item.PRICE,
+            total: item.AMOUNT,
+            invoice: item.INVOICE,
+            company: item.FULLNAME,
+            staff: item.TOUCH,
+            phone: "<a href='tel:"+item.COMTEL+"'>"+item.COMTEL+"</a>"
+        }
+    })
 
     function format(d) {
         return (

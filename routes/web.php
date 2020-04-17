@@ -95,9 +95,11 @@ Route::group(['middleware' => ['auth']], function () {
 
 		//業績查詢-個人業績
 		Route::get('/HT/{organization}/Performance/self/index','HT\Performance\SelfController@index')->name('ht.Performance.self.index');
+		Route::post('/HT/{organization}/Performance/self/custSearch','HT\Performance\SelfController@custSearch')->name('ht.Performance.self.custSearch');
 
 		//業績查詢-全站業績
 		Route::get('/HT/{organization}/Performance/all/index','HT\Performance\AllController@index')->name('ht.Performance.all.index');
+		Route::get('/HT/{organization}/Performance/all/custSearch','HT\Performance\AllController@custSearch')->name('ht.Performance.all.custSearch');
 
 		//行程管理-助理
 		Route::get('/HT/{organization}/StrokeManage/assistant/index','HT\StrokeManage\AssistantController@index')->name('ht.StrokeManage.assistant.index');

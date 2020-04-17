@@ -42,26 +42,23 @@
                                                         <thead>
                                                             <tr class="text-center">
                                                                 <th>類別</th>
-                                                                <th>RO</th>
-                                                                <th>零件</th>
-                                                                <th>機器</th>
-                                                                <th>總和</th>
+                                                                @foreach($total as $key => $data)
+                                                                <th>{{ $key }}</th>
+                                                                @endforeach
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
                                                                 <td>數量</td>
-                                                                <td>8</td>
-                                                                <td>14</td>
-                                                                <td>17</td>
-                                                                <td>39</td>
+                                                                @foreach($total as $key => $data)
+                                                                <td>{{ $data['mount'] }}</td>
+                                                                @endforeach
                                                             </tr>
                                                             <tr>
                                                                 <td>小計</td>
-                                                                <td>16736</td>
-                                                                <td>19980</td>
-                                                                <td>32765</td>
-                                                                <td>68134</td>
+                                                                @foreach($total as $key => $data)
+                                                                <td>{{ $data['money'] }}</td>
+                                                                @endforeach
                                                             </tr>
                                                         </tbody>    
                                                     </table>
@@ -108,39 +105,46 @@
 
 @section('scripts')
 <script>
-    var data = [{
-            day: "<span class='text-nowrap'>2020-03-20</span>",
-            number: "",
-            name: "愛酷智能",
-            card: "15156",
-            productid: "UB-012HG-2",
-            productintro: "10加侖全自動開水",
-            kind: "機器",
-            quantity: "1",
-            price: "16190",
-            total: "16190",
-            invoice: "XX123456",
-            company: "愛酷智能科技",
-            staff: "Cindy",
-            phone: "<a href='tel:0912345678'>0912345678</a>"
-        },
-        {
-            day: "<span class='text-nowrap'>2020-03-20</span>",
-            number: "",
-            name: "愛酷智能",
-            card: "15156",
-            productid: "UB-012HG-2",
-            productintro: "10加侖全自動開水",
-            kind: "機器",
-            quantity: "1",
-            price: "16190",
-            total: "16190",
-            invoice: "XX123456",
-            company: "愛酷智能科技",
-            staff: "Cindy",
-            phone: "<a href='tel:0912345678'>0912345678</a>"
-        },
-    ];
+
+    var performance = {!! json_encode($performance) !!}; //php變數轉換
+
+    var data = new Array();
+    var da = new Array();
+    var myResponse;
+
+    $.each(performance, function (i, item) {
+
+        $.ajax({
+            method:'post',
+            url:'{{ route('ht.Performance.self.custSearch',['organization'=>$organization]) }}',
+            data:{
+                '_token':'{{csrf_token()}}',
+                'key':item.CUSTKEY
+            },
+            async:false,
+            dataType:'json',
+            success:function(res){
+                myResponse = res;
+             }
+        })
+
+        data[i] = {
+            day: "<span class='text-nowrap'>"+item.DATE+"</span>",
+            number: item.SALENUM,
+            name: item.CUSTKEY,
+            card: myResponse[0].CARDNO,
+            productid: item.CODE,
+            productintro: item.DESCRIBE,
+            kind: item.TYPE,
+            quantity: item.MATE,
+            price: item.PRICE,
+            total: item.AMOUNT,
+            invoice: item.INVOICE,
+            company: myResponse[0].FULLNAME,
+            staff: myResponse[0].TOUCH,
+            phone: "<a href='tel:"+myResponse[0].MPHONE+"'>"+myResponse[0].MPHONE+"</a>"
+        }
+    })
 
     function format(d) {
         return (

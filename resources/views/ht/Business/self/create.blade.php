@@ -87,7 +87,7 @@
                                                         </div>
                                                         <div class="form-item">
                                                             <label class="d-block">附件上傳</label>
-                                                            <input type="file" class="d-none upload" id="upload" name="file">
+                                                            <input type="file" class="d-none upload" id="upload" name="file" accept=".csv,.xls,.xlsx,.doc,.docx,.pdf" onchange="checkfile(this);">
                                                             <label class="form-control" for="upload">上傳附件</label>
                                                         </div>
                                                         <div class="form-item ">
@@ -129,6 +129,20 @@
 		var fileName = files[0].name
 		$(this).siblings('label[for="upload"]').html(`<i class="fas fa-paperclip text-primary"></i> `+ fileName);
 	});
+
+    function checkfile(sender) {
+
+      var validExts = new Array(".xlsx", ".xls", ".csv",".doc",".docx",".pdf");
+
+      var fileExt = sender.value;
+      fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+        if (validExts.indexOf(fileExt) < 0) {
+            alert("檔案類型錯誤，可接受的副檔名有：" + validExts.toString());
+            sender.value = null;
+            return false;
+        }
+        else return true;
+    }
 </script>
 <script>
             var area_data = {

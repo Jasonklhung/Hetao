@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Organization;
 use GuzzleHttp\Client;
 use Auth;
+use DB;
 use App\Business;
+use App\BusinessTrack;
 
 class SelfController extends Controller
 {
@@ -78,7 +80,17 @@ class SelfController extends Controller
         $dept = Organization::where('id',$organization->id)->get();
         $visit = Business::where('user_id',Auth::user()->id)->where('organization_name',$dept[0]['name'])->get();
 
-        return view('ht.Business.self.index',compact('organization','caseCount','visit'));
+        //案件追蹤
+        $track = BusinessTrack::query()
+                ->select('business_tracks.*','businesses.date','businesses.name','businesses.business_name','businesses.address','businesses.phone')
+                ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
+                ->where('business_tracks.user_id',Auth::user()->id)
+                ->where('business_tracks.organization_name',$dept[0]['name'])
+                ->where('business_tracks.statusTrack','Y')
+                ->get();
+
+
+        return view('ht.Business.self.index',compact('organization','caseCount','visit','track'));
     }
 
     public function create(Organization $organization)
@@ -180,6 +192,13 @@ class SelfController extends Controller
 
         $business->save();
 
+        $track = new BusinessTrack;
+        $track->business_id = $business->id;
+        $track->user_id = Auth::user()->id;
+        $track->organization_name = $dept[0]['name'];
+        (isset($request->statusTrack))? $track->statusTrack = 'Y' : $track->statusTrack = 'N';
+        $track->save();
+
         return redirect()->route('ht.Business.self.index',compact('organization'))->with('success','業務新增成功');
     }
 
@@ -214,6 +233,8 @@ class SelfController extends Controller
         (isset($request->statusTrack))? $visit->statusTrack = 'Y' : $visit->statusTrack = 'N';
 
         $visit->save();
+
+        (isset($request->statusTrack))? $track = BusinessTrack::where('business_id', '=', $id)->update(['statusTrack' => 'Y']) : BusinessTrack::where('business_id', '=', $id)->update(['statusTrack' => 'N']);
 
         return redirect()->route('ht.Business.self.index',compact('organization'))->with('success','業務修改成功');
     }

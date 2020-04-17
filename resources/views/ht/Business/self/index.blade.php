@@ -404,52 +404,82 @@
         table_s1.search(this.value).draw();
     });
 
-    var data = [{
+    var track = {!! json_encode($track) !!}; //php變數轉換
+
+    var data = new Array();
+
+    $.each(track, function (i, item) {
+
+        if(item.statusOpen == 'Y'){
+            var statusOpen = "<span class='text-success'>已發布</span>"
+        }
+        else{
+            var statusOpen = "<span class='text-danger'>未發布</span>"
+        }
+
+        if(item.date_again == null){
+            var date_again = ''
+        }
+        else{
+            var date_again = item.date_again
+        }
+
+        if(item.uniform_numbers == null){
+            var uniform_numbers = ''
+        }
+        else{
+            var uniform_numbers = item.uniform_numbers
+        }
+
+        if(item.email == null){
+            var email = ''
+        }
+        else{
+            var email = item.email
+        }
+
+        if(item.level == null){
+            var level = ''
+        }
+        else if(item.level == 'A'){
+            var level = "<span class='text-danger'>A</span>"
+        }
+        else if(item.level == 'B'){
+            var level = "<span class='text-primary'>B</span>"
+        }
+        else if(item.level == 'C'){
+            var level = "<span class='text-success'>C</span>"
+        }
+        else if(item.level == 'D'){
+            var level = "<span class='text-warning'>D</span>"
+        }
+
+        var url = '{{ route('ht.Business.self.trackEdit',['organization'=>$organization,'id'=>':id']) }}'
+        url = url.replace(':id',item.id);
+
+        data[i] = {
             first: `
             <div class="td-icon">
                 <input class="chkall" type="checkbox" value="">
             </div>
             `,
-            day: "<spann class='text-nowrap'>2020-03-20</span>",
-            level: "<span class='text-danger'>A</span>",
-            progress: "已報價",
-            kind: "商用",
-            name: "愛酷智能",
-            staff: "Cindy",
-            phone: "<a href='tel:0212345678'>02-12345678</a>",
-            reday: "<spann class='text-nowrap'>2020-03-25</span>",
-            result: "",
-            public: "<span class='text-success'>已發布</span>",
-            watch: "<a href='案件紀錄-編輯.html' target='_blank'><button class='btn btn-primary' type='button'>查看</button>",
-            uniform: "11111111",
-            mail: "xxx@gmail.com",
-            address: "台北市松山區敦化南路一段2號5樓",
-            type: "UW-999 UW-998"
-        },
-        {
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            day: "<spann class='text-nowrap'>2020-03-20</span>",
-            level: "<span class='text-danger'>A</span>",
-            progress: "已報價",
-            date: "<spann class='text-nowrap'>2019-10-01</span>",
-            kind: "商用",
-            name: "愛酷智能",
-            staff: "Cindy",
-            phone: "<a href='tel:0212345678'>02-12345678</a>",
-            reday: "2020-03-25",
-            result: "成交",
-            public: "<span class='text-danger'>未發布</span>",
-            watch: "<a href='案件紀錄-編輯.html' target='_blank'><button class='btn btn-primary' type='button'>查看</button>",
-            uniform: "11111111",
-            mail: "xxx@gmail.com",
-            address: "台北市松山區敦化南路一段2號5樓",
-            type: "UW-999 UW-998"
-        },
-    ];
+            day: "<spann class='text-nowrap'>"+item.date+"</span>",
+            level: level,
+            progress: item.schedule,
+            kind: item.category,
+            name: item.name,
+            staff: item.business_name,
+            phone: "<a href='tel:"+item.phone+"'>"+item.phone+"</a>",
+            reday: "<spann class='text-nowrap'>"+date_again+"</span>",
+            result: item.result,
+            public: statusOpen,
+            watch: "<a href='"+url+"'><button class='btn btn-primary' type='button'>查看</button>",
+            uniform: uniform_numbers,
+            mail: email,
+            address: item.address,
+            type: "test"
+        }
+    })
 
     function format(d) {
         return (

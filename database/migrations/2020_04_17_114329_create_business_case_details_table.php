@@ -18,12 +18,11 @@ class CreateBusinessCaseDetailsTable extends Migration
             $table->bigInteger('user_id')->comment("userID");
             $table->string('organization_name')->comment("分公司");
             $table->bigInteger('business_track_id')->comment("案件追蹤id");
-            $table->string('subject')->comment("項目");
             $table->string('numbers')->comment("產品型號");
             $table->string('money')->comment("單價");
             $table->string('quantity')->comment("數量");
             $table->string('total')->comment("合計");
-            $table->string('description')->comment("說明");
+            $table->string('description')->nullable()->comment("說明");
             $table->timestamps();
         });
     }

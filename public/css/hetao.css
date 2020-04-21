@@ -443,6 +443,11 @@ small {
     padding-left: 0;
 }
 
+.py-s {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
 .pr-0 {
     padding-right: 0;
 }
@@ -751,9 +756,9 @@ h4.title-deco {
 }
 
 .dataTables_wrapper table.dataTable {
-	border-collapse: collapse !important;
-	margin: 0 !important;
-	width: 1590px !important;
+    border-collapse: collapse !important;
+    margin: -1px !important;
+    width: 1590px !important;
 }
 
 .iframe .dataTables_wrapper table.dataTable, .warehouse .dataTables_wrapper table.dataTable {
@@ -761,10 +766,10 @@ h4.title-deco {
 }
 
 .permission .dataTables_wrapper table.dataTable, .assistant#hetao-list-a {
-	width: 100% !important;
+    width: 100% !important;
 }
 .dataTables_wrapper table.dataTable#hetao-list-ab {
-	width: 100% !important;
+    width: 100% !important;
 }
 
 @media screen and (max-width: 860px) {
@@ -813,6 +818,12 @@ h4.title-deco {
     .even {
         visibility: hidden;
         display: none;
+    }
+
+    #hetao-sale .odd,
+    #hetao-sale .even {
+        visibility: inherit;
+        display: table-row;
     }
 
     .noresponsive .odd, .noresponsive .even {
@@ -2173,6 +2184,13 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child, table.
     margin-bottom: 0;
 }
 
+.divid {
+    width: 100%;
+    height: 2px;
+    background: #d0e5f1;
+    display: block;
+}
+
 .clear {
     clear: both;
 }
@@ -2416,7 +2434,7 @@ div[id^="hetao-list-norwd"] .odd, div[id^="hetao-list-norwd"] .even {
     padding: 15px;
 }
 
-.charts-border table, .chartwrap table {
+.charts-border table, .chartwrap.bd table {
     border: 1px solid #d0e5f1;    
 }
 
@@ -2435,6 +2453,10 @@ div[id^="hetao-list-norwd"] .odd, div[id^="hetao-list-norwd"] .even {
 
 .chartwrap select {
     width: auto;
+}
+
+#chart1 text, #chart3 text, #chart4 text {
+    cursor: pointer!important;
 }
 
 /*個人業務-新增/編輯*/
@@ -2474,6 +2496,10 @@ div[id^="hetao-list-norwd"] .odd, div[id^="hetao-list-norwd"] .even {
 
 .modal-footer .btn+.btn {
     margin-bottom: 5px;
+}
+
+#showlist td {
+    padding: 15px 0;
 }
 
 /*週期循環*/
@@ -2525,6 +2551,19 @@ table.calendar-table>tbody>tr>td {
 
 .info2 .tb-child td {
     width: 20%;
+}
+
+/*機型銷售狀況*/
+#hetao-sale_wrapper, #hetao-sale2_wrapper {
+    overflow-x: inherit;
+}
+
+#hetao-sale, #hetao-sale2 {
+    width: 100%!important;
+}
+
+.text-right {
+    text-align: right!important;
 }
 
 

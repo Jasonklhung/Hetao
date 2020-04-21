@@ -71,9 +71,9 @@
                                                                                 <input class="d-none" id='chkall1' type='checkbox' value='' /><label for='chkall1' class='sall'></label>
                                                                             </li>
                                                                             <li class="divid"></li>
-                                                                            <li><a data-toggle="modal" data-target="#op-alert" href="#">發布</a></li>
-                                                                            <li class=""><a data-toggle="modal" data-target="#op-alert" href="#">追蹤</a></li>
-                                                                            <li class=""><a data-toggle="modal" data-target="#op-alert" href="#">刪除</a></li>
+                                                                            <li><a data-toggle="modal" data-target="#op-alert1" href="#">發布</a></li>
+                                                                            <li class=""><a data-toggle="modal" data-target="#op-alert2" href="#">追蹤</a></li>
+                                                                            <li class=""><a data-toggle="modal" data-target="#op-alert3" href="#">刪除</a></li>
                                                                             <li><a href="#" data-toggle="modal" data-target="#tomail">轉Mail</a></li>
                                                                         </ul>
                                                                     </div>
@@ -102,6 +102,9 @@
                                                                     <td>
                                                                         <div class="td-icon">
                                                                             <input class="chkall" type="checkbox" name="businessVisit" value="{{ $data->id }}">
+                                                                            @if($data->file)
+                                                                            <a href="{{ asset($data->file) }}"><i class="fas fa-paperclip"></i></a>
+                                                                            @endif
                                                                         </div>
                                                                     </td>
                                                                     <td class="text-nowrap">{{ $data->date }}</td>
@@ -178,9 +181,9 @@
                                                                                 <input class="d-none" id='chkall2' type='checkbox' value='' /><label for='chkall2' class='sall'>
                                                                             </li>
                                                                             <li class="divid"></li>
-                                                                            <li><a data-toggle="modal" data-target="#op-alert" href="#">發布</a></li>
-                                                                            <li class=""><a data-toggle="modal" data-target="#op-alert" href="#">轉單</a></li>
-                                                                            <li class=""><a data-toggle="modal" data-target="#op-alert" href="#">刪除</a></li>
+                                                                            <li><a data-toggle="modal" data-target="#op-alert4" href="#">發布</a></li>
+                                                                            <li class=""><a data-toggle="modal" data-target="#op-alert5" href="#">轉單</a></li>
+                                                                            <li class=""><a data-toggle="modal" data-target="#op-alert6" href="#">刪除</a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -243,7 +246,7 @@
                                                         <div class="chartwrap2">
                                                             <div class="chartwrap">    
                                                                 <div class="w-50 chart-border"> 
-                                                                    <h4 class="text-center">追蹤筆數：40筆</h4>   
+                                                                    <h4 class="text-center">追蹤筆數：{{$trackChartCount}}筆</h4> 
                                                                         <div id="chart3"></div>
                                                                 </div>    
                                                                 <div class="w-50 chart-border">
@@ -251,11 +254,11 @@
                                                                     <div>
                                                                         <div id="chart4" style="width: 100%; height: 300px;"></div>
                                                                         <ul>
-                                                                            <li>結單總筆數：25筆</li>
-                                                                            <li>參考成交總金額：$350,000元</li>
-                                                                            <li>新增客戶數：5家</li>
+                                                                            <li>結單總筆數：{{$finishChartCount}}筆</li>
+                                                                            <li>參考成交總金額：${{$money}}元</li>
+                                                                            <li>新增客戶數：{{$newCustomChartCount}}家</li>
                                                                         </ul>
-                                                                    </div>    
+                                                                    </div>
                                                                 </div>     
                                                             </div>
                                                             <div class="chartwrap">
@@ -269,27 +272,21 @@
                                                                                     <th class="w-50 text-right">數量</th>
                                                                                 </tr>
                                                                             </thead>
-                                                                            <tbody>  
+                                                                            <tbody>
+                                                                                @foreach($numberChart as $key => $data)
                                                                                 <tr>
-                                                                                    <td>UW-1302</td>
-                                                                                    <td class="text-right">6</td>
+                                                                                    <td>{{$key}}</td>
+                                                                                    <td class="text-right">{{$data}}</td>
                                                                                 </tr>
-                                                                                <tr>
-                                                                                    <td>UW-998</td>
-                                                                                    <td class="text-right">7</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>UW-999</td>
-                                                                                    <td class="text-right">10</td>
-                                                                                </tr>
-                                                                            </tbody>   
+                                                                                @endforeach
+                                                                            </tbody>
                                                                             <tfoot>
                                                                                 <tr>
                                                                                     <td colspan="2"><div class="divid"></div></td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td><p>產品總數：</p></td>
-                                                                                    <td class="text-right"><p>23件</p></td>
+                                                                                    <td class="text-right"><p>{{$numberTotalChart}}件</p></td>
                                                                                 </tr>
                                                                             </tfoot> 
                                                                         </table>
@@ -331,8 +328,8 @@
             </div>
         </div>
     </div>
-    <!-- Modal-alert -->
-    <div class="modal fade" id="op-alert" role="dialog">
+    <!--拜訪紀錄-發布 -->
+    <div class="modal fade" id="op-alert1" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-none">
@@ -340,7 +337,77 @@
                 </div>
                 <div class="modal-body text-center"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">確認</button>
+                    <button type="button" class="btn btn-primary" id="visitOpen" data-dismiss="modal">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--拜訪紀錄-追蹤 -->
+    <div class="modal fade" id="op-alert2" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="visitTrack" data-dismiss="modal">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--拜訪紀錄-刪除 -->
+    <div class="modal fade" id="op-alert3" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="visitDel" data-dismiss="modal">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--案件追蹤-發布 -->
+    <div class="modal fade" id="op-alert4" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="trackOpen" data-dismiss="modal">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--案件追蹤-轉單 -->
+    <div class="modal fade" id="op-alert5" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="trackTurn" data-dismiss="modal">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--案件追蹤-刪除 -->
+    <div class="modal fade" id="op-alert6" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="trackDel" data-dismiss="modal">確認</button>
                 </div>
             </div>
         </div>
@@ -460,7 +527,7 @@
         data[i] = {
             first: `
             <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
+                <input class="chkall" type="checkbox" name="businessTrack" value="`+item.id+`">
             </div>
             `,
             day: "<spann class='text-nowrap'>"+item.date+"</span>",
@@ -579,19 +646,87 @@
     });
 
     // modal-alert
-    $('a[data-target="#op-alert"]').on('click', function() {
+    $('a[data-target="#op-alert1"]').on('click', function() {
         var text = $(this).text()
         var checked = $("input.chkall")
         if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
-            $('#op-alert .modal-body').html(`
+            $('#op-alert1 .modal-body').html(`
                 <p>確定要` + text + `所選案件嗎？</p>
             `)
         } else {
-            $('#op-alert .modal-body').html(`
+            $('#op-alert1 .modal-body').html(`
                 <p>您沒有選取案件唷！</p>
             `)
         }
     });
+    $('a[data-target="#op-alert2"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert2 .modal-body').html(`
+                <p>確定要` + text + `所選案件嗎？</p>
+            `)
+        } else {
+            $('#op-alert2 .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+    $('a[data-target="#op-alert3"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert3 .modal-body').html(`
+                <p>確定要` + text + `所選案件嗎？</p>
+            `)
+        } else {
+            $('#op-alert3 .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+    $('a[data-target="#op-alert4"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert4 .modal-body').html(`
+                <p>確定要` + text + `所選案件嗎？</p>
+            `)
+        } else {
+            $('#op-alert4 .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+    $('a[data-target="#op-alert5"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert5 .modal-body').html(`
+                <p>確定要` + text + `所選案件嗎？</p>
+            `)
+        } else {
+            $('#op-alert5 .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+    $('a[data-target="#op-alert6"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert6 .modal-body').html(`
+                <p>確定要` + text + `所選案件嗎？</p>
+            `)
+        } else {
+            $('#op-alert6 .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+
+
+    var businessChartCount = {!! json_encode($businessChartCount) !!};
 
     // 圖表
     AmCharts.makeChart("chart1", {
@@ -613,19 +748,13 @@
         "valueField": "column-1",
         "allLabels": [],
         "titles": [],
-        "dataProvider": [{
-                "category": "業務工作",
-                "column-1": "19"
-            },
-            {
-                "category": "非業務工作",
-                "column-1": "10"
-            }
-        ],
+        "dataProvider": businessChartCount,
         "graphs": [{
             "balloonText": "[[category]]:[[value]]",
         }],
     });
+
+    var businessChart = {!! json_encode($businessChart) !!};
 
     AmCharts.makeChart("chart2", {
         "hideCredits": "true",
@@ -662,44 +791,10 @@
             "size": 15,
             "text": ""
         }],
-        "dataProvider": [{
-                "category": "其他",
-                "column-1": "1"
-            },
-            {
-                "category": "協助安裝",
-                "column-1": "2"
-            },
-            {
-                "category": "送文件",
-                "column-1": "0"
-            },
-            {
-                "category": "收款",
-                "column-1": "5"
-            },
-            {
-                "category": "送機器",
-                "column-1": "4"
-            },
-            {
-                "category": "看現場",
-                "column-1": "10"
-            },
-            {
-                "category": "洽機",
-                "column-1": "5"
-            },
-            {
-                "category": "陌訪",
-                "column-1": "2"
-            },
-            {
-                "category": "拜訪",
-                "column-1": "2"
-            }
-        ]
+        "dataProvider": businessChart
     });
+
+    var TrackBusinessChartCount = {!! json_encode($TrackBusinessChartCount) !!};
 
     AmCharts.makeChart("chart3", {
         "hideCredits": "true",
@@ -720,16 +815,10 @@
         "valueField": "column-1",
         "allLabels": [],
         "titles": [],
-        "dataProvider": [{
-                "category": "業務工作",
-                "column-1": "19"
-            },
-            {
-                "category": "非業務工作",
-                "column-1": "10"
-            }
-        ]
+        "dataProvider": TrackBusinessChartCount
     });
+
+    var resultChart = {!! json_encode($resultChart) !!};
 
     AmCharts.makeChart("chart4", {
         "hideCredits": "true",
@@ -751,19 +840,7 @@
         "valueField": "column-1",
         "allLabels": [],
         "titles": [],
-        "dataProvider": [{
-                "category": "成交",
-                "column-1": "19"
-            },
-            {
-                "category": "流單",
-                "column-1": "5"
-            },
-            {
-                "category": "其他",
-                "column-1": "2"
-            }
-        ],
+        "dataProvider": resultChart,
         "legend": {
             "enabled":true,
             "align": "center",
@@ -815,5 +892,149 @@
         }],
     });
         
+</script>
+<script type="text/javascript">
+
+    //拜訪紀錄-發布
+    $('#visitOpen').on('click',function(){
+
+        var count = 0
+
+        $('input[name="businessVisit"]:checked').each(function(){
+
+           var id = $(this).val()
+
+           $.ajax({
+            type:'post',
+            url:"{{ route('ht.Business.self.businessVisitChangeStatus',['organization'=>$organization]) }}",
+            data:{
+                '_token':'{{csrf_token()}}',
+                'type':'open',
+                'id':id
+            },
+            success:function(res){
+                if(res.status == 200 && count == 0){
+                    count += 1;
+                    alert('已完成發布');
+                    window.location = '{{ route('ht.Business.self.index',['organization'=>$organization]) }}'
+                }
+            }
+        })
+       })
+    })
+
+    //拜訪紀錄-追蹤
+    $('#visitTrack').on('click',function(){
+
+        var count = 0
+
+        $('input[name="businessVisit"]:checked').each(function(){
+
+           var id = $(this).val()
+
+           $.ajax({
+            type:'post',
+            url:"{{ route('ht.Business.self.businessVisitChangeStatus',['organization'=>$organization]) }}",
+            data:{
+                '_token':'{{csrf_token()}}',
+                'type':'track',
+                'id':id
+            },
+            success:function(res){
+                if(res.status == 200 && count == 0){
+                    count += 1;
+                    alert('已完成追蹤');
+                    window.location = '{{ route('ht.Business.self.index',['organization'=>$organization]) }}'
+                }
+            }
+        })
+       })
+    })
+
+    //拜訪紀錄-刪除
+    $('#visitDel').on('click',function(){
+
+        var count = 0
+
+        $('input[name="businessVisit"]:checked').each(function(){
+
+           var id = $(this).val()
+
+           $.ajax({
+            type:'post',
+            url:"{{ route('ht.Business.self.businessVisitChangeStatus',['organization'=>$organization]) }}",
+            data:{
+                '_token':'{{csrf_token()}}',
+                'type':'delete',
+                'id':id
+            },
+            success:function(res){
+                if(res.status == 200 && count == 0){
+                    count += 1;
+                    alert('已完成刪除');
+                    window.location = '{{ route('ht.Business.self.index',['organization'=>$organization]) }}'
+                }
+            }
+        })
+       })
+    })
+
+    //案件追蹤-發布
+    $('#trackOpen').on('click',function(){
+
+        var count = 0
+
+        $('input[name="businessTrack"]:checked').each(function(){
+
+           var id = $(this).val()
+
+           $.ajax({
+            type:'post',
+            url:"{{ route('ht.Business.self.businessTrackChangeStatus',['organization'=>$organization]) }}",
+            data:{
+                '_token':'{{csrf_token()}}',
+                'type':'open',
+                'id':id
+            },
+            success:function(res){
+                if(res.status == 200 && count == 0){
+                    count += 1;
+                    alert('已完成發布');
+                    window.location = '{{ route('ht.Business.self.index',['organization'=>$organization]) }}'
+                }
+            }
+        })
+       })
+    })
+
+
+
+    //案件追蹤-刪除
+    $('#trackDel').on('click',function(){
+
+        var count = 0
+
+        $('input[name="businessTrack"]:checked').each(function(){
+
+           var id = $(this).val()
+
+           $.ajax({
+            type:'post',
+            url:"{{ route('ht.Business.self.businessTrackChangeStatus',['organization'=>$organization]) }}",
+            data:{
+                '_token':'{{csrf_token()}}',
+                'type':'delete',
+                'id':id
+            },
+            success:function(res){
+                if(res.status == 200 && count == 0){
+                    count += 1;
+                    alert('已完成刪除');
+                    window.location = '{{ route('ht.Business.self.index',['organization'=>$organization]) }}'
+                }
+            }
+        })
+       })
+    })
 </script>
 @endsection

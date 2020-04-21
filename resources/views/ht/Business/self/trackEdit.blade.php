@@ -17,7 +17,7 @@
                                         </div>
                                         <div class="panel-body">
                                             <div class="tabbable">
-                                                <form>
+                                                <form id="trackFrom">
                                                     <div class="text-primary mx-s">
                                                         <h4 class="bd-bottom">基本資料 <i class="fas fa-caret-right"></i></h4>
                                                     </div>
@@ -27,73 +27,174 @@
                                                                 <label class="d-block">拜訪日期</label>
                                                                 <div class="datetime">
                                                                     <div class="input-group date day-set">
-                                                                        <input class="form-control" placeholder="請選擇日期" type="text"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                        <input class="form-control" placeholder="請選擇日期" type="text" name="date" value="{{$track[0]['date']}}"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-item">
                                                                 <label class="d-block">客戶名稱</label>
-                                                                <input type="text" class="form-control" value="曾曾">
+                                                                <input type="text" class="form-control" name="name" value="{{$track[0]['name']}}">
                                                             </div>
                                                             <div class="form-item">
                                                                 <label class="d-block">客戶等級</label>
-                                                                <select class="form-control mr-s">
+                                                                <select class="form-control mr-s" name="level">
                                                                     <option selected hidden disabled value="">請選擇</option>
-                                                                    <option value="">A</option>
-                                                                    <option value="">B</option>
-                                                                    <option value="">C</option>
-                                                                    <option value="">D</option>
+                                                                    @if($case_track->level == 'A')
+                                                                    <option value="A" selected="">A</option>
+                                                                    <option value="B">B</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="D">D</option>
+                                                                    @elseif($case_track == 'B')
+                                                                    <option value="A">A</option>
+                                                                    <option value="B" selected="">B</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="D">D</option>
+                                                                    @elseif($case_track == 'C')
+                                                                    <option value="A">A</option>
+                                                                    <option value="B">B</option>
+                                                                    <option value="C" selected="">C</option>
+                                                                    <option value="D">D</option>
+                                                                    @elseif($case_track == 'D')
+                                                                    <option value="A">A</option>
+                                                                    <option value="B">B</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="D" selected="">D</option>
+                                                                    @else
+                                                                    <option value="A">A</option>
+                                                                    <option value="B">B</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="D">D</option>
+                                                                    @endif
                                                                 </select>
                                                             </div>
                                                             <div class="form-item">
                                                                 <label class="d-block">案件進度</label>
-                                                                <select class="form-control mr-s">
+                                                                <select class="form-control mr-s" name="schedule">
                                                                     <option selected hidden disabled value="">請選擇</option>
-                                                                    <option value=""></option>
-                                                                    <option value=""></option>
-                                                                    <option value=""></option>
-                                                                    <option value=""></option>
+                                                                    @if($case_track->schedule == '尚未找到窗口')
+                                                                    <option value="尚未找到窗口" selected="">尚未找到窗口</option>
+                                                                    <option value="已拜訪介紹">已拜訪介紹</option>
+                                                                    <option value="已報價">已報價</option>
+                                                                    <option value="已成待裝機">已成待裝機</option>
+                                                                    <option value="已裝機完成">已裝機完成</option>
+                                                                    <option value="已收款">已收款</option>
+                                                                    @elseif($case_track == '已拜訪介紹')
+                                                                    <option value="尚未找到窗口">尚未找到窗口</option>
+                                                                    <option value="已拜訪介紹" selected="">已拜訪介紹</option>
+                                                                    <option value="已報價">已報價</option>
+                                                                    <option value="已成待裝機">已成待裝機</option>
+                                                                    <option value="已裝機完成">已裝機完成</option>
+                                                                    <option value="已收款">已收款</option>
+                                                                    @elseif($case_track == '已報價')
+                                                                    <option value="尚未找到窗口">尚未找到窗口</option>
+                                                                    <option value="已拜訪介紹">已拜訪介紹</option>
+                                                                    <option value="已報價" selected="">已報價</option>
+                                                                    <option value="已成待裝機">已成待裝機</option>
+                                                                    <option value="已裝機完成">已裝機完成</option>
+                                                                    <option value="已收款">已收款</option>
+                                                                    @elseif($case_track == '已成待裝機')
+                                                                    <option value="尚未找到窗口">尚未找到窗口</option>
+                                                                    <option value="已拜訪介紹">已拜訪介紹</option>
+                                                                    <option value="已報價">已報價</option>
+                                                                    <option value="已成待裝機" selected="">已成待裝機</option>
+                                                                    <option value="已裝機完成">已裝機完成</option>
+                                                                    <option value="已收款">已收款</option>
+                                                                    @elseif($case_track == '已裝機完成')
+                                                                    <option value="尚未找到窗口">尚未找到窗口</option>
+                                                                    <option value="已拜訪介紹">已拜訪介紹</option>
+                                                                    <option value="已報價">已報價</option>
+                                                                    <option value="已成待裝機">已成待裝機</option>
+                                                                    <option value="已裝機完成" selected="">已裝機完成</option>
+                                                                    <option value="已收款">已收款</option>
+                                                                    @elseif($case_track == '已收款')
+                                                                    <option value="尚未找到窗口">尚未找到窗口</option>
+                                                                    <option value="已拜訪介紹">已拜訪介紹</option>
+                                                                    <option value="已報價">已報價</option>
+                                                                    <option value="已成待裝機">已成待裝機</option>
+                                                                    <option value="已裝機完成">已裝機完成</option>
+                                                                    <option value="已收款" selected="">已收款</option>
+                                                                    @else
+                                                                    <option value="尚未找到窗口">尚未找到窗口</option>
+                                                                    <option value="已拜訪介紹">已拜訪介紹</option>
+                                                                    <option value="已報價">已報價</option>
+                                                                    <option value="已成待裝機">已成待裝機</option>
+                                                                    <option value="已裝機完成">已裝機完成</option>
+                                                                    <option value="已收款">已收款</option>
+                                                                    @endif
                                                                 </select>
                                                             </div>
                                                             <div class="form-item">
                                                                 <label class="d-block">客戶類別</label>
-                                                                <select class="form-control mr-s">
+                                                                <select class="form-control mr-s" name="category">
                                                                     <option selected hidden disabled value="">請選擇</option>
-                                                                    <option value=""></option>
-                                                                    <option value=""></option>
-                                                                    <option value=""></option>
-                                                                    <option value=""></option>
+                                                                    @if($case_track->category == '公家機關')
+                                                                    <option value="公家機關" selected="">公家機關</option>
+                                                                    <option value="商用">商用</option>
+                                                                    <option value="家用">家用</option>
+                                                                    <option value="醫療">醫療</option>
+                                                                    <option value="中信局">中信局</option>
+                                                                    @elseif($case_track->category == '商用')
+                                                                    <option value="公家機關">公家機關</option>
+                                                                    <option value="商用" selected="">商用</option>
+                                                                    <option value="家用">家用</option>
+                                                                    <option value="醫療">醫療</option>
+                                                                    <option value="中信局">中信局</option>
+                                                                    @elseif($case_track->category == '家用')
+                                                                    <option value="公家機關">公家機關</option>
+                                                                    <option value="商用">商用</option>
+                                                                    <option value="家用" selected="">家用</option>
+                                                                    <option value="醫療">醫療</option>
+                                                                    <option value="中信局">中信局</option>
+                                                                    @elseif($case_track->category == '醫療')
+                                                                    <option value="公家機關">公家機關</option>
+                                                                    <option value="商用">商用</option>
+                                                                    <option value="家用">家用</option>
+                                                                    <option value="醫療" selected="">醫療</option>
+                                                                    <option value="中信局">中信局</option>
+                                                                    @elseif($case_track->category == '中信局')
+                                                                    <option value="公家機關">公家機關</option>
+                                                                    <option value="商用">商用</option>
+                                                                    <option value="家用">家用</option>
+                                                                    <option value="醫療">醫療</option>
+                                                                    <option value="中信局" selected="">中信局</option>
+                                                                    @else
+                                                                    <option value="公家機關">公家機關</option>
+                                                                    <option value="商用">商用</option>
+                                                                    <option value="家用">家用</option>
+                                                                    <option value="醫療">醫療</option>
+                                                                    <option value="中信局">中信局</option>
+                                                                    @endif
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <div class="form-item">
                                                                 <label class="d-block">承辦人</label>
-                                                                <input type="text" class="form-control" value="曾曾">
+                                                                <input type="text" class="form-control" name="touch" value="{{ $case_track->touch }}">
                                                             </div>
                                                             <div class="form-item">
                                                                 <label class="d-block">電話</label>
-                                                                <input type="text" class="form-control" placeholder="">
+                                                                <input type="text" class="form-control" placeholder="" name="phone" value="{{ $track[0]['phone'] }}">
                                                             </div>
                                                             <div class="form-item">
                                                                 <label class="d-block">地址</label>
                                                                 <div class="d-flex mb-s">
-                                                                    <select class="form-control mr-s">
-                                                                        <option selected hidden disabled value="">縣市</option>
+                                                                    <select class="form-control mr-s area1" name="city">
+                                                                        <option selected value="{{ $track[0]['city'] }}">{{ $track[0]['city'] }}</option>
                                                                     </select>
-                                                                    <select class="form-control ml-s">
-                                                                        <option selected hidden disabled value="">鄉鎮市</option>
+                                                                    <select class="form-control ml-s area2" name="area">
+                                                                        <option selected value="{{ $track[0]['area'] }}">{{ $track[0]['area'] }}</option>
                                                                     </select>
                                                                 </div>
-                                                                <input type="text" class="form-control" placeholder="地址">
+                                                                <input type="text" class="form-control" placeholder="地址" name="address" value="{{ $track[0]['address'] }}">
                                                             </div>
                                                             <div class="form-item">
                                                                 <label class="d-block">統編</label>
-                                                                <input type="number" class="form-control" placeholder="">
+                                                                <input type="number" class="form-control" placeholder="" name="uniform_numbers" value="{{ $case_track->uniform_numbers }}">
                                                             </div>
                                                             <div class="form-item">
                                                                 <label class="d-block">信箱</label>
-                                                                <input type="email" class="form-control" placeholder="">
+                                                                <input type="email" class="form-control" placeholder="" name="email" value="{{ $case_track->email }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-4">
@@ -101,27 +202,40 @@
                                                                 <label class="d-block">覆訪日期 <a class="float-right" href="#" data-toggle="modal" data-target="#person-e"><i class="fas fa-bell"></i> 通知</a></label>
                                                                 <div class="datetime">
                                                                     <div class="input-group date day-set">
-                                                                        <input class="form-control" placeholder="請選擇日期" type="text"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                        <input class="form-control" placeholder="請選擇日期" type="text" name="date_again" value="{{ $case_track->date_again }}"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-item">
                                                                 <label class="d-block">結果</label>
-                                                                <select class="form-control mr-s result">
+                                                                <select class="form-control mr-s result" name="result">
                                                                     <option selected hidden disabled value="">請選擇</option>
+                                                                    @if($case_track->result == '成交')
+                                                                    <option value="成交" selected="">成交</option>
                                                                     <option value="流單">流單</option>
-                                                                    <option value=""></option>
-                                                                    <option value=""></option>
-                                                                    <option value=""></option>
+                                                                    <option value="其他">其他</option>
+                                                                    @elseif($case_track->result == '流單')
+                                                                    <option value="成交">成交</option>
+                                                                    <option value="流單" selected="">流單</option>
+                                                                    <option value="其他">其他</option>
+                                                                    @elseif($case_track->result == '其他')
+                                                                    <option value="成交">成交</option>
+                                                                    <option value="流單">流單</option>
+                                                                    <option value="其他" selected="">其他</option>
+                                                                    @else
+                                                                    <option value="成交">成交</option>
+                                                                    <option value="流單">流單</option>
+                                                                    <option value="其他">其他</option>
+                                                                    @endif
                                                                 </select>
                                                             </div>
                                                             <div class="form-item reason" style="display: none;">
                                                                 <label class="d-block">原因</label>
-                                                                <input type="text" class="form-control" placeholder="">
+                                                                <input type="text" class="form-control" placeholder="" name="reason" value="{{ $case_track->reason }}">
                                                             </div>
                                                             <div class="form-item">
                                                                 <label class="d-block">備註</label>
-                                                                <textarea rows="5" class="form-control" placeholder=""></textarea>
+                                                                <textarea rows="5" class="form-control" placeholder="" name="other">{{ $case_track->other }}</textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -140,7 +254,18 @@
                                                                     <th class="text-center p-s text-nowrap">說明</th>
                                                                     <th class="text-center p-s text-nowrap"></th>
                                                                 </tr>
-                                                            </tbody>    
+                                                            </tbody>
+                                                            @foreach($detail as $key => $data)
+                                                            <tr>
+                                                                <td>{{$key+1}}</td>
+                                                                <td>{{$data->numbers}}</td>
+                                                                <td>$ {{$data->money}}</td>
+                                                                <td>{{$data->quantity}}</td>
+                                                                <td>$ {{$data->total}}</td>
+                                                                <td>{{$data->description}}</td>
+                                                                <td><a href="javascript:void(0)" class="del" onclick="remove_item(<?php echo $key ?>)"><i class="fas fa-minus-circle text-danger"></i><a></td>
+                                                            </tr>
+                                                            @endforeach
                                                             <!-- <tr>
                                                                 <td>1</td>
                                                                 <td>UW-999</td>
@@ -156,8 +281,8 @@
                                                         總價款：
                                                     </div>
                                                     <div class="col-sm-12 mb-s">
-                                                        <a href="個人業務.html"><button type="button" class="btn btn-default">返回</button></a>
-                                                        <button type="button" class="btn btn-primary">更新</button>
+                                                        <a href="{{ route('ht.Business.self.index',['organization'=>$organization]) }}"><button type="button" class="btn btn-default">返回</button></a>
+                                                        <button type="submit" class="btn btn-primary">更新</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -313,7 +438,7 @@
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">類型</span>
-                                <select class="form-control" name="" id="">
+                                <select class="form-control">
                                     <option value="">一般</option>
                                     <option value="">覆訪</option>
                                 </select>
@@ -360,16 +485,25 @@
     });
     //清單物件
     var arr = []
+    var imp = []
+    var _id
+    var _num
+    var _type
+    var _price
+    var _quantity
+    var _total
+    var _intro
+    var _del
     //清單模板
     var item = `
-            <tr class="item" id=val_{{id}}>
-                <td>{{num}}</td>
-                <td>{{type}}</td>
-                <td>{{price}}</td>
-                <td>{{quantity}}</td>
-                <td class="total-s">{{total}}</td>
-                <td>{{intro}}</td>
-                <td><a href="javascript:void(0)" class="del" del={{del}}><i class="fas fa-minus-circle text-danger"></i><a></td>
+            <tr class="item" id=val_`+_id+`>
+                <td>`+_num+`</td>
+                <td>`+_type+`</td>
+                <td>`+_price+`</td>
+                <td>`+_quantity+`</td>
+                <td class="total-s">`+_total+`</td>
+                <td>`+_intro+`</td>
+                <td><a href="javascript:void(0)" class="del" del=`+_del+`><i class="fas fa-minus-circle text-danger"></i><a></td>
             </tr>`
     //每次新增清空表單        
     $('.opadd').click(function() {
@@ -386,6 +520,7 @@
         var total = $('#addlist .total').val()
         var type = $('#addlist .type').val()
         var intro = $('#addlist .intro').val()
+
         if ((price || quantity || total || type || intro) !== "") {
             arr.push({ price, quantity, total, type, intro })
             showlist();
@@ -395,7 +530,7 @@
 
     });
 
-    //顯示清單
+       //顯示清單
     function showlist() {
         var price = $('#addlist .price').val()
         var quantity = $('#addlist .quantity').val()
@@ -414,14 +549,14 @@
                             </tr>`)
         for (var i = 0; i < arr.length; i++) {
 
-            var c_item = item.replace("{{id}}", i)
-                .replace("{{num}}", i + 1)
-                .replace("{{type}}", arr[i].type)
-                .replace("{{price}}", arr[i].price)
-                .replace("{{quantity}}", arr[i].quantity)
-                .replace("{{total}}", arr[i].total)
-                .replace("{{intro}}", arr[i].intro)
-                .replace("{{del}}", i);
+            var c_item = item.replace(_id, i)
+                .replace(_num, i + 1)
+                .replace(_type, arr[i].type)
+                .replace(_price, arr[i].price)
+                .replace(_quantity, arr[i].quantity)
+                .replace(_total, arr[i].total)
+                .replace(_intro, arr[i].intro)
+                .replace(_del, i);
 
             $('#showlist tbody').append(c_item);
 
@@ -447,7 +582,7 @@
 
     ////////流單要填寫原因
     $('select.result').on('change', function() {
-        if ($(this).val() == "流單") {
+        if ($(this).val() == "流單" || $(this).val() == "其他") {
             $('.reason').show();
         } else {
             $('.reason').hide();
@@ -503,7 +638,7 @@
     $('body').on('click', '.Overview-set .add-member.week-b', function() {
         $(this).parents('.Overview-set').find('.weekwrap').append(`
             <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
-                <select name="" id="" class="form-control">
+                <select  class="form-control">
                     <option value="">星期一</option>
                     <option value="">星期二</option>
                     <option value="">星期三</option>
@@ -517,5 +652,136 @@
             </div>
         `);
     });
+    </script>
+    <script>
+            var area_data = {
+            '臺北市': [
+                '中正區', '大同區', '中山區', '萬華區', '信義區', '松山區', '大安區', '南港區', '北投區', '內湖區', '士林區', '文山區'
+            ],
+            '新北市': [
+                '板橋區', '新莊區', '泰山區', '林口區', '淡水區', '金山區', '八里區', '萬里區', '石門區', '三芝區', '瑞芳區', '汐止區', '平溪區', '貢寮區', '雙溪區', '深坑區', '石碇區', '新店區', '坪林區', '烏來區', '中和區', '永和區', '土城區', '三峽區', '樹林區', '鶯歌區', '三重區', '蘆洲區', '五股區'
+            ],
+            '基隆市': [
+                '仁愛區', '中正區', '信義區', '中山區', '安樂區', '暖暖區', '七堵區'
+            ],
+            '桃園市': [
+                '桃園區', '中壢區', '平鎮區', '八德區', '楊梅區', '蘆竹區', '龜山區', '龍潭區', '大溪區', '大園區', '觀音區', '新屋區', '復興區'
+            ],
+            '新竹縣': [
+                '竹北市', '竹東鎮', '新埔鎮', '關西鎮', '峨眉鄉', '寶山鄉', '北埔鄉', '橫山鄉', '芎林鄉', '湖口鄉', '新豐鄉', '尖石鄉', '五峰鄉'
+            ],
+            '新竹市': [
+                '東區', '北區', '香山區'
+            ],
+            '苗栗縣': [
+                '苗栗市', '通霄鎮', '苑裡鎮', '竹南鎮', '頭份鎮', '後龍鎮', '卓蘭鎮', '西湖鄉', '頭屋鄉', '公館鄉', '銅鑼鄉', '三義鄉', '造橋鄉', '三灣鄉', '南庄鄉', '大湖鄉', '獅潭鄉', '泰安鄉'
+            ],
+            '臺中市': [
+                '中區', '東區', '南區', '西區', '北區', '北屯區', '西屯區', '南屯區', '太平區', '大里區', '霧峰區', '烏日區', '豐原區', '后里區', '東勢區', '石岡區', '新社區', '和平區', '神岡區', '潭子區', '大雅區', '大肚區', '龍井區', '沙鹿區', '梧棲區', '清水區', '大甲區', '外埔區', '大安區'
+            ],
+            '南投縣': [
+                '南投市', '埔里鎮', '草屯鎮', '竹山鎮', '集集鎮', '名間鄉', '鹿谷鄉', '中寮鄉', '魚池鄉', '國姓鄉', '水里鄉', '信義鄉', '仁愛鄉'
+            ],
+            '彰化縣': [
+                '彰化市', '員林鎮', '和美鎮', '鹿港鎮', '溪湖鎮', '二林鎮', '田中鎮', '北斗鎮', '花壇鄉', '芬園鄉', '大村鄉', '永靖鄉', '伸港鄉', '線西鄉', '福興鄉', '秀水鄉', '埔心鄉', '埔鹽鄉', '大城鄉', '芳苑鄉', '竹塘鄉', '社頭鄉', '二水鄉', '田尾鄉', '埤頭鄉', '溪州鄉'
+            ],
+            '雲林縣': [
+                '斗六市', '斗南鎮', '虎尾鎮', '西螺鎮', '土庫鎮', '北港鎮', '莿桐鄉', '林內鄉', '古坑鄉', '大埤鄉', '崙背鄉', '二崙鄉', '麥寮鄉', '臺西鄉', '東勢鄉', '褒忠鄉', '四湖鄉', '口湖鄉', '水林鄉', '元長鄉'
+            ],
+            '嘉義縣': [
+                '太保市', '朴子市', '布袋鎮', '大林鎮', '民雄鄉', '溪口鄉', '新港鄉', '六腳鄉', '東石鄉', '義竹鄉', '鹿草鄉', '水上鄉', '中埔鄉', '竹崎鄉', '梅山鄉', '番路鄉', '大埔鄉', '阿里山鄉'
+            ],
+            '嘉義市': [
+                '東區', '西區'
+            ],
+            '臺南市': [
+                '中西區', '東區', '南區', '北區', '安平區', '安南區', '永康區', '歸仁區', '新化區', '左鎮區', '玉井區', '楠西區', '南化區', '仁德區', '關廟區', '龍崎區', '官田區', '麻豆區', '佳里區', '西港區', '七股區', '將軍區', '學甲區', '北門區', '新營區', '後壁區', '白河區', '東山區', '六甲區', '下營區', '柳營區', '鹽水區', '善化區', '大內區', '山上區', '新市區', '安定區'
+            ],
+            '高雄市': [
+                '楠梓區', '左營區', '鼓山區', '三民區', '鹽埕區', '前金區', '新興區', '苓雅區', '前鎮區', '小港區', '旗津區', '鳳山區', '大寮區', '鳥松區', '林園區', '仁武區', '大樹區', '大社區', '岡山區', '路竹區', '橋頭區', '梓官區', '彌陀區', '永安區', '燕巢區', '田寮區', '阿蓮區', '茄萣區', '湖內區', '旗山區', '美濃區', '內門區', '杉林區', '甲仙區', '六龜區', '茂林區', '桃源區', '那瑪夏區'
+            ],
+            '屏東縣': [
+                '屏東市', '潮州鎮', '東港鎮', '恆春鎮', '萬丹鄉', '長治鄉', '麟洛鄉', '九如鄉', '里港鄉', '鹽埔鄉', '高樹鄉', '萬巒鄉', '內埔鄉', '竹田鄉', '新埤鄉', '枋寮鄉', '新園鄉', '崁頂鄉', '林邊鄉', '南州鄉', '佳冬鄉', '琉球鄉', '車城鄉', '滿州鄉', '枋山鄉', '霧台鄉', '瑪家鄉', '泰武鄉', '來義鄉', '春日鄉', '獅子鄉', '牡丹鄉', '三地門鄉'
+            ],
+            '宜蘭縣': [
+                '宜蘭市', '羅東鎮', '蘇澳鎮', '頭城鎮', '礁溪鄉', '壯圍鄉', '員山鄉', '冬山鄉', '五結鄉', '三星鄉', '大同鄉', '南澳鄉'
+            ],
+            '花蓮縣': [
+                '花蓮市', '鳳林鎮', '玉里鎮', '新城鄉', '吉安鄉', '壽豐鄉', '秀林鄉', '光復鄉', '豐濱鄉', '瑞穗鄉', '萬榮鄉', '富里鄉', '卓溪鄉'
+            ],
+            '臺東縣': [
+                '臺東市', '成功鎮', '關山鎮', '長濱鄉', '海端鄉', '池上鄉', '東河鄉', '鹿野鄉', '延平鄉', '卑南鄉', '金峰鄉', '大武鄉', '達仁鄉', '綠島鄉', '蘭嶼鄉', '太麻里鄉'
+            ],
+            '澎湖縣': [
+                '馬公市', '湖西鄉', '白沙鄉', '西嶼鄉', '望安鄉', '七美鄉'
+            ],
+            '金門縣': [
+                '金城鎮', '金湖鎮', '金沙鎮', '金寧鄉', '烈嶼鄉', '烏坵鄉'
+            ],
+            '連江縣': [
+                '南竿鄉', '北竿鄉', '莒光鄉', '東引鄉'
+            ]
+        };
+        
+        // 台灣縣市載入
+        $(document).ready(function(){
+            for(var i=0;i<Object.keys(area_data).length;i++){
+            $(".area1").append("<option value='"+Object.keys(area_data)[i]+"'>"+Object.keys(area_data)[i]+"</option>")
+            }
+        });
+
+        // 台灣縣市變動時地區載入
+        $(".area1").change(function(){
+            var val=$(this).val();
+            $(".area2").html('');
+            $(".area2").append('<option class="append-start" selected value="">鄉鎮市</option>');
+            for(i=0;i<area_data[val].length;i++){
+                $(".area2").append("<option value='"+area_data[val][i]+"'>"+area_data[val][i]+"</option>")
+            }
+        });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#trackFrom').on('submit',function(e){
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            var calendar = $('#showlist');
+            var rows = calendar.find('tbody')[0].rows;
+
+            var detailLength = rows.length
+            formData.append('detailLength', detailLength);
+
+            for(var i=1;i<rows.length;i++){
+                var td1 = rows[i].cells[1].innerText
+                var td2 = rows[i].cells[2].innerText
+                var td3 = rows[i].cells[3].innerText
+                var td4 = rows[i].cells[4].innerText
+                var td5 = rows[i].cells[5].innerText
+
+                var detail = [];
+
+                detail.push(td1,td2,td3,td4,td5)
+
+                formData.append('detail'+[i], detail);
+            }
+
+            formData.append( "_token", '{{csrf_token()}}' )
+
+            $.ajax({
+                method:'post',
+                url:'{{ route('ht.Business.self.trackUpdate',['organization'=>$organization,'id'=>$id]) }}',
+                data:formData,
+                success:function(res){
+                    if(res.status == '200'){
+                        location.href = '{{ route('ht.Business.self.index',['organization'=>$organization]) }}';
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            })
+        })
+    })
 </script>
 @endsection

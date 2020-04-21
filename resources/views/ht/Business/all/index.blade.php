@@ -19,10 +19,10 @@
                                             <div class="tabbable">
                                                 <!-- tab標籤 -->
                                                 <ul class="nav nav-tabs">
-                                                    <li>
+                                                    <li class="active">
                                                         <a data-toggle="tab" href="#viewers-tab-01">拜訪紀錄檢視</a>
                                                     </li>
-                                                    <li class="active">
+                                                    <li >
                                                         <a data-toggle="tab" href="#viewers-tab-02">案件追蹤檢視</a>
                                                     </li>
                                                     <li>
@@ -32,7 +32,7 @@
                                                 <!-- tab標籤內容 -->
                                                 <div class="tab-content">
                                                     <!-- 拜訪紀錄 -->
-                                                    <div class="tab-pane" id="viewers-tab-01">
+                                                    <div class="tab-pane active" id="viewers-tab-01">
                                                         <div class='coupon'>
                                                             <form class='form-inline'>
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s1" placeholder="請輸入關鍵字">
@@ -79,33 +79,24 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                @foreach($visitTable as $key => $data)
                                                                 <tr>
-                                                                    <td class="text-nowrap">2020-03-20</td>
-                                                                    <td>早上(AM)</td>
-                                                                    <td>賀桃企業</td>
-                                                                    <td></td>
-                                                                    <td>陌訪</td>
-                                                                    <td>介紹機器</td>
-                                                                    <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
-                                                                    <td><a class="text-nowrap" href="tel:0222346789">02-22346789</a></td>
-                                                                    <td></td>
+                                                                    <td class="text-nowrap">{{ $data->date }}</td>
+                                                                    <td>{{ $data->time }}</td>
+                                                                    <td>{{ $data->name }}</td>
+                                                                    <td>{{ $data->business_name }}</td>
+                                                                    <td>{{ $data->type }}</td>
+                                                                    <td>{{ $data->content }}</td>
+                                                                    <td><a href="https://www.google.com.tw/maps/place/{{ $data->city }}{{ $data->area }}{{ $data->address }}" target="_blank">{{ $data->city }}{{ $data->area }}{{ $data->address }}</a></td>
+                                                                    <td><a class="text-nowrap" href="tel:{{ $data->phone }}">{{ $data->phone }}</a></td>
+                                                                    <td>{{ $data->other }}</td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td class="text-nowrap">2020-03-20</td>
-                                                                    <td>早上(AM)</td>
-                                                                    <td>賀桃企業</td>
-                                                                    <td></td>
-                                                                    <td>陌訪</td>
-                                                                    <td>介紹機器</td>
-                                                                    <td><a href="https://goo.gl/maps/792UzW6hhFk46drx7" target="_blank">楊梅區秀才路919號</a></td>
-                                                                    <td><a class="text-nowrap" href="tel:0222346789">02-22346789</a></td>
-                                                                    <td></td>
-                                                                </tr>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <!-- 案件追蹤 -->
-                                                    <div class="tab-pane active" id="viewers-tab-02">
+                                                    <div class="tab-pane" id="viewers-tab-02">
                                                         <div class='coupon'>
                                                             <form class='form-inline'>
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
@@ -187,9 +178,10 @@
                                                                             <input class='form-control' placeholder='選擇月份' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div>
                                                                     <select class='form-control ml-s float-right sales-select'>
-                                                                        <option selected value="">王小明</option>
-                                                                        <option value="">曾曾</option>
-                                                                        <option value="">Cindy</option>
+                                                                        <option selected value="All">全部</option>
+                                                                        @foreach($deptUser as $key => $data)
+                                                                        <option value="{{ $data['id'] }}">{{ $data['name'] }}</option>
+                                                                        @endforeach
                                                                     </select>
                                                                 </div>
                                                                 <button class='mr-s mb-s' type="button">查詢</button>
@@ -208,12 +200,14 @@
                                                                 <div class="w-100 charts-border"> 
                                                                     <div class="col-sm-12 mt-s">
                                                                         <select class='form-control ml-s sales-select mt-s'>
-                                                                            <option selected value="">王小明</option>
-                                                                            <option value="">曾曾</option>
+                                                                            <option selected value="All">全部</option>
+                                                                            @foreach($deptUser as $key => $data)
+                                                                            <option value="{{ $data['id'] }}">{{ $data['name'] }}</option>
+                                                                            @endforeach
                                                                         </select>
                                                                     </div>    
                                                                     <div class="col-sm-6">
-                                                                        <h4 class="mt-m text-center">追蹤筆數：40筆</h4>   
+                                                                        <h4 class="mt-m text-center">追蹤筆數：{{$trackChartCount}}筆</h4>   
                                                                         <div class="bd-right" id="chart3" style="width: 100%; height: 300px;"></div>
                                                                     </div>
                                                                     <div class="col-sm-6">
@@ -221,11 +215,11 @@
                                                                         <div>
                                                                             <div id="chart4" style="width: 100%; height: 300px;"></div>
                                                                             <ul>
-                                                                                <li>結單總筆數：25筆</li>
-                                                                                <li>參考成交總金額：$350,000元</li>
-                                                                                <li>新增客戶數：5家</li>
+                                                                                <li>結單總筆數：{{$finishChartCount}}筆</li>
+                                                                                <li>參考成交總金額：${{$money}}元</li>
+                                                                                <li>新增客戶數：{{$newCustomChartCount}}家</li>
                                                                             </ul>
-                                                                        </div> 
+                                                                        </div>
                                                                     </div>     
                                                                 </div>     
                                                             </div>
@@ -238,11 +232,10 @@
                                                                         </div>    
                                                                         <div class="w-50 mt-s">
                                                                             <select class='form-control products-select mb-s'>
-                                                                                <option selected value="">UW-999</option>
-                                                                                <option value="">UW-1303</option>
-                                                                                <option value="">UW-1302</option>
-                                                                                <option value="">UW-997</option>
-                                                                                <option value="">UW-998</option>
+                                                                                <option selected value="All">全部</option>
+                                                                                @foreach($numberSelect as $key => $data)
+                                                                                <option value="">{{$data}}</option>
+                                                                                @endforeach
                                                                             </select>
                                                                             <table id="hetao-sale">
                                                                                 <thead>
@@ -252,18 +245,12 @@
                                                                                     </tr>
                                                                                 </thead>   
                                                                                 <tbody>
+                                                                                    @foreach($userTableArray as $key => $data)
                                                                                     <tr>
-                                                                                        <td>王小明</td>
-                                                                                        <td class="text-right">6</td>
+                                                                                        <td>{{$key}}</td>
+                                                                                        <td class="text-right">{{$data}}</td>
                                                                                     </tr>
-                                                                                    <tr>
-                                                                                        <td>曾曾</td>
-                                                                                        <td class="text-right">7</td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>Cindy</td>
-                                                                                        <td class="text-right">10</td>
-                                                                                    </tr>
+                                                                                    @endforeach
                                                                                 </tbody>     
                                                                             </table>
                                                                         </div>  
@@ -376,52 +363,83 @@
         table_s1.search(this.value).draw();
     });
 
-    var data = [{
+    var track = {!! json_encode($trackTable) !!}; //php變數轉換
+
+    var data = new Array();
+
+    $.each(track, function (i, item) {
+
+        if(item.statusOpen == 'Y'){
+            var statusOpen = "<span class='text-success'>已發布</span>"
+        }
+        else{
+            var statusOpen = "<span class='text-danger'>未發布</span>"
+        }
+
+        if(item.date_again == null){
+            var date_again = ''
+        }
+        else{
+            var date_again = item.date_again
+        }
+
+        if(item.uniform_numbers == null){
+            var uniform_numbers = ''
+        }
+        else{
+            var uniform_numbers = item.uniform_numbers
+        }
+
+        if(item.email == null){
+            var email = ''
+        }
+        else{
+            var email = item.email
+        }
+
+        if(item.level == null){
+            var level = ''
+        }
+        else if(item.level == 'A'){
+            var level = "<span class='text-danger'>A</span>"
+        }
+        else if(item.level == 'B'){
+            var level = "<span class='text-primary'>B</span>"
+        }
+        else if(item.level == 'C'){
+            var level = "<span class='text-success'>C</span>"
+        }
+        else if(item.level == 'D'){
+            var level = "<span class='text-warning'>D</span>"
+        }
+
+        var url = '{{ route('ht.Business.self.trackEdit',['organization'=>$organization,'id'=>':id']) }}'
+        url = url.replace(':id',item.id);
+
+        data[i] = {
             first: `
             <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
+                <input class="chkall" type="checkbox" name="businessTrack" value="`+item.id+`">
             </div>
             `,
-            day: "<spann class='text-nowrap'>2020-03-20</span>",
-            sales: "王小明",
-            level: "<span class='text-danger'>A</span>",
-            progress: "已報價",
-            kind: "商用",
-            name: "愛酷智能",
-            staff: "Cindy",
-            phone: "<a href='tel:0212345678'>02-12345678</a>",
-            reday: "<spann class='text-nowrap'>2020-03-25</span>",
-            result: "",
-            watch: "<a href='案件紀錄-檢視.html' target='_blank'><button class='btn btn-primary' type='button'>查看</button>",
-            uniform: "11111111",
-            mail: "xxx@gmail.com",
-            address: "台北市松山區敦化南路一段2號5樓",
-            type: "UW-999 UW-998"
-        },
-        {
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            day: "<spann class='text-nowrap'>2020-03-20</span>",
-            sales: "王小明",
-            level: "<span class='text-danger'>A</span>",
-            progress: "已報價",
-            date: "<spann class='text-nowrap'>2019-10-01</span>",
-            kind: "商用",
-            name: "愛酷智能",
-            staff: "Cindy",
-            phone: "<a href='tel:0212345678'>02-12345678</a>",
-            reday: "2020-03-25",
-            result: "成交",
-            watch: "<a href='案件紀錄-檢視.html' target='_blank'><button class='btn btn-primary' type='button'>查看</button>",
-            uniform: "11111111",
-            mail: "xxx@gmail.com",
-            address: "台北市松山區敦化南路一段2號5樓",
-            type: "UW-999 UW-998"
-        },
-    ];
+            day: "<spann class='text-nowrap'>"+item.date+"</span>",
+            sales: item.business_name,
+            level: level,
+            progress: item.schedule,
+            kind: item.category,
+            name: item.name,
+            staff: item.business_name,
+            phone: "<a href='tel:"+item.phone+"'>"+item.phone+"</a>",
+            reday: "<spann class='text-nowrap'>"+date_again+"</span>",
+            result: item.result,
+            public: statusOpen,
+            watch: "<a href='"+url+"'><button class='btn btn-primary' type='button'>查看</button>",
+            uniform: uniform_numbers,
+            mail: email,
+            address: item.address,
+            type: "test"
+        }
+    })
 
     function format(d) {
         return (
@@ -513,6 +531,8 @@
     });
 
 
+    var businessChartCount = {!! json_encode($businessChartCount) !!};
+
     // 圖表
     AmCharts.makeChart("chart1", {
         "hideCredits": "true",
@@ -533,16 +553,10 @@
         "valueField": "column-1",
         "allLabels": [],
         "titles": [],
-        "dataProvider": [{
-                "category": "業務工作",
-                "column-1": "19"
-            },
-            {
-                "category": "非業務工作支援",
-                "column-1": "10"
-            }
-        ]
+        "dataProvider": businessChartCount
     });
+
+    var businessChart = {!! json_encode($businessChart) !!};
 
     AmCharts.makeChart("chart2", {
         "hideCredits": "true",
@@ -579,44 +593,10 @@
             "size": 15,
             "text": ""
         }],
-        "dataProvider": [{
-                "category": "其他",
-                "column-1": "1"
-            },
-            {
-                "category": "協助安裝",
-                "column-1": "2"
-            },
-            {
-                "category": "送文件",
-                "column-1": "0"
-            },
-            {
-                "category": "收款",
-                "column-1": "5"
-            },
-            {
-                "category": "送機器",
-                "column-1": "4"
-            },
-            {
-                "category": "看現場",
-                "column-1": "10"
-            },
-            {
-                "category": "洽機",
-                "column-1": "5"
-            },
-            {
-                "category": "陌訪",
-                "column-1": "2"
-            },
-            {
-                "category": "拜訪",
-                "column-1": "2"
-            }
-        ]
+        "dataProvider": businessChart
     });
+
+    var TrackBusinessChartCount = {!! json_encode($TrackBusinessChartCount) !!};
 
     AmCharts.makeChart("chart3", {
         "hideCredits": "true",
@@ -637,16 +617,10 @@
         "valueField": "column-1",
         "allLabels": [],
         "titles": [],
-        "dataProvider": [{
-                "category": "結單",
-                "column-1": "19"
-            },
-            {
-                "category": "未結單",
-                "column-1": "10"
-            }
-        ]
+        "dataProvider": TrackBusinessChartCount
     });
+
+    var resultChart = {!! json_encode($resultChart) !!};
 
     AmCharts.makeChart("chart4", {
         "hideCredits": "true",
@@ -668,19 +642,7 @@
         "valueField": "column-1",
         "allLabels": [],
         "titles": [],
-        "dataProvider": [{
-                "category": "成交",
-                "column-1": "19"
-            },
-            {
-                "category": "流單",
-                "column-1": "5"
-            },
-            {
-                "category": "其他",
-                "column-1": "2"
-            }
-        ],
+        "dataProvider": resultChart,
         "legend": {
             "enabled":true,
             "align": "center",
@@ -688,7 +650,9 @@
         },
     });
 
-AmCharts.makeChart("chart5", {
+    var numberFinalChart = {!! json_encode($numberFinalChart) !!};
+
+    AmCharts.makeChart("chart5", {
         "hideCredits": "true",
         "type": "serial",
         "fontSize": 16,
@@ -723,27 +687,7 @@ AmCharts.makeChart("chart5", {
             "size": 15,
             "text": ""
         }],
-        "dataProvider": [{
-                "category": "UW-999",
-                "column-1": "1"
-            },
-            {
-                "category": "UW-1303",
-                "column-1": "2"
-            },
-            {
-                "category": "UW-1302",
-                "column-1": "0"
-            },
-            {
-                "category": "UW-997",
-                "column-1": "5"
-            },
-            {
-                "category": "UW-998",
-                "column-1": "4"
-            },
-        ]
+        "dataProvider": numberFinalChart
     });
 
     // 數據切換圖表

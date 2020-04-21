@@ -16,7 +16,7 @@ class CreateBusinessTracksTable extends Migration
         Schema::create('business_tracks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('business_id')->comment("業務-拜訪id");
-            $table->date('data_again')->comment("覆訪日期");
+            $table->date('date_again')->comment("覆訪日期");
             $table->string('level')->comment("客戶等級");
             $table->string('schedule')->comment("案件進度");
             $table->string('category')->comment("客戶類別");

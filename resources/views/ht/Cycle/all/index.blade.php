@@ -80,12 +80,11 @@
                                                                             </li>
                                                                             <li class="divider"></li>
                                                                             <li>
-                                                                                <select class='' id='sel1'>
+                                                                                <select class='' id='cycleStaffSelect'>
                                                                                     <option selected disabled>請指派負責員工</option>
-                                                                                    <option>Ricky</option>
-                                                                                    <option>Eva</option>
-                                                                                    <option>Apple</option>
-                                                                                    <option>Banana</option>
+                                                                                    @foreach($deptUser as $key => $data)
+                                                                                    <option value="{{$data['id']}}">{{$data['name']}}</option>
+                                                                                    @endforeach
                                                                                 </select>
                                                                             </li>
                                                                             <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert" href="#">批次指派</a></li>
@@ -145,10 +144,9 @@
                                                                             <li>
                                                                                 <select class='' id='sel2'>
                                                                                     <option selected disabled>請指派負責員工</option>
-                                                                                    <option>Ricky</option>
-                                                                                    <option>Eva</option>
-                                                                                    <option>Apple</option>
-                                                                                    <option>Banana</option>
+                                                                                    @foreach($deptUser as $key => $data)
+                                                                                    <option value="{{$data['id']}}">{{$data['name']}}</option>
+                                                                                    @endforeach
                                                                                 </select>
                                                                             </li>
                                                                             <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert" href="#">批次指派</a></li>
@@ -284,7 +282,7 @@
                 </div>
                 <div class="modal-body text-center"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">確認</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="cycleAssign">確認</button>
                 </div>
             </div>
         </div>
@@ -293,55 +291,47 @@
 
 @section('scripts')
 <script>
-    var data1 = [{
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-        {
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-    ];
+
+    var cycle = {!! json_encode($cycle) !!}; //php變數轉換
+    var allAssign = {!! json_encode($allAssign) !!}; //php變數轉換
+
+    var data1 = new Array();
+    var k = -1
+
+    $.each(cycle, function (i, item) {
+
+        var a = allAssign.indexOf(item.KIND)
+
+        if(a == -1){
+            k++
+
+            data1[k] = {
+                first: `
+                <div class="td-icon">
+                <input class="chkall" type="checkbox" name="cycleKind" value="`+item.KIND+`">
+                </div>
+                `,
+                cycle: item.KIND,
+                name: item.CUSTKEY,
+                staff: item.TOUCH,
+                tel: "<a href='tel:"+item.COMTEL+"' class='text-nowrap'>"+item.COMTEL+"</a>",
+                prev: item.LSTDATE,
+                this: item.NXTDATE,
+                day: item.CYCLE,
+                section: item.AREA,
+                principal: "",
+                housetel: "<a href='tel:"+item.HOMETEL+"' class='text-nowrap'>"+item.HOMETEL+"</a>",
+                mob: "<a href='tel:"+item.MPHONE+"' class='text-nowrap'>"+item.MPHONE+"</a>",
+                mechine: "<a href='https://www.google.com.tw/maps/place/"+item.MACHINE+"' target='_blank'>"+item.MACHINE+"</a>",
+                address: "<a href='https://www.google.com.tw/maps/place/"+item.PAYMENT+"' target='_blank'>"+item.PAYMENT+"</a>",
+                productid: item.CDOE,
+                productquantity: item.NUM,
+                productprice: item.PRICE,
+                other: item.MEMO
+            }
+        }
+
+    })
 
     function format1(d) {
         return (
@@ -438,56 +428,39 @@
         });
     });
 
+    var assign = {!! json_encode($assign) !!}; //php變數轉換
 
-    var data2 = [{
+    var data2 = new Array();
+
+    $.each(assign, function (i, item) {
+
+        data2[i] = {
             first: `
             <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
+            <input class="chkall" type="checkbox" name="assignKind" value="`+item.kind+`">
             </div>
             `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            status: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-        {
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            status: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-    ];
+            cycle: item.kind,
+            name: item.custkey,
+            staff: item.touch,
+            tel: "<a href='tel:"+item.companyTel+"' class='text-nowrap'>"+item.companyTel+"</a>",
+            prev: item.lastDate,
+            this: item.thisDate,
+            day: item.cycle,
+            section: item.area,
+            principal: item.staff,
+            status:item.status,
+            housetel: "<a href='tel:"+item.homeTel+"' class='text-nowrap'>"+item.homeTel+"</a>",
+            mob: "<a href='tel:"+item.mobile+"' class='text-nowrap'>"+item.mobile+"</a>",
+            mechine: "<a href='https://www.google.com.tw/maps/place/"+item.machine+"' target='_blank'>"+item.machine+"</a>",
+            address: "<a href='https://www.google.com.tw/maps/place/"+item.payAddress+"' target='_blank'>"+item.payAddress+"</a>",
+            productid: item.productCode,
+            productquantity: item.productNum,
+            productprice: item.productPrice,
+            other: item.other
+        }
+
+    })
 
     function format2(d) {
         return (
@@ -755,5 +728,34 @@
             `)
         }
     });
+    </script>
+    <script type="text/javascript">
+        $('#cycleAssign').on('click',function(){
+
+            var count = 0
+
+            $('input[name="cycleKind"]:checked').each(function(){
+
+                 var id = $(this).val()
+                 var staff = $('#cycleStaffSelect').val()
+
+                 $.ajax({
+                    type:'post',
+                    url:"{{ route('ht.Cycle.all.cycleAssign',['organization'=>$organization]) }}",
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'id':id,
+                        'staff':staff
+                    },
+                    success:function(res){
+                        if(res.status == 200 && count == 0){
+                            count += 1;
+                            alert('卡片已指派');
+                            window.location = '{{ route('ht.Cycle.all.index',['organization'=>$organization]) }}'
+                        }
+                    }
+                 })
+            })
+        })
     </script>
 @endsection

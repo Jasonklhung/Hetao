@@ -56,24 +56,13 @@
                                                                             </li>
                                                                             <li class="divider"></li>
                                                                             <li>
-                                                                                <select class='' id='sel1'>
-                                                                                    <option selected disabled>請指派負責主管</option>
-                                                                                    <option>Ricky</option>
-                                                                                    <option>Eva</option>
-                                                                                    <option>Apple</option>
-                                                                                    <option>Banana</option>
-                                                                                </select>
+                                                                                <input class='day-set-c' placeholder='選擇日期' type='text' readonly id="editDate">
                                                                             </li>
-                                                                            <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert" href="#">批次指派</a></li>
-                                                                            <li class="divider"></li>
-                                                                            <li>
-                                                                                <input class='day-set-c' placeholder='選擇日期' type='text' readonly>
-                                                                            </li>
-                                                                            <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert" href="#">選擇日期</a></li>
+                                                                            <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert1" href="#">選擇日期</a></li>
                                                                             <li class="divider"></li>
                                                                             <li><a data-toggle="modal" data-target="#newalert" href="#">轉單</a></li>
-                                                                            <li><a data-toggle="modal" data-target="#op-alert" href="#">完成</a></li>
-                                                                            <li><a data-toggle="modal" data-target="#op-alert" href="#">通知</a></li>
+                                                                            <li><a data-toggle="modal" data-target="#op-alert2" href="#">完成</a></li>
+                                                                            <li><a data-toggle="modal" data-target="#op-alert3" href="#">通知</a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -103,24 +92,24 @@
                                                             <div class="d-flex w-100">
                                                                 <span class="w-60px">完成</span>
                                                                 <div class="progress flex-grow">
-                                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                                                                        70%
+                                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{$cycleF}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$cycleF}}%">
+                                                                        {{$cycleF}}%
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="d-flex w-100">
                                                                 <span class="w-60px">執行中</span>
                                                                 <div class="progress flex-grow">
-                                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                                                                        20%
+                                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{$cycleS}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$cycleS}}%">
+                                                                        {{$cycleS}}%
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="d-flex w-100">
                                                                 <span class="w-60px">轉單</span>
                                                                 <div class="progress flex-grow">
-                                                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width:33%">
-                                                                        33%
+                                                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{{$cycleT}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$cycleT}}%">
+                                                                        {{$cycleT}}%
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -180,8 +169,35 @@
 @endsection
 
 @section('modal')
-<!-- Modal-alert -->
-    <div class="modal fade" id="op-alert" role="dialog">
+    <!-- 週期循環修改日期 -->
+    <div class="modal fade" id="op-alert1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="changeDate">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 週期循環完成 -->
+    <div class="modal fade" id="op-alert2" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="cycleFinish">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="op-alert3" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-none">
@@ -205,290 +221,38 @@
 
 @section('scripts')
 <script>
-    var data1 = [{
+
+    var cycle = {!! json_encode($cycle) !!}; //php變數轉換
+
+    var data1 = new Array();
+
+    $.each(cycle, function (i, item) {
+
+        data1[i] = {
             first: `
             <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
+            <input class="chkall" type="checkbox" name="assignId" value="`+item.id+`">
             </div>
             `,
-            cycle: "類別",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-        {
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },{
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-        {
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },{
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-        {
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },{
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-        {
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },{
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-        {
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },{
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-        {
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-    ];
+            cycle: item.kind,
+            name: item.custkey,
+            staff: item.touch,
+            tel: "<a href='tel:"+item.companyTel+"' class='text-nowrap'>"+item.companyTel+"</a>",
+            prev: item.lastDate,
+            this: item.thisDate,
+            day: item.cycle,
+            section: item.area,
+            principal: item.staff,
+            housetel: "<a href='tel:"+item.homeTel+"' class='text-nowrap'>"+item.homeTel+"</a>",
+            mob: "<a href='tel:"+item.mobile+"' class='text-nowrap'>"+item.mobile+"</a>",
+            mechine: "<a href='https://www.google.com.tw/maps/place/"+item.machine+"' target='_blank'>"+item.machine+"</a>",
+            address: "<a href='https://www.google.com.tw/maps/place/"+item.payAddress+"' target='_blank'>"+item.payAddress+"</a>",
+            productid: item.productCode,
+            productquantity: item.productNum,
+            productprice: item.productPrice,
+            other: item.other
+        }
+    })
 
     function format1(d) {
         return (
@@ -586,55 +350,37 @@
     });
 
 
-    var data2 = [{
+    var cycleNext = {!! json_encode($cycleNext) !!}; //php變數轉換
+
+    var data2 = new Array();
+
+    $.each(cycleNext, function (i, item) {
+
+        data2[i] = {
             first: `
             <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
+            <input class="chkall" type="checkbox" value="">
             </div>
             `,
-            finishday: "2020-03-10",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            next: "2020-03-15",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            principal: "Cindy",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            cycle: "",
-            other: "無",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            day: "10",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            section: "",
-        },
-        {
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            finishday: "2020-03-10",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            next: "2020-03-15",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            principal: "Cindy",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            cycle: "",
-            other: "無",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            day: "10",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            section: "",
-        },
-    ];
+            finishday: item.finishDate,
+            name: item.custkey,
+            staff: item.touch,
+            next: item.nextDate,
+            productid: item.productCode,
+            productquantity: item.productNum,
+            productprice: item.productPrice,
+            housetel: "<a href='tel:"+item.homeTel+"' class='text-nowrap'>"+item.homeTel+"</a>",
+            tel: "<a href='tel:"+item.companyTel+"' class='text-nowrap'>"+item.companyTel+"</a>",
+            principal: item.staff,
+            mob: "<a href='tel:"+item.mobile+"' class='text-nowrap'>"+item.mobile+"</a>",
+            cycle: item.kind,
+            other: item.other,
+            mechine: "<a href='https://www.google.com.tw/maps/place/"+item.machine+"' target='_blank'>"+item.machine+"</a>",
+            day: item.cycle,
+            address: "<a href='https://www.google.com.tw/maps/place/"+item.payAddress+"' target='_blank'>"+item.payAddress+"</a>",
+            section: item.area,
+        }
+    })
 
     function format2(d) {
         return (
@@ -742,11 +488,41 @@
 
 
     // modal-alert
-    $('a[data-target="#op-alert"]').on('click', function() {
+    $('a[data-target="#op-alert1"]').on('click', function() {
         var text = $(this).text()
         var checked = $("input.chkall")
         if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert1 .modal-body').html(`
+                <p>確認` + text + `嗎？</p>
+            `)
+        } else {
             $('#op-alert .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+
+    // modal-alert
+    $('a[data-target="#op-alert2"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert2 .modal-body').html(`
+                <p>確認` + text + `嗎？</p>
+            `)
+        } else {
+            $('#op-alert .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+
+    // modal-alert
+    $('a[data-target="#op-alert3"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert3 .modal-body').html(`
                 <p>確認` + text + `嗎？</p>
             `)
         } else {
@@ -768,24 +544,24 @@
                 <div class="modal-body m-0">
                     <form>
                         <div class="d-block mb-s">
-                            <input class="choose" id="choose1" type="radio" name="t" value="">
+                            <input class="choose" id="choose1" type="radio" name="t" value="newDate" checked>
                             <label for="choose1" class="chooseitem">
-                                客戶另約日期<br><div class='form-inline'>下次日期<input type="text" class="form-control day-set ml-s"></div>
+                                客戶另約日期<br><div class='form-inline'>下次日期<input type="text" class="form-control day-set ml-s" name="newDate"></div>
                             </label>
                         </div>
-                        <div class="d-block mb-s"><input class="choose" id="choose2" type="radio" name="t" value=""><label for="choose2" class="chooseitem">客戶不需更換</label></div>
+                        <div class="d-block mb-s"><input class="choose" id="choose2" type="radio" name="t" value="notChange"><label for="choose2" class="chooseitem">客戶不需更換</label></div>
                         <div class="d-block mb-s">
                             <div class='form-inline'>
-                                <input class="choose" id="choose3" type="radio" name="t" value="">
+                                <input class="choose" id="choose3" type="radio" name="t" value="other">
                                 <label for="choose3" class="chooseitem">其他</label>
-                                <input type="text" class="form-control ml-s">
+                                <input type="text" class="form-control ml-s" name="reason">
                             </div>     
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">確認</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="cycleTurn">確認</button>
                 </div>
             `)
             $(function() {
@@ -800,6 +576,49 @@
                     locale: 'ZH-TW',
                 });
             });
+
+            //轉單
+            $('#cycleTurn').on('click',function(){
+
+                var count = 0
+
+                $('input[name="assignId"]:checked').each(function(){
+
+                    var id = $(this).val()
+                    var radio = $('input[name="t"]:checked').val();
+
+                    if(radio == 'newDate'){
+
+                        var reason = $('input[name="newDate"]').val()
+                    }
+                    else if(radio == 'notChange'){
+
+                        var reason = "客戶不需更換"
+                    }
+                    else if(radio == 'other'){
+
+                        var reason = $('input[name="reason"]').val()
+                    }
+
+                    $.ajax({
+                        type:'post',
+                        url:"{{ route('ht.Cycle.self.cycleTurn',['organization'=>$organization]) }}",
+                        data:{
+                            '_token':'{{csrf_token()}}',
+                            'id':id,
+                            'radio':radio,
+                            'reason':reason
+                        },
+                        success:function(res){
+                            if(res.status == 200 && count == 0){
+                                count += 1;
+                                alert('卡片已完成');
+                                window.location = '{{ route('ht.Cycle.self.index',['organization'=>$organization]) }}'
+                            }
+                        }
+                    })
+                })
+            })
         } else {
             $('#newalert .modal-content').html(`
                 <div class="modal-header border-none">
@@ -814,5 +633,62 @@
             `)
         }
     });
+    </script>
+    <script type="text/javascript">
+        //更改日期
+        $('#changeDate').on('click',function(){
+
+            var count = 0
+
+            $('input[name="assignId"]:checked').each(function(){
+
+                 var id = $(this).val()
+                 var date = $('#editDate').val()
+
+                 $.ajax({
+                    type:'post',
+                    url:"{{ route('ht.Cycle.self.changeDate',['organization'=>$organization]) }}",
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'id':id,
+                        'date':date
+                    },
+                    success:function(res){
+                        if(res.status == 200 && count == 0){
+                            count += 1;
+                            alert('日期已修改');
+                            window.location = '{{ route('ht.Cycle.self.index',['organization'=>$organization]) }}'
+                        }
+                    }
+                 })
+            })
+        })
+
+        //完成
+        $('#cycleFinish').on('click',function(){
+
+            var count = 0
+
+            $('input[name="assignId"]:checked').each(function(){
+
+                 var id = $(this).val()
+
+                 $.ajax({
+                    type:'post',
+                    url:"{{ route('ht.Cycle.self.cycleFinish',['organization'=>$organization]) }}",
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'id':id,
+                    },
+                    success:function(res){
+                        if(res.status == 200 && count == 0){
+                            count += 1;
+                            alert('卡片已完成');
+                            window.location = '{{ route('ht.Cycle.self.index',['organization'=>$organization]) }}'
+                        }
+                    }
+                 })
+            })
+        })
     </script>
 @endsection

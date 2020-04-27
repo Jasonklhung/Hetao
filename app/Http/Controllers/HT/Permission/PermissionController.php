@@ -15,7 +15,7 @@ class PermissionController extends Controller
     public function index(Organization $organization,User $user)
     {
 
-    	$users = User::select('users.*','organizations.name as company')
+    	$users = User::select('users.*','organizations.name as company','organizations.area')
     			->Leftjoin('organizations','users.organization_id','=','organizations.id')
     			->where('organization_id',$organization->id)->get();
 

@@ -107,6 +107,7 @@
                                                 <table class="table table-hover dt-responsive table-striped" id="hetao-list-authority">
                                                     <thead class="rwdhide">
                                                         <tr>
+                                                            <th class="desktop">地區</th>
                                                             <th class="desktop">營站</th>
                                                             <th class="desktop">人員職稱</th>
                                                             <th class="desktop">人員名稱</th>
@@ -119,6 +120,7 @@
                                                     <tbody>
                                                         @foreach($users as $data)
                                                         <tr>
+                                                            <td>{{ $data->area }}</td>
                                                             <td>{{ $data->company }}</td>
                                                             <td>{{ $data->job }}</td>
                                                             <td>{{ $data->name }}</td>
@@ -165,6 +167,18 @@
             <div class="modal-body m-0">
                 <form action="">
                     <ul>
+                        <li class="mb-s">
+                            <span class="mb-xs">地區</span>
+                            <select class="form-control">
+                                <option value="" selected hidden disabled>請選擇</option>
+                                <option value="">新北</option>
+                                <option value="">桃園</option>
+                                <option value="">新竹</option>
+                                <option value="">苗栗</option>
+                                <option value="">高雄</option>
+                                <option value="">屏東</option>
+                            </select>
+                        </li>
                         <li class="mb-s">
                             <span class="mb-xs">站名</span>
                             <input class="form-control" type="text">

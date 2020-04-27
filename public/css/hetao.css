@@ -178,11 +178,15 @@ input, textarea {
     padding: 20px 10px;
 }
 
-.dataTable tbody>tr>td {
+.dataTable tbody>tr>td:not(.day) {
     text-align: left;
     vertical-align: middle;
     height: 30px;
     position: relative;
+}
+
+.dataTables_empty {
+    text-align: center!important;
 }
 
 .dataTables_filter {
@@ -434,6 +438,10 @@ small {
     margin-top: 12px!important;
 }
 
+table.dataTable.mt-0 {
+    margin-top: 0!important;
+}
+
 .m-0 {
     margin: 0!important;
 }
@@ -576,6 +584,9 @@ ul {
 .bootstrap-datetimepicker-widget th {
     font-weight: bold !important;
 }
+.datepicker table td.day {
+    text-align: center;
+}
 
 /* 行程管理-助理
 =================================*/
@@ -586,7 +597,7 @@ ul {
 
 /*detail.html*/
 .field {
-    max-width: 768px;
+    max-width: 768px!important;
 }
 
 .dispatch-form .field:nth-child(1) {
@@ -756,9 +767,17 @@ h4.title-deco {
 }
 
 .dataTables_wrapper table.dataTable {
-    border-collapse: collapse !important;
-    margin: -1px !important;
-    width: 1590px !important;
+	border-collapse: collapse !important;
+	/*margin: -1px !important;*/
+	width: 1590px !important;
+}
+
+.dataTables_wrapper table.dataTable.w-100 {
+    width: 100% !important;
+}
+
+.dataTables_wrapper table thead th.sorting {
+    padding-right: 32px!important;
 }
 
 .iframe .dataTables_wrapper table.dataTable, .warehouse .dataTables_wrapper table.dataTable {
@@ -766,10 +785,10 @@ h4.title-deco {
 }
 
 .permission .dataTables_wrapper table.dataTable, .assistant#hetao-list-a {
-    width: 100% !important;
+	width: 100% !important;
 }
 .dataTables_wrapper table.dataTable#hetao-list-ab {
-    width: 100% !important;
+	width: 100% !important;
 }
 
 @media screen and (max-width: 860px) {
@@ -787,6 +806,11 @@ h4.title-deco {
 /*dtatatable*/
 .dtr-details tr td:nth-child(odd) {
     width: 80px;
+    text-align-last: justify;
+}
+
+#hetao-list-authority .dtr-details tr td:nth-child(odd) {
+    width: 108px;
 }
 
 .dataTables_wrapper div.dataTables_info {
@@ -821,7 +845,9 @@ h4.title-deco {
     }
 
     #hetao-sale .odd,
-    #hetao-sale .even {
+    #hetao-sale .even,
+    #hetao-sale2 .odd,
+    #hetao-sale2 .even {
         visibility: inherit;
         display: table-row;
     }
@@ -2147,7 +2173,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child, table.
 }
 
 .w-100 {
-    width: 100%;
+    width: 100%!important;
 }
 
 .w-50 {
@@ -2159,7 +2185,13 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child, table.
 }
 
 .w-105px {
-    width: 105px;
+    width: 105px!important;
+    text-align-last: justify;
+    display: inline-block;
+}
+
+.w-150px {
+    width: 150px!important;
 }
 
 .w-auto {
@@ -2383,6 +2415,11 @@ div[id^="hetao-list-norwd"] {
     overflow-x: auto;
 }
 
+div[id^="hetao-list-norwd-cycle"] {
+    width: 100%;
+    margin: 0 auto;
+    overflow: inherit;
+}
 
 div[id^="hetao-list-norwd"] .odd, div[id^="hetao-list-norwd"] .even {
     visibility: inherit;
@@ -2565,6 +2602,15 @@ table.calendar-table>tbody>tr>td {
 .text-right {
     text-align: right!important;
 }
+.table-striped#hetao-sale tr td:nth-child(4) {
+    border-left: 1px solid #d0e5f1;
+}
+
+.table-striped#hetao-sale tr td:nth-child(1), .table-striped#hetao-sale tr td:nth-child(4) {
+    width: 130px;
+    overflow: hidden;
+    border-right:  1px solid #d0e5f1;
+}
 
 
 /* Chrome, Safari, Edge, Opera */
@@ -2637,6 +2683,16 @@ input[type=number] {
     .bd-right {
         border-right: 1px solid #ccc;
     }  
+
+    .rwd-show {
+        display: none;
+    }
+
+    div[id^="hetao-list-norwd-cycle"] {
+        width: 100%;
+        margin: 0 auto;
+        overflow-x: visible;
+    }
 } 
 
 @media screen and (max-width: 767px) {
@@ -2665,3 +2721,9 @@ input[type=number] {
     }
 }
 
+@media screen and (min-width: 576px) {
+    .tb-child td {
+        padding-left: 45px;
+    }
+}
+    

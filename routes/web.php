@@ -51,9 +51,13 @@ Route::group(['middleware' => ['auth']], function () {
 
 		//週期循環-個人
 		Route::get('/HT/{organization}/Cycle/self/index','HT\Cycle\SelfController@index')->name('ht.Cycle.self.index');
+		Route::post('/HT/{organization}/Cycle/self/changeDate','HT\Cycle\SelfController@changeDate')->name('ht.Cycle.self.changeDate');
+		Route::post('/HT/{organization}/Cycle/self/cycleFinish','HT\Cycle\SelfController@cycleFinish')->name('ht.Cycle.self.cycleFinish');
+		Route::post('/HT/{organization}/Cycle/self/cycleTurn','HT\Cycle\SelfController@cycleTurn')->name('ht.Cycle.self.cycleTurn');
 
 		//週期循環-全站
 		Route::get('/HT/{organization}/Cycle/all/index','HT\Cycle\AllController@index')->name('ht.Cycle.all.index');
+		Route::post('/HT/{organization}/Cycle/all/cycleAssign','HT\Cycle\AllController@cycleAssign')->name('ht.Cycle.all.cycleAssign');
 
 		//週期循環-進度
 		Route::get('/HT/{organization}/Cycle/now/index','HT\Cycle\NowController@index')->name('ht.Cycle.now.index');

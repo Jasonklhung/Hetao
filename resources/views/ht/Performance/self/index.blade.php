@@ -37,39 +37,73 @@
                                                         </div>
                                                     </form>
                                                 </div>
-                                                <div class="chartwrap bd overflow-x">
-                                                    <table class="field">
+                                                <div class="chartwrap bd overflow-x mb-m">
+                                                    <table class="table-striped" id="hetao-sale">
                                                         <thead>
                                                             <tr class="text-center">
                                                                 <th>類別</th>
-                                                                @foreach($total as $key => $data)
-                                                                <th>{{ $key }}</th>
-                                                                @endforeach
+                                                                <th>數量</th>
+                                                                <th>小計</th>
+                                                                <th>類別</th>
+                                                                <th>數量</th>
+                                                                <th>小計</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @php
+                                                                $count = 0;
+                                                            @endphp
+                                                            @foreach($total as $key => $data)
+                                                            @php
+                                                                $count++;
+                                                            @endphp
+                                                            @if($count%2 == 1)
                                                             <tr>
-                                                                <td>數量</td>
-                                                                @foreach($total as $key => $data)
-                                                                <td>{{ $data['mount'] }}</td>
-                                                                @endforeach
+                                                                <td class="text-primary">{{$key}}</td>
+                                                                <td>{{$data['mount']}}</td>
+                                                                <td>{{$data['money']}}</td>
+                                                            @elseif($count%2 == 0)
+                                                                <td class="text-primary">{{$key}}</td>
+                                                                <td>{{$data['mount']}}</td>
+                                                                <td>{{$data['money']}}</td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>小計</td>
-                                                                @foreach($total as $key => $data)
-                                                                <td>{{ $data['money'] }}</td>
-                                                                @endforeach
-                                                            </tr>
+                                                            @endif
+                                                            @endforeach
                                                         </tbody>    
                                                     </table>
                                                 </div>
-                                                <select name="" id="" class="mt-m mb-s form-control d-inline w-auto">
-                                                    <option value="" selected>類別</option>
-                                                    <option value="">RO</option>
-                                                    <option value="">零件</option>
-                                                    <option value="">機器</option>
-                                                    <option value="">總和</option>
-                                                </select>
+                                                <div class='coupon mt-m'>
+                                                    <form action="" class="form-inline mt-m mb-s">
+                                                        <input type="text" class="form-control mb-s mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
+                                                        <select name="" id="" class="form-control d-inline w-auto mb-s">
+                                                            <option value="" selected>類別</option>
+                                                            <option value="">BOXWATER</option>
+                                                            <option value="">KEYWATER</option>
+                                                            <option value="">RO</option>
+                                                            <option value="">WATER</option>
+                                                            <option value="">TANK</option>
+                                                            <option value="">水處理</option>
+                                                            <option value="">材料</option>
+                                                            <option value="">其他</option>
+                                                            <option value="">保養</option>
+                                                            <option value="">限流閥</option>
+                                                            <option value="">淨水器</option>
+                                                            <option value="">瓶裝型</option>
+                                                            <option value="">費用</option>
+                                                            <option value="">開飲機</option>
+                                                            <option value="">過濾器</option>
+                                                            <option value="">零件</option>
+                                                            <option value="">電解水機</option>
+                                                            <option value="">中古機</option>
+                                                            <option value="">維修</option>
+                                                            <option value="">膜管</option>
+                                                            <option value="">機器</option>
+                                                            <option value="">濾心</option>
+                                                            <option value="">濾材</option>
+                                                            <option value="">清缸</option>
+                                                        </select>
+                                                    </form>    
+                                                </div>    
                                                 <table class="table table-hover dt-responsive table-striped" id="hetao-list-norwd">
                                                     <thead>
                                                         <tr>
@@ -133,15 +167,10 @@
     function format(d) {
         return (
             `<table class="tb-child">
-                <tr>
-                    <td>發票號碼：` + d.invoice + `</td>
-                    <td>客戶全銜：` + d.company + `</td>
-                    <td>聯絡人：` + d.staff + `</td>
-                    <td class="text-nowrap">聯絡電話：` + d.phone + `</td>
-                </tr>
-                <tr>
-                    
-                </tr>
+                <tr><td><span class='w-105px'>發票號碼：</span>` + d.invoice + `</td></tr>
+                <tr><td><span class='w-105px'>客戶全銜：</span>` + d.company + `</td></tr>
+                <tr><td><span class='w-105px'>聯絡人：</span>` + d.staff + `</td></tr>
+                <tr><td class="text-nowrap"><span class='w-105px'>聯絡電話：</span>` + d.phone + `</td></tr>
             </table>`
         );
     }

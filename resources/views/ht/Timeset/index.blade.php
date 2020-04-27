@@ -41,7 +41,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-item">
-                                                        <label class="d-block title-deco">預約前一日通知推播時間
+                                                        <label class="d-block title-deco">於正式工單前一天通知時間
                                                             <label class="switch">
                                                                 @if($timeset[1]['status'] == 'Y')
                                                                 <input type="checkbox" name="reservation" checked>

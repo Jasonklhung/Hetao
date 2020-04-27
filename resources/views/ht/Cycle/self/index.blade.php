@@ -58,7 +58,7 @@
                                                                             <li>
                                                                                 <input class='day-set-c' placeholder='選擇日期' type='text' readonly id="editDate">
                                                                             </li>
-                                                                            <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert1" href="#">選擇日期</a></li>
+                                                                            <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert1" href="#">指定本次日期</a></li>
                                                                             <li class="divider"></li>
                                                                             <li><a data-toggle="modal" data-target="#newalert" href="#">轉單</a></li>
                                                                             <li><a data-toggle="modal" data-target="#op-alert2" href="#">完成</a></li>
@@ -68,7 +68,7 @@
                                                                 </div>
                                                             </form>
                                                         </div>
-                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-norwd">
+                                                        <table class="table table-hover dt-responsive table-striped" id="hetao-list-norwd-cycle">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="desktop"></th>
@@ -239,7 +239,7 @@
             staff: item.touch,
             tel: "<a href='tel:"+item.companyTel+"' class='text-nowrap'>"+item.companyTel+"</a>",
             prev: item.lastDate,
-            this: item.thisDate,
+            this: "<input type='text' class='date-select form-control w-150px d-inline' value='"+item.thisDate+"'>",
             day: item.cycle,
             section: item.area,
             principal: item.staff,
@@ -257,27 +257,26 @@
     function format1(d) {
         return (
             `<table class="tb-child">
-                <tr>
-                    <td>家裡電話：` + d.housetel + `</td>
-                    <td>產品代碼：` + d.productid + `</td>
-                </tr>
-                <tr>
-                    <td>行動電話：` + d.mob + `</td>
-                    <td>產品數量：` + d.productquantity + `</td>
-                </tr>
-                <tr>
-                    <td>機器地址：` + d.productprice + `</td>
-                    <td>產品單價：` + d.productprice + `</td>
-                </tr>
-                <tr>
-                    <td>收款地址：` + d.address + `</td>
-                    <td>其他備註：` + d.other + `</td>
-                </tr>
+                <tr class='rwd-show'><td><span class='w-105px'>公司電話：</span>` + d.tel + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>上次日期：</span>` + d.prev + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>本次日期：</span>` + d.this + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>週期天數：</span>` + d.day + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>區域：</span>` + d.section + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>負責員工：</span>` + d.principal + `</td></tr>
+                <tr><td><span class='w-105px'>家裡電話：</span>` + d.housetel + `</td></tr>
+                <tr><td><span class='w-105px'>行動電話：</span>` + d.mob + `</td></tr>
+                <tr><td><span class='w-105px'>機器地址：</span>` + d.productprice + `</td></tr>
+                <tr><td><span class='w-105px'>收款地址：</span>` + d.address + `</td></tr>
+                <tr><td><span class='w-105px'>產品代碼：</span>` + d.productid + `</td></tr>
+                <tr><td><span class='w-105px'>產品數量：</span>` + d.productquantity + `</td></tr>
+                <tr><td><span class='w-105px'>產品單價：</span>` + d.productprice + `</td></tr>
+                <tr><td><span class='w-105px'>其他備註：</span>` + d.other + `</td></tr>
+                
             </table>`
         );
     }
     $(document).ready(function() {
-        var table_s1 = $("#hetao-list-norwd").DataTable({
+        var table_s1 = $("#hetao-list-norwd-cycle").DataTable({
             "data": data1,
             "bPaginate": true,
             "searching": true,
@@ -306,6 +305,7 @@
                 "orderable": false,
             }, ],
             "responsive": false,
+            autoWidth: false,
             columns: [
                 { data: "first" },
                 {
@@ -327,7 +327,7 @@
             ],
         });
 
-        $("#hetao-list-norwd tbody").on("click", "td.details-control", function() {
+        $("#hetao-list-norwd-cycle tbody").on("click", "td.details-control", function() {
             var tr = $(this).closest("tr");
             var row = table_s1.row(tr);
 
@@ -346,6 +346,41 @@
 
         $(".searchInput_s1").on("keyup", function() {
             table_s1.search(this.value).draw();
+        });
+
+        //rwd讓欄位消失
+        window.onresize = function() {
+              var w = this.innerWidth;
+              table_s1.column(5).visible( w > 768);
+              table_s1.column(6).visible( w > 768);
+              table_s1.column(7).visible( w > 768);
+              table_s1.column(8).visible( w > 768);
+              table_s1.column(9).visible( w > 768);  
+              table_s1.column(10).visible( w > 768);  
+            }
+        //trigger upon pageload
+        $(window).trigger('resize');
+    });
+
+    $(function() {
+        $('.date-select').datetimepicker({
+            format: 'YYYY-MM-DD',
+            ignoreReadonly: true,
+            allowInputToggle: true,
+            locale: 'ZH-TW',
+            useCurrent: false,
+            ignoreReadonly: true,
+        });
+    });
+
+    $('body').on('click', '.details-control span', function(){
+        $('.date-select').datetimepicker({
+            format: 'YYYY-MM-DD',
+            ignoreReadonly: true,
+            allowInputToggle: true,
+            locale: 'ZH-TW',
+            useCurrent: false,
+            ignoreReadonly: true,
         });
     });
 
@@ -385,27 +420,18 @@
     function format2(d) {
         return (
             `<table class="tb-child">
-                <tr>
-                    <td>家裡電話：` + d.housetel + `</td>
-                    <td>公司電話：` + d.productid + `</td>
-                    <td>負責員工：` + d.staff + ` </td>
-                </tr>
-                <tr>
-                    <td>行動電話：` + d.mob + `</td>
-                    <td>週期類別：` + d.cycle + `</td>
-                    <td>機器地址：` + d.mechine + `</td>
-                </tr>
-                <tr>
-                    <td>週期天數：` + d.day + `</td>
-                    <td>收款地址：` + d.address + `</td>
-                    <td>區域：` + d.section + `</td>
-                </tr>
-                <tr>
-                    <td colspan="3">其他備註：` + d.other + `</td>
-                </tr>
+                <tr><td><span class='w-105px'>家裡電話：</span>` + d.housetel + `</td></tr>
+                <tr><td><span class='w-105px'>行動電話：</span>` + d.mob + `</td></tr>
+                <tr><td><span class='w-105px'>週期天數：</span>` + d.day + `</td></tr>
+                <tr><td><span class='w-105px'>公司電話：</span>` + d.productid + `</td></tr>
+                <tr><td><span class='w-105px'>週期類別：</span>` + d.cycle + `</td></tr>
+                <tr><td><span class='w-105px'>收款地址：</span>` + d.address + `</td></tr>
+                <tr><td><span class='w-105px'>負責員工：</span>` + d.staff + ` </td></tr>
+                <tr><td><span class='w-105px'>機器地址：</span>` + d.mechine + `</td></tr>
+                <tr><td><span class='w-105px'>區域：</span>` + d.section + `</td></tr>
+                <tr><td colspan="3"><span class='w-105px'>其他備註：</span>` + d.other + `</td></tr>
             </table>`
-        );
-    }
+        );}
     $(document).ready(function() {
         var table_s2 = $("#hetao-list-norwd2").DataTable({
             "data": data2,
@@ -576,6 +602,13 @@
                     locale: 'ZH-TW',
                 });
             });
+
+            // 通知確認提醒判斷
+            // $('#op-alert button.check').on('click', function(){
+            //     if ($('#op-alert .modal-body p').html() == "確認通知嗎？") {
+            //         $('#messenge-s').modal();
+            //     }
+            // });
 
             //轉單
             $('#cycleTurn').on('click',function(){

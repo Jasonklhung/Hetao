@@ -353,6 +353,7 @@ class SelfController extends Controller
 
     public function store(Organization $organization,Request $request)
     {
+
         $dept = Organization::where('id',$organization->id)->get();
 
         $business = new Business;
@@ -362,7 +363,15 @@ class SelfController extends Controller
         $business->date = $request->date;
         $business->time = $request->time;
         $business->name = $request->name;
-        $business->type = $request->type;
+
+        $typeArray = array();
+        foreach ($request->type as $key => $value) {
+
+           array_push($typeArray, $value);
+        }
+        $type = implode(',', $typeArray);
+        $business->type = $type;
+
         $business->content = $request->content;
         $business->city = $request->city;
         $business->area = $request->area;
@@ -405,7 +414,15 @@ class SelfController extends Controller
         $visit->date = $request->date;
         $visit->time = $request->time;
         $visit->name = $request->name;
-        $visit->type = $request->type;
+
+        $typeArray = array();
+        foreach ($request->type as $key => $value) {
+
+           array_push($typeArray, $value);
+        }
+        $type = implode(',', $typeArray);
+        $visit->type = $type;
+
         $visit->content = $request->content;
         $visit->city = $request->city;
         $visit->area = $request->area;

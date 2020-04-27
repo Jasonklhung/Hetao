@@ -51,55 +51,65 @@
                                                         </div>
                                                         <div class="form-item">
                                                             <label class="d-block"><span class="text-danger">* </span>拜訪類型</label>
-                                                            @if($visit->type == '拜訪')
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="拜訪" checked="" class="mr-s">拜訪</label>
+                                                            @if(strstr($visit->type,'拜訪'))
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="拜訪" checked="" class="mr-s">拜訪</label>
                                                             @else
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="拜訪" class="mr-s">拜訪</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="拜訪" class="mr-s">拜訪</label>
                                                             @endif
-                                                            @if($visit->type == '陌訪')
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="陌訪" checked="" class="mr-s">陌訪</label>
+                                                            @if(strstr($visit->type,'陌訪'))
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="陌訪" checked="" class="mr-s">陌訪</label>
                                                             @else
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="陌訪" class="mr-s">陌訪</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="陌訪" class="mr-s">陌訪</label>
                                                             @endif
-                                                            @if($visit->type == '洽機')
-                                                            <label class="d-inline mr-m"><input type="checkbox" name="type" value="洽機" checked="" class="mr-s">洽機</label>
+                                                            @if(strstr($visit->type,'洽機'))
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="洽機" checked="" class="mr-s">洽機</label>
                                                             @else
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="洽機" class="mr-s">洽機</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="洽機" class="mr-s">洽機</label>
                                                             @endif
-                                                            @if($visit->type == '看現場')
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="看現場" checked="" class="mr-s">看現場</label>
+                                                            @if(strstr($visit->type,'看現場'))
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="看現場" checked="" class="mr-s">看現場</label>
                                                             @else
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="看現場" class="mr-s">看現場</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="看現場" class="mr-s">看現場</label>
                                                             @endif
-                                                            @if($visit->type == '送機器')
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="送機器" checked="" class="mr-s">送機器</label>
+                                                            @if(strstr($visit->type,'送機器'))
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="送機器" checked="" class="mr-s">送機器</label>
                                                             @else
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="送機器" class="mr-s">送機器</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="送機器" class="mr-s">送機器</label>
                                                             @endif
-                                                            @if($visit->type == '收款')
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="收款" checked="" class="mr-s">收款</label>
+                                                            @if(strstr($visit->type,'收款'))
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="收款" checked="" class="mr-s">收款</label>
                                                             @else
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="收款" class="mr-s">收款</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="收款" class="mr-s">收款</label>
                                                             @endif
-                                                            @if($visit->type == '送文件')
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="送文件" checked="" class="mr-s">送文件</label>
+                                                            @if(strstr($visit->type,'送文件'))
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="送文件" checked="" class="mr-s">送文件</label>
                                                             @else
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="送文件" class="mr-s">送文件</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="送文件" class="mr-s">送文件</label>
                                                             @endif
-                                                            @if($visit->type == '協助安裝')
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="協助安裝" checked="" class="mr-s">協助安裝</label>
+                                                            @if(strstr($visit->type,'協助安裝'))
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="協助安裝" checked="" class="mr-s">協助安裝</label>
                                                             @else
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="協助安裝" class="mr-s">協助安裝</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="協助安裝" class="mr-s">協助安裝</label>
                                                             @endif
-                                                            @if($visit->type == '其他')
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="其他" checked="" class="mr-s">其他</label>
+                                                            @if(strstr($visit->type,'其他'))
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="其他" checked="" class="mr-s">其他</label>
                                                             @else
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="其他" class="mr-s">其他</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="其他" class="mr-s">其他</label>
                                                             @endif
-                                                            @if($visit->type == '支援')
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="支援" checked="" class="mr-s">支援</label>
+                                                            @if(strstr($visit->type,'支援'))
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="支援" checked="" class="mr-s">支援</label>
                                                             @else
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="支援" class="mr-s">支援</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="支援" class="mr-s">支援</label>
+                                                            @endif
+                                                            @if(strstr($visit->type,'客訴'))
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="客訴" checked="" class="mr-s">客訴</label>
+                                                            @else
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="客訴" class="mr-s">客訴</label>
+                                                            @endif
+                                                            @if(strstr($visit->type,'客服'))
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="客服" checked="" class="mr-s">客服</label>
+                                                            @else
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" value="客服" class="mr-s">客服</label>
                                                             @endif
                                                         </div>
                                                         <div class="form-item">

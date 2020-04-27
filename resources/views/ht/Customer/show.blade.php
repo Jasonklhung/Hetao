@@ -367,24 +367,32 @@
     function format(d) {
         return (
             `<table class="tb-child">
-                <tr>
-                    <td>加註1：` + d.ps1 + `</td><td>現金：` + d.cash + `</td><td>折讓：` + d.discount + `</td><td>收款群組：` + d.group + `</td><td>退空瓶：` + d.return+`</td>
-                </tr>
-                <tr>
-                    <td>加註2：` + d.ps2 + `</td><td>支票：` + d.check + `</td><td>應收帳款：` + d.receivable + `</td><td>是否預收貨款：` + d.ifprepaid + `</td><td>破損瓶：` + d.damaged + `</td>
-                </tr>
-                <tr>
-                    <td>稅金：` + d.tax + `</td><td>支票號碼：` + d.checknum + `</td><td>銷貨預收：` + d.prepaid + `</td><td>調撥賣給單位：` + d.allocate + `</td><td>抵押金：` + d.mortgage + `</td>
-                </tr>
-                <tr>
-                    <td>未稅總價：` + d.notax + `</td><td>兌換日期：` + d.exchangeday + `</td><td>預收貨款：` + d.prepaidprice + `</td><td>備註：` + d.note + `</td><td>空瓶價：` + d.bottle + `</td>
-                </tr>
-                <tr>
-                    <td>含稅總價` + d.includetax + `</td><td>電匯：` + d.electric + `</td><td>預計收款日：` + d.prepaidday + `</td><td>其他備註：` + d.other + `</td><td>未還空瓶：` + d.noreturn + `</td>
-                </tr>
-                <tr>
-                    <td></td><td></td><td></td><td></td><td>預付未送瓶：` + d.notto + `</td>
-                </tr>
+                <tr><td><span class="w-105px">加註1</span>：` + d.ps1 + `</td></tr>
+                <tr><td><span class="w-105px">加註2</span>：` + d.ps2 + `</td></tr>
+                <tr><td><span class="w-105px">稅金</span>：` + d.tax + `</td></tr>
+                <tr><td><span class="w-105px">未稅總價</span>：` + d.notax + `</td></tr>
+                <tr><td><span class="w-105px">含稅總價</span>：` + d.includetax + `</td></tr>
+                <tr><td><span class="w-105px">現金</span>：` + d.cash + `</td></tr>
+                <tr><td><span class="w-105px">支票</span>：` + d.check + `</td></tr>
+                <tr><td><span class="w-105px">支票號碼</span>：` + d.checknum + `</td></tr>
+                <tr><td><span class="w-105px">兌換日期</span>：` + d.exchangeday + `</td></tr>
+                <tr><td><span class="w-105px">電匯</span>：` + d.electric + `</td></tr>
+                <tr><td><span class="w-105px">折讓</span>：` + d.discount + `</td></tr>
+                <tr><td><span class="w-105px">應收帳款</span>：` + d.receivable + `</td></tr>
+                <tr><td><span class="w-105px">銷貨預收</span>：` + d.prepaid + `</td></tr>
+                <tr><td><span class="w-105px">預收貨款</span>：` + d.prepaidprice + `</td></tr>
+                <tr><td><span class="w-105px">預計收款日</span>：` + d.prepaidday + `</td></tr>
+                <tr><td><span class="w-105px">收款群組</span>：` + d.group + `</td></tr>
+                <tr><td><span class="w-105px">是否預收貨款</span>：` + d.ifprepaid + `</td></tr>
+                <tr><td><span class="w-105px">調撥賣給單位</span>：` + d.allocate + `</td></tr>
+                <tr><td><span class="w-105px">備註</span>：` + d.note + `</td></tr>
+                <tr><td><span class="w-105px">其他備註</span>：` + d.other + `</td></tr>
+                <tr><td><span class="w-105px">退空瓶</span>：` + d.return+`</td></tr>
+                <tr><td><span class="w-105px">破損瓶</span>：` + d.damaged + `</td></tr>
+                <tr><td><span class="w-105px">抵押金</span>：` + d.mortgage + `</td></tr>
+                <tr><td><span class="w-105px">空瓶價</span>：` + d.bottle + `</td></tr>
+                <tr><td><span class="w-105px">未還空瓶</span>：` + d.noreturn + `</td></tr>
+                <tr><td><span class="w-105px">預付未送瓶</span>：` + d.notto + `</td></tr>
             </table>`
         );
     }

@@ -168,7 +168,7 @@
                                                                 </div>
                                                             </form>
                                                         </div>
-                                                        <table class="table table-hover dt-responsive table-striped staff" id="hetao-list-norwd2">
+                                                        <table class="table table-hover dt-responsive table-striped staff w-100" id="hetao-list-norwd2">
                                                             <thead class="">
                                                                 <tr>
                                                                     <th class="desktop"></th>
@@ -305,7 +305,7 @@
 <script src="{{ asset('js/amcharts/responsive.min.js') }}"></script>
 <script>
     var data2 = [{
-            station: "H027",
+            station: "H000 竹北",
             name: "Cindy",
             finish: "5",
             execution: "5",

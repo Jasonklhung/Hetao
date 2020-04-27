@@ -46,16 +46,18 @@
                                                         </div>
                                                         <div class="form-item">
                                                             <label class="d-block"><span class="text-danger">* </span>拜訪類型</label>
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="拜訪" checked="" class="mr-s">拜訪</label>
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="陌訪" class="mr-s">陌訪</label>
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="洽機" class="mr-s">洽機</label>
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="看現場" class="mr-s">看現場</label>
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="送機器" class="mr-s">送機器</label>
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="收款" class="mr-s">收款</label>
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="送文件" class="mr-s">送文件</label>
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="協助安裝" class="mr-s">協助安裝</label>
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="其他" class="mr-s">其他</label>
-                                                            <label class="d-inline mr-m"><input type="radio" name="type" value="支援" class="mr-s">支援</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" checked="" class="mr-s" value="拜訪">拜訪</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" class="mr-s" value="陌訪">陌訪</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" class="mr-s" value="洽機">洽機</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" class="mr-s" value="看現場">看現場</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" class="mr-s" value="送機器">送機器</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" class="mr-s" value="收款">收款</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" class="mr-s" value="送文件">送文件</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" class="mr-s" value="協助安裝">協助安裝</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" class="mr-s" value="其他">其他</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" class="mr-s" value="支援">支援</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" class="mr-s" value="客訴">客訴</label>
+                                                            <label class="d-inline mr-m"><input type="checkbox" name="type[]" class="mr-s" value="客服">客服</label>
                                                         </div>
                                                         <div class="form-item">
                                                             <label class="d-block"><span class="text-danger">* </span>拜訪內容</label>

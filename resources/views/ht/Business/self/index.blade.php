@@ -70,7 +70,7 @@
                                                                             <li>
                                                                                 <input class="d-none" id='chkall1' type='checkbox' value='' /><label for='chkall1' class='sall'></label>
                                                                             </li>
-                                                                            <li class="divid"></li>
+                                                                            <li class="divider"></li>
                                                                             <li><a data-toggle="modal" data-target="#op-alert1" href="#">發布</a></li>
                                                                             <li class=""><a data-toggle="modal" data-target="#op-alert2" href="#">追蹤</a></li>
                                                                             <li class=""><a data-toggle="modal" data-target="#op-alert3" href="#">刪除</a></li>
@@ -180,7 +180,7 @@
                                                                             <li>
                                                                                 <input class="d-none" id='chkall2' type='checkbox' value='' /><label for='chkall2' class='sall'>
                                                                             </li>
-                                                                            <li class="divid"></li>
+                                                                            <li class="divider"></li>
                                                                             <li><a data-toggle="modal" data-target="#op-alert4" href="#">發布</a></li>
                                                                             <li class=""><a data-toggle="modal" data-target="#op-alert5" href="#">轉單</a></li>
                                                                             <li class=""><a data-toggle="modal" data-target="#op-alert6" href="#">刪除</a></li>
@@ -240,7 +240,7 @@
                                                             </form>
                                                         </div>
                                                         <div class="chartwrap chartwrap1">
-                                                            <div id="chart1" style="width: 100%; height: 500px;"></div>
+                                                            <!-- <div id="chart1" style="width: 100%; height: 500px;"></div> -->
                                                             <div id="chart2" style="width: 100%; height: 500px; background-color: #FFFFFF;"></div>
                                                         </div>
                                                         <div class="chartwrap2">
@@ -265,7 +265,7 @@
                                                                 <div class="w-50 chart-border">
                                                                     <h4 class="text-center">各機型銷售狀況</h4> 
                                                                     <div class="">
-                                                                        <table id="hetao-sale">
+                                                                        <table id="hetao-sale" class="mt-0">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th class="w-50">型號</th>
@@ -551,14 +551,17 @@
     function format(d) {
         return (
             `<table class="tb-child">
-                <tr>
-                    <td>統編：` + d.uniform + `</td>
-                    <td>信箱：` + d.mail + `</td>
-                    <td>地址：` + d.address + `</td>
-                </tr>
-                <tr>
-                    <td colspan="3">產品型號：` + d.type + `</td>
-                </tr>
+                <tr class='rwd-show'><td><span class='w-105px'>進度：</span>` + d.progress + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>類別：</span>` + d.kind + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>承辦人：</span>` + d.staff + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>覆訪日期：</span>` + d.reday + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>結果：</span>` + d.result + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>發布：</span>` + d.public + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>操作：</span>` + d.watch + `</td></tr>
+                <tr><td><span class='w-105px'>統編：</span>` + d.uniform + `</td></tr>
+                <tr><td><span class='w-105px'>信箱：</span>` + d.mail + `</td></tr>
+                <tr><td><span class='w-105px'>地址：</span>` + d.address + `</td></tr>
+                <tr><td colspan="3"><span class='w-105px'>產品型號：</span>` + d.type + `</td></tr>
             </table>`
         );
     }
@@ -592,6 +595,7 @@
                 "orderable": false,
             }, ],
             "responsive": false,
+            autoWidth: false,
             columns: [
                 { data: "first" },
                 {
@@ -635,6 +639,20 @@
         $(".searchInput_s2").on("keyup", function() {
             table_s2.search(this.value).draw();
         });
+
+        //rwd讓欄位消失
+        window.onresize = function() {
+              var w = this.innerWidth;
+              table_s2.column(4).visible( w > 768);
+              table_s2.column(5).visible( w > 768);
+              table_s2.column(7).visible( w > 768);
+              table_s2.column(9).visible( w > 768);
+              table_s2.column(10).visible( w > 768);
+              table_s2.column(11).visible( w > 768);  
+              table_s2.column(12).visible( w > 768);  
+            }
+        //trigger upon pageload
+        $(window).trigger('resize');
     });
 
     $(".droptool button").on('click', function() {
@@ -726,33 +744,33 @@
     });
 
 
-    var businessChartCount = {!! json_encode($businessChartCount) !!};
+    // var businessChartCount = {!! json_encode($businessChartCount) !!};
 
-    // 圖表
-    AmCharts.makeChart("chart1", {
-        "hideCredits": "true",
-        "fontSize": 16,
-        "type": "pie",
-        "innerRadius": "60%",
-        "labelRadius": 10,
-        "minRadius": 50,
-        "labelText": "[[title]]: [[value]]筆",
-        "startAngle": 0,
-        "colors": [
-            "#4194d4",
-            "#fece78",
-        ],
-        "marginBottom": 0,
-        "marginTop": 0,
-        "titleField": "category",
-        "valueField": "column-1",
-        "allLabels": [],
-        "titles": [],
-        "dataProvider": businessChartCount,
-        "graphs": [{
-            "balloonText": "[[category]]:[[value]]",
-        }],
-    });
+    // // 圖表
+    // AmCharts.makeChart("chart1", {
+    //     "hideCredits": "true",
+    //     "fontSize": 16,
+    //     "type": "pie",
+    //     "innerRadius": "60%",
+    //     "labelRadius": 10,
+    //     "minRadius": 50,
+    //     "labelText": "[[title]]: [[value]]筆",
+    //     "startAngle": 0,
+    //     "colors": [
+    //         "#4194d4",
+    //         "#fece78",
+    //     ],
+    //     "marginBottom": 0,
+    //     "marginTop": 0,
+    //     "titleField": "category",
+    //     "valueField": "column-1",
+    //     "allLabels": [],
+    //     "titles": [],
+    //     "dataProvider": businessChartCount,
+    //     "graphs": [{
+    //         "balloonText": "[[category]]:[[value]]",
+    //     }],
+    // });
 
     var businessChart = {!! json_encode($businessChart) !!};
 
@@ -806,8 +824,10 @@
         "labelText": "[[title]]: [[value]]人",
         "startAngle": 0,
         "colors": [
-            "#4194d4",
+            "#50b57e",
+            // "#df7571",
             "#fece78",
+            "#c3c3c3",
         ],
         "marginBottom": 0,
         "marginTop": 0,
@@ -827,10 +847,11 @@
         "innerRadius": "60%",
         "labelRadius": 10,
         "minRadius": 50,
-        "labelText": "[[title]]: [[value]]人",
+        "labelText": "[[title]]: [[value]]筆",
         "startAngle": 0,
         "colors": [
-            "#4194d4",
+            "#50b57e",
+            "#df7571",
             "#fece78",
             "#c3c3c3",
         ],

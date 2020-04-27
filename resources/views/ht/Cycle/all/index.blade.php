@@ -65,9 +65,9 @@
                                                                 <select name="" class="form-control mb-s mr-s">
                                                                     <option value="">區域</option>
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
+                                                                <!-- <select name="" class="form-control mb-s mr-s">
                                                                     <option value="">負責員工</option>
-                                                                </select>
+                                                                </select> -->
                                                                 <div class='btn-wrap'>
                                                                     <button class='mr-s' type="button">查詢</button>
                                                                     <button class='mr-s' type="button">重設</button>
@@ -118,6 +118,9 @@
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
                                                                 <select name="" class="form-control mb-s mr-s">
                                                                     <option value="">所有狀態</option>
+                                                                </select>
+                                                                <select name="" class="form-control mb-s mr-s">
+                                                                    <option value="">負責員工</option>
                                                                 </select>
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
@@ -336,22 +339,14 @@
     function format1(d) {
         return (
             `<table class="tb-child">
-                <tr>
-                    <td>家裡電話：` + d.housetel + `</td>
-                    <td>產品代碼：` + d.productid + `</td>
-                </tr>
-                <tr>
-                    <td>行動電話：` + d.mob + `</td>
-                    <td>產品數量：` + d.productquantity + `</td>
-                </tr>
-                <tr>
-                    <td>機器地址：` + d.productprice + `</td>
-                    <td>產品單價：` + d.productprice + `</td>
-                </tr>
-                <tr>
-                    <td>收款地址：` + d.address + `</td>
-                    <td>其他備註：` + d.other + `</td>
-                </tr>
+                <tr><td><span class='w-105px'>家裡電話：</span>` + d.housetel + `</td>  </tr>
+                <tr><td><span class='w-105px'>行動電話：</span>` + d.mob + `</td></tr>
+                <tr><td><span class='w-105px'>機器地址：</span>` + d.productprice + `</td></tr>
+                <tr><td><span class='w-105px'>收款地址：</span>` + d.address + `</td></tr>
+                <tr><td><span class='w-105px'>產品代碼：</span>` + d.productid + `</td></tr>
+                <tr><td><span class='w-105px'>產品數量：</span>` + d.productquantity + `</td></tr>
+                <tr><td><span class='w-105px'>產品單價：</span>` + d.productprice + `</td></tr>
+                <tr><td><span class='w-105px'>其他備註：</span>` + d.other + `</td></tr>
             </table>`
         );
     }
@@ -465,22 +460,14 @@
     function format2(d) {
         return (
             `<table class="tb-child">
-                <tr>
-                    <td>家裡電話：` + d.housetel + `</td>
-                    <td>產品代碼：` + d.productid + `</td>
-                </tr>
-                <tr>
-                    <td>行動電話：` + d.mob + `</td>
-                    <td>產品數量：` + d.productquantity + `</td>
-                </tr>
-                <tr>
-                    <td>機器地址：` + d.productprice + `</td>
-                    <td>產品單價：` + d.productprice + `</td>
-                </tr>
-                <tr>
-                    <td>收款地址：` + d.address + `</td>
-                    <td>其他備註：` + d.other + `</td>
-                </tr>
+                <tr><td><span class='w-105px'>家裡電話：</span>` + d.housetel + `</td>  </tr>
+                <tr><td><span class='w-105px'>行動電話：</span>` + d.mob + `</td></tr>
+                <tr><td><span class='w-105px'>機器地址：</span>` + d.productprice + `</td></tr>
+                <tr><td><span class='w-105px'>收款地址：</span>` + d.address + `</td></tr>
+                <tr><td><span class='w-105px'>產品代碼：</span>` + d.productid + `</td></tr>
+                <tr><td><span class='w-105px'>產品數量：</span>` + d.productquantity + `</td></tr>
+                <tr><td><span class='w-105px'>產品單價：</span>` + d.productprice + `</td></tr>
+                <tr><td><span class='w-105px'>其他備註：</span>` + d.other + `</td></tr>
             </table>`
         );
     }
@@ -612,22 +599,14 @@
     function format3(d) {
         return (
             `<table class="tb-child">
-                <tr>
-                    <td>家裡電話：` + d.housetel + `</td>
-                    <td>產品代碼：` + d.productid + `</td>
-                </tr>
-                <tr>
-                    <td>行動電話：` + d.mob + `</td>
-                    <td>產品數量：` + d.productquantity + `</td>
-                </tr>
-                <tr>
-                    <td>機器地址：` + d.productprice + `</td>
-                    <td>產品單價：` + d.productprice + `</td>
-                </tr>
-                <tr>
-                    <td>收款地址：` + d.address + `</td>
-                    <td>其他備註：` + d.other + `</td>
-                </tr>
+                <tr><td>家裡電話：` + d.housetel + `</td>  </tr>
+                <tr><td>行動電話：` + d.mob + `</td></tr>
+                <tr><td>機器地址：` + d.productprice + `</td></tr>
+                <tr><td>收款地址：` + d.address + `</td></tr>
+                <tr><td>產品代碼：` + d.productid + `</td></tr>
+                <tr><td>產品數量：` + d.productquantity + `</td></tr>
+                <tr><td>產品單價：` + d.productprice + `</td></tr>
+                <tr><td>其他備註：` + d.other + `</td></tr>
             </table>`
         );
     }

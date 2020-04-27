@@ -7688,6 +7688,10 @@ html.dark .colorpicker:after {
 	padding-right: 21px !important;
 }
 
+.dataTables_wrapper table thead th.dow, .dataTables_wrapper table thead th.next, .dataTables_wrapper table thead th.prev {
+	padding-right: 3px !important;
+}
+
 .dataTables_wrapper div.dataTables_info {
 	font-size: 11.2px;
 	font-size: 0.7rem;

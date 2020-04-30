@@ -87,7 +87,7 @@
                                                                                     @endforeach
                                                                                 </select>
                                                                             </li>
-                                                                            <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert" href="#">批次指派</a></li>
+                                                                            <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert1" href="#">批次指派</a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -145,14 +145,14 @@
                                                                             </li>
                                                                             <li class="divider"></li>
                                                                             <li>
-                                                                                <select class='' id='sel2'>
+                                                                                <select class='' id='cycleReadyStaffSelect'>
                                                                                     <option selected disabled>請指派負責員工</option>
                                                                                     @foreach($deptUser as $key => $data)
                                                                                     <option value="{{$data['id']}}">{{$data['name']}}</option>
                                                                                     @endforeach
                                                                                 </select>
                                                                             </li>
-                                                                            <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert" href="#">批次指派</a></li>
+                                                                            <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert2" href="#">批次指派</a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -227,15 +227,14 @@
                                                                             </li>
                                                                             <li class="divider"></li>
                                                                             <li>
-                                                                                <select class='' id='sel3'>
+                                                                                <select class='' id='cycleTurnStaffSelect'>
                                                                                     <option selected disabled>請指派負責員工</option>
-                                                                                    <option>Ricky</option>
-                                                                                    <option>Eva</option>
-                                                                                    <option>Apple</option>
-                                                                                    <option>Banana</option>
+                                                                                    @foreach($deptUser as $key => $data)
+                                                                                    <option value="{{$data['id']}}">{{$data['name']}}</option>
+                                                                                    @endforeach
                                                                                 </select>
                                                                             </li>
-                                                                            <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert" href="#">批次指派</a></li>
+                                                                            <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert3" href="#">批次指派</a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -276,8 +275,9 @@
 @endsection
 
 @section('modal')
-<!-- Modal-alert -->
-    <div class="modal fade" id="op-alert" role="dialog">
+
+    <!--指派 -->
+    <div class="modal fade" id="op-alert1" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-none">
@@ -286,6 +286,34 @@
                 <div class="modal-body text-center"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal" id="cycleAssign">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--已指派 -->
+    <div class="modal fade" id="op-alert2" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="cycleReady">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--週期異動 -->
+    <div class="modal fade" id="op-alert3" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="cycleTurn">確認</button>
                 </div>
             </div>
         </div>
@@ -362,7 +390,7 @@
                 "search": "",
                 "searchPlaceholder": "請輸入關鍵字",
                 "paginate": { "previous": "上一頁", "next": "下一頁" },
-                "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                "info": "<p>共有 50 張卡片</p>顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
                 "zeroRecords": "沒有符合的搜尋結果",
                 "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
                 "lengthMenu": "呈現筆數 _MENU_",
@@ -429,10 +457,20 @@
 
     $.each(assign, function (i, item) {
 
+        if(item.status == 'S'){
+            var status = '執行中'
+        }
+        else if(item.status == 'T'){
+            var status = '轉單'
+        }
+        else if(item.status == 'F'){
+            var status = '已完成'
+        }
+
         data2[i] = {
             first: `
             <div class="td-icon">
-            <input class="chkall" type="checkbox" name="assignKind" value="`+item.kind+`">
+            <input class="chkall" type="checkbox" name="assignReady" value="`+item.id+`">
             </div>
             `,
             cycle: item.kind,
@@ -444,7 +482,7 @@
             day: item.cycle,
             section: item.area,
             principal: item.staff,
-            status:item.status,
+            status:status,
             housetel: "<a href='tel:"+item.homeTel+"' class='text-nowrap'>"+item.homeTel+"</a>",
             mob: "<a href='tel:"+item.mobile+"' class='text-nowrap'>"+item.mobile+"</a>",
             mechine: "<a href='https://www.google.com.tw/maps/place/"+item.machine+"' target='_blank'>"+item.machine+"</a>",
@@ -543,58 +581,38 @@
         });
     });
 
+    var assignTurn = {!! json_encode($assignTurn) !!}; //php變數轉換
 
-    var data3 = [{
+    var data3 = new Array();
+
+    $.each(assignTurn, function (i, item) {
+
+        data3[i] = {
             first: `
             <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
+                <input class="chkall" type="checkbox" name="assignTurn" value="`+item.id+`">
             </div>
             `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            reason: "",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-        {
-            first: `
-            <div class="td-icon">
-                <input class="chkall" type="checkbox" value="">
-            </div>
-            `,
-            cycle: "",
-            name: "愛酷智能科技",
-            staff: "Cindy",
-            tel: "<a href='tel:0212345678' class='text-nowrap'>02-12345678</a>",
-            prev: "2020-03-15",
-            this: "2020-03-28",
-            day: "10",
-            section: "",
-            principal: "Cindy",
-            reason: "",
-            housetel: "<a href='tel:0200000000' class='text-nowrap'>02-00000000</a>",
-            mob: "<a href='tel:0912345678' class='text-nowrap'>0912345678</a>",
-            mechine: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            address: "<a href='https://www.google.com.tw/maps?hl=zh-TW&tab=rl1' target='_blank'>台北市敦化南路</a>",
-            productid: "00000",
-            productquantity: "3",
-            productprice: "28000",
-            other: "無"
-        },
-    ];
+            cycle: item.kind,
+            name: item.custkey,
+            staff: item.touch,
+            tel: "<a href='tel:"+item.companyTel+"' class='text-nowrap'>"+item.companyTel+"</a>",
+            prev: item.lastDate,
+            this: item.thisDate,
+            day: item.cycle,
+            section: item.area,
+            principal: item.staff,
+            reason: item.turnReason,
+            housetel: "<a href='tel:"+item.homeTel+"' class='text-nowrap'>"+item.homeTel+"</a>",
+            mob: "<a href='tel:"+item.mobile+"' class='text-nowrap'>"+item.mobile+"</a>",
+            mechine: "<a href='https://www.google.com.tw/maps/place/"+item.machine+"' target='_blank'>"+item.machine+"</a>",
+            address: "<a href='https://www.google.com.tw/maps/place/"+item.payAddress+"' target='_blank'>"+item.payAddress+"</a>",
+            productid: item.productCode,
+            productquantity: item.productNum,
+            productprice: item.productPrice,
+            other: item.other
+        }
+    })
 
     function format3(d) {
         return (
@@ -694,11 +712,41 @@
 
 
     // modal-alert
-    $('a[data-target="#op-alert"]').on('click', function() {
+    $('a[data-target="#op-alert1"]').on('click', function() {
         var text = $(this).text()
         var checked = $("input.chkall")
         if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert1 .modal-body').html(`
+                <p>確認` + text + `嗎？</p>
+            `)
+        } else {
             $('#op-alert .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+
+    // modal-alert
+    $('a[data-target="#op-alert2"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert2 .modal-body').html(`
+                <p>確認` + text + `嗎？</p>
+            `)
+        } else {
+            $('#op-alert .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+
+    // modal-alert
+    $('a[data-target="#op-alert3"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert3 .modal-body').html(`
                 <p>確認` + text + `嗎？</p>
             `)
         } else {
@@ -709,6 +757,7 @@
     });
     </script>
     <script type="text/javascript">
+        //指派
         $('#cycleAssign').on('click',function(){
 
             var count = 0
@@ -721,6 +770,64 @@
                  $.ajax({
                     type:'post',
                     url:"{{ route('ht.Cycle.all.cycleAssign',['organization'=>$organization]) }}",
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'id':id,
+                        'staff':staff
+                    },
+                    success:function(res){
+                        if(res.status == 200 && count == 0){
+                            count += 1;
+                            alert('卡片已指派');
+                            window.location = '{{ route('ht.Cycle.all.index',['organization'=>$organization]) }}'
+                        }
+                    }
+                 })
+            })
+        })
+
+        //已指派-重新指派
+        $('#cycleReady').on('click',function(){
+
+            var count = 0
+
+            $('input[name="assignReady"]:checked').each(function(){
+
+                 var id = $(this).val()
+                 var staff = $('#cycleReadyStaffSelect').val()
+
+                 $.ajax({
+                    type:'post',
+                    url:"{{ route('ht.Cycle.all.cycleReady',['organization'=>$organization]) }}",
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'id':id,
+                        'staff':staff
+                    },
+                    success:function(res){
+                        if(res.status == 200 && count == 0){
+                            count += 1;
+                            alert('卡片已指派');
+                            window.location = '{{ route('ht.Cycle.all.index',['organization'=>$organization]) }}'
+                        }
+                    }
+                 })
+            })
+        })
+
+        //週期異動
+        $('#cycleTurn').on('click',function(){
+
+            var count = 0
+
+            $('input[name="assignTurn"]:checked').each(function(){
+
+                 var id = $(this).val()
+                 var staff = $('#cycleTurnStaffSelect').val()
+
+                 $.ajax({
+                    type:'post',
+                    url:"{{ route('ht.Cycle.all.cycleTurn',['organization'=>$organization]) }}",
                     data:{
                         '_token':'{{csrf_token()}}',
                         'id':id,

@@ -125,7 +125,10 @@ class AllController extends Controller
             }
         }
 
-        return view('ht.Cycle.all.index',compact('organization','caseCount','cycle','deptUser','allAssign','assign'));
+        //週期異動-轉單
+        $assignTurn = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','T')->where('statusERP','N')->get();
+
+        return view('ht.Cycle.all.index',compact('organization','caseCount','cycle','deptUser','allAssign','assign','assignTurn'));
     }
 
     public function cycleAssign(Organization $organization,Request $request)
@@ -177,6 +180,30 @@ class AllController extends Controller
                 $cycle->save();
             }
         }
+
+        return array("status"=>200);
+    }
+
+    public function cycleReady(Organization $organization,Request $request)
+    {
+
+        $staff = User::find($request->staff);
+
+        $cycle = CycleAssign::find($request->id);
+        $cycle->staff = $staff['name'];
+        $cycle->save();
+
+        return array("status"=>200);
+    }
+
+    public function cycleTurn(Organization $organization,Request $request)
+    {
+
+        $staff = User::find($request->staff);
+
+        $cycle = CycleAssign::find($request->id);
+        $cycle->staff = $staff['name'];
+        $cycle->save();
 
         return array("status"=>200);
     }

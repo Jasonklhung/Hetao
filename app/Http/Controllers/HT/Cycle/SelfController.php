@@ -78,7 +78,7 @@ class SelfController extends Controller
 
         //個人週期循環
         $dept = Organization::where('id',$organization->id)->get();
-        $cycle = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',Auth::user()->name)->where('status','!=','F')->get();
+        $cycle = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',Auth::user()->name)->whereNotIn('status',['F','T'])->get();
 
         //週期進度
         $cycleFinish = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',Auth::user()->name)->where('status','=','F')->get();
@@ -95,9 +95,17 @@ class SelfController extends Controller
         $cycleT = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',Auth::user()->name)->where('status','=','T')->count(); //轉單
         $cycleTotal = $cycleS+$cycleF+$cycleT;
 
-        $cycleS = ($cycleS/$cycleTotal)*100;
-        $cycleF = ($cycleF/$cycleTotal)*100;
-        $cycleT = ($cycleT/$cycleTotal)*100;
+        if($cycleS != 0){
+            $cycleS = ($cycleS/$cycleTotal)*100;
+        }
+
+        if($cycleF != 0){
+            $cycleF = ($cycleF/$cycleTotal)*100;
+        }
+
+        if($cycleT != 0){
+            $cycleT = ($cycleT/$cycleTotal)*100;
+        }
 
         return view('ht.Cycle.self.index',compact('organization','caseCount','cycle','cycleNext','cycleS','cycleF','cycleT'));
     }
@@ -122,22 +130,25 @@ class SelfController extends Controller
 
     public function cycleTurn(Organization $organization,Request $request)
     {
+
         $cycle = CycleAssign::find($request->id);
         $cycle->status = 'T';
 
-        if($request->radio = 'newDate'){
+        if($request->radio == 'newDate'){
 
             $cycle->turnReason = "客戶另約日期,下次日期為:".$request->reason;
         }
-        elseif($request->radio = 'notChange'){
+        elseif($request->radio == 'notChange'){
 
             $cycle->turnReason = "客戶不需更換";
         }
-        elseif($request->radio = 'other'){
+        elseif($request->radio == 'other'){
 
             $cycle->turnReason = "其他:".$request->reason;
         }
 
-        return array("stauts"=>200);
+        $cycle->save();
+
+        return array("status"=>200);
     }
 }

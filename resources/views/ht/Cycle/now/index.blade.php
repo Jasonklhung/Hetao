@@ -38,111 +38,32 @@
                                                             <thead>
                                                                 <tr>
                                                                     <td class="v-align-bottom" rowspan="2">員工姓名</td>
-                                                                    <td class="text-center" colspan="31">2020年 3月</td>
+                                                                    <td class="text-center" colspan="31">{{date('Y')}}年 {{date('m')}}月</td>
                                                                 </tr>
                                                                 <tr class="text-center">
-                                                                    <th>日<br>1</th>
-                                                                    <th>一<br>2</th>
-                                                                    <th>二<br>3</th>
-                                                                    <th>三<br>4</th>
-                                                                    <th>四<br>5</th>
-                                                                    <th>五<br>6</th>
-                                                                    <th>六<br>7</th>
-                                                                    <th>日<br>8</th>
-                                                                    <th>一<br>9</th>
-                                                                    <th>二<br>10</th>
-                                                                    <th>三<br>11</th>
-                                                                    <th>四<br>12</th>
-                                                                    <th>五<br>13</th>
-                                                                    <th>六<br>14</th>
-                                                                    <th>日<br>15</th>
-                                                                    <th>一<br>16</th>
-                                                                    <th>二<br>17</th>
-                                                                    <th>三<br>18</th>
-                                                                    <th>四<br>19</th>
-                                                                    <th>五<br>20</th>
-                                                                    <th>六<br>21</th>
-                                                                    <th>日<br>22</th>
-                                                                    <th>一<br>23</th>
-                                                                    <th>二<br>24</th>
-                                                                    <th>三<br>25</th>
-                                                                    <th>四<br>26</th>
-                                                                    <th>五<br>27</th>
-                                                                    <th>六<br>28</th>
-                                                                    <th>日<br>29</th>
-                                                                    <th>一<br>30</th>
-                                                                    <th>二<br>31</th>
+                                                                    @foreach($monthDay as $key => $data)
+                                                                    <th>{{$data['week']}}<br>{{$data['date']}}</th>
+                                                                    @endforeach
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                @foreach($allStaffArray as $key => $data)
+                                                                    
                                                                 <tr>
-                                                                    <td class="text-nowrap nametitle">Cindy <span class="text-primary">55張卡片</span></td>
+                                                                    <td class="text-nowrap nametitle">{{$key}} <span class="text-primary">{{$data[date('Y-m-d')]['count']}}</span></td>
+                                                                    @foreach($data as $keys => $datas)
+                                                                    @if($datas['still'] != 0 && $datas['finish'] != 0)
+                                                                    <td><span class="d-block bg-orange h-50 linehiight2">{{$datas['still']}}</span><span class="d-block bg-red h-50 linehiight2">{{$datas['finish']}}</span></td>
+                                                                    @elseif($datas['still'] != 0 && $datas['finish'] == 0)
+                                                                    <td class="bg-red">{{$datas['still']}}</td>
+                                                                    @elseif($datas['still'] == 0 && $datas['finish'] != 0)
+                                                                    <td class="bg-orange">{{$datas['finish']}}</td>
+                                                                    @else
                                                                     <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td><span class="d-block bg-orange h-50 linehiight2">3</span><span class="d-block bg-red h-50 linehiight2">2</span></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td class="bg-red">2</td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
+                                                                    @endif
+                                                                    @endforeach
                                                                 </tr>
-                                                                <tr>
-                                                                    <td class="text-nowrap nametitle">曾曾 <span class="text-primary">66張卡片</span></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td class="bg-orange">7</td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td class="bg-red">2</td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                </tr>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -215,7 +136,7 @@
                                                                 </div>  
                                                                 <div class="chartwrap1"> 
                                                                     <div class="col-sm-6">
-                                                                        <h4 class="mt-m text-center">共有100張卡片</h4>   
+                                                                        <h4 class="mt-m text-center">共有{{count($allFinishNotStillArray)}}張卡片</h4>   
                                                                         <table id="hetao-sale">
                                                                             <thead>
                                                                                 <tr>
@@ -223,19 +144,13 @@
                                                                                     <th class="w-50 text-right">比例</th>
                                                                                 </tr>
                                                                             </thead>
-                                                                            <tbody>  
+                                                                            <tbody>
+                                                                                @foreach($bbb as $key => $data)
                                                                                 <tr>
-                                                                                    <td>王小明</td>
-                                                                                    <td class="text-right">50%</td>
+                                                                                    <td>{{$key}}</td>
+                                                                                    <td class="text-right">{{$data['result']}}%</td>
                                                                                 </tr>
-                                                                                <tr>
-                                                                                    <td>曾曾</td>
-                                                                                    <td class="text-right">25%</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Cindy</td>
-                                                                                    <td class="text-right">25%</td>
-                                                                                </tr>
+                                                                                @endforeach
                                                                             </tbody>   
                                                                         </table>
                                                                     </div>
@@ -246,7 +161,7 @@
                                                                 </div> 
                                                                 <div class="chartwrap2">
                                                                     <div class="col-sm-6">
-                                                                        <h4 class="mt-m text-center">共有100張卡片</h4>  
+                                                                        <h4 class="mt-m text-center">共有{{count($allTurnCaseArray)}}張卡片</h4>  
                                                                         <table id="hetao-sale2">
                                                                             <thead>
                                                                                 <tr>
@@ -254,19 +169,13 @@
                                                                                     <th class="w-50 text-right">比例</th>
                                                                                 </tr>
                                                                             </thead>
-                                                                            <tbody>  
+                                                                            <tbody>
+                                                                                @foreach($ccc as $key => $data)
                                                                                 <tr>
-                                                                                    <td>王小明</td>
-                                                                                    <td class="text-right">50%</td>
+                                                                                    <td>{{$key}}</td>
+                                                                                    <td class="text-right">{{$data['result']}}%</td>
                                                                                 </tr>
-                                                                                <tr>
-                                                                                    <td>曾曾</td>
-                                                                                    <td class="text-right">25%</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Cindy</td>
-                                                                                    <td class="text-right">25%</td>
-                                                                                </tr>
+                                                                                @endforeach
                                                                             </tbody>   
                                                                         </table>
                                                                     </div>
@@ -304,19 +213,28 @@
 <script src="{{ asset('js/amcharts/animated.js') }}"></script>
 <script src="{{ asset('js/amcharts/responsive.min.js') }}"></script>
 <script>
-    var data2 = [{
-            station: "H000 竹北",
-            name: "Cindy",
-            finish: "5",
-            execution: "5",
-            change: "1",
-            total: "11",
+
+    var allStaffArray2 = {!! json_encode($allStaffArray2) !!}; //php變數轉換
+    var companyName = {!! json_encode($companyName) !!}; //php變數轉換
+
+    var data2 = new Array();
+    var k = 0
+
+    $.each(allStaffArray2, function (i, item) {
+
+        data2[k] = {
+            station: companyName,
+            name: i,
+            finish: item.finish,
+            execution: item.still,
+            change: item.turn,
+            total: item.count,
             p_f: `
                 <div class="d-flex w-100">
                     <span class="w-60px">完成</span>
                     <div class="progress flex-grow">
-                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                            70%
+                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="`+Math.round((parseInt(item.finish)/item.count)*100)+`" aria-valuemin="0" aria-valuemax="100" style="width:`+Math.round((parseInt(item.finish)/item.count)*100)+`%">
+                            `+Math.round((parseInt(item.finish)/item.count)*100)+`%
                         </div>
                     </div>
                 </div>
@@ -325,8 +243,8 @@
                 <div class="d-flex w-100">
                     <span class="w-60px">執行中</span>
                     <div class="progress flex-grow">
-                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                            20%
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="`+Math.round((parseInt(item.still)/item.count)*100)+`" aria-valuemin="0" aria-valuemax="100" style="width:`+Math.round((parseInt(item.still)/item.count)*100)+`%">
+                            `+Math.round((parseInt(item.still)/item.count)*100)+`%
                         </div>
                     </div>
                 </div>
@@ -335,53 +253,18 @@
                 <div class="d-flex w-100">
                     <span class="w-60px">轉單</span>
                     <div class="progress flex-grow">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width:33%">
-                            33%
+                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="`+Math.round((parseInt(item.turn)/item.count)*100)+`" aria-valuemin="0" aria-valuemax="100" style="width:`+Math.round((parseInt(item.turn)/item.count)*100)+`%">
+                            `+Math.round((parseInt(item.turn)/item.count)*100)+`%
                         </div>
                     </div>
                 </div>
 
                 `,
-        },{
-            station: "H027",
-            name: "Cindy",
-            finish: "5",
-            execution: "5",
-            change: "1",
-            total: "11",
-            p_f: `
-                <div class="d-flex w-100">
-                    <span class="w-60px">完成</span>
-                    <div class="progress flex-grow">
-                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                            70%
-                        </div>
-                    </div>
-                </div>
-                `,
-            p_e: `
-                <div class="d-flex w-100">
-                    <span class="w-60px">執行中</span>
-                    <div class="progress flex-grow">
-                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                            20%
-                        </div>
-                    </div>
-                </div>
-                `,
-            p_c: `
-                <div class="d-flex w-100">
-                    <span class="w-60px">轉單</span>
-                    <div class="progress flex-grow">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width:33%">
-                            33%
-                        </div>
-                    </div>
-                </div>
+        }
 
-                `,
-        },
-    ];
+        k++;
+
+    })
 
     function format2(d) {
         return (
@@ -456,6 +339,7 @@
         });
     });
 
+    var allCardStatusArray = {!! json_encode($allCardStatusArray) !!}; //php變數轉換
 
     AmCharts.makeChart("chart1", {
         "hideCredits": "true",
@@ -476,16 +360,10 @@
         "valueField": "column-1",
         "allLabels": [],
         "titles": [],
-        "dataProvider": [{
-                "category": "已完成",
-                "column-1": "19"
-            },
-            {
-                "category": "執行中",
-                "column-1": "10"
-            }
-        ]
+        "dataProvider": allCardStatusArray
     });
+
+    var allCardTurnArray = {!! json_encode($allCardTurnArray) !!}; //php變數轉換
 
     AmCharts.makeChart("chart2", {
         "hideCredits": "true",
@@ -506,15 +384,7 @@
         "valueField": "column-1",
         "allLabels": [],
         "titles": [],
-        "dataProvider": [{
-                "category": "轉單",
-                "column-1": "19"
-            },
-            {
-                "category": "正常接單",
-                "column-1": "10"
-            }
-        ]
+        "dataProvider": allCardTurnArray
     });
 
     // 數據切換圖表

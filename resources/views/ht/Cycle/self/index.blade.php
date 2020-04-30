@@ -93,7 +93,7 @@
                                                                 <span class="w-60px">完成</span>
                                                                 <div class="progress flex-grow">
                                                                     <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{$cycleF}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$cycleF}}%">
-                                                                        {{$cycleF}}%
+                                                                        {{round($cycleF)}}%
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -101,7 +101,7 @@
                                                                 <span class="w-60px">執行中</span>
                                                                 <div class="progress flex-grow">
                                                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{$cycleS}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$cycleS}}%">
-                                                                        {{$cycleS}}%
+                                                                        {{round($cycleS)}}%
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -109,7 +109,7 @@
                                                                 <span class="w-60px">轉單</span>
                                                                 <div class="progress flex-grow">
                                                                     <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{{$cycleT}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$cycleT}}%">
-                                                                        {{$cycleT}}%
+                                                                        {{round($cycleT)}}%
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -287,7 +287,7 @@
                 "search": "",
                 "searchPlaceholder": "請輸入關鍵字",
                 "paginate": { "previous": "上一頁", "next": "下一頁" },
-                "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                "info": "<p>共有 50 張卡片</p>顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
                 "zeroRecords": "沒有符合的搜尋結果",
                 "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
                 "lengthMenu": "呈現筆數 _MENU_",
@@ -643,9 +643,11 @@
                             'reason':reason
                         },
                         success:function(res){
+                            console.log(res)
+                            console.log(res.status)
                             if(res.status == 200 && count == 0){
                                 count += 1;
-                                alert('卡片已完成');
+                                alert('轉單成功');
                                 window.location = '{{ route('ht.Cycle.self.index',['organization'=>$organization]) }}'
                             }
                         }
@@ -716,7 +718,7 @@
                     success:function(res){
                         if(res.status == 200 && count == 0){
                             count += 1;
-                            alert('卡片已完成');
+                            alert('週期已完成');
                             window.location = '{{ route('ht.Cycle.self.index',['organization'=>$organization]) }}'
                         }
                     }

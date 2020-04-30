@@ -852,7 +852,8 @@ h4.title-deco {
         display: table-row;
     }
 
-    .noresponsive .odd, .noresponsive .even {
+    .noresponsive .odd, .noresponsive .even, .DTFC_LeftBodyWrapper .odd,
+    .DTFC_LeftBodyWrapper .even {
         visibility: inherit;
         display: table-row;
     }
@@ -873,6 +874,7 @@ h4.title-deco {
         display: inline-block;
         /*width: 50%;*/
     }
+
 }
 @media screen and (max-width: 1030px) {
     #hetao-list-a .rwdhide {
@@ -2597,6 +2599,7 @@ table.calendar-table>tbody>tr>td {
 
 #hetao-sale, #hetao-sale2 {
     width: 100%!important;
+    margin: 0!important;
 }
 
 .text-right {
@@ -2610,6 +2613,64 @@ table.calendar-table>tbody>tr>td {
     width: 130px;
     overflow: hidden;
     border-right:  1px solid #d0e5f1;
+}
+
+.DTFC_ScrollWrapper .table-striped#hetao-sale tr td:nth-child(1), .DTFC_ScrollWrapper .table-striped#hetao-sale tr td:nth-child(4) {
+    border-right:none;
+    border-left: none;
+}
+
+/*全站業績*/
+#hetao-sale.table-bordered.table-hover>tbody>tr>td, #hetao-sale.table-bordered.table-hover>thead>tr>th, #hetao-sale.table-hover>tfoot>tr>td, #hetao-sale_wrapper .table-bordered>thead>tr>td {
+    border: 1px solid #d0e5f1;
+}
+
+#hetao-sale.table-hover tr.odd, #hetao-sale.table-hover tfoot tr {
+    border-top: 2px solid #d0e5f1;
+}
+
+#hetao-sale.dataTable tbody>tr>td.text-primary {
+    text-align: center;
+}
+
+.dataTables_wrapper table.dataTable.DTFC_Cloned {
+    width: 100%!important;
+}
+
+#hetao-sale_wrapper.dataTables_wrapper .dataTables_scroll table.dataTable.fixedleft {
+    width: 2115px !important;
+}
+
+.dataTables_scrollBody thead {
+    visibility: collapse ;
+}
+
+.DTFC_Cloned tbody tr td.text-primary {
+    border-right: 1px solid #d0e5f1;
+}
+
+.DTFC_LeftBodyWrapper tbody {
+    border-top: 2px solid #d0e5f1; 
+}
+
+/*.dataTables_scrollBody tbody tr.odd:nth-of-type(1) {
+    border-top: 5px solid #d0e5f1!important;
+}*/
+
+div.DTFC_LeftBodyWrapper table, div.DTFC_RightBodyWrapper table {
+    margin: -2px 0 !important;
+}
+
+.DTFC_LeftBodyWrapper .table-striped>tbody>tr:nth-of-type(odd) {
+    border-top: 2px solid #d0e5f1;
+}
+
+.v-hide {
+    visibility: hidden;
+}
+
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+    border: 1px solid #d0e5f1;
 }
 
 
@@ -2691,7 +2752,7 @@ input[type=number] {
     div[id^="hetao-list-norwd-cycle"] {
         width: 100%;
         margin: 0 auto;
-        overflow-x: visible;
+        overflow-x: auto;
     }
 } 
 

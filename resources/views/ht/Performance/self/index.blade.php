@@ -37,6 +37,7 @@
                                                         </div>
                                                     </form>
                                                 </div>
+                                                <p>總和： 1200000</p>
                                                 <div class="chartwrap bd overflow-x mb-m">
                                                     <table class="table-striped" id="hetao-sale">
                                                         <thead>

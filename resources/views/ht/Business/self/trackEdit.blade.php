@@ -497,12 +497,12 @@
     //清單模板
     var item = `
             <tr class="item" id=val_`+_id+`>
-                <td>`+_num+`</td>
-                <td>`+_type+`</td>
-                <td>`+_price+`</td>
-                <td>`+_quantity+`</td>
-                <td class="total-s">`+_total+`</td>
-                <td>`+_intro+`</td>
+                <td class="text-nowrap">`+_num+`</td>
+                <td class="text-nowrap">`+_type+`</td>
+                <td class="text-nowrap">`+_price+`</td>
+                <td class="text-nowrap">`+_quantity+`</td>
+                <td class="total-s text-nowrap">`+_total+`</td>
+                <td class="text-nowrap">`+_intro+`</td>
                 <td><a href="javascript:void(0)" class="del" del=`+_del+`><i class="fas fa-minus-circle text-danger"></i><a></td>
             </tr>`
     //每次新增清空表單        

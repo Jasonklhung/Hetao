@@ -58,6 +58,8 @@ Route::group(['middleware' => ['auth']], function () {
 		//週期循環-全站
 		Route::get('/HT/{organization}/Cycle/all/index','HT\Cycle\AllController@index')->name('ht.Cycle.all.index');
 		Route::post('/HT/{organization}/Cycle/all/cycleAssign','HT\Cycle\AllController@cycleAssign')->name('ht.Cycle.all.cycleAssign');
+		Route::post('/HT/{organization}/Cycle/all/cycleReady','HT\Cycle\AllController@cycleReady')->name('ht.Cycle.all.cycleReady');
+		Route::post('/HT/{organization}/Cycle/all/cycleTurn','HT\Cycle\AllController@cycleTurn')->name('ht.Cycle.all.cycleTurn');
 
 		//週期循環-進度
 		Route::get('/HT/{organization}/Cycle/now/index','HT\Cycle\NowController@index')->name('ht.Cycle.now.index');
@@ -99,6 +101,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 		//業務管理-全站業務
 		Route::get('/HT/{organization}/Business/all/index','HT\Business\AllController@index')->name('ht.Business.all.index');
+		Route::get('/HT/{organization}/Business/all/show/{id}','HT\Business\AllController@show')->name('ht.Business.all.show');
 
 		//業績查詢-個人業績
 		Route::get('/HT/{organization}/Performance/self/index','HT\Performance\SelfController@index')->name('ht.Performance.self.index');

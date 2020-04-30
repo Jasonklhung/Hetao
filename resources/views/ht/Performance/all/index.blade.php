@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.app_performance')
 
 @section('content')
 		<div class="main">
@@ -37,40 +37,67 @@
                                                         </div>
                                                     </form>
                                                 </div>
-                                                <div class="chartwrap bd overflow-x">
-                                                    <table class="field">
+                                                <div class="chartwrap bd overflow-x mb-m">
+                                                    <table class="table table-hover table-striped table-bordered fixedleft" id="hetao-sale">
                                                         <thead>
                                                             <tr class="text-center">
                                                                 <th>業務交易統計</th>
+                                                                <th><span class="v-hide">單位</span></th>
                                                                 @foreach($test as $key => $data)
                                                                     
                                                                 <th>{{ $key }}</th>
 
                                                                 @endforeach
+                                                                <th>總計</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             @foreach($total as $key => $data)
+                                                            <tr class="text-center">
+                                                                <td class="text-primary" rowspan="2">{{$key}}</td>
+                                                                <td class="text-muted">數量</td>
+                                                                <td>{{ $data[0]['mount'] }}</td>
+                                                                <td>{{ $data[1]['mount'] }}</td>
+                                                                <td>{{ $data[2]['mount'] }}</td>
+                                                                <td>{{ $data[3]['mount'] }}</td>
+                                                                <td>{{ $data[4]['mount'] }}</td>
+                                                                <td>{{ $data[5]['mount'] }}</td>
+                                                                <td>{{ $data[6]['mount'] }}</td>
+                                                                <td>{{ $data[7]['mount'] }}</td>
+                                                                <td>{{ $data[8]['mount'] }}</td>
+                                                                <td>{{ $data[9]['mount'] }}</td>
+                                                                <td>{{ $data[10]['mount'] }}</td>
+                                                                <td>{{ $data[11]['mount'] }}</td>
+                                                                <td>{{ $data[12]['mount'] }}</td>
+                                                                <td>{{ $data[13]['mount'] }}</td>
+                                                                <td>{{ $data[14]['mount'] }}</td>
+                                                                <td>{{ $data[15]['mount'] }}</td>
+                                                                <td>{{ $data[16]['mount'] }}</td>
+                                                                <td>{{ $data[17]['mount'] }}</td>
+                                                                <td>123</td>
+                                                            </tr>
                                                             <tr>
-                                                                <td>{{$key}}</td>
-                                                                <td>{{ $data[0]['mount'] }}<br>{{ $data[0]['money'] }}</td>
-                                                                <td>{{ $data[1]['mount'] }}<br>{{ $data[1]['money'] }}</td>
-                                                                <td>{{ $data[2]['mount'] }}<br>{{ $data[2]['money'] }}</td>
-                                                                <td>{{ $data[3]['mount'] }}<br>{{ $data[3]['money'] }}</td>
-                                                                <td>{{ $data[4]['mount'] }}<br>{{ $data[4]['money'] }}</td>
-                                                                <td>{{ $data[5]['mount'] }}<br>{{ $data[5]['money'] }}</td>
-                                                                <td>{{ $data[6]['mount'] }}<br>{{ $data[6]['money'] }}</td>
-                                                                <td>{{ $data[7]['mount'] }}<br>{{ $data[7]['money'] }}</td>
-                                                                <td>{{ $data[8]['mount'] }}<br>{{ $data[8]['money'] }}</td>
-                                                                <td>{{ $data[9]['mount'] }}<br>{{ $data[9]['money'] }}</td>
-                                                                <td>{{ $data[10]['mount'] }}<br>{{ $data[10]['money'] }}</td>
-                                                                <td>{{ $data[11]['mount'] }}<br>{{ $data[11]['money'] }}</td>
-                                                                <td>{{ $data[12]['mount'] }}<br>{{ $data[12]['money'] }}</td>
-                                                                <td>{{ $data[13]['mount'] }}<br>{{ $data[13]['money'] }}</td>
-                                                                <td>{{ $data[14]['mount'] }}<br>{{ $data[14]['money'] }}</td>
-                                                                <td>{{ $data[15]['mount'] }}<br>{{ $data[15]['money'] }}</td>
-                                                                <td>{{ $data[16]['mount'] }}<br>{{ $data[16]['money'] }}</td>
-                                                                <td>{{ $data[17]['mount'] }}<br>{{ $data[17]['money'] }}</td>
+                                                                <td style="display: none"></td>
+                                                                <td class="text-muted">小計</td>
+                                                                <td>{{ $data[0]['money'] }}</td>
+                                                                <td>{{ $data[1]['money'] }}</td>
+                                                                <td>{{ $data[2]['money'] }}</td>
+                                                                <td>{{ $data[3]['money'] }}</td>
+                                                                <td>{{ $data[4]['money'] }}</td>
+                                                                <td>{{ $data[5]['money'] }}</td>
+                                                                <td>{{ $data[6]['money'] }}</td>
+                                                                <td>{{ $data[7]['money'] }}</td>
+                                                                <td>{{ $data[8]['money'] }}</td>
+                                                                <td>{{ $data[9]['money'] }}</td>
+                                                                <td>{{ $data[10]['money'] }}</td>
+                                                                <td>{{ $data[11]['money'] }}</td>
+                                                                <td>{{ $data[12]['money'] }}</td>
+                                                                <td>{{ $data[13]['money'] }}</td>
+                                                                <td>{{ $data[14]['money'] }}</td>
+                                                                <td>{{ $data[15]['money'] }}</td>
+                                                                <td>{{ $data[16]['money'] }}</td>
+                                                                <td>{{ $data[17]['money'] }}</td>
+                                                                <td>123123</td>
                                                             </tr>
                                                             @endforeach
                                                         </tbody>    
@@ -79,12 +106,12 @@
                                                 <div class='coupon mt-m'>
                                                     <form action="" class="form-inline mt-m mb-s">
                                                         <input type="text" class="form-control mb-s mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
-                                                        <select name="" id="" class="form-control d-inline w-auto mb-s mr-s">
+                                                        <select  class="form-control d-inline w-auto mb-s mr-s">
                                                             <option value="" selected>業務</option>
                                                             <option value="">Cind</option>
                                                             <option value="">曾曾</option>
                                                         </select>
-                                                        <select name="" id="" class="form-control d-inline w-auto mb-s">
+                                                        <select  class="form-control d-inline w-auto mb-s">
                                                             <option value="" selected>類別</option>
                                                             <option value="">BOXWATER</option>
                                                             <option value="">KEYWATER</option>
@@ -149,6 +176,45 @@
 
 @section('scripts')
 <script>
+    var table_s1 = $("#hetao-sale").DataTable({
+        "bPaginate": true,
+        "searching": true,
+        "info": true,
+        "bLengthChange": false,
+        "bServerSide": false,
+        "language": {
+            "search": "",
+            "searchPlaceholder": "請輸入關鍵字",
+            "paginate": { "previous": "上一頁", "next": "下一頁" },
+            "info": "<p class='m-0'>總和： 1200000</p>",
+            "zeroRecords": "沒有符合的搜尋結果",
+            "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+            "lengthMenu": "呈現筆數 _MENU_",
+            "emptyTable": "目前無工單",
+            "infoFiltered": "(從 _MAX_ 筆中篩選)",
+        },
+        "dom": '<"top"i>rt<"bottom"flp><"clear">',
+        "buttons": [{
+            "extend": "colvis",
+        }],
+        "order": [],
+        "columnDefs": [{
+            "targets": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+            "orderable": false,
+        }],
+        scrollX: true,
+        fixedColumns:   {
+            leftColumns: 2
+        },
+        scrollCollapse: true,
+    });
+    $(".searchInput_s1").on("blur", function() {
+        table_s1.search(this.value).draw();
+    });
+
+    $(".searchInput_s1").on("keyup", function() {
+        table_s1.search(this.value).draw();
+    });
 
     var performance = {!! json_encode($performance) !!}; //php變數轉換
 

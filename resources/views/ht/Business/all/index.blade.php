@@ -191,7 +191,7 @@
                                                                 </select>
                                                             </form>
                                                         </div>
-                                                        <div class="chartwrap chartwrap1">
+                                                        <div class="chartwrap chartwrap1 mt-s">
                                                             <!-- <div id="chart1" style="width: 100%; height: 500px;"></div> -->
                                                             <div id="chart2" style="width: 100%; height: 500px; background-color: #FFFFFF;"></div>
                                                         </div>
@@ -206,11 +206,11 @@
                                                                             @endforeach
                                                                         </select>
                                                                     </div>    
-                                                                    <div class="col-sm-6">
+                                                                    <!-- <div class="col-sm-6">
                                                                         <h4 class="mt-m text-center">追蹤筆數：{{$trackChartCount}}筆</h4>   
                                                                         <div class="bd-right" id="chart3" style="width: 100%; height: 300px;"></div>
-                                                                    </div>
-                                                                    <div class="col-sm-6">
+                                                                    </div> -->
+                                                                    <div class="col-sm-12">
                                                                         <h4 class="mt-m text-center">各案件結單情況</h4> 
                                                                         <div>
                                                                             <div id="chart4" style="width: 100%; height: 300px;"></div>
@@ -413,7 +413,7 @@
             var level = "<span class='text-warning'>D</span>"
         }
 
-        var url = '{{ route('ht.Business.self.trackEdit',['organization'=>$organization,'id'=>':id']) }}'
+        var url = '{{ route('ht.Business.all.show',['organization'=>$organization,'id'=>':id']) }}'
         url = url.replace(':id',item.id);
 
         data[i] = {
@@ -448,13 +448,13 @@
                 <tr class='rwd-show'><td><span class='w-105px'>進度：</span>` + d.progress + `</td></tr>
                 <tr class='rwd-show'><td><span class='w-105px'>類別：</span>` + d.kind + `</td></tr>
                 <tr class='rwd-show'><td><span class='w-105px'>承辦人：</span>` + d.staff + `</td></tr>
-                <tr class='rwd-show'><td><span class='w-105px'>覆訪日期：</span>` + d.reday + `</td></tr>
-                <tr class='rwd-show'><td><span class='w-105px'>結果：</span>` + d.result + `</td></tr>
-                <tr class='rwd-show'><td><span class='w-105px'>操作：</span>` + d.watch + `</td></tr>
                 <tr><td><span class='w-105px'>統編：</span>` + d.uniform + `</td></tr>
                 <tr><td><span class='w-105px'>信箱：</span>` + d.mail + `</td></tr>
                 <tr><td><span class='w-105px'>地址：</span>` + d.address + `</td></tr>
                 <tr><td colspan="3"><span class='w-105px'>產品型號：</span>` + d.type + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>覆訪日期：</span>` + d.reday + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>結果：</span>` + d.result + `</td></tr>
+                <tr class='rwd-show'><td><span class='w-105px'>操作：</span>` + d.watch + `</td></tr>
             </table>`
         );
     }
@@ -575,6 +575,7 @@
     // });
 
     var businessChart = {!! json_encode($businessChart) !!};
+    var allBusinessMonth = {!! json_encode($allBusinessMonth) !!};
 
     AmCharts.makeChart("chart2", {
         "hideCredits": "true",
@@ -604,7 +605,10 @@
             "id": "ValueAxis-1",
             "title": ""
         }],
-        "allLabels": [],
+        "allLabels": [{
+            "id": "Label-1",
+            "text": "當月紀錄總筆數："+allBusinessMonth
+        }],
         "balloon": {},
         "titles": [{
             "id": "Title-1",

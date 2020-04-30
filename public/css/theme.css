@@ -13981,11 +13981,6 @@ blockquote.dark {
 }
 
 /* Paragraphs */
-p {
-	color: #777;
-/*	line-height: 24px;
-	margin: 0 0 20px;*/
-}
 
 p.featured {
 	font-size: 1.6em;

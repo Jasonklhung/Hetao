@@ -127,6 +127,8 @@ class SelfController extends Controller
         $g = 0;
         $h = 0;
         $i = 0;
+        $j = 0;
+        $k = 0;
 
         foreach ($chart as $key => $value) {
             if($value['type'] == '其他'){
@@ -156,9 +158,17 @@ class SelfController extends Controller
             elseif($value['type'] == '拜訪'){
                 $i += 1;
             }
+            elseif($value['type'] == '客訴'){
+                $j += 1;
+            }
+            elseif($value['type'] == '客服'){
+                $k += 1;
+            }
         }
 
-        $businessChart = [array("category"=>'其他','column-1'=>$a),array("category"=>'協助安裝','column-1'=>$b),array("category"=>'送文件','column-1'=>$c),array("category"=>'收款','column-1'=>$d),array("category"=>'送機器','column-1'=>$e),array("category"=>'看現場','column-1'=>$f),array("category"=>'洽機','column-1'=>$g),array("category"=>'陌訪','column-1'=>$h),array("category"=>'拜訪','column-1'=>$i)];
+        $businessChart = [array("category"=>'其他','column-1'=>$a),array("category"=>'協助安裝','column-1'=>$b),array("category"=>'送文件','column-1'=>$c),array("category"=>'收款','column-1'=>$d),array("category"=>'送機器','column-1'=>$e),array("category"=>'看現場','column-1'=>$f),array("category"=>'洽機','column-1'=>$g),array("category"=>'陌訪','column-1'=>$h),array("category"=>'拜訪','column-1'=>$i),array("category"=>'客訴','column-1'=>$j),array("category"=>'客服','column-1'=>$k)];
+
+        $allBusinessMonth = $a+$b+$c+$d+$e+$f+$g+$h+$i+$j+$k;
 
         //圖表-追蹤數-業務分類
         $chart = BusinessTrack::query()
@@ -282,7 +292,7 @@ class SelfController extends Controller
             }
         }
 
-        return view('ht.Business.self.index',compact('organization','caseCount','visit','track','businessChartCount','businessChart','trackChartCount','TrackBusinessChartCount','resultChart','finishChartCount','money','newCustomChartCount','numberChart','numberTotalChart'));
+        return view('ht.Business.self.index',compact('organization','caseCount','visit','track','businessChartCount','businessChart','trackChartCount','TrackBusinessChartCount','resultChart','finishChartCount','money','newCustomChartCount','numberChart','numberTotalChart','allBusinessMonth'));
     }
 
     public function create(Organization $organization)

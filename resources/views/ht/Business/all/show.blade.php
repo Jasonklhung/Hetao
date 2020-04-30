@@ -129,22 +129,24 @@
                                                     <div class="text-primary mx-s clear"><h4 class="bd-bottom">訂單明細 <i class="fas fa-caret-right"></i></h4></div>
                                                     <div class="bd-bottom p-s mx-s overflow-x">
                                                         <table class="w-100 my-s text-center table-hover" id="showlist">
-                                                            <tr>
-                                                                <th class="text-center pb-s">項目</th>
-                                                                <th class="text-center pb-s">產品型號</th>
-                                                                <th class="text-center pb-s">單價(含稅)</th>
-                                                                <th class="text-center pb-s">數量</th>
-                                                                <th class="text-center pb-s">合計</th>
-                                                                <th class="text-center pb-s">說明</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>UW-999</td>
-                                                                <td>$ 28000</td>
-                                                                <td>1</td>
-                                                                <td>$ 28000</td>
-                                                                <td>純水系統</td>
-                                                            </tr>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th class="text-center p-s text-nowrap">項目</th>
+                                                                    <th class="text-center p-s text-nowrap">產品型號</th>
+                                                                    <th class="text-center p-s text-nowrap">單價(含稅)</th>
+                                                                    <th class="text-center p-s text-nowrap">數量</th>
+                                                                    <th class="text-center p-s text-nowrap">合計</th>
+                                                                    <th class="text-center p-s text-nowrap">說明</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-nowrap">1</td>
+                                                                    <td class="text-nowrap">UW-999</td>
+                                                                    <td class="text-nowrap">$ 28000</td>
+                                                                    <td class="text-nowrap">1</td>
+                                                                    <td class="text-nowrap">$ 28000</td>
+                                                                    <td class="text-nowrap">純水系統</td>
+                                                                </tr>
+                                                            </tbody>    
                                                         </table>
                                                     </div>
                                                     <div class="p-s text-center">

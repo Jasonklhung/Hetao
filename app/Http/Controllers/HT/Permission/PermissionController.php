@@ -80,7 +80,10 @@ class PermissionController extends Controller
             $caseCount = count($countArray);
         }
 
-    	return view('ht.Permission.index',compact('organization','users','caseCount'));
+        //列出所有營站
+        $org = Organization::where('id','!=','1')->get();
+
+    	return view('ht.Permission.index',compact('organization','users','caseCount','org'));
     }
 
     public function create(Organization $organization)
@@ -199,7 +202,13 @@ class PermissionController extends Controller
     public function edit(Organization $organization,$id)
     {
     	$user = User::find($id);
-        $user_organization = explode(',', $user->organizations);
+        if($user->organizations == null){
+            $user_organization = [$user->organization_id];
+        }
+        else{
+            $user_organization = explode(',', $user->organizations);
+        }
+        
     	$permission = User::find($id)->permission;
 
     	$companyArray = array();
@@ -436,5 +445,27 @@ class PermissionController extends Controller
 
             return redirect()->route('ht.Permission.index',compact('organization'))->with('success','刪除成功');
         }
+    }
+
+    public function createOrg(Organization $organization,Request $request)
+    {
+        $org = new Organization;
+        $org->name = $request->name;
+        $org->phone = $request->phone;
+        $org->company_name = $request->company_name;
+        $org->company_name_out = $request->company_name_out;
+        $org->area = $request->area;
+        $org->save();
+
+        return redirect()->route('ht.Permission.index',compact('organization'))->with('success','營站新增成功');
+    }
+
+    public function searchUser(Organization $organization,Request $request)
+    {
+        $user = User::select('users.*','organizations.name as company','organizations.area')
+                ->Leftjoin('organizations','users.organization_id','=','organizations.id')
+                ->where('organization_id',$request->id)->get();
+
+        return $user;
     }
 }

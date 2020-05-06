@@ -211,6 +211,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::get('/HT/{organization}/Permission/getUserInfo','HT\Permission\PermissionController@getUserInfo')->name('ht.Permission.getUserInfo');
 
+		Route::post('/HT/{organization}/Permission/createOrg','HT\Permission\PermissionController@createOrg')->name('ht.Permission.createOrg');
+
+		Route::post('/HT/{organization}/Permission/searchUser','HT\Permission\PermissionController@searchUser')->name('ht.Permission.searchUser');
+
 		Route::delete('/HT/{organization}/Permission/destroy','HT\Permission\PermissionController@destroy')->name('ht.Permission.destroy');
 
 		//與我聯繫/滿意度調查表單內容

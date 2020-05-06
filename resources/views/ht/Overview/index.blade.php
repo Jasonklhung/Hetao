@@ -18,6 +18,10 @@
                                         </div>
                                         <div class="panel-body">
                                             <div class="tabbable">
+                                                <form class="mb-s">
+                                                    <input name="mode" id="personal" type="radio" value="person" class="form-sec-btn overview-mode" checked><label for="personal"><i class="fas fa-check"></i>個人</label>
+                                                    <input name="mode" id="all-person" type="radio" value="all" class="form-sec-btn overview-mode"><label for="all-person"><i class="fas fa-check"></i>全站</label>
+                                                </form>
                                                 <div id="calendar" class="col-lg-9 col-md-12 px-0 cccalendar"></div>
                                                 <div class="col-lg-3 col-md-12 pt-l pr-0 addcalendar" id="addd-form">
                                                     <form class="form-inline" method="post" action="{{ route('ht.Overview.store',['organization'=>$organization]) }}">
@@ -121,6 +125,7 @@
                                                         <option value="小時前">小時前</option>
                                                         <option value="天前">天前</option>
                                                         <option value="週前">週前</option>
+                                                        <option value="不通知">不通知</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -174,15 +179,16 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="mb-s">
-                    <input class="form-control" type="number" min="1" value="10">
+                    <input class="form-control" type="number" min="1">
                 </div>
                 <div>
-                    <div class="d-block"><input class="choose" id="choose1" type="radio" name="t" value="分鐘前" checked><label for="choose1" class="ml-s">分鐘前</label></div>
-                    <div class="d-block"><input class="choose" id="choose2" type="radio" name="t" value="小時前"><label for="choose2" class="ml-s">小時前</label></div>
-                    <div class="d-block"><input class="choose" id="choose3" type="radio" name="t" value="天前"><label for="choose3" class="ml-s">天前</label></div>
-                    <div class="d-block"><input class="choose" id="choose4" type="radio" name="t" value="週前"><label for="choose4" class="ml-s">週前</label></div>
+                    <div class="d-block"><input class="choose" id="choose1" type="radio" name="t" value="分鐘前"><label for="choose1" class="chooseitem">分鐘前</label></div>
+                    <div class="d-block"><input class="choose" id="choose2" type="radio" name="t" value="小時前"><label for="choose2" class="chooseitem">小時前</label></div>
+                    <div class="d-block"><input class="choose" id="choose3" type="radio" name="t" value="天前"><label for="choose3" class="chooseitem">天前</label></div>
+                    <div class="d-block"><input class="choose" id="choose4" type="radio" name="t" value="週前"><label for="choose4" class="chooseitem">週前</label></div>
+                    <div class="d-block"><input class="choose" id="choose5" type="radio" name="t" value="不通知"><label for="choose5" class="chooseitem">不通知</label></div>
                 </div>
-                <div class="text-center"><button type="button" class="btn btn-primary" data-dismiss="modal">完成</button></div>
+                <div class="text-center"><button type="button" class="btn btn-danger reset">重設</button><button type="button" class="btn btn-primary" data-dismiss="modal">完成</button></div>
             </div>
         </div>
     </div>
@@ -261,6 +267,7 @@
 <!-- ▼本頁引用▼ -->
 <script src="{{ asset('js/fullcalendar.js') }}"></script>
 <script src="{{ asset('js/examples.calendar.js') }}"></script>
+<script src="{{ asset('js/locale/zh-tw.js') }}"></script>
 <script type="text/javascript">
     
 (function($) {
@@ -528,7 +535,7 @@
                                                                 success:function(response){
                                                                     //以下為編輯頁面
 
-                                                                    var selOpts = "<option value='分鐘前'>分鐘前</option><option value='小時前'>小時前</option><option value='天前'>天前</option><option value='週前'>週前</option>";
+                                                                    var selOpts = "<option value='分鐘前'>分鐘前</option><option value='小時前'>小時前</option><option value='天前'>天前</option><option value='週前'>週前</option><option value='不通知'>不通知</option>";
 
                                                                     $("select[name='noticeTime2']").empty();
                                                                     $("select[name='noticeTime2']").append(selOpts);
@@ -646,7 +653,7 @@
                                                                 },
                                                                 success:function(response){
 
-                                                                    var selOpts = "<option value='分鐘前'>分鐘前</option><option value='小時前'>小時前</option><option value='天前'>天前</option><option value='週前'>週前</option>";
+                                                                    var selOpts = "<option value='分鐘前'>分鐘前</option><option value='小時前'>小時前</option><option value='天前'>天前</option><option value='週前'>週前</option><option value='不通知'>不通知</option>";
 
                                                                     $("select[name='noticeTime2']").empty();
                                                                     $("select[name='noticeTime2']").append(selOpts);
@@ -765,7 +772,7 @@
                                                                 },
                                                                 success:function(response){
 
-                                                                    var selOpts = "<option value='分鐘前'>分鐘前</option><option value='小時前'>小時前</option><option value='天前'>天前</option><option value='週前'>週前</option>";
+                                                                    var selOpts = "<option value='分鐘前'>分鐘前</option><option value='小時前'>小時前</option><option value='天前'>天前</option><option value='週前'>週前</option><option value='不通知'>不通知</option>";
 
                                                                     $("select[name='noticeTime2']").empty();
                                                                     $("select[name='noticeTime2']").append(selOpts);
@@ -1074,5 +1081,11 @@
                 }
             }
         })
+
+        //會議時間重設
+        $('.reset').on('click', function(){
+            $(this).parents('.modal').find('input[type="number"]').val('');
+            $('.choose[name="t"]').removeAttr('checked');
+        });
     </script>
 @endsection

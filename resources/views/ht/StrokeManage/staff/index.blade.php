@@ -5,7 +5,7 @@
             <div class="main-content">
                 <div class="container-fluid">
                     <!-- 活動分析 -->
-                    <h3 class="page-title">行程管理 <span>Management</span></h3>
+                     <h3 class="page-title">派工單</h3>
                     <div class="panel bg-transparent">
                         <div class="panel-body">
                             <div class="row">
@@ -13,16 +13,16 @@
                                 <div class="col-md-12 wrap">
                                     <div class="panel" id="manager">
                                         <div class="panel-title">
-                                            <i class="fas fa-tasks"></i>行程管理
+                                            <i class="far fa-list-alt"></i>個人工單
                                         </div>
                                         <div class="panel-body">
                                             <div class="tabbable">
                                                 <ul class="nav nav-tabs">
                                                     <li class="active">
-                                                        <a data-toggle="tab" href="#viewers-tab-01">行程回報</a>
+                                                        <a data-toggle="tab" href="#viewers-tab-01">工單回報</a>
                                                     </li>
                                                     <li>
-                                                        <a data-toggle="tab" href="#viewers-tab-02">已完成</a>
+                                                        <a data-toggle="tab" href="#viewers-tab-02">工單進度</a>
                                                     </li>
                                                 </ul>
                                                 <div class="tab-content">
@@ -43,8 +43,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class='btn-wrap'>
-                                                                    <button class='mr-s' id="searchDate1" type="button">確認送出</button>
-                                                                    <button class='mr-s'>重新設定時間</button>
+                                                                    <button class='mr-s' id="searchDate1" type="button">查詢</button>
+                                                                    <button class='mr-s' type="button">重設</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -88,8 +88,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class='btn-wrap'>
-                                                                    <button class='mr-s' id="searchDate2" type="button">確認送出</button>
-                                                                    <button class='mr-s'>重新設定時間</button>
+                                                                    <button class='mr-s' id="searchDate2" type="button">查詢</button>
+                                                                    <button class='mr-s' type="button">重設</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -273,43 +273,51 @@ $(document).ready(function(){
                 var table_s2 = $("#hetao-list-s-2").DataTable({
                     "bPaginate": true,
                     "searching": true,
-                    "info": false,
+                    "info": true,
                     "bLengthChange": false,
                     "bServerSide": false,
                     "language": {
                         "search": "",
                         "searchPlaceholder": "請輸入關鍵字",
                         "paginate": { "previous": "上一頁", "next": "下一頁" },
-                        "emptyTable":     "目前無工單",
-                        "zeroRecords":    "沒有符合的搜尋結果",
+                        "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                        "zeroRecords": "沒有符合的搜尋結果",
+                        "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                        "lengthMenu": "呈現筆數 _MENU_",
+                        "emptyTable": "目前無工單",
+                        "infoFiltered": "(從 _MAX_ 筆中篩選)",
                     },
-                    "dom": "Bfrtip",
+                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
                     "buttons": [{
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 2, "desc" ], [ 11, "asc" ]],
+                    "order": [],
                     "columnDefs": [{
                         "targets": [],
                         "orderable": false,
-                    },{ 
-                        "width": "80px", 
-                        "targets": 8 }
+                    }, {
+                        "width": "80px",
+                        "targets": 8
+                    }],
+                    "responsive": {
+                        "breakpoints": [
+                        { name: 'desktop', width: Infinity },
+                        { name: 'tablet', width: 1024 },
                         ],
-                        "responsive": {
-                            "breakpoints": [
-                            { name: 'desktop', width: Infinity},
-                            { name: 'tablet',  width: 1024},
-                            ],
-                            "details": {
-                                "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-                                "type": 'none',
-                                "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
-                                "target": ''
-                            }
-                        },
-                    });
+                        "details": {
+                            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                            "type": 'none',
+                            "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
+                            "target": ''
+                        }
+                    },
+                });
                 $(".searchInput_s2").on("blur", function() {
+                    table_s2.search(this.value).draw();
+                });
+
+                $(".searchInput_s2").on("keyup", function() {
                     table_s2.search(this.value).draw();
                 });
 
@@ -501,43 +509,50 @@ $(document).ready(function(){
                 var table_s3 = $("#hetao-list-s-3").DataTable({
                     "bPaginate": true,
                     "searching": true,
-                    "info": false,
+                    "info": true,
                     "bLengthChange": false,
-                    "bServerSide": false,
                     "language": {
                         "search": "",
                         "searchPlaceholder": "請輸入關鍵字",
                         "paginate": { "previous": "上一頁", "next": "下一頁" },
-                        "emptyTable":     "目前無工單",
-                        "zeroRecords":    "沒有符合的搜尋結果",
+                        "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                        "zeroRecords": "沒有符合的搜尋結果",
+                        "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                        "lengthMenu": "呈現筆數 _MENU_",
+                        "emptyTable": "目前無工單",
+                        "infoFiltered": "(從 _MAX_ 筆中篩選)",
                     },
-                    "dom": "Bfrtip",
+                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
                     "buttons": [{
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [[ 1, "desc" ], [ 10, "asc" ]],
+                    "order": [],
                     "columnDefs": [{
                         "targets": [],
                         "orderable": false,
-                    },{ 
-                        "width": "80px", 
-                        "targets": 8 }
+                    }, {
+                        "width": "80px",
+                        "targets": 8
+                    }],
+                    "responsive": {
+                        "breakpoints": [
+                        { name: 'desktop', width: Infinity },
+                        { name: 'tablet', width: 1024 },
                         ],
-                        "responsive": {
-                            "breakpoints": [
-                            { name: 'desktop', width: Infinity},
-                            { name: 'tablet',  width: 1024},
-                            ],
-                            "details": {
-                                "display": $.fn.dataTable.Responsive.display.childRowImmediate,
-                                "type": 'none',
-                                "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
-                                "target": ''
-                            }
-                        },
-                    });
+                        "details": {
+                            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                            "type": 'none',
+                            "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
+                            "target": ''
+                        }
+                    },
+                });
                 $(".searchInput_s3").on("blur", function() {
+                    table_s3.search(this.value).draw();
+                });
+
+                $(".searchInput_s3").on("keyup", function() {
                     table_s3.search(this.value).draw();
                 });
             }

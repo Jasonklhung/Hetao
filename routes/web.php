@@ -48,6 +48,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 		//總攬-通知設定
 		Route::get('/HT/{organization}/Overview/notice/index','HT\Overview\NoticeController@index')->name('ht.Overview.notice.index');
+		Route::post('/HT/{organization}/Overview/notice/getUserName','HT\Overview\NoticeController@getUserName')->name('ht.Overview.notice.getUserName');
+		Route::post('/HT/{organization}/Overview/notice/store','HT\Overview\NoticeController@store')->name('ht.Overview.notice.store');
+		Route::post('/HT/{organization}/Overview/notice/getNotice','HT\Overview\NoticeController@getNotice')->name('ht.Overview.notice.getNotice');
+		Route::post('/HT/{organization}/Overview/notice/edit','HT\Overview\NoticeController@edit')->name('ht.Overview.notice.edit');
 
 		//週期循環-個人
 		Route::get('/HT/{organization}/Cycle/self/index','HT\Cycle\SelfController@index')->name('ht.Cycle.self.index');

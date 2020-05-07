@@ -16,13 +16,15 @@ class SelfController extends Controller
     public function index(Organization $organization)
     {
     	$job = Auth::user()->job;
+        $dept = Organization::where('id',$organization->id)->get();
+        
         if($job == '員工'){
             $client = new \GuzzleHttp\Client();
             $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
             ])
             ]);
 
@@ -51,7 +53,7 @@ class SelfController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
             ])
             ]);
 

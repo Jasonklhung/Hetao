@@ -159,8 +159,8 @@ class PermissionController extends Controller
     	$user = new User;
     	$user->organization_id = $request->company[0];
     	$user->department_id = $request->company[0];
-        (count($request->company) > 1)? $user->organizations = implode(',', $request->company) : $user->organizations = null; 
-        (count($request->company) > 1)? $user->organizations_name = implode(',', $organizations_name) : $user->organizations_name = null; 
+        (count($request->company) > 1)? $user->organizations = implode(',', $request->company) : $user->organizations = $request->company[0]; 
+        (count($request->company) > 1)? $user->organizations_name = implode(',', $organizations_name) : $user->organizations_name = $organizations_name[0]; 
     	$user->name = $request->name;
     	$user->ID_number = $request->ID_number;
     	$user->mobile = $request->mobile;
@@ -308,8 +308,8 @@ class PermissionController extends Controller
     	$user = User::find($request->id);
         $user->organization_id = $request->company[0];
         $user->department_id = $request->company[0];
-        (count($request->company) > 1)? $user->organizations = implode(',', $request->company) : $user->organizations = null;
-        (count($request->company) > 1)? $user->organizations_name = implode(',', $organizations_name) : $user->organizations_name = null; 
+        (count($request->company) > 1)? $user->organizations = implode(',', $request->company) : $user->organizations = $request->company[0];
+        (count($request->company) > 1)? $user->organizations_name = implode(',', $organizations_name) : $user->organizations_name = $organizations_name[0]; 
         $user->name = $request->name;
         $user->ID_number = $request->ID_number;
         $user->mobile = $request->mobile;

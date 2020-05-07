@@ -64,6 +64,9 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/Cycle/all/cycleAssign','HT\Cycle\AllController@cycleAssign')->name('ht.Cycle.all.cycleAssign');
 		Route::post('/HT/{organization}/Cycle/all/cycleReady','HT\Cycle\AllController@cycleReady')->name('ht.Cycle.all.cycleReady');
 		Route::post('/HT/{organization}/Cycle/all/cycleTurn','HT\Cycle\AllController@cycleTurn')->name('ht.Cycle.all.cycleTurn');
+		Route::post('/HT/{organization}/Cycle/all/cycleSearch','HT\Cycle\AllController@cycleSearch')->name('ht.Cycle.all.cycleSearch');
+		Route::post('/HT/{organization}/Cycle/all/assignCardSearch','HT\Cycle\AllController@assignCardSearch')->name('ht.Cycle.all.assignCardSearch');
+		Route::post('/HT/{organization}/Cycle/all/turnCardSearch','HT\Cycle\AllController@turnCardSearch')->name('ht.Cycle.all.turnCardSearch');
 
 		//週期循環-進度
 		Route::get('/HT/{organization}/Cycle/now/index','HT\Cycle\NowController@index')->name('ht.Cycle.now.index');

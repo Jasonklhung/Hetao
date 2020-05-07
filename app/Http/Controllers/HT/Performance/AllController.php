@@ -135,6 +135,13 @@ class AllController extends Controller
             $test = $value;
         }
 
-        return view('ht.Performance.all.index',compact('organization','caseCount','performance','total','test','aaa'));
+        $totalMoney = 0;
+        foreach ($total as $key => $value) {
+            foreach ($value as $k => $v) {
+                $totalMoney += $v['money'];
+            }
+        }
+
+        return view('ht.Performance.all.index',compact('organization','caseCount','performance','total','test','aaa','totalMoney'));
     }
 }

@@ -91,24 +91,36 @@ class SelfController extends Controller
                 ->get();
 
         //圖表-拜訪紀錄-不等於支援
+        $chartArray = array();
         $chart = Business::whereYear('updated_at','=',date('Y'))
                             ->whereMonth('updated_at','=',date('m'))
                             ->where('organization_name',$dept[0]['name'])
                             ->where('user_id',Auth::user()->id)
-                            ->where('type','!=','支援')
                             ->get();
 
-        $noneHelpChartCount = count($chart);
+        foreach ($chart as $key => $value) {
+            if(strpos($value->type,'支援') == false){ 
+                $chartArray[] = array("id"=>$value->id);
+            }
+        }
 
+        $noneHelpChartCount = count($chartArray);
+
+        $chartArray = array();
         //圖表-拜訪紀錄-等於支援
         $chart = Business::whereYear('updated_at','=',date('Y'))
                             ->whereMonth('updated_at','=',date('m'))
                             ->where('organization_name',$dept[0]['name'])
                             ->where('user_id',Auth::user()->id)
-                            ->where('type','=','支援')
                             ->get();
 
-        $helpChartCount = count($chart);
+        foreach ($chart as $key => $value) {
+            if(strpos($value->type,'支援') !== false){ 
+                $chartArray[] = array("id",$value->id);
+            }
+        }
+
+        $helpChartCount = count($chartArray);
 
         $businessChartCount = [array("category"=>'業務工作','column-1'=>$noneHelpChartCount),array("category"=>'非業務工作','column-1'=>$helpChartCount)];
 
@@ -131,44 +143,48 @@ class SelfController extends Controller
         $k = 0;
 
         foreach ($chart as $key => $value) {
-            if($value['type'] == '其他'){
+
+            if(strpos($value['type'],'其他') !== false){
                 $a += 1;
             }
-            elseif($value['type'] == '協助安裝'){
+            if(strpos($value['type'],'協助安裝') !== false){
                 $b += 1;
             }
-            elseif($value['type'] == '送文件'){
+            if(strpos($value['type'],'送文件') !== false){
                 $c += 1;
             }
-            elseif($value['type'] == '收款'){
+            if(strpos($value['type'],'收款') !== false){
                 $d += 1;
             }
-            elseif($value['type'] == '送機器'){
+            if(strpos($value['type'],'送機器') !== false){
                 $e += 1;
             }
-            elseif($value['type'] == '看現場'){
+            if(strpos($value['type'],'看現場') !== false){
                 $f += 1;
             }
-            elseif($value['type'] == '洽機'){
+            if(strpos($value['type'],'洽機') !== false){
                 $g += 1;
             }
-            elseif($value['type'] == '陌訪'){
+            if(strpos($value['type'],'陌訪') !== false){
                 $h += 1;
             }
-            elseif($value['type'] == '拜訪'){
+            if(strpos($value['type'],'拜訪') !== false){
                 $i += 1;
             }
-            elseif($value['type'] == '客訴'){
+            if(strpos($value['type'],'客訴') !== false){
                 $j += 1;
             }
-            elseif($value['type'] == '客服'){
+            if(strpos($value['type'],'客服') !== false){
                 $k += 1;
             }
         }
 
+
+
         $businessChart = [array("category"=>'其他','column-1'=>$a),array("category"=>'協助安裝','column-1'=>$b),array("category"=>'送文件','column-1'=>$c),array("category"=>'收款','column-1'=>$d),array("category"=>'送機器','column-1'=>$e),array("category"=>'看現場','column-1'=>$f),array("category"=>'洽機','column-1'=>$g),array("category"=>'陌訪','column-1'=>$h),array("category"=>'拜訪','column-1'=>$i),array("category"=>'客訴','column-1'=>$j),array("category"=>'客服','column-1'=>$k)];
 
-        $allBusinessMonth = $a+$b+$c+$d+$e+$f+$g+$h+$i+$j+$k;
+        //$allBusinessMonth = $a+$b+$c+$d+$e+$f+$g+$h+$i+$j+$k;
+        $allBusinessMonth = count($chart);
 
         //圖表-追蹤數-業務分類
         $chart = BusinessTrack::query()
@@ -622,6 +638,10 @@ class SelfController extends Controller
         $track->other = $request->other;
         $track->save();
 
+        if($request->detailLength > 1){
+            $delDetail = BusinessCaseDetail::where('business_track_id',$id)->delete();
+        }
+
         //案件追蹤-訂單
         for ($i=1; $i < $request->detailLength ; $i++) { 
 
@@ -693,5 +713,32 @@ class SelfController extends Controller
         }
 
         return array('status'=>200);
+    }
+
+    public function sendMail(Organization $organization,Request $request)
+    {
+        $business = array();
+
+        foreach ($request->id as $key => $value) {
+
+            $busi = Business::find($value);
+
+            if($key == 0){
+
+                $type = str_replace(',', '、', $busi['type']);
+
+               $business = array("status"=>200,"subject" => $busi['date']." ".$busi['business_name']."-業務拜訪紀錄","body" => $busi['date']." ".$busi['business_name']);
+
+               $business["data"][] = array("type"=>$type,"name"=>$busi['name'],"content"=>$busi['content'],"time"=>$busi['time'],"other"=>$busi['other']);
+            }
+            else{
+                $type = str_replace(',', '、', $busi['type']);
+
+                $business["data"][] = array("type"=>$type,"name"=>$busi['name'],"content"=>$busi['content'],"time"=>$busi['time'],"other"=>$busi['other']);
+            }
+
+        }
+
+        return $business;
     }
 }

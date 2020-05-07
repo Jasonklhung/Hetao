@@ -105,6 +105,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/Business/self/trackUpdate/{id}','HT\Business\SelfController@trackUpdate')->name('ht.Business.self.trackUpdate');
 		Route::post('/HT/{organization}/Business/self/businessVisitChangeStatus','HT\Business\SelfController@businessVisitChangeStatus')->name('ht.Business.self.businessVisitChangeStatus');
 		Route::post('/HT/{organization}/Business/self/businessTrackChangeStatus','HT\Business\SelfController@businessTrackChangeStatus')->name('ht.Business.self.businessTrackChangeStatus');
+		Route::post('/HT/{organization}/Business/self/sendMail','HT\Business\SelfController@sendMail')->name('ht.Business.self.sendMail');
 
 		//業務管理-全站業務
 		Route::get('/HT/{organization}/Business/all/index','HT\Business\AllController@index')->name('ht.Business.all.index');

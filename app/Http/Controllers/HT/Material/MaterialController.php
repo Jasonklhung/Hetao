@@ -75,13 +75,14 @@ class MaterialController extends Controller
 
             $caseCount = count($countArray);
 
-            //個人領料資訊
-            $dept = Organization::where('id',$organization->id)->get();
-
-            $materialN =  Material::where('user_id',Auth::user()->id)->where('organization_name',$dept[0]['name'])->where('status','N')->get();
-
-            $materialY =  Material::where('user_id',Auth::user()->id)->where('organization_name',$dept[0]['name'])->where('status','Y')->get();
         }
+
+        //個人領料資訊
+        $dept = Organization::where('id',$organization->id)->get();
+
+        $materialN =  Material::where('user_id',Auth::user()->id)->where('organization_name',$dept[0]['name'])->where('status','N')->get();
+
+        $materialY =  Material::where('user_id',Auth::user()->id)->where('organization_name',$dept[0]['name'])->where('status','Y')->get();
 
         return view('ht.Material.material.index',compact('organization','caseCount','materialN','materialY'));
     }

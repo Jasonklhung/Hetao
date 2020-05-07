@@ -96,6 +96,9 @@ class SelfController extends Controller
             if($key == 'data'){
                 $performance = $value;
             }
+            else{
+                $performance = [];
+            }
         }
 
         foreach ($performance as $key => $value) {
@@ -118,6 +121,11 @@ class SelfController extends Controller
             }
         }
 
-        return view('ht.Performance.self.index',compact('organization','caseCount','performance','total'));
+        $totlaMoney = 0;
+        foreach ($total as $key => $value) {
+            $totlaMoney += $value['money'];
+        }
+
+        return view('ht.Performance.self.index',compact('organization','caseCount','performance','total','totlaMoney'));
     }
 }

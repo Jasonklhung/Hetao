@@ -56,7 +56,17 @@
                                                             <tr class="text-center">
                                                                 <td class="text-primary" rowspan="2">{{$key}}</td>
                                                                 <td class="text-muted">數量</td>
-                                                                <td>{{ $data[0]['mount'] }}</td>
+                                                                    @php
+                                                                        $mount = 0;
+                                                                    @endphp
+                                                                @foreach($data as $k => $v)
+                                                                <td>{{ $v['mount'] }}</td>
+
+                                                                    @php
+                                                                        $mount += $v['mount'];
+                                                                    @endphp
+                                                                @endforeach
+                                                                <!-- <td>{{ $data[0]['mount'] }}</td>
                                                                 <td>{{ $data[1]['mount'] }}</td>
                                                                 <td>{{ $data[2]['mount'] }}</td>
                                                                 <td>{{ $data[3]['mount'] }}</td>
@@ -73,13 +83,23 @@
                                                                 <td>{{ $data[14]['mount'] }}</td>
                                                                 <td>{{ $data[15]['mount'] }}</td>
                                                                 <td>{{ $data[16]['mount'] }}</td>
-                                                                <td>{{ $data[17]['mount'] }}</td>
-                                                                <td>123</td>
+                                                                <td>{{ $data[17]['mount'] }}</td> -->
+                                                                <td>{{$mount}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="display: none"></td>
                                                                 <td class="text-muted">小計</td>
-                                                                <td>{{ $data[0]['money'] }}</td>
+                                                                    @php
+                                                                        $money = 0;
+                                                                    @endphp
+                                                                @foreach($data as $k => $v)
+                                                                <td>{{ $v['money'] }}</td>
+
+                                                                    @php
+                                                                        $money += $v['money'];
+                                                                    @endphp
+                                                                @endforeach
+                                                                <!-- <td>{{ $data[0]['money'] }}</td>
                                                                 <td>{{ $data[1]['money'] }}</td>
                                                                 <td>{{ $data[2]['money'] }}</td>
                                                                 <td>{{ $data[3]['money'] }}</td>
@@ -96,8 +116,8 @@
                                                                 <td>{{ $data[14]['money'] }}</td>
                                                                 <td>{{ $data[15]['money'] }}</td>
                                                                 <td>{{ $data[16]['money'] }}</td>
-                                                                <td>{{ $data[17]['money'] }}</td>
-                                                                <td>123123</td>
+                                                                <td>{{ $data[17]['money'] }}</td> -->
+                                                                <td>{{$money}}</td>
                                                             </tr>
                                                             @endforeach
                                                         </tbody>    
@@ -176,6 +196,9 @@
 
 @section('scripts')
 <script>
+
+    var totalMoney = {!! json_encode($totalMoney) !!}; //php變數轉換
+
     var table_s1 = $("#hetao-sale").DataTable({
         "bPaginate": true,
         "searching": true,
@@ -186,7 +209,7 @@
             "search": "",
             "searchPlaceholder": "請輸入關鍵字",
             "paginate": { "previous": "上一頁", "next": "下一頁" },
-            "info": "<p class='m-0'>總和： 1200000</p>",
+            "info": "<p class='m-0'>總和： "+totalMoney+"</p>",
             "zeroRecords": "沒有符合的搜尋結果",
             "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
             "lengthMenu": "呈現筆數 _MENU_",

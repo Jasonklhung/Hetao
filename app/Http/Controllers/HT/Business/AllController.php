@@ -152,44 +152,45 @@ class AllController extends Controller
         $k = 0;
 
         foreach ($chart as $key => $value) {
-            if($value['type'] == '其他'){
+            if(strpos($value['type'],'其他') !== false){
                 $a += 1;
             }
-            elseif($value['type'] == '協助安裝'){
+            if(strpos($value['type'],'協助安裝') !== false){
                 $b += 1;
             }
-            elseif($value['type'] == '送文件'){
+            if(strpos($value['type'],'送文件') !== false){
                 $c += 1;
             }
-            elseif($value['type'] == '收款'){
+            if(strpos($value['type'],'收款') !== false){
                 $d += 1;
             }
-            elseif($value['type'] == '送機器'){
+            if(strpos($value['type'],'送機器') !== false){
                 $e += 1;
             }
-            elseif($value['type'] == '看現場'){
+            if(strpos($value['type'],'看現場') !== false){
                 $f += 1;
             }
-            elseif($value['type'] == '洽機'){
+            if(strpos($value['type'],'洽機') !== false){
                 $g += 1;
             }
-            elseif($value['type'] == '陌訪'){
+            if(strpos($value['type'],'陌訪') !== false){
                 $h += 1;
             }
-            elseif($value['type'] == '拜訪'){
+            if(strpos($value['type'],'拜訪') !== false){
                 $i += 1;
             }
-            elseif($value['type'] == '客訴'){
+            if(strpos($value['type'],'客訴') !== false){
                 $j += 1;
             }
-            elseif($value['type'] == '客服'){
+            if(strpos($value['type'],'客服') !== false){
                 $k += 1;
             }
         }
 
         $businessChart = [array("category"=>'其他','column-1'=>$a),array("category"=>'協助安裝','column-1'=>$b),array("category"=>'送文件','column-1'=>$c),array("category"=>'收款','column-1'=>$d),array("category"=>'送機器','column-1'=>$e),array("category"=>'看現場','column-1'=>$f),array("category"=>'洽機','column-1'=>$g),array("category"=>'陌訪','column-1'=>$h),array("category"=>'拜訪','column-1'=>$i),array("category"=>'客訴','column-1'=>$j),array("category"=>'客服','column-1'=>$k)];
 
-        $allBusinessMonth = $a+$b+$c+$d+$e+$f+$g+$h+$i+$j+$k;
+        //$allBusinessMonth = $a+$b+$c+$d+$e+$f+$g+$h+$i+$j+$k;
+        $allBusinessMonth = count($chart);
 
         //圖表-追蹤數-業務分類
         $chart = BusinessTrack::query()
@@ -422,6 +423,15 @@ class AllController extends Controller
             $caseCount = count($countArray);
         }
 
-        return view('ht.Business.all.show',compact('organization','caseCount'));
+        $track = BusinessTrack::query()
+                ->select('business_tracks.*','businesses.date','businesses.name','businesses.business_name','businesses.city','businesses.area','businesses.address','businesses.phone')
+                ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
+                ->where('business_tracks.id',$id)
+                ->get();
+
+        $case_track = BusinessTrack::find($id);
+        $detail = BusinessCaseDetail::where('business_track_id',$id)->get();
+
+        return view('ht.Business.all.show',compact('organization','caseCount','track','case_track','detail'));
     }
 }

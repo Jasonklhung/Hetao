@@ -255,7 +255,13 @@
                                                                     <th class="text-center p-s text-nowrap"></th>
                                                                 </tr>
                                                             </tbody>
+                                                                @php
+                                                                    $alltotal = 0;
+                                                                @endphp
                                                             @foreach($detail as $key => $data)
+                                                                @php
+                                                                    $alltotal += $data->total;
+                                                                @endphp
                                                             <tr>
                                                                 <td>{{$key+1}}</td>
                                                                 <td>{{$data->numbers}}</td>
@@ -278,7 +284,7 @@
                                                         </table>
                                                     </div>
                                                     <div class="p-s text-center alltotal">
-                                                        總價款：
+                                                        總價款：{{$alltotal}}
                                                     </div>
                                                     <div class="col-sm-12 mb-s">
                                                         <a href="{{ route('ht.Business.self.index',['organization'=>$organization]) }}"><button type="button" class="btn btn-default">返回</button></a>
@@ -326,7 +332,7 @@
                                 <span class="mb-xs">說明</span>
                                 <input class="form-control intro" type="text" placeholder="">
                             </li>
-                            <li class="text-center"><button type="button" class="btn btn-danger">取消</button><button type="button" class="btn btn-primary ok" data-dismiss="modal">新增</button></li>
+                            <li class="text-center"><button type="button" class="btn btn-danger" data-dismiss="modal">取消</button><button type="button" class="btn btn-primary ok" data-dismiss="modal">新增</button></li>
                         </ul>
                     </form>
                 </div>
@@ -484,7 +490,26 @@
 
     });
     //清單物件
+    var detail = {!! json_encode($detail) !!}; //php變數轉換
+
+
     var arr = []
+
+    if(detail != null){
+
+         $.each(detail, function (i, item) {
+
+            var price = item.money
+            var quantity = item.quantity
+            var total = item.total
+            var type = item.numbers
+            var intro = item.description
+
+            arr.push({ price, quantity, total, type, intro })
+
+        })
+    }
+
     var imp = []
     var _id
     var _num
@@ -774,6 +799,7 @@
                 data:formData,
                 success:function(res){
                     if(res.status == '200'){
+                        alert("修改成功");
                         location.href = '{{ route('ht.Business.self.index',['organization'=>$organization]) }}';
                     }
                 },

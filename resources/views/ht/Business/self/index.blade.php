@@ -349,11 +349,11 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">轉Mail</h4>
                 </div>
-                <div class="modal-body">
+                <!-- <div class="modal-body">
                     <iframe src="轉mailiframe.html"></iframe>
-                </div>
+                </div> -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">發送</button>
+                    <button type="button" class="btn btn-primary" id="sendMail" data-dismiss="modal">預覽</button>
                 </div>
             </div>
         </div>
@@ -1090,6 +1090,43 @@
             }
         })
        })
+    })
+
+
+    //案件追蹤-刪除
+    $('#sendMail').on('click',function(){
+
+        var mailIdArray = new Array();
+
+        $('input[name="businessVisit"]:checked').each(function(){
+
+           var id = $(this).val()
+
+           mailIdArray.push(id)
+       })
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Business.self.sendMail',['organization'=>$organization]) }}",
+            data:{
+                '_token':'{{csrf_token()}}',
+                'id':mailIdArray
+            },
+            success:function(res){
+
+                var row = "";
+
+                if(res.status == 200){
+
+                    $.each(res.data, function (i, item) {
+
+                        row += i+1+".%20%20"+item.name+"%0D%0D%20%20%20%20%20"+item.type+"%20%20,%20"+item.content+"。%20%20"+item.time+"%0D%0D%20%20%20%20%20備註："+item.other+"%0D%0D"
+                    })
+
+                    window.open("mailto:?subject="+res.subject+"&body=業務拜訪紀錄%0D%0D"+res.body+"%0D%0D攻擊:%0D%0D"+row)
+                }
+            }
+        })
     })
 </script>
 @endsection

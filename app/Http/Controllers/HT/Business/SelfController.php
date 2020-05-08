@@ -11,6 +11,8 @@ use DB;
 use App\Business;
 use App\BusinessTrack;
 use App\BusinessCaseDetail;
+use App\Exports\BusinessDownloadExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SelfController extends Controller
 {
@@ -748,5 +750,55 @@ class SelfController extends Controller
         }
 
         return $business;
+    }
+
+    public function trackExcel(Organization $organization,Request $request)
+    {
+        $today = date('Y-m-d');
+
+        return (new BusinessDownloadExport)->search($request->id)->download($today.'案件追蹤表.xlsx');
+    }
+
+    public function trackWord(Organization $organization,Request $request)
+    {
+        $today = date('Y-m-d');
+
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        $section = $phpWord->addSection();
+        $header = array('size' => 16, 'bold' => true);
+        $header2 = array('size' => 20, 'bold' => true);
+
+        $section->addText('賀眾牌', $header2);
+
+        $styleTable = array('borderSize' => 6, 'borderColor' => '999999','align' => 'right');
+        $phpWord->addTableStyle('Colspan Rowspan', $styleTable);
+        $table = $section->addTable('Colspan Rowspan');
+
+        $largeFont = array('size'=>14);
+        $table->addRow();
+        $myCell1 = $table->addCell();
+        $myCell1->addText('日期:'.explode('-',$today)[0]."年".explode('-',$today)[1]."月".explode('-',$today)[2]."日",$largeFont);
+        $myCell1->addText('編號:',$largeFont);
+
+        $table = $section->addTable(array('width' => 100 * 100, 'unit' => 'pct', 'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER));
+        $cell = $table->addRow()->addCell();
+        $innerCell = $cell->addTable(array('alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER))->addRow()->addCell();
+        $innerCell->addText('報價單',$header);
+
+        // $row->addCell(1000, array('gridSpan' => 2, 'vMerge' => 'restart'))->addText('B');
+        // $row->addCell(1000)->addText('1');
+
+        // $row = $table->addRow();
+        // $row->addCell(1000, array('vMerge' => 'continue'));
+        // $row->addCell(1000, array('vMerge' => 'continue', 'gridSpan' => 2));
+        // $row->addCell(1000)->addText('2');
+
+        // $row = $table->addRow();
+        // $row->addCell(1000, array('vMerge' => 'continue'));
+        // $row->addCell(1000)->addText('C');
+        // $row->addCell(1000)->addText('D');
+        // $row->addCell(1000)->addText('3');
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        $phpWord->save($today.'_list.docx', 'Word2007', true);
     }
 }

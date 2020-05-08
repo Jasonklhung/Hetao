@@ -165,14 +165,16 @@
                                                                 <div class='btn-wrap'>
                                                                     <button class='mr-s' type="button">查詢</button>
                                                                     <button class='mr-s' type="button">重設</button>
-                                                                    <div class="droptool no-fixed mr-s">
+                                                                    <!-- <div class="droptool no-fixed mr-s">
                                                                         <button class="btn btn-gray" type="button"><i class="fas fa-file-download"></i>
                                                                         </button>
                                                                         <ul class="droptool-menu no-fixed">
                                                                             <li><a href="javascript:void(0)">案件追蹤表</a></li>
+                                                                            <li><a data-toggle="modal" data-target="#op-alert7" href="#">案件追蹤表</a></li>
+                                                                            <li><a data-toggle="modal" data-target="#op-alert8" href="#">報價單</a></li>
                                                                             <li class=""><a href="javascript:void(0)">報價單</a></li>
                                                                         </ul>
-                                                                    </div>
+                                                                    </div> -->
                                                                     <div class="droptool mr-s">
                                                                         <button class="btn btn-gray" type="button"><i class="fas fa-cog"></i>
                                                                         </button>
@@ -184,6 +186,8 @@
                                                                             <li><a data-toggle="modal" data-target="#op-alert4" href="#">發布</a></li>
                                                                             <li class=""><a data-toggle="modal" data-target="#op-alert5" href="#">轉單</a></li>
                                                                             <li class=""><a data-toggle="modal" data-target="#op-alert6" href="#">刪除</a></li>
+                                                                            <li><a data-toggle="modal" data-target="#op-alert7" href="#">案件追蹤表下載</a></li>
+                                                                            <li><a data-toggle="modal" data-target="#op-alert8" href="#">報價單下載</a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -438,6 +442,34 @@
                 <div class="modal-body text-center"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="trackDel" data-dismiss="modal">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--案件追蹤表下載 -->
+    <div class="modal fade" id="op-alert7" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="track_excel" data-dismiss="modal">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--報價單下載 -->
+    <div class="modal fade" id="op-alert8" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-none">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="word_download" data-dismiss="modal">確認</button>
                 </div>
             </div>
         </div>
@@ -772,6 +804,32 @@
             `)
         }
     });
+    $('a[data-target="#op-alert7"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert7 .modal-body').html(`
+                <p>確定要` + text + `所選案件嗎？</p>
+            `)
+        } else {
+            $('#op-alert7 .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
+    $('a[data-target="#op-alert8"]').on('click', function() {
+        var text = $(this).text()
+        var checked = $("input.chkall")
+        if ($(this).parents('.tab-pane').find(checked).filter(":checked").length >= 1) {
+            $('#op-alert8 .modal-body').html(`
+                <p>確定要` + text + `所選案件嗎？</p>
+            `)
+        } else {
+            $('#op-alert8 .modal-body').html(`
+                <p>您沒有選取案件唷！</p>
+            `)
+        }
+    });
 
 
     // var businessChartCount = {!! json_encode($businessChartCount) !!};
@@ -1093,7 +1151,7 @@
     })
 
 
-    //案件追蹤-刪除
+    //案件追蹤-轉mail
     $('#sendMail').on('click',function(){
 
         var mailIdArray = new Array();
@@ -1128,5 +1186,95 @@
             }
         })
     })
+
+    //案件追蹤-案件追蹤表
+    $('#track_excel').on('click',function(){
+
+        var trackArray = new Array();
+
+        $('input[name="businessTrack"]:checked').each(function(){
+
+           var id = $(this).val()
+
+           trackArray.push(id)
+       })
+
+        $.ajax({
+            xhrFields: {
+                responseType: 'blob',
+            },
+            type:'post',
+            url:"{{ route('ht.Business.self.trackExcel',['organization'=>$organization]) }}",
+            data:{
+                '_token':'{{csrf_token()}}',
+                'id':trackArray
+            },
+            success: function(result, status, xhr) {
+
+                var disposition = xhr.getResponseHeader('content-disposition');
+                var matches = /"([^"]*)"/.exec(disposition);
+                var filename = (matches != null && matches[1] ? matches[1] : '案件追蹤表.xlsx');
+
+                var blob = new Blob([result], {
+                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = filename;
+
+                document.body.appendChild(link);
+
+                link.click();
+                document.body.removeChild(link);
+
+                window.location = '{{ route('ht.Business.self.index',['organization'=>$organization]) }}'
+            }
+        })
+    })
+
+        //案件追蹤-報價單下載
+        $('#word_download').on('click',function(){
+
+            var trackArray = new Array();
+
+            $('input[name="businessTrack"]:checked').each(function(){
+
+               var id = $(this).val()
+
+               trackArray.push(id)
+           })
+
+            $.ajax({
+                xhrFields: {
+                    responseType: 'blob',
+                },
+                type:'post',
+                url:"{{ route('ht.Business.self.trackWord',['organization'=>$organization]) }}",
+                data:{
+                    '_token':'{{csrf_token()}}',
+                    'id':trackArray
+                },
+                success: function(result, status, xhr) {
+
+                    var disposition = xhr.getResponseHeader('content-disposition');
+                    var matches = /"([^"]*)"/.exec(disposition);
+                    var filename = (matches != null && matches[1] ? matches[1] : '報價單.xlsx');
+
+                    var blob = new Blob([result], {
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = filename;
+
+                    document.body.appendChild(link);
+
+                    link.click();
+                    document.body.removeChild(link);
+
+                    window.location = '{{ route('ht.Business.self.index',['organization'=>$organization]) }}'
+                }
+            })
+        })
 </script>
 @endsection

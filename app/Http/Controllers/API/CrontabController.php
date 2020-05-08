@@ -9,6 +9,7 @@ use App\Timeset;
 use App\Department;
 use App\Activity;
 use App\User;
+use App\Notice;
 
 use Carbon\Carbon;
 use GuzzleHttp\Client;
@@ -264,5 +265,12 @@ class CrontabController extends Controller
                 ]);
             }
         }
+    }
+
+    public function noticePush(Request $request)
+    {
+        $notice = Notice::all();
+
+        $time = Carbon::now()->format('Y-m-d H:i:s'); //取現在時間
     }
 }

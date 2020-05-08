@@ -370,6 +370,7 @@
             locale: 'ZH-TW',
             useCurrent: false,
             ignoreReadonly: true,
+            widgetPositioning: { horizontal: 'left', vertical: 'bottom'},
         });
     });
 

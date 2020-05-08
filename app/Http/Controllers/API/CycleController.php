@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\CycleFinish;
 use App\CycleTurn;
+use App\CycleAssign;
 
 class CycleController extends Controller
 {
@@ -16,23 +17,23 @@ class CycleController extends Controller
 
     	if(empty($date) && empty($dept)){
 
-    		$finish = CycleFinish::all();
-    		$turn = CycleTurn::all();
+    		$finish = CycleAssign::where('status','F')->get();
+    		$turn = CycleAssign::where('status','T')->get();
     	}
     	elseif(empty($date) && !empty($dept)){
 
-    		$finish = CycleFinish::where('organization_name',$dept)->get();
-    		$turn = CycleTurn::where('organization_name',$dept)->get();
+    		$finish = CycleAssign::where('organization_name',$dept)->where('status','F')->get();
+    		$turn = CycleAssign::where('organization_name',$dept)->where('status','T')->get();
     	}
     	elseif(!empty($date) && empty($dept)){
 
-    		$finish = CycleFinish::whereDate('date','=',$date)->get();
-    		$turn = CycleTurn::whereDate('date','=',$date)->get();
+    		$finish = CycleAssign::whereDate('date','=',$date)->where('status','F')->get();
+    		$turn = CycleAssign::whereDate('date','=',$date)->where('status','T')->get();
     	}
     	else{
 
-    		$finish = CycleFinish::where('organization_name',$dept)->whereDate('date','=',$date)->get();
-    		$turn = CycleTurn::where('organization_name',$dept)->whereDate('date','=',$date)->get();
+    		$finish = CycleAssign::where('organization_name',$dept)->whereDate('date','=',$date)->where('status','F')->get();
+    		$turn = CycleAssign::where('organization_name',$dept)->whereDate('date','=',$date)->where('status','T')->get();
     	}
 
     	if($finish->isEmpty() && $turn->isEmpty()){
@@ -42,11 +43,11 @@ class CycleController extends Controller
     		$cycle = array("status"=>200);
 
     		foreach ($finish as $key => $value) {
-    			$cycle["finish"][] = array("id"=>$value->id,"dept"=>$value->organization_name,"date"=>$value->date,"category"=>$value->category,"custkey"=>$value->custkey,"status"=>$value->status);
+    			$cycle["finish"][] = array("id"=>$value->id,"dept"=>$value->organization_name,"date"=>$value->date,"category"=>$value->category,"custkey"=>$value->custkey,"status"=>$value->status,"statusERP"=>$value->statusERP);
     		}
 
     		foreach ($turn as $k => $v) {
-    			$cycle["turn"][] = array("id"=>$v->id,"dept"=>$v->organization_name,"date"=>$v->date,"category"=>$v->category,"custkey"=>$v->custkey,"status"=>$v->status);
+    			$cycle["turn"][] = array("id"=>$v->id,"dept"=>$v->organization_name,"date"=>$v->date,"category"=>$v->category,"custkey"=>$v->custkey,"status"=>$v->status,"statusERP"=>$value->statusERP);
     		}
 
     		return $cycle;
@@ -70,7 +71,7 @@ class CycleController extends Controller
     	if($type == 'finish'){
 
     		foreach ($id as $key => $value) {
-    			$update = CycleFinish::where('id', '=', $value)->update(['status' => 'Y']);
+    			$update = CycleAssign::where('id', '=', $value)->update(['statusERP' => 'Y']);
 
     			if($update == true){
     				array_push($result, $value);
@@ -80,7 +81,7 @@ class CycleController extends Controller
     	elseif($type == 'turn'){
 
     		foreach ($id as $key => $value) {
-    			$update = CycleTurn::where('id', '=', $value)->update(['status' => 'Y']);
+    			$update = CycleAssign::where('id', '=', $value)->update(['statusERP' => 'Y']);
 
     			if($update == true){
     				array_push($result, $value);

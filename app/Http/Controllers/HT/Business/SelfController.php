@@ -761,43 +761,214 @@ class SelfController extends Controller
 
     public function trackWord(Organization $organization,Request $request)
     {
+
+        //dd($request->all());
         $today = date('Y-m-d');
 
-        $phpWord = new \PhpOffice\PhpWord\PhpWord();
-        $section = $phpWord->addSection();
-        $header = array('size' => 16, 'bold' => true);
-        $header2 = array('size' => 20, 'bold' => true);
+        // foreach ($request->id as $key => $value) {
 
-        $section->addText('賀眾牌', $header2);
+        //     $business = BusinessTrack::query()
+        //                 ->select('businesses.date','businesses.name','business_tracks.touch','businesses.city','businesses.area','businesses.address','businesses.address','businesses.phone','business_tracks.email','businesses.business_name')
+        //                 ->leftjoin('businesses','business_tracks.business_id','=','businesses.id')
+        //                 ->where('business_tracks.id',$value)
+        //                 ->get();
 
-        $styleTable = array('borderSize' => 6, 'borderColor' => '999999','align' => 'right');
-        $phpWord->addTableStyle('Colspan Rowspan', $styleTable);
-        $table = $section->addTable('Colspan Rowspan');
+            //foreach ($business as $k => $v) {
+                //$date = $v['date'];
 
-        $largeFont = array('size'=>14);
-        $table->addRow();
-        $myCell1 = $table->addCell();
-        $myCell1->addText('日期:'.explode('-',$today)[0]."年".explode('-',$today)[1]."月".explode('-',$today)[2]."日",$largeFont);
-        $myCell1->addText('編號:',$largeFont);
+                $phpWord = new \PhpOffice\PhpWord\PhpWord();
+                $section = $phpWord->addSection();
+                $header2 = array('size' => 20, 'bold' => true);
 
-        $table = $section->addTable(array('width' => 100 * 100, 'unit' => 'pct', 'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER));
-        $cell = $table->addRow()->addCell();
-        $innerCell = $cell->addTable(array('alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER))->addRow()->addCell();
-        $innerCell->addText('報價單',$header);
+                $header = $section->addHeader(); 
 
-        // $row->addCell(1000, array('gridSpan' => 2, 'vMerge' => 'restart'))->addText('B');
-        // $row->addCell(1000)->addText('1');
+                $header->addImage(public_path('phpWordImg/logo.jpg'),array('width'=>120, 'height'=>58));
 
-        // $row = $table->addRow();
-        // $row->addCell(1000, array('vMerge' => 'continue'));
-        // $row->addCell(1000, array('vMerge' => 'continue', 'gridSpan' => 2));
-        // $row->addCell(1000)->addText('2');
+                $styleTable = array('borderSize' => 6, 'borderColor' => '999999','align' => 'right');
+                $phpWord->addTableStyle('Header', $styleTable);
+                $table = $header->addTable('Header');
 
-        // $row = $table->addRow();
-        // $row->addCell(1000, array('vMerge' => 'continue'));
-        // $row->addCell(1000)->addText('C');
-        // $row->addCell(1000)->addText('D');
-        // $row->addCell(1000)->addText('3');
+                $largeFont = array('size'=>14);
+                $table->addRow();
+                $myCell1 = $table->addCell();
+                $myCell1->addText('日期:'.explode('-',$today)[0]."年".explode('-',$today)[1]."月".explode('-',$today)[2]."日",$largeFont);
+                $myCell1->addText('編號:',$largeFont);
+
+                $table = $header->addTable(array('width' => 100 * 100, 'unit' => 'pct', 'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER));
+                $cell = $table->addRow()->addCell();
+                $innerCell = $cell->addTable(array('alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER))->addRow()->addCell();
+                $innerCell->addText('報價單',$header2);
+
+                $styleTable = array('borderSize' => 6, 'borderColor' => '999999');
+                $phpWord->addTableStyle('Colspan Rowspan', $styleTable);
+                $table = $section->addTable('Colspan Rowspan');
+
+                $textSize = array('size' => 12, 'bold' => true,'valign' => 'center');
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars('公司寶號'),$textSize);
+                $table->addCell(10000,array('gridSpan'=> 3))->addText(htmlspecialchars(''));
+                $table->addCell(3000)->addText(htmlspecialchars('承辦人'),$textSize);
+                $table->addCell(8000)->addText(htmlspecialchars(''));
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars('公司地址'),$textSize);
+                $table->addCell(10000,array('gridSpan'=> 3))->addText(htmlspecialchars(''));
+                $table->addCell(3000)->addText(htmlspecialchars('電子郵件'),$textSize);
+                $table->addCell(8000)->addText(htmlspecialchars(''));
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars('公司電話'),$textSize);
+                $table->addCell(5000)->addText(htmlspecialchars(''));
+                $table->addCell(3000)->addText(htmlspecialchars('傳真電話'),$textSize);
+                $table->addCell(5000)->addText(htmlspecialchars(''));
+                $table->addCell(3000)->addText(htmlspecialchars('行動電話'),$textSize);
+                $table->addCell(8000)->addText(htmlspecialchars(''));
+
+                $styleTable = array('borderSize' => 10, 'borderColor' => '999999');
+                $phpWord->addTableStyle('New Table', $styleTable);
+                $table = $section->addTable('New Table');
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars('報價單位'),$textSize);
+                $table->addCell(10000,array('gridSpan'=> 3))->addText(htmlspecialchars(''));
+                $table->addCell(3000)->addText(htmlspecialchars('業務人員'),$textSize);
+                $table->addCell(8000)->addText(htmlspecialchars(''));
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars('公司地址'),$textSize);
+                $table->addCell(10000,array('gridSpan'=> 3))->addText(htmlspecialchars(''));
+                $table->addCell(3000)->addText(htmlspecialchars('電子郵件'),$textSize);
+                $table->addCell(8000)->addText(htmlspecialchars(''));
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars('公司電話'),$textSize);
+                $table->addCell(5000)->addText(htmlspecialchars(''));
+                $table->addCell(3000)->addText(htmlspecialchars('傳真電話'),$textSize);
+                $table->addCell(5000)->addText(htmlspecialchars(''));
+                $table->addCell(3000)->addText(htmlspecialchars('行動電話'),$textSize);
+                $table->addCell(8000)->addText(htmlspecialchars(''));
+
+                $section->addTextBreak(1);
+
+                $styleTable = array('borderSize' => 10, 'borderColor' => '999999');
+                $phpWord->addTableStyle('Detail Table', $styleTable);
+                $table = $section->addTable('Detail Table');
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars('項目'),$textSize);
+                $table->addCell(6000)->addText(htmlspecialchars('品名型號'),$textSize);
+                $table->addCell(1800)->addText(htmlspecialchars('單價'),$textSize);
+                $table->addCell(1800)->addText(htmlspecialchars('數量'),$textSize);
+                $table->addCell(2000)->addText(htmlspecialchars('合計'),$textSize);
+                $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars('說明'),$textSize);
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(6000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(2000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(6000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(2000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(6000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(2000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(6000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(2000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(6000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(2000)->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars('總價款'),$textSize);
+                $table->addCell(11600,array('gridSpan'=> 4))->addText(htmlspecialchars('新台幣:兩萬三千零五十二元整'),$textSize);
+                $table->addCell(4000)->addText(htmlspecialchars('NTD'),$textSize);
+                $table->addCell(4000)->addText(htmlspecialchars('23052'),$textSize);
+
+                $section->addTextBreak(1);
+
+                $styleTable = array('borderSize' => 10, 'borderColor' => '999999');
+                $phpWord->addTableStyle('Other Table', $styleTable);
+                $table = $section->addTable('Other Table');
+
+                $table->addRow(1200);
+                $table->addCell(3000)->addText(htmlspecialchars('報價說明'),$textSize);
+                $table->addCell(20000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
+
+                $table->addRow(400);
+                $table->addCell(3000)->addText(htmlspecialchars('付款條件'),$textSize);
+                $table->addCell(20000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
+
+                $table->addRow(800);
+                $table->addCell(3000)->addText(htmlspecialchars('施工事項'),$textSize);
+                $table->addCell(20000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
+
+                $table->addRow(800);
+                $table->addCell(3000)->addText(htmlspecialchars('保固期限'),$textSize);
+                $table->addCell(20000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
+
+                $table->addRow(1100);
+                $table->addCell(3000, array('vMerge' => 'restart'))->addText(htmlspecialchars('產品概述'),$textSize);
+                $table->addCell(12000, array('vMerge' => 'restart'))->addText(htmlspecialchars(''),$textSize);
+                $table->addCell(300)->addText(htmlspecialchars('希望安裝日期:                               月  日，  時至    時之間'),$textSize);
+
+                $table->addRow(1100);
+                $table->addCell(1000, array('vMerge' => 'continue'));
+                $table->addCell(1000, array('vMerge' => 'continue'));
+                $table->addCell(300)->addText('其他事項：');
+
+                $table->addRow(1100);
+                $table->addCell(1000, array('vMerge' => 'continue'));
+                $table->addCell(1000, array('vMerge' => 'continue'));
+                $table->addCell(300)->addText('如蒙惠顧 請蓋章回傳');
+
+                //簽名處
+                $section->addTextBreak(1);
+
+                $styleTable = array('borderSize' => 10, 'borderColor' => '999999');
+                $phpWord->addTableStyle('Sign Table', $styleTable);
+                $table = $section->addTable('Sign Table');
+
+                $textSize = array('size' => 12, 'bold' => true);
+                $table->addRow(600);
+                $table->addCell(1400)->addText(htmlspecialchars('業務人員'),$textSize);
+                $table->addCell(1400)->addText(htmlspecialchars('業務主管'),$textSize);
+                $table->addCell(2000)->addText(htmlspecialchars('服務站報價核章'),$textSize);
+
+                $table->addRow(1200);
+                $table->addCell(1400)->addText(htmlspecialchars(''));
+                $table->addCell(1400)->addText(htmlspecialchars(''));
+                $table->addCell(2000)->addText(htmlspecialchars(''));
+
+               // $table->addCell()->addImage(public_path('img/checked.png'));
+            //}
+        //}
+
+
+
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
         $phpWord->save($today.'_list.docx', 'Word2007', true);
     }

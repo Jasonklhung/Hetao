@@ -1533,4 +1533,34 @@
         })
     })
 </script>
+<script type="text/javascript">
+    $('#reset').on('click',function(){
+        $('#start').val("");
+        $('#end').val("");
+        $('#staff').val("");
+        $('#status').val("");
+    })
+
+    $('#reset2').on('click',function(){
+        $('#start2').val("");
+        $('#end2').val("");
+        $('#staff2').val("");
+        $('#statusDL').val("");
+        $('#statusERP').val("");
+    })
+
+    $('#reset3').on('click',function(){
+        $('#start3').val("");
+        $('#end3').val("");
+        $('#staff3').val("");
+    })
+
+    $('#reset4').on('click',function(){
+        $('#start4').val("");
+        $('#end4').val("");
+        $('#staff4').val("");
+        $('#statusDL2').val("");
+        $('#statusERP2').val("");
+    })
+</script>
 @endsection

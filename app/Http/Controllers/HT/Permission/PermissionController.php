@@ -19,6 +19,7 @@ class PermissionController extends Controller
     			->Leftjoin('organizations','users.organization_id','=','organizations.id')
     			->where('organization_id',$organization->id)->get();
 
+
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 

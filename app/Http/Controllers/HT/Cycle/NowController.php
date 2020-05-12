@@ -323,7 +323,7 @@ class NowController extends Controller
         $bbb = array();
 
         foreach ($fff as $key => $value) {
-           $bbb[$key]['result'] = ($value['finish']/count($allFinishNotStillArray))*100;
+           $bbb[$key]['result'] = round(($value['finish']/count($allFinishNotStillArray))*100,2);
         }
 
        $allCardStatusArray = [array("category"=>"已完成","column-1"=>count($allFinishNotStillArray)),array("category"=>"執行中","column-1"=>count($allStillCaseArray))];
@@ -368,7 +368,7 @@ class NowController extends Controller
         $ccc = array();
 
         foreach ($ttt as $key => $value) {
-           $ccc[$key]['result'] = ($value['turn']/count($allTurnCaseArray))*100;
+           $ccc[$key]['result'] = round(($value['turn']/count($allTurnCaseArray))*100,2);
         }
 
         $allNotTurnCard = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','!=','T')->where('statusERP','N')->get();
@@ -381,5 +381,263 @@ class NowController extends Controller
         $allCardTurnArray = [array("category"=>"轉單","column-1"=>count($allTurnCaseArray)),array("category"=>"正常接單","column-1"=>count($allNotTurnCardArray))];
 
         return view('ht.Cycle.now.index',compact('organization','caseCount','monthDay','allStaffArray2','companyName','allStaffArray','allFinishNotStillArray','bbb','allCardStatusArray','allTurnCaseArray','allCardTurnArray','ccc'));
+    }
+
+    public function staffNowSearch(Organization $organization,Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+
+        //進度查看
+        $dept = Organization::where('id',$organization->id)->get();
+
+       //全部分公司使用者
+        $allUser = User::all();
+        $deptUser = array();
+
+        foreach ($allUser as $key => $value) {
+            if($value->organization_id == $dept[0]['id']){
+                $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+            }
+        }
+
+        foreach ($allUser as $key => $value) {
+            $many = explode(',', $value->organizations);
+
+            foreach ($many as $k => $v) {
+                if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id']){
+                    $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+                }
+            }
+        }
+
+        $staffNowArray = array();
+
+        foreach ($deptUser as $key => $value) {
+
+                $kindStillArray = array();
+                $kindFinishArray = array();
+                $kindFinishNotStillArray = array();
+                $allcardArray = array();
+
+                $a = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$value['name'])->whereNotIn('status',['F','T'])->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+
+                $b = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$value['name'])->whereNotIn('status',['S','T'])->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+
+                $c = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$value['name'])->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+
+                $d = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$value['name'])->where('status','T')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->count();
+
+                foreach ($c as $keyy => $valuee) {
+                   if(!in_array(explode('-', $valuee->kind)[0], $allcardArray)){
+                        array_push($allcardArray, explode('-', $valuee->kind)[0]);
+                    } 
+                }
+
+                foreach ($a as $kk => $vv) {
+                    if(!in_array(explode('-', $vv->kind)[0], $kindStillArray)){
+                        array_push($kindStillArray, explode('-', $vv->kind)[0]);
+                    }
+                }
+
+                foreach ($b as $kks => $vvs) {
+                    if(!in_array(explode('-', $vvs->kind)[0], $kindFinishArray)){
+                        array_push($kindFinishArray, explode('-', $vvs->kind)[0]);
+                    }
+                }
+
+                $kindStillImp = implode(',', $kindStillArray);
+
+                if($kindStillImp){
+                    foreach ($kindFinishArray as $kkk => $vvv) {
+                        if(!strstr($kindStillImp,$vvv)){
+                            if(!in_array($vvv, $kindFinishNotStillArray)){
+                                array_push($kindFinishNotStillArray, $vvv);
+                            }
+                        }
+                    }
+                }
+                else{
+                    $kindFinishNotStillArray = $kindFinishArray;
+                }
+
+                $staffNowArray[$value['name']]['still'] = count($kindStillArray);
+                $staffNowArray[$value['name']]['finish'] = count($kindFinishNotStillArray);
+                $staffNowArray[$value['name']]['turn'] = $d;
+                $staffNowArray[$value['name']]['count'] = count($allcardArray);
+
+        }
+
+        return $staffNowArray;
+    }
+
+    public function dashSearch(Organization $organization,Request $request)
+    {
+
+        $start = $request->start;
+        $end = $request->end;
+
+        $dept = Organization::where('id',$organization->id)->get();
+
+        //全部分公司使用者
+        $allUser = User::all();
+        $deptUser = array();
+
+        foreach ($allUser as $key => $value) {
+            if($value->organization_id == $dept[0]['id']){
+                $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+            }
+        }
+
+        foreach ($allUser as $key => $value) {
+            $many = explode(',', $value->organizations);
+
+            foreach ($many as $k => $v) {
+                if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id']){
+                    $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+                }
+            }
+        }
+
+        //全站卡片數據狀態-執行中&已完成
+       $allFinishCase = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','F')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+       $allStillCase = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','S')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+
+       $allFinishCaseArray = array();
+       $allStillCaseArray = array();
+       $allFinishNotStillArray = array();
+       $allCardStatusArray = array();
+
+       foreach ($allFinishCase as $key => $value) {
+
+            if(!in_array(explode('-',$value->kind)[0], $allFinishCaseArray)){
+                array_push($allFinishCaseArray, explode('-',$value->kind)[0]);
+            }
+       }
+
+       foreach ($allStillCase as $key => $value) {
+
+            if(!in_array(explode('-',$value->kind)[0], $allStillCaseArray)){
+                array_push($allStillCaseArray, explode('-',$value->kind)[0]);
+            }
+       }
+
+       $allStillCaseImp = implode(',', $allStillCaseArray);
+
+       if($allStillCaseImp){
+            foreach ($allFinishCaseArray as $kkk => $vvv) {
+                if(!strstr($allStillCaseImp,$vvv)){
+                    if(!in_array($vvv, $allFinishNotStillArray)){
+                        array_push($allFinishNotStillArray, $vvv);
+                    }
+                }
+            }
+        }
+        else{
+            $allFinishNotStillArray = $allFinishCaseArray;
+        }
+
+        //週期儀錶板
+        $fff = array();
+
+        
+        foreach ($deptUser as $keyss => $valuess) {
+
+            $f = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$valuess['name'])->where('status','F')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+
+            $fff[$valuess['name']]['finish'] = 0;
+            $done = array();
+
+            foreach ($f as $keysss => $valuesss) {
+                foreach ($allFinishNotStillArray as $keys => $values) {
+
+                    if(explode('-',$valuesss->kind)[0] == $values && $valuesss->staff == $valuess['name']){
+                        if(!in_array(explode('-',$valuesss->kind)[0], $done)){
+                            array_push($done, explode('-',$valuesss->kind)[0]);
+                            $fff[$valuess['name']]['finish'] += 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        $bbb = array();
+
+        if($allFinishNotStillArray == null){
+            foreach ($fff as $key => $value) {
+               $bbb[$key]['result'] = 0;
+            }
+        }
+        else{
+            foreach ($fff as $key => $value) {
+               $bbb[$key]['result'] = round(($value['finish']/count($allFinishNotStillArray))*100,2);
+            }
+        }
+
+       $allCardStatusArray = [array("category"=>"已完成","column-1"=>count($allFinishNotStillArray)),array("category"=>"執行中","column-1"=>count($allStillCaseArray))];
+
+        //全站卡片數據狀態-轉單
+        $allTurnCase = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','T')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+        $allTurnCaseArray = array();
+        $allCardTurnArray = array();
+        $allNotTurnCardArray = array();
+
+        foreach ($allTurnCase as $key => $value) {
+
+            if(!in_array(explode('-',$value->kind)[0], $allTurnCaseArray)){
+                array_push($allTurnCaseArray, explode('-',$value->kind)[0]);
+            }
+        }
+
+        $ttt = array();
+
+        
+            foreach ($deptUser as $keyss => $valuess) {
+
+                $t = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$valuess['name'])->where('status','T')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+
+                $ttt[$valuess['name']]['turn'] = 0;
+                $done = array();
+
+                foreach ($t as $keysss => $valuesss) {
+
+                    foreach ($allTurnCaseArray as $keys => $values) {
+
+                        if(explode('-',$valuesss->kind)[0] == $values && $valuesss->staff == $valuess['name']){
+                            if(!in_array(explode('-',$valuesss->kind)[0], $done)){
+                                array_push($done, explode('-',$valuesss->kind)[0]);
+                                $ttt[$valuess['name']]['turn'] += 1;
+                            }
+                        }
+                    }
+                }
+            }
+
+        $ccc = array();
+
+        if($allTurnCaseArray == null){
+            foreach ($ttt as $key => $value) {
+               $ccc[$key]['result'] = 0;
+            }
+        }
+        else{
+            foreach ($ttt as $key => $value) {
+               $ccc[$key]['result'] = round(($value['turn']/count($allTurnCaseArray))*100,2);
+            }
+        }
+
+        $allNotTurnCard = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','!=','T')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+        foreach ($allNotTurnCard as $key => $value) {
+            if(!in_array(explode('-',$value->kind)[0], $allNotTurnCardArray)){
+                array_push($allNotTurnCardArray, explode('-',$value->kind)[0]);
+            }
+        }
+
+        $allCardTurnArray = [array("category"=>"轉單","column-1"=>count($allTurnCaseArray)),array("category"=>"正常接單","column-1"=>count($allNotTurnCardArray))];
+
+        $countFinishArray = count($allFinishNotStillArray);
+        $countTurnArray = count($allTurnCaseArray);
+
+        return [$countFinishArray,$bbb,$countTurnArray,$ccc,$allCardStatusArray,$allCardTurnArray];
     }
 }

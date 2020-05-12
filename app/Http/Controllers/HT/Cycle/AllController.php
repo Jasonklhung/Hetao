@@ -392,6 +392,7 @@ class AllController extends Controller
                                 ->where('area',$area)
                                 ->where('staff',$user_name['name'])
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             foreach ($cycle as $key => $value) {
@@ -405,6 +406,7 @@ class AllController extends Controller
                                 ->where('thisDate','<=',$endDate)
                                 ->where('area',$area)
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             foreach ($cycle as $key => $value) {
@@ -417,6 +419,7 @@ class AllController extends Controller
             $cycle = CycleAssign::where('thisDate','>=',$startDate)
                                 ->where('thisDate','<=',$endDate)
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             $cycleArray = $cycle;
@@ -425,6 +428,7 @@ class AllController extends Controller
             $cycle = CycleAssign::where('thisDate','>=',$startDate)
                                 ->where('thisDate','<=',$endDate)
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             foreach ($cycle as $key => $value) {
@@ -438,6 +442,7 @@ class AllController extends Controller
                                 ->where('thisDate','<=',$endDate)
                                 ->where('area',$area)
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
             $cycleArray = $cycle;
         }
@@ -446,6 +451,7 @@ class AllController extends Controller
                                 ->where('thisDate','<=',$endDate)
                                 ->where('staff',$user_name['name'])
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             $cycleArray = $cycle;
@@ -456,6 +462,7 @@ class AllController extends Controller
                                 ->where('area',$area)
                                 ->where('staff',$user_name['name'])
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             $cycleArray = $cycle;
@@ -465,6 +472,7 @@ class AllController extends Controller
                                 ->where('thisDate','<=',$endDate)
                                 ->where('staff',$user_name['name'])
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             foreach ($cycle as $key => $value) {
@@ -477,6 +485,7 @@ class AllController extends Controller
             $cycle = CycleAssign::where('area',$area)
                                 ->where('staff',$user_name['name'])
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             foreach ($cycle as $key => $value) {
@@ -487,6 +496,7 @@ class AllController extends Controller
         }
         elseif($startDate == null && $endDate == null && $month != null && $area == null && $staff == null){
             $cycle = CycleAssign::where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             foreach ($cycle as $key => $value) {
@@ -498,6 +508,7 @@ class AllController extends Controller
         elseif($startDate == null && $endDate == null && $month != null && $area != null && $staff == null){
             $cycle = CycleAssign::where('area',$area)
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             foreach ($cycle as $key => $value) {
@@ -509,6 +520,7 @@ class AllController extends Controller
         elseif($startDate == null && $endDate == null && $month != null && $area == null && $staff != null){
             $cycle = CycleAssign::where('staff',$user_name['name'])
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             foreach ($cycle as $key => $value) {
@@ -520,6 +532,7 @@ class AllController extends Controller
         elseif($startDate == null && $endDate == null && $month == null && $area != null && $staff == null){
             $cycle = CycleAssign::where('area',$area)
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             $cycleArray = $cycle;
@@ -528,6 +541,7 @@ class AllController extends Controller
             $cycle = CycleAssign::where('area',$area)
                                 ->where('staff',$user_name['name'])
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             $cycleArray = $cycle;
@@ -535,6 +549,7 @@ class AllController extends Controller
         elseif($startDate == null && $endDate == null && $month == null && $area == null && $staff != null){
             $cycle = CycleAssign::where('staff',$user_name['name'])
                                 ->where('status','T')
+                                ->where('statusERP','N')
                                 ->get();
 
             $cycleArray = $cycle;

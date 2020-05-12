@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/Cycle/self/changeDate','HT\Cycle\SelfController@changeDate')->name('ht.Cycle.self.changeDate');
 		Route::post('/HT/{organization}/Cycle/self/cycleFinish','HT\Cycle\SelfController@cycleFinish')->name('ht.Cycle.self.cycleFinish');
 		Route::post('/HT/{organization}/Cycle/self/cycleTurn','HT\Cycle\SelfController@cycleTurn')->name('ht.Cycle.self.cycleTurn');
+		Route::post('/HT/{organization}/Cycle/self/cycleReportSearch','HT\Cycle\SelfController@cycleReportSearch')->name('ht.Cycle.self.cycleReportSearch');
+		Route::post('/HT/{organization}/Cycle/self/thisDateChange','HT\Cycle\SelfController@thisDateChange')->name('ht.Cycle.self.thisDateChange');
+		Route::post('/HT/{organization}/Cycle/self/cycleNowSearch','HT\Cycle\SelfController@cycleNowSearch')->name('ht.Cycle.self.cycleNowSearch');
 
 		//週期循環-全站
 		Route::get('/HT/{organization}/Cycle/all/index','HT\Cycle\AllController@index')->name('ht.Cycle.all.index');
@@ -70,6 +73,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 		//週期循環-進度
 		Route::get('/HT/{organization}/Cycle/now/index','HT\Cycle\NowController@index')->name('ht.Cycle.now.index');
+		Route::post('/HT/{organization}/Cycle/now/staffNowSearch','HT\Cycle\NowController@staffNowSearch')->name('ht.Cycle.now.staffNowSearch');
+		Route::post('/HT/{organization}/Cycle/now/dashSearch','HT\Cycle\NowController@dashSearch')->name('ht.Cycle.now.dashSearch');
 
 		//領退料管理-領料申請
 		Route::get('/HT/{organization}/Material/material/index','HT\Material\MaterialController@index')->name('ht.Material.material.index');

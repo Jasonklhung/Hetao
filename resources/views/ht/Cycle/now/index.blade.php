@@ -70,22 +70,23 @@
                                                     <!-- 員工進度查看 -->
                                                     <div class="tab-pane" id="viewers-tab-02">   
                                                         <div class='coupon'>
-                                                            <form class='form-inline'>
+                                                            <form class='form-inline' id="staffNowSearch">
+                                                                @csrf
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select'>
-                                                                            <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                            <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide span-d'>~</span>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select mr-s'>
-                                                                            <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                            <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class='btn-wrap'>
-                                                                    <button class='mr-s' type="button">查詢</button>
-                                                                    <button class='mr-s' type="button">重設</button>
+                                                                    <button class='mr-s' type="submit">查詢</button>
+                                                                    <button class='mr-s' type="button" id="reset">重設</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -108,21 +109,22 @@
                                                     <!-- 週期儀表板 -->
                                                     <div class="tab-pane" id="viewers-tab-03">   
                                                         <div class='coupon'>
-                                                            <form class='form-inline'>
+                                                            <form class='form-inline' id="dashSearch">
+                                                                @csrf
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select'>
-                                                                            <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                            <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start2"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide span-d'>~</span>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select mr-s'>
-                                                                            <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                            <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end2"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class='btn-wrap'>
-                                                                    <button class='mr-s' type="button">查詢</button>
-                                                                    <button class='mr-s' type="button">重設</button>
+                                                                    <button class='mr-s' type="submit">查詢</button>
+                                                                    <button class='mr-s' type="button" id="reset2">重設</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -136,7 +138,7 @@
                                                                 </div>  
                                                                 <div class="chartwrap1"> 
                                                                     <div class="col-sm-6">
-                                                                        <h4 class="mt-m text-center">共有{{count($allFinishNotStillArray)}}張卡片</h4>   
+                                                                        <h4 class="mt-m text-center" id="finishCase">共有{{count($allFinishNotStillArray)}}張卡片</h4>   
                                                                         <table id="hetao-sale">
                                                                             <thead>
                                                                                 <tr>
@@ -161,7 +163,7 @@
                                                                 </div> 
                                                                 <div class="chartwrap2">
                                                                     <div class="col-sm-6">
-                                                                        <h4 class="mt-m text-center">共有{{count($allTurnCaseArray)}}張卡片</h4>  
+                                                                        <h4 class="mt-m text-center" id="turnCase">共有{{count($allTurnCaseArray)}}張卡片</h4>  
                                                                         <table id="hetao-sale2">
                                                                             <thead>
                                                                                 <tr>
@@ -448,5 +450,251 @@
             "orderable": false,
         }],
     });  
+    </script>
+    <script type="text/javascript">
+        //員工進度搜尋
+        $('#staffNowSearch').on('submit',function(e){
+
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+                type:'post',
+                url:"{{ route('ht.Cycle.now.staffNowSearch',['organization'=>$organization]) }}",
+                data:formData,
+                success:function(res){
+
+                    $('#hetao-list-norwd2').DataTable().destroy();
+                    $('#hetao-list-norwd2 tbody').empty();
+
+                    var data2 = new Array();
+                    var k = 0
+
+                    $.each(res, function (i, item) {
+
+                        data2[k] = {
+                            station: companyName,
+                            name: i,
+                            finish: item.finish,
+                            execution: item.still,
+                            change: item.turn,
+                            total: item.count,
+                            p_f: `
+                            <div class="d-flex w-100">
+                            <span class="w-60px">完成</span>
+                            <div class="progress flex-grow">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="`+Math.round((parseInt(item.finish)/item.count)*100)+`" aria-valuemin="0" aria-valuemax="100" style="width:`+Math.round((parseInt(item.finish)/item.count)*100)+`%">
+                            `+Math.round((parseInt(item.finish)/item.count)*100)+`%
+                            </div>
+                            </div>
+                            </div>
+                            `,
+                            p_e: `
+                            <div class="d-flex w-100">
+                            <span class="w-60px">執行中</span>
+                            <div class="progress flex-grow">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="`+Math.round((parseInt(item.still)/item.count)*100)+`" aria-valuemin="0" aria-valuemax="100" style="width:`+Math.round((parseInt(item.still)/item.count)*100)+`%">
+                            `+Math.round((parseInt(item.still)/item.count)*100)+`%
+                            </div>
+                            </div>
+                            </div>
+                            `,
+                            p_c: `
+                            <div class="d-flex w-100">
+                            <span class="w-60px">轉單</span>
+                            <div class="progress flex-grow">
+                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="`+Math.round((parseInt(item.turn)/item.count)*100)+`" aria-valuemin="0" aria-valuemax="100" style="width:`+Math.round((parseInt(item.turn)/item.count)*100)+`%">
+                            `+Math.round((parseInt(item.turn)/item.count)*100)+`%
+                            </div>
+                            </div>
+                            </div>
+
+                            `,
+                        }
+
+                        k++;
+
+                    })
+
+                    function format2(d) {
+                        return (
+                            `<div class="mt-s">` + d.p_f + d.p_e + d.p_c + `</div>`
+                            );
+                    }
+                    $(document).ready(function() {
+                        var table_s2 = $("#hetao-list-norwd2").DataTable({
+                            "data": data2,
+                            "bPaginate": true,
+                            "searching": true,
+                            "info": true,
+                            "bLengthChange": false,
+                            "bServerSide": false,
+                            "language": {
+                                "search": "",
+                                "searchPlaceholder": "請輸入關鍵字",
+                                "paginate": { "previous": "上一頁", "next": "下一頁" },
+                                "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                                "zeroRecords": "沒有符合的搜尋結果",
+                                "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                                "lengthMenu": "呈現筆數 _MENU_",
+                                "emptyTable": "目前無工單",
+                                "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                            },
+                            "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                            "buttons": [{
+                                "extend": "colvis",
+                                "collectionLayout": "fixed two-column"
+                            }],
+                            "order": [],
+                            "columnDefs": [{
+                                "targets": [0],
+                                "orderable": false,
+                            }, ],
+                            "responsive": false,
+                            columns: [
+                            {
+                                className: "details-control",
+                                orderable: false,
+                                data: null,
+                                defaultContent: '<span class="lnr lnr-chevron-down"></span>'
+                            },
+                            { data: "station" },
+                            { data: "name" },
+                            { data: "finish" },
+                            { data: "execution" },
+                            { data: "change" },
+                            { data: "total" },
+                            ],
+                        });
+
+                        $("#hetao-list-norwd2 tbody").on("click", "td.details-control", function() {
+                            var tr = $(this).closest("tr");
+                            var row = table_s2.row(tr);
+
+                            if (row.child.isShown()) {
+                                row.child.hide();
+                                tr.removeClass("shown");
+                            } else {
+                                row.child(format2(row.data()), "p-0").show();
+                                tr.addClass("shown");
+                            }
+                        });
+
+                        $(".searchInput_s2").on("blur", function() {
+                            table_s2.search(this.value).draw();
+                        });
+
+                        $(".searchInput_s2").on("keyup", function() {
+                            table_s2.search(this.value).draw();
+                        });
+                    });
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            })
+        })
+
+        //週期儀錶板搜尋
+        $('#dashSearch').on('submit',function(e){
+
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+                type:'post',
+                url:"{{ route('ht.Cycle.now.dashSearch',['organization'=>$organization]) }}",
+                data:formData,
+                success:function(res){
+                    $('#finishCase').html("共有"+res[0]+"張卡片")
+                    $('#turnCase').html("共有"+res[2]+"張卡片")
+
+                    $('#hetao-sale tbody').empty();
+
+                    var row;
+                    $.each(res[1], function (i, item) {
+
+                        row += "<tr>"
+                            + "<td>" + i + "</td>"
+                            + "<td class='text-right'>" + item.result + "%</td>"
+                            + "</tr>";
+                    })
+                    $('#hetao-sale tbody').append(row);
+
+
+                    $('#hetao-sale2 tbody').empty();
+
+                    var rows;
+                    $.each(res[3], function (i, item) {
+
+                        rows += "<tr>"
+                            + "<td>" + i + "</td>"
+                            + "<td class='text-right'>" + item.result + "%</td>"
+                            + "</tr>";
+                    })
+                    $('#hetao-sale2 tbody').append(rows);
+
+
+                    //圖表
+                    AmCharts.makeChart("chart1", {
+                        "hideCredits": "true",
+                        "fontSize": 16,
+                        "type": "pie",
+                        "innerRadius": "60%",
+                        "labelRadius": 10,
+                        "minRadius": 50,
+                        "labelText": "[[title]][[percents]]%<br>共[[value]]張卡片",
+                        "startAngle": 0,
+                        "colors": [
+                        "rgba(240, 173, 78, 0.8)",
+                        "rgba(216, 84, 79, 0.8)",
+                        ],
+                        "marginBottom": 0,
+                        "marginTop": 0,
+                        "titleField": "category",
+                        "valueField": "column-1",
+                        "allLabels": [],
+                        "titles": [],
+                        "dataProvider": res[4]
+                    });
+
+                    AmCharts.makeChart("chart2", {
+                        "hideCredits": "true",
+                        "fontSize": 16,
+                        "type": "pie",
+                        "innerRadius": "60%",
+                        "labelRadius": 10,
+                        "minRadius": 50,
+                        "labelText": "[[title]][[percents]]%<br>共[[value]]張卡片",
+                        "startAngle": 0,
+                        "colors": [
+                        "rgba(240, 173, 78, 0.8)",
+                        "rgba(216, 84, 79, 0.8)",
+                        ],
+                        "marginBottom": 0,
+                        "marginTop": 0,
+                        "titleField": "category",
+                        "valueField": "column-1",
+                        "allLabels": [],
+                        "titles": [],
+                        "dataProvider": res[5]
+                    });
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            })
+        })
+    </script>
+    <script type="text/javascript">
+        $('#reset').on('click',function(){
+            $('#start').val("")
+            $('#end').val("")
+        })
+
+        $('#reset2').on('click',function(){
+            $('#start2').val("")
+            $('#end2').val("")
+        })
     </script>
 @endsection

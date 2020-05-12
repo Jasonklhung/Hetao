@@ -96,22 +96,23 @@
                                                     <!-- 待領料 -->
                                                     <div class="tab-pane" id="viewers-tab-02">
                                                         <div class='coupon'>
-                                                            <form class='form-inline'>
+                                                            <form class='form-inline' id="notGetMaterialSearch">
+                                                                @csrf
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s1" placeholder="請輸入關鍵字">
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select'>
-                                                                            <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                            <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide span-d'>~</span>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select mr-s'>
-                                                                            <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                            <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class='btn-wrap'>
-                                                                    <button class='mr-s' type="button">查詢</button>
-                                                                    <button class='mr-s' type="button">重設</button>
+                                                                    <button class='mr-s' type="submit">查詢</button>
+                                                                    <button class='mr-s' type="button" id="reset">重設</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -145,22 +146,23 @@
                                                     <!-- 已領料 -->
                                                     <div class="tab-pane" id="viewers-tab-03">
                                                         <div class='coupon'>
-                                                            <form class='form-inline'>
+                                                            <form class='form-inline' id="getMaterialSearch">
+                                                                @csrf
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select'>
-                                                                            <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                            <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start2"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide span-d'>~</span>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select mr-s'>
-                                                                            <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                            <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end2"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class='btn-wrap'>
-                                                                    <button class='mr-s' type="button">查詢</button>
-                                                                    <button class='mr-s' type="button">重設</button>
+                                                                    <button class='mr-s' type="submit">查詢</button>
+                                                                    <button class='mr-s' type="button" id="reset2">重設</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -566,5 +568,204 @@ $('.backs').on('click', function(){
     $('#cancel').modal('show');
 
 });
+</script>
+<script type="text/javascript">
+    //待領料
+    $('#notGetMaterialSearch').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Material.material.notGetMaterialSearch',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+
+                var rows;
+
+                $('#hetao-overview1').DataTable().destroy();
+                $('#hetao-overview1 tbody').empty();
+
+                $.each(res, function (i, item) {
+                    rows += "<tr>"
+                        + "<td>" + item.date + "</td>"
+                        + "<td>" + item.materials_number + "</a></td>"
+                        + "<td>" + item.materials_spec + "</td>"
+                        + "<td>" + item.machine_number + "</td>"
+                        + "<td>" + item.quantity + "</td>"
+                        + "<td>" + item.other + "</td>"
+                        + "</tr>";
+                })
+                $('#hetao-overview1 tbody').append(rows);
+                var table = $("#hetao-overview1").DataTable({
+                    "bPaginate": true,
+                    "searching": true,
+                    "info": true,
+                    "bLengthChange": false,
+                    "bServerSide": false,
+                    "language": {
+                        "search": "",
+                        "searchPlaceholder": "請輸入關鍵字",
+                        "paginate": { "previous": "上一頁", "next": "下一頁" },
+                        "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                        "zeroRecords": "沒有符合的搜尋結果",
+                        "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                        "lengthMenu": "呈現筆數 _MENU_",
+                        "emptyTable": "沒有數據",
+                        "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                    },
+                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                    "buttons": [{
+                        "extend": 'colvis',
+                        "collectionLayout": 'fixed two-column'
+                    }],
+                    "order": [],
+                    "columnDefs": [{
+                        "targets": [],
+                        "orderable": false,
+                    }],
+                    "responsive": {
+                        "breakpoints": [
+                        { name: 'desktop', width: Infinity },
+                        { name: 'tablet', width: 1024 },
+                        ],
+                        "details": {
+                            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                            "type": 'none',
+                            "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
+                            "target": ''
+                        }
+                    },
+                });
+
+                $(".searchInput_s1").on("blur", function() {
+                    table.search(this.value).draw();
+                });
+
+                $(".searchInput_s1").on("keyup", function() {
+                    table.search(this.value).draw();
+                });
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
+
+    //已領料
+    $('#getMaterialSearch').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Material.material.getMaterialSearch',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+
+                var rows;
+
+                $('#hetao-overview2').DataTable().destroy();
+                $('#hetao-overview2 tbody').empty();
+
+                $.each(res, function (i, item) {
+                    rows += "<tr>"
+                        + "<td>" + item.date + "</td>"
+                        + "<td>" + item.materials_number + "</a></td>"
+                        + "<td>" + item.materials_spec + "</td>"
+                        + "<td>" + item.machine_number + "</td>"
+                        + "<td>" + item.quantity + "</td>"
+                        + "<td>" + item.other + "</td>"
+                        + "<td><button type='button' class='btn btn-primary backs' value="+ item.id + ">退料</button></td>"
+                        + "</tr>";
+                })
+                $('#hetao-overview2 tbody').append(rows);
+                var table2 = $("#hetao-overview2").DataTable({
+                    "bPaginate": true,
+                    "searching": true,
+                    "info": true,
+                    "bLengthChange": false,
+                    "bServerSide": false,
+                    "language": {
+                        "search": "",
+                        "searchPlaceholder": "請輸入關鍵字",
+                        "paginate": { "previous": "上一頁", "next": "下一頁" },
+                        "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                        "zeroRecords": "沒有符合的搜尋結果",
+                        "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                        "lengthMenu": "呈現筆數 _MENU_",
+                        "emptyTable": "沒有數據",
+                        "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                    },
+                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                    "buttons": [{
+                        "extend": 'colvis',
+                        "collectionLayout": 'fixed two-column'
+                    }],
+                    "order": [],
+                    "columnDefs": [{
+                        "targets": [6],
+                        "orderable": false,
+                    }],
+                    "responsive": {
+                        "breakpoints": [
+                        { name: 'desktop', width: Infinity },
+                        { name: 'tablet', width: 1024 },
+                        ],
+                        "details": {
+                            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                            "type": 'none',
+                            "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
+                            "target": ''
+                        }
+                    },
+                });
+
+                $(".searchInput_s2").on("blur", function() {
+                    table.search(this.value).draw();
+                });
+
+                $(".searchInput_s2").on("keyup", function() {
+                    table.search(this.value).draw();
+                });
+
+                $('.backs').on('click', function(){
+
+                    var date = $(this).parents('tr').find("td:eq(0)").text();
+                    var materials_number = $(this).parents('tr').find("td:eq(1)").text();
+                    var materials_spec = $(this).parents('tr').find("td:eq(2)").text();
+                    var machine_number = $(this).parents('tr').find("td:eq(3)").text();
+                    var quantity = $(this).parents('tr').find("td:eq(4)").text();
+                    var id = $(this).parents('tr').find("td:eq(6)").children('button').val();
+
+                    $("#back_date").val(date);
+                    $("#back_materials_number").val(materials_number);
+                    $("#back_materials_spec").val(materials_spec);
+                    $("#back_machine_number").val(machine_number);
+                    $("#back_quantity").val(quantity);
+                    $("#id").val(id);
+
+                    $('#cancel').modal('show');
+
+                });
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
+</script>
+<script type="text/javascript">
+    $('#reset').on('click',function(){
+        $('#start').val("")
+        $('#end').val("")
+    })
+
+    $('#reset2').on('click',function(){
+        $('#start2').val("")
+        $('#end2').val("")
+    })
 </script>
 @endsection

@@ -81,6 +81,8 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/HT/{organization}/Material/material/materialsNumberSearch','HT\Material\MaterialController@materialsNumberSearch')->name('ht.Material.material.materialsNumberSearch');
 		Route::post('/HT/{organization}/Material/material/store','HT\Material\MaterialController@store')->name('ht.Material.material.store');
 		Route::post('/HT/{organization}/Material/material/storeBack','HT\Material\MaterialController@storeBack')->name('ht.Material.material.storeBack');
+		Route::post('/HT/{organization}/Material/material/notGetMaterialSearch','HT\Material\MaterialController@notGetMaterialSearch')->name('ht.Material.material.notGetMaterialSearch');
+		Route::post('/HT/{organization}/Material/material/getMaterialSearch','HT\Material\MaterialController@getMaterialSearch')->name('ht.Material.material.getMaterialSearch');
 
 		//領退料管理-料單管理
 		Route::get('/HT/{organization}/Material/case/index','HT\Material\CaseController@index')->name('ht.Material.case.index');
@@ -90,6 +92,10 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/Material/case/materialBackEdit','HT\Material\CaseController@materialBackEdit')->name('ht.Material.case.materialBackEdit');
 		Route::post('/HT/{organization}/Material/case/materialBackConfirm','HT\Material\CaseController@materialBackConfirm')->name('ht.Material.case.materialBackConfirm');
 		Route::post('/HT/{organization}/Material/case/materialBackDownload','HT\Material\CaseController@materialBackDownload')->name('ht.Material.case.materialBackDownload');
+		Route::post('/HT/{organization}/Material/case/materialingSearch','HT\Material\CaseController@materialingSearch')->name('ht.Material.case.materialingSearch');
+		Route::post('/HT/{organization}/Material/case/materialFinishSearch','HT\Material\CaseController@materialFinishSearch')->name('ht.Material.case.materialFinishSearch');
+		Route::post('/HT/{organization}/Material/case/materialBackSearch','HT\Material\CaseController@materialBackSearch')->name('ht.Material.case.materialBackSearch');
+		Route::post('/HT/{organization}/Material/case/materialBackFinishSearch','HT\Material\CaseController@materialBackFinishSearch')->name('ht.Material.case.materialBackFinishSearch');
 
 		//領退料管理-庫存管理
 		Route::get('/HT/{organization}/Material/stock/index','HT\Material\StockController@index')->name('ht.Material.stock.index');

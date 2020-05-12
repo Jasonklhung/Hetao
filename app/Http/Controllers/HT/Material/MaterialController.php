@@ -156,4 +156,37 @@ class MaterialController extends Controller
 
         return redirect()->route('ht.Material.material.index',compact('organization'))->with('success','退料單已送出');
     }
+
+    public function notGetMaterialSearch(Organization $organization,Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+
+        $dept = Organization::where('id',$organization->id)->get();
+        $materialN =  Material::where('user_id',Auth::user()->id)
+                                ->where('organization_name',$dept[0]['name'])
+                                ->where('status','N')
+                                ->where('date','>=',$start)
+                                ->where('date','<=',$end)
+                                ->get();
+
+        return $materialN;
+
+    }
+
+    public function getMaterialSearch(Organization $organization,Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+
+        $dept = Organization::where('id',$organization->id)->get();
+        $materialY =  Material::where('user_id',Auth::user()->id)
+                                ->where('organization_name',$dept[0]['name'])
+                                ->where('status','Y')
+                                ->where('date','>=',$start)
+                                ->where('date','<=',$end)
+                                ->get();
+
+        return $materialY;
+    }
 }

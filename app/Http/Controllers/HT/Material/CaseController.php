@@ -12,6 +12,7 @@ use App\MaterialBack;
 use App\Exports\MaterialDownloadExport;
 use App\Exports\MaterialBackDownloadExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\User;
 
 class CaseController extends Controller
 {
@@ -93,7 +94,27 @@ class CaseController extends Controller
         //退料已完成
         $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])->where('status','Y')->get();
 
-        return view('ht.Material.case.index',compact('organization','caseCount','materialing','materialFinish','materialBack','materialBackFinish'));
+        //全部分公司使用者
+        $allUser = User::all();
+        $deptUser = array();
+
+        foreach ($allUser as $key => $value) {
+            if($value->organization_id == $dept[0]['id']){
+                $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+            }
+        }
+
+        foreach ($allUser as $key => $value) {
+            $many = explode(',', $value->organizations);
+
+            foreach ($many as $k => $v) {
+                if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id']){
+                    $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+                }
+            }
+        }
+
+        return view('ht.Material.case.index',compact('organization','caseCount','materialing','materialFinish','materialBack','materialBackFinish','deptUser'));
     }
 
     public function material_edit(Organization $organization,Request $request)
@@ -153,5 +174,351 @@ class CaseController extends Controller
         $today = date('Y-m-d');
 
         return (new MaterialBackDownloadExport)->search($request->id)->download($today.'報備明細表.xlsx');
+    }
+
+    public function materialingSearch(Organization $organization,Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+        $status = $request->status;
+        $staff = $request->staff;
+
+        //領料待處理
+        $dept = Organization::where('id',$organization->id)->get(); //取得組織id
+
+        if($start != null && $end != null && $status != null && $staff != null){
+            $materialing = Material::where('organization_name',$dept[0]['name'])
+                                    ->where('status','N')
+                                    ->where('date','>=',$start)
+                                    ->where('date','<=',$end)
+                                    ->where('statusEdit',$status)
+                                    ->where('user_id',$staff)
+                                    ->get();
+        }
+        elseif($start != null && $end != null && $status != null && $staff == null){
+            $materialing = Material::where('organization_name',$dept[0]['name'])
+                                    ->where('status','N')
+                                    ->where('date','>=',$start)
+                                    ->where('date','<=',$end)
+                                    ->where('statusEdit',$status)
+                                    ->get();
+        }
+        elseif($start != null && $end != null && $status == null && $staff != null){
+            $materialing = Material::where('organization_name',$dept[0]['name'])
+                                    ->where('status','N')
+                                    ->where('date','>=',$start)
+                                    ->where('date','<=',$end)
+                                    ->where('user_id',$staff)
+                                    ->get();
+        }
+        elseif($start != null && $end != null && $status == null && $staff == null){
+            $materialing = Material::where('organization_name',$dept[0]['name'])
+                                    ->where('status','N')
+                                    ->where('date','>=',$start)
+                                    ->where('date','<=',$end)
+                                    ->get();
+        }
+        elseif($start == null && $end == null && $status == null && $staff != null){
+            $materialing = Material::where('organization_name',$dept[0]['name'])
+                                    ->where('status','N')
+                                    ->where('user_id',$staff)
+                                    ->get();
+        }
+        elseif($start == null && $end == null && $status != null && $staff == null){
+            $materialing = Material::where('organization_name',$dept[0]['name'])
+                                    ->where('status','N')
+                                    ->where('statusEdit',$status)
+                                    ->get();
+        }
+        elseif($start == null && $end == null && $status != null && $staff != null){
+            $materialing = Material::where('organization_name',$dept[0]['name'])
+                                    ->where('status','N')
+                                    ->where('statusEdit',$status)
+                                    ->where('user_id',$staff)
+                                    ->get();
+        }
+
+        return $materialing;
+
+    }
+
+    public function materialFinishSearch(Organization $organization,Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+        $statusDL = $request->statusDL;
+        $statusERP = $request->statusERP;
+        $staff = $request->staff;
+
+        //領料已完成
+        $dept = Organization::where('id',$organization->id)->get(); //取得組織id
+
+        if($start != null && $end != null && $statusDL != null && $statusERP != null && $staff != null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('date','>=',$start)
+                                        ->where('date','<=',$end)
+                                        ->where('statusDL',$statusDL)
+                                        ->where('statusERP',$statusERP)
+                                        ->where('user_id',$staff)
+                                        ->get();
+        }
+        elseif($start != null && $end != null && $statusDL != null && $statusERP != null && $staff == null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('date','>=',$start)
+                                        ->where('date','<=',$end)
+                                        ->where('statusDL',$statusDL)
+                                        ->where('statusERP',$statusERP)
+                                        ->get();
+        }
+        elseif($start != null && $end != null && $statusDL != null && $statusERP == null && $staff != null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('date','>=',$start)
+                                        ->where('date','<=',$end)
+                                        ->where('statusDL',$statusDL)
+                                        ->where('user_id',$staff)
+                                        ->get();
+        }
+        elseif($start != null && $end != null && $statusDL == null && $statusERP != null && $staff != null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('date','>=',$start)
+                                        ->where('date','<=',$end)
+                                        ->where('statusERP',$statusERP)
+                                        ->where('user_id',$staff)
+                                        ->get();
+        }
+        elseif($start != null && $end != null && $statusDL != null && $statusERP == null && $staff == null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('date','>=',$start)
+                                        ->where('date','<=',$end)
+                                        ->where('statusDL',$statusDL)
+                                        ->get();
+        }
+        elseif($start != null && $end != null && $statusDL == null && $statusERP != null && $staff == null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('date','>=',$start)
+                                        ->where('date','<=',$end)
+                                        ->where('statusERP',$statusERP)
+                                        ->get();
+        }
+        elseif($start != null && $end != null && $statusDL == null && $statusERP == null && $staff != null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('date','>=',$start)
+                                        ->where('date','<=',$end)
+                                        ->where('user_id',$staff)
+                                        ->get();
+        }
+        elseif($start == null && $end == null && $statusDL != null && $statusERP != null && $staff != null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('statusDL',$statusDL)
+                                        ->where('statusERP',$statusERP)
+                                        ->where('user_id',$staff)
+                                        ->get();
+        }
+        elseif($start == null && $end == null && $statusDL != null && $statusERP != null && $staff == null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('statusDL',$statusDL)
+                                        ->where('statusERP',$statusERP)
+                                        ->get();
+        }
+        elseif($start == null && $end == null && $statusDL != null && $statusERP == null && $staff != null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('statusDL',$statusDL)
+                                        ->where('user_id',$staff)
+                                        ->get();
+        }
+        elseif($start == null && $end == null && $statusDL == null && $statusERP != null && $staff != null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('statusERP',$statusERP)
+                                        ->where('user_id',$staff)
+                                        ->get();
+        }
+        elseif($start == null && $end == null && $statusDL != null && $statusERP == null && $staff == null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('statusDL',$statusDL)
+                                        ->get();
+        }
+        elseif($start == null && $end == null && $statusDL == null && $statusERP != null && $staff == null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('statusERP',$statusERP)
+                                        ->get();
+        }
+        elseif($start == null && $end == null && $statusDL == null && $statusERP == null && $staff != null){
+            $materialFinish = Material::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('user_id',$staff)
+                                        ->get();
+        }
+
+        return $materialFinish;
+    }
+
+    public function materialBackSearch(Organization $organization,Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+        $staff = $request->staff;
+
+        //退料待處理
+        $dept = Organization::where('id',$organization->id)->get(); //取得組織id
+
+        if($start != null && $end != null && $staff != null){
+            $materialBack = MaterialBack::where('organization_name',$dept[0]['name'])
+                                        ->where('date','>=',$start)
+                                        ->where('date','<=',$end)
+                                        ->where('user_id',$staff)
+                                        ->where('status','N')
+                                        ->get();
+        }
+        elseif($start != null && $end != null && $staff == null){
+            $materialBack = MaterialBack::where('organization_name',$dept[0]['name'])
+                                        ->where('date','>=',$start)
+                                        ->where('date','<=',$end)
+                                        ->where('status','N')
+                                        ->get();
+        }
+        elseif($start == null && $end == null && $staff != null){
+            $materialBack = MaterialBack::where('organization_name',$dept[0]['name'])
+                                        ->where('user_id',$staff)
+                                        ->where('status','N')
+                                        ->get();
+        }
+
+        return $materialBack;
+    }
+
+    public function materialBackFinishSearch(Organization $organization,Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+        $statusDL = $request->statusDL;
+        $statusERP = $request->statusERP;
+        $staff = $request->staff;
+
+        //領料已完成
+        $dept = Organization::where('id',$organization->id)->get(); //取得組織id
+
+        if($start != null && $end != null && $statusDL != null && $statusERP != null && $staff != null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('date','>=',$start)
+                                                ->where('date','<=',$end)
+                                                ->where('statusDL',$statusDL)
+                                                ->where('statusERP',$statusERP)
+                                                ->where('user_id',$staff)
+                                                ->get();
+        }
+        elseif($start != null && $end != null && $statusDL != null && $statusERP != null && $staff == null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('date','>=',$start)
+                                                ->where('date','<=',$end)
+                                                ->where('statusDL',$statusDL)
+                                                ->where('statusERP',$statusERP)
+                                                ->get();
+        }
+        elseif($start != null && $end != null && $statusDL != null && $statusERP == null && $staff != null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('date','>=',$start)
+                                                ->where('date','<=',$end)
+                                                ->where('statusDL',$statusDL)
+                                                ->where('user_id',$staff)
+                                                ->get();
+        }
+        elseif($start != null && $end != null && $statusDL == null && $statusERP != null && $staff != null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('date','>=',$start)
+                                                ->where('date','<=',$end)
+                                                ->where('statusERP',$statusERP)
+                                                ->where('user_id',$staff)
+                                                ->get();
+        }
+        elseif($start != null && $end != null && $statusDL != null && $statusERP == null && $staff == null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('date','>=',$start)
+                                                ->where('date','<=',$end)
+                                                ->where('statusDL',$statusDL)
+                                                ->get();
+        }
+        elseif($start != null && $end != null && $statusDL == null && $statusERP != null && $staff == null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('date','>=',$start)
+                                                ->where('date','<=',$end)
+                                                ->where('statusERP',$statusERP)
+                                                ->get();
+        }
+        elseif($start != null && $end != null && $statusDL == null && $statusERP == null && $staff != null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('date','>=',$start)
+                                                ->where('date','<=',$end)
+                                                ->where('user_id',$staff)
+                                                ->get();
+        }
+        elseif($start == null && $end == null && $statusDL != null && $statusERP != null && $staff != null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('statusDL',$statusDL)
+                                                ->where('statusERP',$statusERP)
+                                                ->where('user_id',$staff)
+                                                ->get();
+        }
+        elseif($start == null && $end == null && $statusDL != null && $statusERP != null && $staff == null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('statusDL',$statusDL)
+                                                ->where('statusERP',$statusERP)
+                                                ->get();
+        }
+        elseif($start == null && $end == null && $statusDL != null && $statusERP == null && $staff != null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('statusDL',$statusDL)
+                                                ->where('user_id',$staff)
+                                                ->get();
+        }
+        elseif($start == null && $end == null && $statusDL == null && $statusERP != null && $staff != null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('statusERP',$statusERP)
+                                                ->where('user_id',$staff)
+                                                ->get();
+        }
+        elseif($start == null && $end == null && $statusDL != null && $statusERP == null && $staff == null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                        ->where('status','Y')
+                                        ->where('statusDL',$statusDL)
+                                        ->get();
+        }
+        elseif($start == null && $end == null && $statusDL == null && $statusERP != null && $staff == null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('statusERP',$statusERP)
+                                                ->get();
+        }
+        elseif($start == null && $end == null && $statusDL == null && $statusERP == null && $staff != null){
+            $materialBackFinish = MaterialBack::where('organization_name',$dept[0]['name'])
+                                                ->where('status','Y')
+                                                ->where('user_id',$staff)
+                                                ->get();
+        }
+
+        return $materialBackFinish;
     }
 }

@@ -18,22 +18,23 @@
                                         <div class="panel-body tab-pane">
                                             <div class="tabbable">
                                                 <div class='coupon'>
-                                                    <form class='form-inline'>
+                                                    <form class='form-inline' id="performanceAllSearch">
+                                                        @csrf
                                                         <!-- <input type="text" class="form-control mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字"> -->
                                                         <div class='form-group'>
                                                             <div class='datetime'>
                                                                 <div class='input-group date date-select'>
-                                                                    <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                    <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                             </div><span class='rwd-hide span-d'>~</span>
                                                             <div class='datetime'>
                                                                 <div class='input-group date date-select mr-s'>
-                                                                    <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                    <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class='btn-wrap'>
-                                                            <button class='mr-s' type="button">查詢</button>
-                                                            <button class='mr-s' type="button">重設</button>
+                                                            <button class='mr-s' type="submit">查詢</button>
+                                                            <button class='mr-s' type="button" id="reset">重設</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -66,24 +67,6 @@
                                                                         $mount += $v['mount'];
                                                                     @endphp
                                                                 @endforeach
-                                                                <!-- <td>{{ $data[0]['mount'] }}</td>
-                                                                <td>{{ $data[1]['mount'] }}</td>
-                                                                <td>{{ $data[2]['mount'] }}</td>
-                                                                <td>{{ $data[3]['mount'] }}</td>
-                                                                <td>{{ $data[4]['mount'] }}</td>
-                                                                <td>{{ $data[5]['mount'] }}</td>
-                                                                <td>{{ $data[6]['mount'] }}</td>
-                                                                <td>{{ $data[7]['mount'] }}</td>
-                                                                <td>{{ $data[8]['mount'] }}</td>
-                                                                <td>{{ $data[9]['mount'] }}</td>
-                                                                <td>{{ $data[10]['mount'] }}</td>
-                                                                <td>{{ $data[11]['mount'] }}</td>
-                                                                <td>{{ $data[12]['mount'] }}</td>
-                                                                <td>{{ $data[13]['mount'] }}</td>
-                                                                <td>{{ $data[14]['mount'] }}</td>
-                                                                <td>{{ $data[15]['mount'] }}</td>
-                                                                <td>{{ $data[16]['mount'] }}</td>
-                                                                <td>{{ $data[17]['mount'] }}</td> -->
                                                                 <td>{{$mount}}</td>
                                                             </tr>
                                                             <tr>
@@ -99,24 +82,6 @@
                                                                         $money += $v['money'];
                                                                     @endphp
                                                                 @endforeach
-                                                                <!-- <td>{{ $data[0]['money'] }}</td>
-                                                                <td>{{ $data[1]['money'] }}</td>
-                                                                <td>{{ $data[2]['money'] }}</td>
-                                                                <td>{{ $data[3]['money'] }}</td>
-                                                                <td>{{ $data[4]['money'] }}</td>
-                                                                <td>{{ $data[5]['money'] }}</td>
-                                                                <td>{{ $data[6]['money'] }}</td>
-                                                                <td>{{ $data[7]['money'] }}</td>
-                                                                <td>{{ $data[8]['money'] }}</td>
-                                                                <td>{{ $data[9]['money'] }}</td>
-                                                                <td>{{ $data[10]['money'] }}</td>
-                                                                <td>{{ $data[11]['money'] }}</td>
-                                                                <td>{{ $data[12]['money'] }}</td>
-                                                                <td>{{ $data[13]['money'] }}</td>
-                                                                <td>{{ $data[14]['money'] }}</td>
-                                                                <td>{{ $data[15]['money'] }}</td>
-                                                                <td>{{ $data[16]['money'] }}</td>
-                                                                <td>{{ $data[17]['money'] }}</td> -->
                                                                 <td>{{$money}}</td>
                                                             </tr>
                                                             @endforeach
@@ -124,40 +89,25 @@
                                                     </table>
                                                 </div>
                                                 <div class='coupon mt-m'>
-                                                    <form action="" class="form-inline mt-m mb-s">
+                                                    <form action="" class="form-inline mt-m mb-s" id="businessSearch">
+                                                        @csrf
                                                         <input type="text" class="form-control mb-s mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
-                                                        <select  class="form-control d-inline w-auto mb-s mr-s">
+                                                        <select  class="form-control d-inline w-auto mb-s mr-s" name="business" id="business">
                                                             <option value="" selected>業務</option>
-                                                            <option value="">Cind</option>
-                                                            <option value="">曾曾</option>
+                                                            @foreach($name as $key => $data)
+                                                            <option value="{{$data}}">{{$data}}</option>
+                                                            @endforeach
                                                         </select>
-                                                        <select  class="form-control d-inline w-auto mb-s">
+                                                        <select  class="form-control d-inline w-auto mb-s" name="type" id="type">
                                                             <option value="" selected>類別</option>
-                                                            <option value="">BOXWATER</option>
-                                                            <option value="">KEYWATER</option>
-                                                            <option value="">RO</option>
-                                                            <option value="">WATER</option>
-                                                            <option value="">TANK</option>
-                                                            <option value="">水處理</option>
-                                                            <option value="">材料</option>
-                                                            <option value="">其他</option>
-                                                            <option value="">保養</option>
-                                                            <option value="">限流閥</option>
-                                                            <option value="">淨水器</option>
-                                                            <option value="">瓶裝型</option>
-                                                            <option value="">費用</option>
-                                                            <option value="">開飲機</option>
-                                                            <option value="">過濾器</option>
-                                                            <option value="">零件</option>
-                                                            <option value="">電解水機</option>
-                                                            <option value="">中古機</option>
-                                                            <option value="">維修</option>
-                                                            <option value="">膜管</option>
-                                                            <option value="">機器</option>
-                                                            <option value="">濾心</option>
-                                                            <option value="">濾材</option>
-                                                            <option value="">清缸</option>
+                                                            @foreach($type as $key => $data)
+                                                            <option value="{{$data}}">{{$data}}</option>
+                                                            @endforeach
                                                         </select>
+                                                        <div class='btn-wrap'>
+                                                            <button class='mr-s' type="submit">查詢</button>
+                                                            <button class='mr-s' type="button" id="resets">重設</button>
+                                                        </div>
                                                     </form>    
                                                 </div> 
                                                 <table class="table table-hover dt-responsive table-striped" id="hetao-list-norwd">
@@ -347,5 +297,235 @@
             table_s2.search(this.value).draw();
         });
     });
+</script>
+<script type="text/javascript">
+    $('#performanceAllSearch').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Performance.all.performanceAllSearch',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+
+                var row;
+                var rows;
+
+                $('#hetao-sale').DataTable().destroy();
+                $('#hetao-sale thead').empty();
+                $('#hetao-sale tbody').empty();
+
+                var count = 0;
+                var mount = 0;
+                var money = 0;
+             
+                    
+                row += "<tr class'text-center'>"
+                + "<th>業務交易統計</th>"
+                + "<th><span class='v-hide'>單位</span></th>"
+                $.each(res[2], function (i, item) {
+                    row += "<th>"+ i +"</th>"
+                })
+                row += "<th>總計</th>"
+                + "</tr>"
+
+                $.each(res[0], function (i, item) {
+                    
+                    rows += "<tr class='text-center'>"
+                        + "<td class='text-primary' rowspan='2'>"+ i +"</td>"
+                        + "<td class='text-muted'>數量</td>"
+                        $.each(item, function (ii, items) {
+
+                            mount += items.mount;
+
+                            rows += "<td>"+ items.mount +"</td>"
+                        })
+                        rows += "<td>"+ mount + "</td>"
+                        + "</tr>"
+                        + "<tr>"
+                        + "<td style='display: none'></td>"
+                        + "<td class='text-muted'>小計</td>"
+                        $.each(item, function (iii, itemss) {
+
+                            money += itemss.money;
+
+                            rows += "<td>"+ itemss.money +"</td>"
+                        })
+                        rows += "<td>"+ money + "</td>"
+                        + "</tr>"
+                })
+                $('#hetao-sale thead').append(row);
+                $('#hetao-sale tbody').append(rows);
+                var table_s1 = $("#hetao-sale").DataTable({
+                    "bPaginate": true,
+                    "searching": true,
+                    "info": true,
+                    "bLengthChange": false,
+                    "bServerSide": false,
+                    "language": {
+                        "search": "",
+                        "searchPlaceholder": "請輸入關鍵字",
+                        "paginate": { "previous": "上一頁", "next": "下一頁" },
+                        "info": "<p class='m-0'>總和： "+res[1]+"</p>",
+                        "zeroRecords": "沒有符合的搜尋結果",
+                        "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                        "lengthMenu": "呈現筆數 _MENU_",
+                        "emptyTable": "目前無工單",
+                        "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                    },
+                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                    "buttons": [{
+                        "extend": "colvis",
+                    }],
+                    "ordering": false,
+                    "columnDefs": [{
+                        "targets": 'nosort',
+                        "orderable": false,
+                    }],
+                    scrollX: true,
+                    fixedColumns:   {
+                        leftColumns: 2
+                    },
+                    scrollCollapse: true,
+                });
+                $(".searchInput_s1").on("blur", function() {
+                    table_s1.search(this.value).draw();
+                });
+
+                $(".searchInput_s1").on("keyup", function() {
+                    table_s1.search(this.value).draw();
+                });
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
+
+    $('#businessSearch').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Performance.all.businessSearch',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+
+                var data = new Array();
+
+                $.each(res, function (i, item) {
+
+                    data[i] = {
+                        day: "<span class='text-nowrap'>"+item.DATE+"</span>",
+                        number: item.SALENUM,
+                        sales: item.NAME,
+                        name: item.CUSTKEY,
+                        card: item.CARDNO,
+                        productid: item.CODE,
+                        productintro: item.DESCRIBE,
+                        kind: item.TYPE,
+                        quantity: item.MATE,
+                        price: item.PRICE,
+                        total: item.AMOUNT,
+                        invoice: item.INVOICE,
+                        company: item.FULLNAME,
+                        staff: item.TOUCH,
+                        phone: "<a href='tel:"+item.COMTEL+"'>"+item.COMTEL+"</a>"
+                    }
+                })
+
+                function format(d) {
+                    return (
+                        `<table class="tb-child">
+                        <tr><td><span class='w-105px'>發票號碼：</span>` + d.invoice + `</td></tr>
+                        <tr><td><span class='w-105px'>客戶全銜：</span>` + d.company + `</td></tr>
+                        <tr><td><span class='w-105px'>聯絡人：</span>` + d.staff + `</td></tr>
+                        <tr><td class="text-nowrap"><span class='w-105px'>聯絡電話：</span>` + d.phone + `</td></tr>
+                        </table>`
+                        );
+                }
+                $(document).ready(function() {
+                    var table_s2 = $("#hetao-list-norwd").DataTable({
+                        "data": data,
+                        "bPaginate": true,
+                        "searching": true,
+                        "info": true,
+                        "bLengthChange": false,
+                        "bServerSide": false,
+                        "language": {
+                            "search": "",
+                            "searchPlaceholder": "請輸入關鍵字",
+                            "paginate": { "previous": "上一頁", "next": "下一頁" },
+                            "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                            "zeroRecords": "沒有符合的搜尋結果",
+                            "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                            "lengthMenu": "呈現筆數 _MENU_",
+                            "emptyTable": "目前無工單",
+                            "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                        },
+                        "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                        "buttons": [{
+                            "extend": "colvis",
+                            "collectionLayout": "fixed two-column"
+                        }],
+                        "order": [],
+                        "columnDefs": [{
+                            "targets": [0],
+                            "orderable": false,
+                        }, ],
+                        "responsive": false,
+                        columns: [
+                        {
+                            className: "details-control",
+                            orderable: false,
+                            data: null,
+                            defaultContent: '<span class="lnr lnr-chevron-down"></span>'
+                        },
+                        { data: "day" },
+                        { data: "number" },
+                        { data: "sales" },
+                        { data: "name" },
+                        { data: "card" },
+                        { data: "productid" },
+                        { data: "productintro" },
+                        { data: "kind" },
+                        { data: "quantity" },
+                        { data: "price" },
+                        { data: "total" }
+
+                        ],
+                    });
+
+                    $("#hetao-list-norwd tbody").on("click", "td.details-control", function() {
+                        var tr = $(this).closest("tr");
+                        var row = table_s2.row(tr);
+
+                        if (row.child.isShown()) {
+                            row.child.hide();
+                            tr.removeClass("shown");
+                        } else {
+                            row.child(format(row.data()), "p-0").show();
+                            tr.addClass("shown");
+                        }
+                    });
+
+                    $(".searchInput_s2").on("blur", function() {
+                        table_s2.search(this.value).draw();
+                    });
+
+                    $(".searchInput_s2").on("keyup", function() {
+                        table_s2.search(this.value).draw();
+                    });
+                });
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
 </script>
 @endsection

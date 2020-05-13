@@ -123,11 +123,118 @@ class SelfController extends Controller
             }
         }
 
-        $totlaMoney = 0;
+        $totalMoney = 0;
         foreach ($total as $key => $value) {
-            $totlaMoney += $value['money'];
+            $totalMoney += $value['money'];
         }
 
-        return view('ht.Performance.self.index',compact('organization','caseCount','performance','total','totlaMoney'));
+        return view('ht.Performance.self.index',compact('organization','caseCount','performance','total','totalMoney','type'));
+    }
+
+    public function performanceSearch(Organization $organization,Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+
+        //個人業績
+        $dept = Organization::where('id',$organization->id)->get();
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-sales', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'FAMILY' => Auth::user()->name,
+                'DEPT' => $dept[0]['name']
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $type = array();
+        $total = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $performance = $value;
+            }
+            else{
+                $performance = [];
+            }
+        }
+
+        foreach ($performance as $key => $value) {
+            if($value->DATE >= $start && $value->DATE <= $end){
+                if(!in_array($value->TYPE, $type)){
+                    array_push($type, $value->TYPE);
+                }
+            }
+        }
+
+
+        foreach ($type as $k => $v) {
+
+            $total[$v]['mount'] = 0;
+            $total[$v]['money'] = 0;
+
+            foreach ($performance as $key => $value) {
+               if($value->TYPE == $v){
+                    $total[$v]['mount'] += $value->MATE;
+                    $total[$v]['money'] += $value->AMOUNT;
+                }
+            }
+        }
+
+        $totalMoney = 0;
+        foreach ($total as $key => $value) {
+            $totalMoney += $value['money'];
+        }
+
+        return [$total,$totalMoney];
+    }
+
+    public function categorySearch(Organization $organization,Request $request)
+    {
+        $category = $request->category;
+
+        $dept = Organization::where('id',$organization->id)->get();
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-sales', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'FAMILY' => Auth::user()->name,
+                'DEPT' => $dept[0]['name']
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $type = array();
+        $total = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $performance = $value;
+            }
+            else{
+                $performance = [];
+            }
+        }
+
+        $typeArray = array();
+
+        foreach ($performance as $key => $value) {
+            
+            if($value->TYPE == $category){
+                $typeArray[] = $value;
+            }
+        }
+
+        
+        return $typeArray;
     }
 }

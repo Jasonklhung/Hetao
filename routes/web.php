@@ -119,10 +119,14 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/Business/self/sendMail','HT\Business\SelfController@sendMail')->name('ht.Business.self.sendMail');
 		Route::post('/HT/{organization}/Business/self/trackExcel','HT\Business\SelfController@trackExcel')->name('ht.Business.self.trackExcel');
 		Route::post('/HT/{organization}/Business/self/trackWord','HT\Business\SelfController@trackWord')->name('ht.Business.self.trackWord');
+		Route::post('/HT/{organization}/Business/self/visitSearch','HT\Business\SelfController@visitSearch')->name('ht.Business.self.visitSearch');
+		Route::post('/HT/{organization}/Business/self/trackSearch','HT\Business\SelfController@trackSearch')->name('ht.Business.self.trackSearch');
+		Route::post('/HT/{organization}/Business/self/monthSearch','HT\Business\SelfController@monthSearch')->name('ht.Business.self.monthSearch');
 
 		//業務管理-全站業務
 		Route::get('/HT/{organization}/Business/all/index','HT\Business\AllController@index')->name('ht.Business.all.index');
 		Route::get('/HT/{organization}/Business/all/show/{id}','HT\Business\AllController@show')->name('ht.Business.all.show');
+		Route::post('/HT/{organization}/Business/all/visitSearch','HT\Business\AllController@visitSearch')->name('ht.Business.all.visitSearch');
 
 		//業績查詢-個人業績
 		Route::get('/HT/{organization}/Performance/self/index','HT\Performance\SelfController@index')->name('ht.Performance.self.index');

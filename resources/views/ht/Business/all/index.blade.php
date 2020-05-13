@@ -34,33 +34,49 @@
                                                     <!-- 拜訪紀錄 -->
                                                     <div class="tab-pane active" id="viewers-tab-01">
                                                         <div class='coupon'>
-                                                            <form class='form-inline'>
+                                                            <form class='form-inline' id="visitSearch">
+                                                                @csrf
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s1" placeholder="請輸入關鍵字">
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select'>
-                                                                            <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                            <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide span-d'>~</span>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select mr-s'>
-                                                                            <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                            <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select name="" class="form-control mb-s mr-s">
-                                                                    <option selected hidden disabled value="">時間</option>
-                                                                    <option value="">早上(AM)</option>
-                                                                    <option value="">下午(PM)</option>
+                                                                <select class="form-control mb-s mr-s" name="time" id="time" id="time">
+                                                                    <option selected value="">時間</option>
+                                                                    <option value="上午(AM)">上午(AM)</option>
+                                                                    <option value="下午(PM)">下午(PM)</option>
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
-                                                                    <option selected hidden disabled value="">業務</option>
+                                                                <select class="form-control mb-s mr-s" name="business" id="business">
+                                                                    <option selected value="">業務</option>
+                                                                    @foreach($deptUser as $key => $data)
+                                                                    <option value="{{$data['id']}}">{{$data['name']}}</option>
+                                                                    @endforeach
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
-                                                                    <option selected hidden disabled value="">類型</option>
+                                                                <select class="form-control mb-s mr-s" name="type" id="type">
+                                                                    <option selected value="">類型</option>
+                                                                    <option value="拜訪">拜訪</option>
+                                                                    <option value="陌訪">陌訪</option>
+                                                                    <option value="洽機">洽機</option>
+                                                                    <option value="看現場">看現場</option>
+                                                                    <option value="送機器">送機器</option>
+                                                                    <option value="收款">收款</option>
+                                                                    <option value="送文件">送文件</option>
+                                                                    <option value="協助安裝">協助安裝</option>
+                                                                    <option value="其他">其他</option>
+                                                                    <option value="支援">支援</option>
+                                                                    <option value="客訴">客訴</option>
+                                                                    <option value="客服">客服</option> 
                                                                 </select>
                                                                 <div class='btn-wrap'>
-                                                                    <button class='mr-s' type="button">查詢</button>
-                                                                    <button class='mr-s' type="button">重設</button>
+                                                                    <button class='mr-s' type="submit">查詢</button>
+                                                                    <button class='mr-s' type="button" id="reset">重設</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -98,36 +114,58 @@
                                                     <!-- 案件追蹤 -->
                                                     <div class="tab-pane" id="viewers-tab-02">
                                                         <div class='coupon'>
-                                                            <form class='form-inline'>
+                                                            <form class='form-inline' id="trackSearch">
+                                                                @csrf
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select'>
-                                                                            <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                            <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start2"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide span-d'>~</span>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select mr-s'>
-                                                                            <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                            <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end2"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select name="" class="form-control mb-s mr-s">
+                                                                <select class="form-control mb-s mr-s" name="business" id="business2">
                                                                     <option value="">業務</option>
+                                                                    @foreach($deptUser as $key => $data)
+                                                                    <option value="{{$data['id']}}">{{$data['name']}}</option>
+                                                                    @endforeach
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
+                                                                <select class="form-control mb-s mr-s" name="level" id="level">
                                                                     <option value="">等級</option>
+                                                                    <option value="A">A</option>
+                                                                    <option value="B">B</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="D">D</option>
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
+                                                                <select class="form-control mb-s mr-s" name="schedule" id="schedule">
                                                                     <option value="">進度</option>
+                                                                    <option value="尚未找到窗口">尚未找到窗口</option>
+                                                                    <option value="已拜訪介紹">已拜訪介紹</option>
+                                                                    <option value="已報價">已報價</option>
+                                                                    <option value="已成待裝機">已成待裝機</option>
+                                                                    <option value="已裝機完成">已裝機完成</option>
+                                                                    <option value="已收款">已收款</option>
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
+                                                                <select class="form-control mb-s mr-s" name="category" id="category">
                                                                     <option value="">類別</option>
+                                                                    <option value="公家機關">公家機關</option>
+                                                                    <option value="商用">商用</option>
+                                                                    <option value="家用">家用</option>
+                                                                    <option value="醫療">醫療</option>
+                                                                    <option value="中信局">中信局</option>
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
+                                                                <select class="form-control mb-s mr-s" name="numbers" id="numbers">
                                                                     <option value="">型號</option>
                                                                 </select>
                                                                 <select name="" class="form-control mb-s mr-s">
                                                                     <option value="">結果</option>
+                                                                    <option value="成交">成交</option>
+                                                                    <option value="流單">流單</option>
+                                                                    <option value="其他">其他</option>
                                                                 </select>
                                                                 <div class='btn-wrap'>
                                                                     <button class='mr-s' type="button">查詢</button>
@@ -761,5 +799,90 @@
         }],
     });
 
+</script>
+<script type="text/javascript">
+    $('#visitSearch').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Business.all.visitSearch',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+
+                var rows;
+                $('#hetao-list-s-1').DataTable().destroy();
+                $('#hetao-list-s-1 tbody').empty();
+
+                $.each(res, function (i, item) {
+
+                    rows += "<tr>"
+                    + "<td class='text-nowrap'>"+ item.date +"</td>"
+                    + "<td>"+ item.time +"</td>"
+                    + "<td>"+ item.name +"</td>"
+                    + "<td>"+ item.business_name +"</td>"
+                    + "<td>"+ item.type +"</td>"
+                    + "<td>"+ item.content +"</td>"
+                    + "<td><a href='https://www.google.com.tw/maps/place/"+ item.city + item.area + item.address +"' target='_blank'>"+ item.city + item.area + item.address +"</a></td>"
+                    + "<td><a class='text-nowrap' href='tel:"+ item.phone +"'>" + item.phone + "</a></td>"
+                    + "<td>"+ item.other +"</td>"
+                    + "</tr>"
+                })
+                $('#hetao-list-s-1 tbody').append(rows);
+                var table_s1 = $("#hetao-list-s-1").DataTable({
+                    "bPaginate": true,
+                    "searching": true,
+                    "info": true,
+                    "bLengthChange": false,
+                    "bServerSide": false,
+                    "language": {
+                        "search": "",
+                        "searchPlaceholder": "請輸入關鍵字",
+                        "paginate": { "previous": "上一頁", "next": "下一頁" },
+                        "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                        "zeroRecords": "沒有符合的搜尋結果",
+                        "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                        "lengthMenu": "呈現筆數 _MENU_",
+                        "emptyTable": "目前無工單",
+                        "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                    },
+                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                    "buttons": [{
+                        "extend": "colvis",
+                        "collectionLayout": "fixed two-column"
+                    }],
+                    "order": [],
+                    "columnDefs": [{
+                        "targets": [],
+                        "orderable": false,
+                    }],
+                    "responsive": {
+                        "breakpoints": [
+                        { name: 'desktop', width: Infinity },
+                        { name: 'tablet', width: 1024 },
+                        ],
+                        "details": {
+                            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                            "type": 'none',
+                            "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
+                            "target": ''
+                        }
+                    },
+                });
+                $(".searchInput_s1").on("blur", function() {
+                    table_s1.search(this.value).draw();
+                });
+
+                $(".searchInput_s1").on("keyup", function() {
+                    table_s1.search(this.value).draw();
+                });
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
 </script>
 @endsection

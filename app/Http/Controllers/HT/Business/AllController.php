@@ -103,6 +103,13 @@ class AllController extends Controller
         //拜訪紀錄-table
         $visitTable = Business::where('organization_name',$dept[0]['name'])->where('statusOpen','Y')->get();
 
+        // $visitNameArray = array();
+        // foreach ($visitTable as $key => $value) {
+        //     if(!in_array($value->business_name, $visitNameArray)){
+        //         array_push($visitNameArray, $value->business_name);
+        //     }
+        // }
+
         //案件追蹤-table
         $trackTable = BusinessTrack::query()
                 ->select('business_tracks.*','businesses.date','businesses.name','businesses.business_name','businesses.address','businesses.phone')
@@ -114,8 +121,8 @@ class AllController extends Controller
 
 
         //圖表-拜訪紀錄-不等於支援
-        $chart = Business::whereYear('updated_at','=',date('Y'))
-                            ->whereMonth('updated_at','=',date('m'))
+        $chart = Business::whereYear('date','=',date('Y'))
+                            ->whereMonth('date','=',date('m'))
                             ->where('organization_name',$dept[0]['name'])
                             ->where('statusOpen','Y')
                             ->where('type','!=','支援')
@@ -124,8 +131,8 @@ class AllController extends Controller
         $noneHelpChartCount = count($chart);
 
         //圖表-拜訪紀錄-等於支援
-        $chart = Business::whereYear('updated_at','=',date('Y'))
-                            ->whereMonth('updated_at','=',date('m'))
+        $chart = Business::whereYear('date','=',date('Y'))
+                            ->whereMonth('date','=',date('m'))
                             ->where('organization_name',$dept[0]['name'])
                             ->where('statusOpen','Y')
                             ->where('type','=','支援')
@@ -136,8 +143,8 @@ class AllController extends Controller
         $businessChartCount = [array("category"=>'業務工作','column-1'=>$noneHelpChartCount),array("category"=>'非業務工作','column-1'=>$helpChartCount)];
 
         //圖表-拜訪紀錄-長條圖
-        $chart = Business::whereYear('updated_at','=',date('Y'))
-                            ->whereMonth('updated_at','=',date('m'))
+        $chart = Business::whereYear('date','=',date('Y'))
+                            ->whereMonth('date','=',date('m'))
                             ->where('organization_name',$dept[0]['name'])
                             ->where('statusOpen','Y')
                             ->get();
@@ -197,8 +204,8 @@ class AllController extends Controller
         //圖表-追蹤數-業務分類
         $chart = BusinessTrack::query()
                             ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
-                            ->whereYear('business_tracks.updated_at','=',date('Y'))
-                            ->whereMonth('business_tracks.updated_at','=',date('m'))
+                            ->whereYear('businesses.date','=',date('Y'))
+                            ->whereMonth('businesses.date','=',date('m'))
                             ->where('business_tracks.organization_name',$dept[0]['name'])
                             ->where('business_tracks.statusTrack','Y')
                             ->where('business_tracks.statusOpen','Y')
@@ -209,8 +216,8 @@ class AllController extends Controller
 
         $chart = BusinessTrack::query()
                             ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
-                            ->whereYear('business_tracks.updated_at','=',date('Y'))
-                            ->whereMonth('business_tracks.updated_at','=',date('m'))
+                            ->whereYear('businesses.date','=',date('Y'))
+                            ->whereMonth('businesses.date','=',date('m'))
                             ->where('business_tracks.organization_name',$dept[0]['name'])
                             ->where('business_tracks.statusTrack','Y')
                             ->where('business_tracks.statusOpen','Y')
@@ -222,12 +229,21 @@ class AllController extends Controller
         $TrackBusinessChartCount = [array("category"=>'業務工作','column-1'=>$noneHelpTrackBusinessCount),array("category"=>'非業務工作','column-1'=>$HelpTrackBusinessCount)];
 
         //圖表-追蹤數&案件結單狀況
-        $chart = BusinessTrack::whereYear('updated_at','=',date('Y'))
-                                ->whereMonth('updated_at','=',date('m'))
-                                ->where('organization_name',$dept[0]['name'])
-                                ->where('statusTrack','Y')
-                                ->where('statusOpen','Y')
-                                ->get();
+        // $chart = BusinessTrack::whereYear('updated_at','=',date('Y'))
+        //                         ->whereMonth('updated_at','=',date('m'))
+        //                         ->where('organization_name',$dept[0]['name'])
+        //                         ->where('statusTrack','Y')
+        //                         ->where('statusOpen','Y')
+        //                         ->get();
+
+        $chart = BusinessTrack::query()
+                            ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
+                            ->whereYear('businesses.date','=',date('Y'))
+                            ->whereMonth('businesses.date','=',date('m'))
+                            ->where('business_tracks.organization_name',$dept[0]['name'])
+                            ->where('business_tracks.statusTrack','Y')
+                            ->where('business_tracks.statusOpen','Y')
+                            ->get();
 
         $trackChartCount = count($chart);
 
@@ -252,9 +268,10 @@ class AllController extends Controller
         //圖表-結單總筆數-參考成交總金額
         $chart = BusinessTrack::query()
                                 ->select('business_case_details.total')
+                                ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
                                 ->leftjoin('business_case_details','business_case_details.business_track_id','=','business_tracks.id')
-                                ->whereYear('business_tracks.updated_at','=',date('Y'))
-                                ->whereMonth('business_tracks.updated_at','=',date('m'))
+                                ->whereYear('businesses.date','=',date('Y'))
+                                ->whereMonth('businesses.date','=',date('m'))
                                 ->where('business_tracks.organization_name',$dept[0]['name'])
                                 ->where('business_tracks.statusTrack','Y')
                                 ->where('business_tracks.statusOpen','Y')
@@ -271,8 +288,8 @@ class AllController extends Controller
         //圖表-新增客戶數
         $chart = BusinessTrack::query()
                             ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
-                            ->whereYear('business_tracks.updated_at','=',date('Y'))
-                            ->whereMonth('business_tracks.updated_at','=',date('m'))
+                            ->whereYear('businesses.date','=',date('Y'))
+                            ->whereMonth('businesses.date','=',date('m'))
                             ->where('business_tracks.organization_name',$dept[0]['name'])
                             ->where('business_tracks.statusTrack','Y')
                             ->where('business_tracks.statusOpen','Y')
@@ -287,8 +304,9 @@ class AllController extends Controller
                             ->select('users.name','business_case_details.numbers','business_case_details.quantity')
                             ->leftjoin('business_case_details','business_case_details.business_track_id','=','business_tracks.id')
                             ->leftjoin('users','users.id','=','business_tracks.user_id')
-                            ->whereYear('business_tracks.updated_at','=',date('Y'))
-                            ->whereMonth('business_tracks.updated_at','=',date('m'))
+                            ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
+                            ->whereYear('businesses.date','=',date('Y'))
+                            ->whereMonth('businesses.date','=',date('m'))
                             ->where('business_tracks.organization_name',$dept[0]['name'])
                             ->where('business_tracks.statusTrack','Y')
                             ->where('business_tracks.statusOpen','Y')
@@ -326,8 +344,9 @@ class AllController extends Controller
         $chart = BusinessTrack::query()
                                 ->select('business_case_details.numbers','business_case_details.quantity')
                                 ->leftjoin('business_case_details','business_case_details.business_track_id','=','business_tracks.id')
-                                ->whereYear('business_tracks.updated_at','=',date('Y'))
-                                ->whereMonth('business_tracks.updated_at','=',date('m'))
+                                ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
+                                ->whereYear('businesses.date','=',date('Y'))
+                                ->whereMonth('businesses.date','=',date('m'))
                                 ->where('business_tracks.organization_name',$dept[0]['name'])
                                 ->where('business_tracks.statusTrack','Y')
                                 ->where('business_tracks.statusOpen','Y')
@@ -437,5 +456,46 @@ class AllController extends Controller
         $detail = BusinessCaseDetail::where('business_track_id',$id)->get();
 
         return view('ht.Business.all.show',compact('organization','caseCount','track','case_track','detail'));
+    }
+
+    public function visitSearch(Organization $organization,Request $request)
+    {
+        $dept = Organization::where('id',$organization->id)->get();
+
+        $start = $request->start;
+        $end = $request->end;
+        $time = $request->time;
+        $business = $request->business;
+        $type = $request->type;
+
+        $visitTypeArray = array();
+
+        $visitArray = Business::query()
+        ->when($start, function ($query) use ($start,$end) {
+            return $query->whereBetween('date',[$start,$end]);
+        })
+        ->when($time, function ($query) use ($time) {
+            return $query->where('time',$time);
+        })
+        ->when($business, function ($query) use ($business) {
+            return $query->where('user_id',$business);
+        })
+        ->where('organization_name',$dept[0]['name'])
+        ->where('statusOpen','Y')
+        ->get();
+
+        if($type != null){
+            foreach ($visitArray as $key => $value) {
+                if(strpos($value->type,$type) !== false){ 
+                    $visitTypeArray[] = $value;
+                }
+            }
+        }
+        else{
+            $visitTypeArray = $visitArray;
+        }
+
+        return $visitTypeArray;
+
     }
 }

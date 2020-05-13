@@ -35,31 +35,48 @@
                                                     <!-- 拜訪紀錄 -->
                                                     <div class="tab-pane active" id="viewers-tab-01">
                                                         <div class='coupon'>
-                                                            <form class='form-inline'>
+                                                            <form class='form-inline' id="visitSearch">
+                                                                @csrf
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s1" placeholder="請輸入關鍵字">
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select'>
-                                                                            <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                            <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide span-d'>~</span>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select mr-s'>
-                                                                            <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                            <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select name="" class="form-control mb-s mr-s">
-                                                                    <option selected hidden disabled value="">類型</option>
+                                                                <select class="form-control mb-s mr-s" name="type" id="type">
+                                                                    <option selected value="">類型</option>
+                                                                    <option value="拜訪">拜訪</option>
+                                                                    <option value="陌訪">陌訪</option>
+                                                                    <option value="洽機">洽機</option>
+                                                                    <option value="看現場">看現場</option>
+                                                                    <option value="送機器">送機器</option>
+                                                                    <option value="收款">收款</option>
+                                                                    <option value="送文件">送文件</option>
+                                                                    <option value="協助安裝">協助安裝</option>
+                                                                    <option value="其他">其他</option>
+                                                                    <option value="支援">支援</option>
+                                                                    <option value="客訴">客訴</option>
+                                                                    <option value="客服">客服</option>                                                
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
-                                                                    <option selected hidden disabled value="">發布</option>
+                                                                <select class="form-control mb-s mr-s" name="statusOpen" id="statusOpen">
+                                                                    <option selected value="">發布</option>
+                                                                    <option value="Y">已發布</option>
+                                                                    <option value="N">未發布</option>
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
-                                                                    <option selected hidden disabled value="">狀態</option>
+                                                                <select class="form-control mb-s mr-s" name="statusTrack" id="statusTrack">
+                                                                    <option selected value="">狀態</option>
+                                                                    <option value="Y">已追蹤</option>
+                                                                    <option value="N">未追蹤</option>
                                                                 </select>
                                                                 <div class='btn-wrap'>
-                                                                    <button class='mr-s' type="button">查詢</button>
-                                                                    <button class='mr-s' type="button">重設</button>
+                                                                    <button class='mr-s' type="submit">查詢</button>
+                                                                    <button class='mr-s' type="button" id="reset">重設</button>
                                                                     <a href="{{ route('ht.Business.self.create',['organization'=>$organization]) }}">   
                                                                         <button class='btn-bright mr-s' type="button">新增</button>
                                                                     </a>     
@@ -134,37 +151,59 @@
                                                     <!-- 案件追蹤 -->
                                                     <div class="tab-pane" id="viewers-tab-02">
                                                         <div class='coupon'>
-                                                            <form class='form-inline'>
+                                                            <form class='form-inline' id="trackSearch">
+                                                                @csrf
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select'>
-                                                                            <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                            <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start2"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide span-d'>~</span>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select mr-s'>
-                                                                            <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                            <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end2"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <select name="" class="form-control mb-s mr-s">
+                                                                <select class="form-control mb-s mr-s" name="level" id="level">
                                                                     <option value="">等級</option>
+                                                                    <option value="A">A</option>
+                                                                    <option value="B">B</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="D">D</option>
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
+                                                                <select class="form-control mb-s mr-s" name="schedule" id="schedule">
                                                                     <option value="">進度</option>
+                                                                    <option value="尚未找到窗口">尚未找到窗口</option>
+                                                                    <option value="已拜訪介紹">已拜訪介紹</option>
+                                                                    <option value="已報價">已報價</option>
+                                                                    <option value="已成待裝機">已成待裝機</option>
+                                                                    <option value="已裝機完成">已裝機完成</option>
+                                                                    <option value="已收款">已收款</option>
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
+                                                                <select class="form-control mb-s mr-s" name="category" id="category">
                                                                     <option value="">類別</option>
+                                                                    <option value="公家機關">公家機關</option>
+                                                                    <option value="商用">商用</option>
+                                                                    <option value="家用">家用</option>
+                                                                    <option value="醫療">醫療</option>
+                                                                    <option value="中信局">中信局</option>
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
+                                                                <select class="form-control mb-s mr-s" name="numbers" id="numbers">
                                                                     <option value="">型號</option>
+                                                                    @foreach($trackNumberArray as $key => $data)
+                                                                    <option value="{{$data}}">{{$data}}</option>
+                                                                    @endforeach
                                                                 </select>
-                                                                <select name="" class="form-control mb-s mr-s">
+                                                                <select  class="form-control mb-s mr-s" name="result" id="result">
                                                                     <option value="">結果</option>
+                                                                    <option value="成交">成交</option>
+                                                                    <option value="流單">流單</option>
+                                                                    <option value="其他">其他</option>
                                                                 </select>
                                                                 <div class='btn-wrap'>
-                                                                    <button class='mr-s' type="button">查詢</button>
-                                                                    <button class='mr-s' type="button">重設</button>
+                                                                    <button class='mr-s' type="submit">查詢</button>
+                                                                    <button class='mr-s' type="button" id="reset2">重設</button>
                                                                     <!-- <div class="droptool no-fixed mr-s">
                                                                         <button class="btn btn-gray" type="button"><i class="fas fa-file-download"></i>
                                                                         </button>
@@ -229,14 +268,15 @@
                                                     <!-- 相關數據 -->
                                                     <div class="tab-pane" id="viewers-tab-03">
                                                         <div class='coupon w-100'>
-                                                            <form class='form-inline'>
+                                                            <form class='form-inline' id="monthSearch">
+                                                                @csrf
                                                                 <div class='form-group mr-s'>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date month-select'>
-                                                                            <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                            <input class='form-control' placeholder='選擇起始日期' type='text' name="month" id="month"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div>
                                                                 </div>
-                                                                <button class='mr-s mb-s' type="button">查詢</button>
+                                                                <button class='mr-s mb-s' type="submit">查詢</button>
                                                                 <select class='form-control mb-s float-right chart-select'>
                                                                     <option selected value="拜訪紀錄">拜訪紀錄</option>
                                                                     <option value="案件追蹤">案件追蹤</option>
@@ -258,9 +298,9 @@
                                                                     <div>
                                                                         <div id="chart4" style="width: 100%; height: 300px;"></div>
                                                                         <ul>
-                                                                            <li>結單總筆數：{{$finishChartCount}}筆</li>
-                                                                            <li>參考成交總金額：${{$money}}元</li>
-                                                                            <li>新增客戶數：{{$newCustomChartCount}}家</li>
+                                                                            <li id="finishChartCount">結單總筆數：{{$finishChartCount}}筆</li>
+                                                                            <li id="money">參考成交總金額：${{$money}}元</li>
+                                                                            <li id="newCustomChartCount">新增客戶數：{{$newCustomChartCount}}家</li>
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -288,7 +328,7 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td><p>產品總數：</p></td>
-                                                                                    <td class="text-right"><p>{{$numberTotalChart}}件</p></td>
+                                                                                    <td class="text-right"><p id="numberTotalChart">{{$numberTotalChart}}件</p></td>
                                                                                 </tr>
                                                                             </tfoot> 
                                                                         </table>
@@ -606,7 +646,7 @@
             uniform: uniform_numbers,
             mail: email,
             address: item.address,
-            type: "test"
+            type: item.numbers
         }
     })
 
@@ -1276,5 +1316,461 @@
                 }
             })
         })
+</script>
+<script type="text/javascript">
+    $('#visitSearch').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Business.self.visitSearch',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+
+                var rows;
+                $('#hetao-list-s-1').DataTable().destroy();
+                $('#hetao-list-s-1 tbody').empty();
+
+                $.each(res, function (i, item) {
+
+                    if(item.statusOpen == 'Y'){
+                        var statusOpen = '<span class="text-success text-nowrap">已發布</span>'
+                    }
+                    else{
+                        var statusOpen = '<span class="text-danger text-nowrap">未發布</span>'
+                    }
+
+                    if(item.statusTrack == 'Y'){
+                        var statusTrack = '<span class="text-success text-nowrap">已追蹤</span>'
+                    }
+                    else{
+                        var statusTrack = '<span class="text-danger text-nowrap">未追蹤</span>'
+                    }
+
+                    var url = '{{ route('ht.Business.self.visitEdit',['organization'=>$organization,'id'=>':id'])}}'
+                    url = url.replace(':id',item.id);
+
+                    var file = '{{ asset(':files') }}'
+                    file = file.replace(':files',item.file);
+
+                    rows += "<tr>"
+                    + "<td>"
+                    + "<div class='td-icon'>"
+                    + "<input class='chkall' type='checkbox' name='businessVisit' value="+ item.id +">"
+                    if(item.file){
+                        rows += "<a href="+ file +"><i class='fas fa-paperclip'></i></a>"
+                    }
+                    rows += "</div>"
+                    + "</td>"
+                    + "<td class='text-nowrap'>"+ item.date +"</td>"
+                    + "<td>"+ item.time +"</td>"
+                    + "<td>"+ item.name +"</td>"
+                    + "<td>"+ item.type +"</td>"
+                    + "<td>"+ item.content +"</td>"
+                    + "<td><a href='https://www.google.com.tw/maps/place/"+ item.city + item.area + item.address +"' target='_blank'>"+ item.city + item.area + item.address +"</a></td>"
+                    + "<td><a class='text-nowrap' href='tel:"+ item.phone +"'>" + item.phone + "</a></td>"
+                    + "<td>" + statusOpen + "</td>"
+                    + "<td>" + statusTrack +"</td>"
+                    + "<td><a href="+ url +"><button class='btn btn-primary' type='button'>查看</button></td>"
+                    + "</tr>"
+                })
+                $('#hetao-list-s-1 tbody').append(rows);
+                var table_s1 = $("#hetao-list-s-1").DataTable({
+                    "bPaginate": true,
+                    "searching": true,
+                    "info": true,
+                    "bLengthChange": false,
+                    "bServerSide": false,
+                    "language": {
+                        "search": "",
+                        "searchPlaceholder": "請輸入關鍵字",
+                        "paginate": { "previous": "上一頁", "next": "下一頁" },
+                        "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                        "zeroRecords": "沒有符合的搜尋結果",
+                        "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                        "lengthMenu": "呈現筆數 _MENU_",
+                        "emptyTable": "目前無工單",
+                        "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                    },
+                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                    "buttons": [{
+                        "extend": "colvis",
+                        "collectionLayout": "fixed two-column"
+                    }],
+                    "order": [],
+                    "columnDefs": [{
+                        "targets": [0, 10],
+                        "orderable": false,
+                    }],
+                    "responsive": {
+                        "breakpoints": [
+                        { name: 'desktop', width: Infinity },
+                        { name: 'tablet', width: 1024 },
+                        ],
+                        "details": {
+                            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                            "type": 'none',
+                            "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
+                            "target": ''
+                        }
+                    },
+                });
+                $(".searchInput_s1").on("blur", function() {
+                    table_s1.search(this.value).draw();
+                });
+
+                $(".searchInput_s1").on("keyup", function() {
+                    table_s1.search(this.value).draw();
+                });
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
+
+    $('#trackSearch').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Business.self.trackSearch',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+
+                $('#hetao-list-norwd').DataTable().destroy();
+                $('#hetao-list-norwd tbody').empty();
+
+                var data = new Array();
+
+                $.each(res, function (i, item) {
+
+                    if(item.statusOpen == 'Y'){
+                        var statusOpen = "<span class='text-success'>已發布</span>"
+                    }
+                    else{
+                        var statusOpen = "<span class='text-danger'>未發布</span>"
+                    }
+
+                    if(item.date_again == null){
+                        var date_again = ''
+                    }
+                    else{
+                        var date_again = item.date_again
+                    }
+
+                    if(item.uniform_numbers == null){
+                        var uniform_numbers = ''
+                    }
+                    else{
+                        var uniform_numbers = item.uniform_numbers
+                    }
+
+                    if(item.email == null){
+                        var email = ''
+                    }
+                    else{
+                        var email = item.email
+                    }
+
+                    if(item.level == null){
+                        var level = ''
+                    }
+                    else if(item.level == 'A'){
+                        var level = "<span class='text-danger'>A</span>"
+                    }
+                    else if(item.level == 'B'){
+                        var level = "<span class='text-primary'>B</span>"
+                    }
+                    else if(item.level == 'C'){
+                        var level = "<span class='text-success'>C</span>"
+                    }
+                    else if(item.level == 'D'){
+                        var level = "<span class='text-warning'>D</span>"
+                    }
+
+                    var url = '{{ route('ht.Business.self.trackEdit',['organization'=>$organization,'id'=>':id']) }}'
+                    url = url.replace(':id',item.id);
+
+                    data[i] = {
+                        first: `
+                        <div class="td-icon">
+                        <input class="chkall" type="checkbox" name="businessTrack" value="`+item.id+`">
+                        </div>
+                        `,
+                        day: "<spann class='text-nowrap'>"+item.date+"</span>",
+                        level: level,
+                        progress: item.schedule,
+                        kind: item.category,
+                        name: item.name,
+                        staff: item.business_name,
+                        phone: "<a href='tel:"+item.phone+"'>"+item.phone+"</a>",
+                        reday: "<spann class='text-nowrap'>"+date_again+"</span>",
+                        result: item.result,
+                        public: statusOpen,
+                        watch: "<a href='"+url+"'><button class='btn btn-primary' type='button'>查看</button>",
+                        uniform: uniform_numbers,
+                        mail: email,
+                        address: item.address,
+                        type: item.numbers
+                    }
+                })
+
+                function format(d) {
+                    return (
+                        `<table class="tb-child">
+                        <tr class='rwd-show'><td><span class='w-105px'>發布：</span>` + d.public + `</td></tr>            
+                        <tr class='rwd-show'><td><span class='w-105px'>進度：</span>` + d.progress + `</td></tr>
+                        <tr class='rwd-show'><td><span class='w-105px'>類別：</span>` + d.kind + `</td></tr>
+                        <tr class='rwd-show'><td><span class='w-105px'>承辦人：</span>` + d.staff + `</td></tr>
+                        <tr><td><span class='w-105px'>統編：</span>` + d.uniform + `</td></tr>
+                        <tr><td><span class='w-105px'>信箱：</span>` + d.mail + `</td></tr>
+                        <tr><td><span class='w-105px'>地址：</span>` + d.address + `</td></tr>
+                        <tr><td colspan="3"><span class='w-105px'>產品型號：</span>` + d.type + `</td></tr>                
+                        <tr class='rwd-show'><td><span class='w-105px'>覆訪日期：</span>` + d.reday + `</td></tr>
+                        <tr class='rwd-show'><td><span class='w-105px'>結果：</span>` + d.result + `</td></tr>
+                        <tr class='rwd-show'><td><span class='w-105px'>操作：</span>` + d.watch + `</td></tr>
+                        </table>`
+                        );
+                }
+                $(document).ready(function() {
+                    var table_s2 = $("#hetao-list-norwd").DataTable({
+                        "data": data,
+                        "bPaginate": true,
+                        "searching": true,
+                        "info": true,
+                        "bLengthChange": false,
+                        "bServerSide": false,
+                        "language": {
+                            "search": "",
+                            "searchPlaceholder": "請輸入關鍵字",
+                            "paginate": { "previous": "上一頁", "next": "下一頁" },
+                            "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                            "zeroRecords": "沒有符合的搜尋結果",
+                            "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                            "lengthMenu": "呈現筆數 _MENU_",
+                            "emptyTable": "目前無工單",
+                            "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                        },
+                        "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                        "buttons": [{
+                            "extend": "colvis",
+                            "collectionLayout": "fixed two-column"
+                        }],
+                        "order": [],
+                        "columnDefs": [{
+                            "targets": [0, 12],
+                            "orderable": false,
+                        }, ],
+                        "responsive": false,
+                        autoWidth: false,
+                        columns: [
+                        { data: "first" },
+                        {
+                            className: "details-control",
+                            orderable: false,
+                            data: null,
+                            defaultContent: '<span class="lnr lnr-chevron-down"></span>'
+                        },
+                        { data: "day" },
+                        { data: "level" },
+                        { data: "progress" },
+                        { data: "kind" },
+                        { data: "name" },
+                        { data: "staff" },
+                        { data: "phone" },
+                        { data: "reday" },
+                        { data: "result" },
+                        { data: "public" },
+                        { data: "watch" }
+
+                        ],
+                    });
+
+                    $("#hetao-list-norwd tbody").on("click", "td.details-control", function() {
+                        var tr = $(this).parents("tr");
+                        var row = table_s2.row(tr);
+
+                        if (row.child.isShown()) {
+                            row.child.hide();
+                            tr.removeClass("shown");
+                        } else {
+                         if(row.child() && row.child().length)
+                         {
+                            row.child.show();
+                        }
+                        else {
+                            row.child( format(row.data()), "p-0").show();
+                        }
+                            // row.child(format(row.data()), "p-0").show();
+                            tr.addClass("shown");
+                        }
+                    });
+
+                    $(".searchInput_s2").on("blur", function() {
+                        table_s2.search(this.value).draw();
+                    });
+
+                    $(".searchInput_s2").on("keyup", function() {
+                        table_s2.search(this.value).draw();
+                    });
+
+                    //rwd讓欄位消失
+                    window.onresize = function() {
+                      var w = this.innerWidth;
+                      table_s2.column(4).visible( w > 768);
+                      table_s2.column(5).visible( w > 768);
+                      table_s2.column(7).visible( w > 768);
+                      table_s2.column(9).visible( w > 768);
+                      table_s2.column(10).visible( w > 768);
+                      table_s2.column(11).visible( w > 768);  
+                      table_s2.column(12).visible( w > 768);  
+                  }
+                    //trigger upon pageload
+                    $(window).trigger('resize');
+                });
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
+
+    $('#monthSearch').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Business.self.monthSearch',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+
+                //chart2
+                AmCharts.makeChart("chart2", {
+                    "hideCredits": "true",
+                    "type": "serial",
+                    "fontSize": 16,
+                    "categoryField": "category",
+                    "rotate": true,
+                    "colors": [
+                    "#4194d4"
+                    ],
+                    "startDuration": 1,
+                    "categoryAxis": {
+                        "gridPosition": "start"
+                    },
+                    "trendLines": [],
+                    "graphs": [{
+                        "balloonText": "[[category]]:[[value]]",
+                        "columnWidth": 0.4,
+                        "fillAlphas": 1,
+                        "id": "AmGraph-1",
+                        "title": "graph 1",
+                        "type": "column",
+                        "valueField": "column-1"
+                    }],
+                    "guides": [],
+                    "valueAxes": [{
+                        "id": "ValueAxis-1",
+                        "title": ""
+                    }],
+                    "allLabels": [{
+                        "id": "Label-1",
+                        "text": "當月紀錄總筆數："+res[1]
+                    }],
+                    "balloon": {},
+                    "titles": [{
+                        "id": "Title-1",
+                        "size": 15,
+                        "text": ""
+                    }],
+                    "dataProvider": res[0]
+                });
+
+                //chart4
+                AmCharts.makeChart("chart4", {
+                    "hideCredits": "true",
+                    "fontSize": 16,
+                    "type": "pie",
+                    "innerRadius": "60%",
+                    "labelRadius": 10,
+                    "minRadius": 50,
+                    "labelText": "[[title]]: [[value]]筆",
+                    "startAngle": 0,
+                    "colors": [
+                    "#50b57e",
+                    "#df7571",
+                    "#fece78",
+                    "#c3c3c3",
+                    ],
+                    "marginBottom": 0,
+                    "marginTop": 0,
+                    "titleField": "category",
+                    "valueField": "column-1",
+                    "allLabels": [],
+                    "titles": [],
+                    "dataProvider": res[2],
+                    "legend": {
+                        "enabled":true,
+                        "align": "center",
+                        "markerType": "circle"
+                    },
+                });
+
+                $('#finishChartCount').html("結單總筆數：" + res[3] + "筆")
+                $('#money').html(" 參考成交總金額：" + res[4] + "元")
+                $('#newCustomChartCount').html("新增客戶數：" + res[5] + "家")
+
+                var row;
+                var rows;
+
+                $('#hetao-sale').DataTable().destroy();
+                $('#hetao-sale tbody').empty();
+
+                $.each(res[6], function (i, item) {
+
+                    rows +=  "<tr>"
+                    + "<td>" + i + "</td>"
+                    + "<td class='text-right'>" + item + "</td>"
+                    + "</tr>"
+          
+                })
+                $('#hetao-sale tbody').append(rows);
+
+                $('#numberTotalChart').html(res[7]+"件")
+                
+
+
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
+</script>
+<script type="text/javascript">
+    $('#reset').on('click',function(){
+        $('#start').val("")
+        $('#end').val("")
+        $('#type').val("")
+        $('#statusOpen').val("")
+        $('#statusTrack').val("")
+    })
+
+    $('#reset2').on('click',function(){
+        $('#start2').val("")
+        $('#end2').val("")
+        $('#level').val("")
+        $('#schedule').val("")
+        $('#category').val("")
+        $('#numbers').val("")
+        $('#result').val("")
+    })
 </script>
 @endsection

@@ -1727,7 +1727,6 @@
                 $('#money').html(" 參考成交總金額：" + res[4] + "元")
                 $('#newCustomChartCount').html("新增客戶數：" + res[5] + "家")
 
-                var row;
                 var rows;
 
                 $('#hetao-sale').DataTable().destroy();
@@ -1742,6 +1741,29 @@
           
                 })
                 $('#hetao-sale tbody').append(rows);
+                $("#hetao-sale").DataTable({
+                    "bPaginate": false,
+                    "searching": true,
+                    "info": false,
+                    "bLengthChange": false,
+                    "bServerSide": false,
+                    "language": {
+                        "search": "",
+                        "searchPlaceholder": "請輸入關鍵字",
+                        "paginate": { "previous": "上一頁", "next": "下一頁" },
+                        "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                        "zeroRecords": "沒有符合的搜尋結果",
+                        "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                        "lengthMenu": "呈現筆數 _MENU_",
+                        "emptyTable": "目前無工單",
+                        "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                    },
+                    "order": [],
+                    "columnDefs": [{
+                        "targets": [],
+                        "orderable": false,
+                    }],
+                });
 
                 $('#numberTotalChart').html(res[7]+"件")
                 

@@ -127,6 +127,9 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/HT/{organization}/Business/all/index','HT\Business\AllController@index')->name('ht.Business.all.index');
 		Route::get('/HT/{organization}/Business/all/show/{id}','HT\Business\AllController@show')->name('ht.Business.all.show');
 		Route::post('/HT/{organization}/Business/all/visitSearch','HT\Business\AllController@visitSearch')->name('ht.Business.all.visitSearch');
+		Route::post('/HT/{organization}/Business/all/trackSearch','HT\Business\AllController@trackSearch')->name('ht.Business.all.trackSearch');
+		Route::post('/HT/{organization}/Business/all/monthSearch','HT\Business\AllController@monthSearch')->name('ht.Business.all.monthSearch');
+		Route::post('/HT/{organization}/Business/all/numberSearch','HT\Business\AllController@numberSearch')->name('ht.Business.all.numberSearch');
 
 		//業績查詢-個人業績
 		Route::get('/HT/{organization}/Performance/self/index','HT\Performance\SelfController@index')->name('ht.Performance.self.index');

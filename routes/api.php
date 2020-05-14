@@ -52,3 +52,4 @@ Route::get('reservationPreviousDay','Api\CrontabController@reservationPreviousDa
 Route::get('satisfactionPush','Api\CrontabController@satisfactionPush');
 Route::get('supervisorAssign','Api\CrontabController@supervisorAssign');
 Route::get('activitiesPush','Api\CrontabController@activitiesPush');
+Route::get('noticePush','Api\CrontabController@noticePush');

@@ -13,7 +13,7 @@
             <div class="main-content">
                 <div class="container-fluid">
                     <!-- 活動分析 -->
-                    <h3 class="page-title">總覽 <span>Overview</span></h3>
+                    <h3 class="page-title">總覽 <span>Overview{{$id}}</span></h3>
                     @include('common.message')
                     <div class="panel bg-transparent">
                         <div class="panel-body">
@@ -229,19 +229,19 @@
                             <li class="mb-s">
                                 <span class="mb-xs">通知時間</span>
                                 <div class="d-block">
-                                    <input class="choose" id="choose1-2" type="radio" name="category2" value="單次" num="1-2">
+                                    <input class="choose" id="choose1-2" type="radio" name="category2" value="單次" num="1-29">
                                     <label for="choose1-2" class="chooseitem mr-s">單次</label>
 
-                                    <input class="choose" id="choose2-2" type="radio" name="category2" value="每日" num="2-2">
+                                    <input class="choose" id="choose2-2" type="radio" name="category2" value="每日" num="2-29">
                                     <label for="choose2-2" class="chooseitem mr-s">每日</label>
 
-                                    <input class="choose" id="choose3-2" type="radio" name="category2" value="每週" num="3-2">
+                                    <input class="choose" id="choose3-2" type="radio" name="category2" value="每週" num="3-29">
                                     <label for="choose3-2" class="chooseitem mr-s">每週</label>
 
-                                    <input class="choose" id="choose4-2" type="radio" name="category2" value="每月" num="4-2">
+                                    <input class="choose" id="choose4-2" type="radio" name="category2" value="每月" num="4-29">
                                     <label for="choose4-2" class="chooseitem mr-s">每月</label>
 
-                                    <input class="choose" id="choose5-2" type="radio" name="category2" value="不通知" num="5-2">
+                                    <input class="choose" id="choose5-2" type="radio" name="category2" value="不通知" num="5-29">
                                     <label for="choose5-2" class="chooseitem mr-s">不通知</label>
                                 </div>
                                 <div class="">
@@ -329,6 +329,134 @@
                                 <textarea class="form-control" rows="1" placeholder="輸入備註" name="other" id="other"></textarea>
                             </li>
                             <li class="text-center"><button type="button" class="btn btn-danger">刪除</button><button type="submit" class="btn btn-primary">儲存</button></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 單純通知 -->
+    <div id="person-enotice" class="modal fade Overview-set" role="dialog" style="z-index: 9999;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <div class="modal-body">
+                    <form action="{{ route('ht.Overview.notice.edit',['organization'=>$organization]) }}" method="post">
+                        @csrf
+                        <ul>
+                            <li class="mb-s">
+                                <span class="mb-xs">標題</span>
+                                <input class="form-control" type="hidden" placeholder="輸入標題" name="id" id="id2" readonly="">
+                                <input class="form-control" type="text" placeholder="輸入標題" name="title" id="title2" readonly="">
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">內容</span>
+                                <textarea class="form-control" rows="1" placeholder="輸入內容" name="content" id="content2" readonly=""></textarea>
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">通知時間</span>
+                                <div class="d-block">
+                                    <input class="choose" id="choose1-22" type="radio" name="category3" value="單次" num="1-2" readonly="" disabled="">
+                                    <label for="choose1-2" class="chooseitem mr-s">單次</label>
+
+                                    <input class="choose" id="choose2-22" type="radio" name="category3" value="每日" num="2-2" readonly="" disabled="">
+                                    <label for="choose2-2" class="chooseitem mr-s">每日</label>
+
+                                    <input class="choose" id="choose3-22" type="radio" name="category3" value="每週" num="3-2" readonly="" disabled="">
+                                    <label for="choose3-2" class="chooseitem mr-s">每週</label>
+
+                                    <input class="choose" id="choose4-22" type="radio" name="category3" value="每月" num="4-2" readonly="" disabled="">
+                                    <label for="choose4-2" class="chooseitem mr-s">每月</label>
+
+                                    <input class="choose" id="choose5-22" type="radio" name="category3" value="不通知" num="5-2" readonly="" disabled="">
+                                    <label for="choose5-2" class="chooseitem mr-s">不通知</label>
+                                </div>
+                                <div class="">
+                                    <!-- 單次 -->
+                                    <div class="i1-2">
+                                        <input type="text" class="date-set form-control" name="startTimeOnce" id="once2" readonly="">
+                                    </div>
+                                    <!-- 每日 -->
+                                    <div class="i2-2 d-none">
+                                        <p>開始日期</p>
+                                        <input type="text" class="date-set form-control" name="startTimeEveryDay" id="everyDay2" readonly="" disabled="">
+                                    </div>
+                                    <!-- 每週 -->
+                                    <div class="i3-2 d-none">
+                                        <p>開始日期</p>
+                                        <input type="text" class="day-set form-control mb-s" name="startTimeEveryWeek" id="everyWeek2" readonly="">
+                                        <div class="form-inline mb-s">
+                                            每<input class="form-control mx-s dayy" type="number" value="1" min="1" name="week" id="week2" readonly="">週
+                                            <button class="levelinfo" type="button">
+                                                <i class="fas fa-info-circle text-bright"></i>
+                                                <ul class="levelinfo-menu">
+                                                    <li><span class="text-primary">每1週：</span>每週</li>
+                                                    <li><span class="text-primary">每2週：</span>隔一週</li>
+                                                </ul>
+                                            </button>
+                                            <!-- <button type="button" class="btn add-member week-b">+ 新增</button> -->
+                                        </div>
+                                        <div class="weekwrap">
+                                            <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                                <select class="form-control my-xs" name="weekend[]" readonly="" disabled="">
+                                                    <option value="">星期一</option>
+                                                    <option value="">星期二</option>
+                                                    <option value="">星期三</option>
+                                                    <option value="">星期四</option>
+                                                    <option value="">星期五</option>
+                                                    <option value="">星期六</option>
+                                                    <option value="">星期日</option>    
+                                                </select>
+                                                <input type="text" class="time-set form-control my-xs" name="weekendTime[]" readonly="">
+                                                <!-- <button class="close my-xs" type="button">×</button> -->
+                                            </div>
+                                        </div>    
+                                    </div>
+                                    <!-- 每月 -->
+                                    <div class="i4-2 d-none">
+                                        <p>開始日期</p>
+                                        <input type="text" class="date-set form-control" name="startTimeEveryMonth" id="everyMonth2" readonly="">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">通知對象</span>
+                                <div class="d-flex">
+                                    <select class='form-control mb-s company mr-s' name="company2" id="company3" readonly="" disabled="">
+                                        <option selected disabled hidden value="">分公司</option>
+                                        @foreach($org as $key => $data)
+                                        <option value="{{ $data->name }}">{{ $data->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <select class='form-control mb-s role mr-s' disabled="disabled" name="job2" id="job3" readonly="">
+                                        <option selected hidden value="">職稱</option>
+                                        <option value="助理">助理</option>
+                                        <option value="主管">主管</option>
+                                        <option value="員工">員工</option>
+                                    </select>
+                                    <select class='form-control mb-s staffname' disabled="disabled" name="name2" id="name3" readonly="">
+                                        <option selected hidden value="">員工名稱</option>
+                                    </select>
+                                </div>
+                                <!-- <button type="button" class="btn add-member meet2">+ 新增</button> -->
+                                <div class="memberwrap2">
+                                </div>
+                                <input type="hidden" name="meetingName2" id="meetingName3">
+                                <input type="hidden" name="meetingToken2" id="meetingToken3">
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">類型</span>
+                                <select class="form-control" name="type" id="type3" readonly="" disabled="">
+                                    <option value="一般">一般</option>
+                                    <option value="覆訪">覆訪</option>
+                                </select>
+                            </li>
+                            <li class="mb-s">
+                                <span class="mb-xs">備註</span>
+                                <textarea class="form-control" rows="1" placeholder="輸入備註" name="other" id="other2" readonly=""></textarea>
+                            </li>
+                            <!-- <li class="text-center"><button type="button" class="btn btn-danger">刪除</button><button type="submit" class="btn btn-primary">儲存</button></li> -->
                         </ul>
                     </form>
                 </div>
@@ -929,37 +1057,37 @@
             },              
             success:function(res){
 
-                $('#id').val(res.id)
-                $('#title').val(res.title)
-                $('#content').text(res.content)
+                $('#id2').val(res.id)
+                $('#title2').val(res.title)
+                $('#content2').text(res.content)
 
-                var category = $('input[name="category2"]')
+                var category = $('input[name="category3"]')
 
-                $('input[name="category2"]').prop("checked", false)
+                $('input[name="category3"]').prop("checked", false)
 
                 for (var i = 0; i < category.length; i++) {
 
                     if(category[i].value == res.category){
-                        $('input[name="category2"][value='+res.category+']').prop("checked", true)
+                        $('input[name="category3"][value='+res.category+']').prop("checked", true)
                     }
                 }
 
                 if(res.category == '單次'){
-                    $('#once').val(res.startTime)
+                    $('#once2').val(res.startTime)
                     $('.i2-2, .i3-2, .i4-2').addClass('d-none');
                     $('.i1-2').removeClass('d-none');
 
                      $('#week').val("1")
                 }
                 else if(res.category == '每日'){
-                    $('#everyDay').val(res.startTime)
+                    $('#everyDay2').val(res.startTime)
                     $('.i1-2, .i3-2, .i4-2').addClass('d-none');
                     $('.i2-2').removeClass('d-none');
 
                      $('#week').val("1")
                 }
                 else if(res.category == '每週'){
-                    $('#everyWeek').val(res.startTime)
+                    $('#everyWeek2').val(res.startTime)
                     $('.i1-2, .i2-2, .i4-2').addClass('d-none');
                     $('.i3-2').removeClass('d-none');
 
@@ -1096,17 +1224,17 @@
                     })
                 }
                 else if(res.category == '每月'){
-                    $('#everyMonth').val(res.startTime)
+                    $('#everyMonth2').val(res.startTime)
                     $('.i1-2, .i2-2, .i3-2').addClass('d-none');
                     $('.i4-2').removeClass('d-none');
 
-                    $('#week').val("1")
+                    $('#week2').val("1")
                 }
                 else if(res.category == '不通知'){
-                    $('#everyMonth').val(res.startTime)
+                    $('#everyMonth2').val(res.startTime)
                     $('.i1-2, .i2-2, .i3-2, .i4-2').addClass('d-none');
 
-                    $('#week').val("1")
+                    $('#week2').val("1")
                 }
 
                 var name = res.meeting.split(",")
@@ -1119,10 +1247,10 @@
                     $('.memberwrap2').append('<span class="tag"><div><small>'+ item.split(" ")[0] +'</small><br>'+ item.split(" ")[1] +'</div><button class="close cl2" type="button" value='+token[i]+'>×</button></span>')
                 })
 
-                $('#meetingName2').val(res.meeting)
-                $('#meetingToken2').val(res.token)
+                $('#meetingName3').val(res.meeting)
+                $('#meetingToken3').val(res.token)
 
-                var numbers = $("#type2").find("option");
+                var numbers = $("#type3").find("option");
 
                 for (var j = 1; j < numbers.length; j++) {
                     if ($(numbers[j]).val() == res.type) {
@@ -1130,9 +1258,9 @@
                     }
                 }
 
-                $('#other').val(res.other)
+                $('#other2').val(res.other)
 
-                $('#person-e').modal('show')
+                $('#person-enotice').modal('show')
                 
             }
         })

@@ -31,6 +31,9 @@ Route::get('/HT/getReport','HT\Auth\LoginController@getReport')->name('ht.Auth.g
 Route::get('/HT/overview','HT\Auth\LoginController@overview')->name('ht.Auth.overview');
 Route::get('/HT/getOverview','HT\Auth\LoginController@getOverview')->name('ht.Auth.getOverview');
 
+//通知設定
+Route::get('/HT/noticePage','HT\Auth\LoginController@noticePage')->name('ht.Auth.noticePage');
+Route::get('/HT/getNoticePage','HT\Auth\LoginController@getNoticePage')->name('ht.Auth.getNoticePage');
 
 Route::group(['middleware' => ['auth']], function () {
 

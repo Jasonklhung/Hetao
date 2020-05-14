@@ -157,4 +157,28 @@ class LoginController extends Controller
             return 'failed';
         }
     }
+
+    public function noticePage()
+    {
+        return view('auth.noticePage');
+    }
+
+    public function getNoticePage(Request $request)
+    {
+        $user = User::where('token', $request->token)->first();
+        $id = $request->id;
+
+        if(isset($user)){
+
+            if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){
+
+                return response()->json([
+                    'redirect'=>route('ht.Overview.notice.index',['organization'=>$user['organization_id','id'=>$id]]),
+                ],  200);
+            }
+        }
+        else{
+            return 'failed';
+        }
+    }
 }

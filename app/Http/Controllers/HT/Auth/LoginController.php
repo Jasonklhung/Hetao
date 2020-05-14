@@ -173,7 +173,7 @@ class LoginController extends Controller
             if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){
 
                 return response()->json([
-                    'redirect'=>route('ht.Overview.notice.index',['organization'=>$user['organization_id','id'=>$id]]),
+                    'redirect'=>route('ht.Overview.notice.index',['organization'=>$user['organization_id'],'id'=>$id]),
                 ],  200);
             }
         }

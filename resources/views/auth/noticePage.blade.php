@@ -1,7 +1,9 @@
 <?php
-    $url = urldecode($_GET['liff_state']);
+    // $url = urldecode($_GET['liff_state']);
 
-    $id = explode('=',$url)[1];
+    // $id = explode('=',$url)[1];
+    
+    echo $_SERVER['QUERY_STRING'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,20 +66,20 @@
     };
     function initializeApp(userId) {
 
-        var id = '<?php echo $id ?>';
+        // var id = '<?php echo $id ?>';
 
-         $.ajax({
-            method:'get',
-            url:'{{ route('ht.Auth.getNoticePage') }}',
-            data:{
-                '_token': '{{ csrf_token() }}',
-                'token':userId,
-                'id':id
-            },
-            dataType:'json',
-            success:function(data){
-                window.location = data.redirect;
-            }
-        })
+        //  $.ajax({
+        //     method:'get',
+        //     url:'{{ route('ht.Auth.getNoticePage') }}',
+        //     data:{
+        //         '_token': '{{ csrf_token() }}',
+        //         'token':userId,
+        //         'id':id
+        //     },
+        //     dataType:'json',
+        //     success:function(data){
+        //         window.location = data.redirect;
+        //     }
+        // })
     }
 </script>

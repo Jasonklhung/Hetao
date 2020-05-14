@@ -66,7 +66,7 @@
     };
     function initializeApp(userId) {
 
-        // var id = '<?php echo $id ?>';
+        
 
         //  $.ajax({
         //     method:'get',

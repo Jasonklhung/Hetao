@@ -50,10 +50,10 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <!-- <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script> -->
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vconsole@3.2.0/dist/vconsole.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vconsole@3.2.0/dist/vconsole.min.js"></script>
     <script>
         var vConsole = new VConsole();
-    </script>
+    </script> -->
 </body>
 
 </html>

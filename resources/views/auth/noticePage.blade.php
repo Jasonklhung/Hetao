@@ -1,9 +1,14 @@
 <?php  
 
-    //$id = $_GET['id'];
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];
+    //因應 line liff 帶參數的改寫
+    if (isset($_GET["liff_state"])) { // Array([liff_state] => /web/unicharm_TK_20200504/index.php?from=Richmenu)
+        if (strpos($_GET["liff_state"], "?") !== false) {
+            list(, $queryString) = explode("?", $_GET["liff_state"]);
+            parse_str($queryString, $_GET);
+        }
     }
+
+    $id = filter_var($_GET["id"], FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
 <html>
@@ -67,19 +72,24 @@
     function initializeApp(userId) {
 
         var id = '<?php echo $id ?>';
-        
-         $.ajax({
-            method:'get',
-            url:'{{ route('ht.Auth.getNoticePage') }}',
-            data:{
-                '_token': '{{ csrf_token() }}',
-                'token':userId,
-                'id':id
-            },
-            dataType:'json',
-            success:function(data){
-                window.location = data.redirect;
-            }
-        })
+
+        if(id == null || id == undefined){
+
+        }
+        else{
+            $.ajax({
+                method:'get',
+                url:'{{ route('ht.Auth.getNoticePage') }}',
+                data:{
+                    '_token': '{{ csrf_token() }}',
+                    'token':userId,
+                    'id':id
+                },
+                dataType:'json',
+                success:function(data){
+                    window.location = data.redirect;
+                }
+            })
+        }
     }
 </script>

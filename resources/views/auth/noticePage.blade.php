@@ -1,7 +1,8 @@
 <?php  
     $url =  $_SERVER['QUERY_STRING'];
+    $url2 = urldecode($url);
 
-    $id = explode('=',$url)[2];
+    $id = explode('=',$url2)[2];
 ?>
 <!DOCTYPE html>
 <html>

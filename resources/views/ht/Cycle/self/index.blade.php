@@ -897,6 +897,7 @@
                                 })
                             })
 
+                            $("#hetao-list-norwd-cycle tbody").off("click", "td.details-control");
                             $("#hetao-list-norwd-cycle tbody").on("click", "td.details-control", function() {
                                 var tr = $(this).closest("tr");
                                 var row = table_s1.row(tr);
@@ -1047,6 +1048,7 @@
                                     ],
                                 });
 
+                                $("#hetao-list-norwd2 tbody").off("click", "td.details-control");
                                 $("#hetao-list-norwd2 tbody").on("click", "td.details-control", function() {
                                     var tr = $(this).closest("tr");
                                     var row = table_s2.row(tr);

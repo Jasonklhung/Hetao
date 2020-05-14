@@ -1050,6 +1050,7 @@
                         ],
                     });
 
+                    $("#hetao-list-norwd tbody").off("click", "td.details-control");
                     $("#hetao-list-norwd tbody").on("click", "td.details-control", function() {
                         var tr = $(this).closest("tr");
                         var row = table_s2.row(tr);

@@ -1,6 +1,14 @@
 @extends('layout.app')
 
 @section('content')
+        @php
+            if(isset($_GET['id'])){
+                $id = $_GET['id'];
+            }
+            else{
+                $id = '';
+            }
+        @endphp
 		<div class="main">
             <div class="main-content">
                 <div class="container-fluid">

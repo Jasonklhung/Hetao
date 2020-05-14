@@ -1,12 +1,12 @@
 <?php  
 
     //因應 line liff 帶參數的改寫
-    if (isset($_GET["liff_state"])) { // Array([liff_state] => /web/unicharm_TK_20200504/index.php?from=Richmenu)
-        if (strpos($_GET["liff_state"], "?") !== false) {
-            list(, $queryString) = explode("?", $_GET["liff_state"]);
-            parse_str($queryString, $_GET);
-        }
-    }
+    // if (isset($_GET["liff_state"])) { // Array([liff_state] => /web/unicharm_TK_20200504/index.php?from=Richmenu)
+    //     if (strpos($_GET["liff_state"], "?") !== false) {
+    //         list(, $queryString) = explode("?", $_GET["liff_state"]);
+    //         parse_str($queryString, $_GET);
+    //     }
+    // }
 
     $id = filter_var($_GET["id"], FILTER_SANITIZE_SPECIAL_CHARS);
 ?>

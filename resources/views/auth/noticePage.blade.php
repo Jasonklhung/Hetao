@@ -1,6 +1,6 @@
 <?php  
 
-    echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    //echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
     // $url2 = urldecode($url);
 
@@ -68,7 +68,7 @@
     function initializeApp(userId) {
 
         
-
+        alert(userId);
         //  $.ajax({
         //     method:'get',
         //     url:'{{ route('ht.Auth.getNoticePage') }}',

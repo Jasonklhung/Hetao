@@ -122,7 +122,7 @@
 @section('scripts')
 <script>
 
-    var performance = {!! json_encode($performance) !!}; //php變數轉換
+    var performance = {!! json_encode($performanceArray) !!}; //php變數轉換
 
     var data = new Array();
 

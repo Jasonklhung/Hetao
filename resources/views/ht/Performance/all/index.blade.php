@@ -189,7 +189,7 @@
         table_s1.search(this.value).draw();
     });
 
-    var performance = {!! json_encode($performance) !!}; //php變數轉換
+    var performance = {!! json_encode($performanceArray) !!}; //php變數轉換
 
     var data = new Array();
 
@@ -414,6 +414,9 @@
             url:"{{ route('ht.Performance.all.businessSearch',['organization'=>$organization]) }}",
             data:formData,
             success:function(res){
+
+                $('#hetao-list-norwd').DataTable().destroy();
+                $('#hetao-list-norwd tbody').empty();
 
                 var data = new Array();
 

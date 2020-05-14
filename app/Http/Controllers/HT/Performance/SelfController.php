@@ -93,6 +93,7 @@ class SelfController extends Controller
 
         $type = array();
         $total = array();
+        $performanceArray = array();
 
         foreach ($data as $key => $value) {
             if($key == 'data'){
@@ -104,31 +105,43 @@ class SelfController extends Controller
         }
 
         foreach ($performance as $key => $value) {
-            if(!in_array($value->TYPE, $type)){
-                array_push($type, $value->TYPE);
+            if(date('Y') == explode('-',$value->DATE)[0] && date('m') == explode('-',$value->DATE)[1]){
+                $performanceArray[] = $value;
             }
         }
 
-
-        foreach ($type as $k => $v) {
-
-            $total[$v]['mount'] = 0;
-            $total[$v]['money'] = 0;
-
+        if($performanceArray == null){
+            $type = [];
+            $totalMoney = 0;
+        }
+        else{
             foreach ($performance as $key => $value) {
-               if($value->TYPE == $v){
-                    $total[$v]['mount'] += $value->MATE;
-                    $total[$v]['money'] += $value->AMOUNT;
+                if(!in_array($value->TYPE, $type)){
+                    array_push($type, $value->TYPE);
                 }
             }
+
+
+            foreach ($type as $k => $v) {
+
+                $total[$v]['mount'] = 0;
+                $total[$v]['money'] = 0;
+
+                foreach ($performance as $key => $value) {
+                    if($value->TYPE == $v){
+                        $total[$v]['mount'] += $value->MATE;
+                        $total[$v]['money'] += $value->AMOUNT;
+                    }
+                }
+            }
+
+            $totalMoney = 0;
+            foreach ($total as $key => $value) {
+                $totalMoney += $value['money'];
+            }
         }
 
-        $totalMoney = 0;
-        foreach ($total as $key => $value) {
-            $totalMoney += $value['money'];
-        }
-
-        return view('ht.Performance.self.index',compact('organization','caseCount','performance','total','totalMoney','type'));
+        return view('ht.Performance.self.index',compact('organization','caseCount','performance','total','totalMoney','type','performanceArray'));
     }
 
     public function performanceSearch(Organization $organization,Request $request)

@@ -96,55 +96,75 @@ class AllController extends Controller
         $total = array();
         $total = array();
         $aaa = array();
+        $performanceArray = array();
 
         foreach ($data as $key => $value) {
             if($key == 'data'){
                 $performance = $value;
             }
+            else{
+                $performance = [];
+            }
         }
 
         foreach ($performance as $key => $value) {
-            if(!in_array($value->TYPE, $type)){
-                array_push($type, $value->TYPE);
-            }
-
-            if(!in_array($value->NAME, $name)){
-                array_push($name, $value->NAME);
+            if(date('Y') == explode('-',$value->DATE)[0] && date('m') == explode('-',$value->DATE)[1]){
+                $performanceArray[] = $value;
             }
         }
 
-        foreach ($name as $kk => $vv) {
+        if($performanceArray == null){
+            $type = [];
+            $name = [];
+            $aaa = [];
+            $test = [];
+            $totalMoney = 0;
+        }
+        else{
+            foreach ($performanceArray as $key => $value) {
+                if(!in_array($value->TYPE, $type)){
+                    array_push($type, $value->TYPE);
+                }
 
-            foreach ($type as $k => $v) {
+                if(!in_array($value->NAME, $name)){
+                    array_push($name, $value->NAME);
+                }
+            }
 
-                $total[$vv][$k]['mount'] = 0;
-                $total[$vv][$k]['money'] = 0;
-                $aaa[$vv][$v]['mount'] = 0;
-                $aaa[$vv][$v]['money'] = 0;
+            foreach ($name as $kk => $vv) {
 
-                foreach ($performance as $key => $value) {
-                   if($value->TYPE == $v && $value->NAME == $vv){
-                        $total[$vv][$k]['mount'] += $value->MATE;
-                        $total[$vv][$k]['money'] += $value->AMOUNT;
-                        $aaa[$vv][$v]['mount'] += $value->MATE;
-                        $aaa[$vv][$v]['money'] += $value->AMOUNT;
+                foreach ($type as $k => $v) {
+
+                    $total[$vv][$k]['mount'] = 0;
+                    $total[$vv][$k]['money'] = 0;
+                    $aaa[$vv][$v]['mount'] = 0;
+                    $aaa[$vv][$v]['money'] = 0;
+
+                    foreach ($performance as $key => $value) {
+                       if($value->TYPE == $v && $value->NAME == $vv){
+                            $total[$vv][$k]['mount'] += $value->MATE;
+                            $total[$vv][$k]['money'] += $value->AMOUNT;
+                            $aaa[$vv][$v]['mount'] += $value->MATE;
+                            $aaa[$vv][$v]['money'] += $value->AMOUNT;
+                        }
                     }
+                }
+            }
+
+            foreach ($aaa as $key => $value) {
+                $test = $value;
+            }
+
+            $totalMoney = 0;
+            foreach ($total as $key => $value) {
+                foreach ($value as $k => $v) {
+                    $totalMoney += $v['money'];
                 }
             }
         }
 
-        foreach ($aaa as $key => $value) {
-            $test = $value;
-        }
 
-        $totalMoney = 0;
-        foreach ($total as $key => $value) {
-            foreach ($value as $k => $v) {
-                $totalMoney += $v['money'];
-            }
-        }
-
-        return view('ht.Performance.all.index',compact('organization','caseCount','performance','total','test','aaa','totalMoney','type','name'));
+        return view('ht.Performance.all.index',compact('organization','caseCount','performance','total','test','aaa','totalMoney','type','name','performanceArray'));
     }
 
     public function performanceAllSearch(Organization $organization,Request $request)
@@ -227,10 +247,10 @@ class AllController extends Controller
 
     public function businessSearch(Organization $organization,Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
 
         $business = $request->business;
-        $type = $request->type;
+        $types = $request->type;
 
         //全站業績
         $dept = Organization::where('id',$organization->id)->get();
@@ -263,17 +283,17 @@ class AllController extends Controller
         $businessArray = array();
 
         foreach ($performance as $key => $value) {
-            if($business != null && $type != null){
-                if($value->NAME == $business && $value->TYPE == $type){
+            if($business != null && $types != null){
+                if($value->NAME == $business && $value->TYPE == $types){
                     $businessArray[] = $value;
                 }
             }
-            elseif($business != null && $type == null){
+            elseif($business != null && $types == null){
                 if($value->NAME == $business){
                     $businessArray[] = $value;
                 }
             }
-            elseif($business == null && $type != null){
+            elseif($business == null && $types != null){
                 if($value->TYPE == $type){
                     $businessArray[] = $value;
                 }

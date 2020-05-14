@@ -1,6 +1,14 @@
 @extends('layout.app')
 
 @section('content')
+        @php
+            if(isset($_GET['id'])){
+                $id = $_GET['id'];
+            }
+            else{
+                $id = '';
+            }
+        @endphp
 		<div class="main">
             <div class="main-content">
                 <div class="container-fluid">
@@ -905,5 +913,230 @@
         })
     }
 
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var id = '<?php echo $id ?>';
+
+        if(id != ''){
+            $.ajax({
+            url:"{{ route('ht.Overview.notice.getNotice',['organization'=>$organization]) }}", 
+            method:"post",
+            dataType:'json',
+            data:{
+                '_token':'{{csrf_token()}}',
+                'id':id,
+            },              
+            success:function(res){
+
+                $('#id').val(res.id)
+                $('#title').val(res.title)
+                $('#content').text(res.content)
+
+                var category = $('input[name="category2"]')
+
+                $('input[name="category2"]').prop("checked", false)
+
+                for (var i = 0; i < category.length; i++) {
+
+                    if(category[i].value == res.category){
+                        $('input[name="category2"][value='+res.category+']').prop("checked", true)
+                    }
+                }
+
+                if(res.category == '單次'){
+                    $('#once').val(res.startTime)
+                    $('.i2-2, .i3-2, .i4-2').addClass('d-none');
+                    $('.i1-2').removeClass('d-none');
+
+                     $('#week').val("1")
+                }
+                else if(res.category == '每日'){
+                    $('#everyDay').val(res.startTime)
+                    $('.i1-2, .i3-2, .i4-2').addClass('d-none');
+                    $('.i2-2').removeClass('d-none');
+
+                     $('#week').val("1")
+                }
+                else if(res.category == '每週'){
+                    $('#everyWeek').val(res.startTime)
+                    $('.i1-2, .i2-2, .i4-2').addClass('d-none');
+                    $('.i3-2').removeClass('d-none');
+
+                    $('#week').val(res.week)
+
+                    $('.weekwrap').html("")
+
+                    var weekArray = res.weekend.split(',');
+                    var weekTimeArray = res.weekendTime.split(',');
+
+                    $.each(weekArray, function (i, item) {
+
+                        if(item == '星期一'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一" selected>星期一</option>
+                                <option value="星期二">星期二</option>
+                                <option value="星期三">星期三</option>
+                                <option value="星期四">星期四</option>
+                                <option value="星期五">星期五</option>
+                                <option value="星期六">星期六</option>
+                                <option value="星期日">星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        else if(item == '星期二'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一">星期一</option>
+                                <option value="星期二" selected>星期二</option>
+                                <option value="星期三">星期三</option>
+                                <option value="星期四">星期四</option>
+                                <option value="星期五">星期五</option>
+                                <option value="星期六">星期六</option>
+                                <option value="星期日">星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        else if(item == '星期三'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一">星期一</option>
+                                <option value="星期二">星期二</option>
+                                <option value="星期三" selected>星期三</option>
+                                <option value="星期四">星期四</option>
+                                <option value="星期五">星期五</option>
+                                <option value="星期六">星期六</option>
+                                <option value="星期日">星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        else if(item == '星期四'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一">星期一</option>
+                                <option value="星期二">星期二</option>
+                                <option value="星期三">星期三</option>
+                                <option value="星期四" selected>星期四</option>
+                                <option value="星期五">星期五</option>
+                                <option value="星期六">星期六</option>
+                                <option value="星期日">星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        else if(item == '星期五'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一">星期一</option>
+                                <option value="星期二">星期二</option>
+                                <option value="星期三">星期三</option>
+                                <option value="星期四">星期四</option>
+                                <option value="星期五" selected>星期五</option>
+                                <option value="星期六">星期六</option>
+                                <option value="星期日">星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        else if(item == '星期六'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一">星期一</option>
+                                <option value="星期二">星期二</option>
+                                <option value="星期三">星期三</option>
+                                <option value="星期四">星期四</option>
+                                <option value="星期五">星期五</option>
+                                <option value="星期六" selected>星期六</option>
+                                <option value="星期日">星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        else if(item == '星期日'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一">星期一</option>
+                                <option value="星期二">星期二</option>
+                                <option value="星期三">星期三</option>
+                                <option value="星期四">星期四</option>
+                                <option value="星期五">星期五</option>
+                                <option value="星期六">星期六</option>
+                                <option value="星期日" selected>星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        
+
+                    })
+                }
+                else if(res.category == '每月'){
+                    $('#everyMonth').val(res.startTime)
+                    $('.i1-2, .i2-2, .i3-2').addClass('d-none');
+                    $('.i4-2').removeClass('d-none');
+
+                    $('#week').val("1")
+                }
+                else if(res.category == '不通知'){
+                    $('#everyMonth').val(res.startTime)
+                    $('.i1-2, .i2-2, .i3-2, .i4-2').addClass('d-none');
+
+                    $('#week').val("1")
+                }
+
+                var name = res.meeting.split(",")
+                var token = res.token.split(",")
+
+                $('.memberwrap2').html("")
+
+                $.each(name, function (i, item) {
+
+                    $('.memberwrap2').append('<span class="tag"><div><small>'+ item.split(" ")[0] +'</small><br>'+ item.split(" ")[1] +'</div><button class="close cl2" type="button" value='+token[i]+'>×</button></span>')
+                })
+
+                $('#meetingName2').val(res.meeting)
+                $('#meetingToken2').val(res.token)
+
+                var numbers = $("#type2").find("option");
+
+                for (var j = 1; j < numbers.length; j++) {
+                    if ($(numbers[j]).val() == res.type) {
+                        $(numbers[j]).attr("selected", "selected");
+                    }
+                }
+
+                $('#other').val(res.other)
+
+                $('#person-e').modal('show')
+                
+            }
+        })
+        }
+    })
 </script>
 @endsection

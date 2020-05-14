@@ -1,5 +1,7 @@
 <?php
-    $id = $_GET['id'];
+    $url = urldecode($_GET['liff_state']);
+
+    $id = explode('=',$url)[1];
 ?>
 <!DOCTYPE html>
 <html>

@@ -168,8 +168,6 @@ class LoginController extends Controller
         $user = User::where('token', $request->token)->first();
         $id = $request->id;
 
-        dd($request->all());
-
         if(isset($user)){
 
             if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){

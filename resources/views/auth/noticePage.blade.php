@@ -82,7 +82,7 @@
 
         var id = '<?php echo $id ?>';
 
-        if(id == null || id == undefined){
+        if(id == null || id == undefined || id == ''){
 
         }
         else{

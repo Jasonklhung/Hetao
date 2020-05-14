@@ -1,6 +1,7 @@
 <?php  
-    $url =  $_SERVER['QUERY_STRING'];
-    echo $url;
+
+    echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
     // $url2 = urldecode($url);
 
     // $id = explode('=',$url2)[2];

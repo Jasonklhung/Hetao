@@ -1,3 +1,6 @@
+<?php
+    $id = $_GET['id']
+?>
 <!DOCTYPE html>
 <html>
 
@@ -59,13 +62,15 @@
     };
     function initializeApp(userId) {
 
+        var id = '<?php echo $id ?>';
+
          $.ajax({
             method:'get',
             url:'{{ route('ht.Auth.getNoticePage') }}',
             data:{
                 '_token': '{{ csrf_token() }}',
                 'token':userId,
-                'id':'<?php echo $_GET['id'] ?>'
+                'id':id
             },
             dataType:'json',
             success:function(data){

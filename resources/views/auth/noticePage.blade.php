@@ -86,7 +86,6 @@
 
         }
         else{
-            alert(123);
             $.ajax({
                 method:'get',
                 url:'{{ route('ht.Auth.getNoticePage') }}',

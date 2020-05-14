@@ -1,19 +1,11 @@
 @extends('layout.app')
 
 @section('content')
-        @php
-            if(isset($_GET['id'])){
-                $id = $_GET['id'];
-            }
-            else{
-                $id = '';
-            }
-        @endphp
 		<div class="main">
             <div class="main-content">
                 <div class="container-fluid">
                     <!-- 活動分析 -->
-                    <h3 class="page-title">總覽 <span>Overview{{$id}}</span></h3>
+                    <h3 class="page-title">總覽 <span>Overview</span></h3>
                     @include('common.message')
                     <div class="panel bg-transparent">
                         <div class="panel-body">

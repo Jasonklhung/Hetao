@@ -428,72 +428,170 @@
         <side-bar class="rwd">
             <div class="hetao-user">
                 <p class="title">賀桃後台系統</p>
-                <select name="" id="">
-                    <option value="">竹北H000</option>
-                    <option value="">竹南H000</option>
-                    <option value="">竹東H000</option>
-                </select>
+                @php
+                        $res = explode(',',Auth::user()->organizations_name);
+                        $rs = explode(',',Auth::user()->organizations);
+                    @endphp
+                    <select name="organizations" id="organizations">
+                        @php
+                            foreach($res as $key => $value){
+                                foreach($rs as $k => $v){
+                                   if($key == $k){
+                                     if($organization->id == $v){
+                        @endphp
+                        <option value="{{$v}}" selected="">{{$value}}</option>
+                        @php
+                                        }
+                                        else{
+                        @endphp
+                        <option value="{{$v}}">{{$value}}</option>
+                        @php
+                                        }
+                                    }
+                                }
+                            }
+                        @endphp
+                    </select>
                 <p class="show-login-option">{{Auth::user()->name}}，您好</p>
             </div>
             <div>
                 <sb-menu class="sb-menu">
                     <sb-menu-title class="sb-menu-title"><i class="fas fa-calendar-alt fa-fw"></i> <span> 總覽</span></sb-menu-title>
-                    <sb-item class="sb-item" onclick="javascript:location.href=''">行程總覽</sb-item>
-                    <sb-item class="sb-item" onclick="javascript:location.href=''">通知設定</sb-item>
+                    @if(Auth::user()->permission->overview == 'Y')
+                    <sb-item class="sb-item" onclick="javascript:location.href='{{ route('ht.Overview.index',['organization'=>$organization]) }}'">行程總覽</sb-item>
+                    @endif
+
+                    @if(Auth::user()->permission->notice == 'Y')
+                    <sb-item class="sb-item" onclick="javascript:location.href='{{ route('ht.Overview.notice.index',['organization'=>$organization]) }}'">通知設定</sb-item>
+                    @endif
                 </sb-menu>
+
+                @if(Auth::user()->permission->assistant == 'N' && Auth::user()->permission->supervisor == 'N' && Auth::user()->permission->staff == 'N')
+
+                @else
                 <sb-menu2 class="sb-menu">
-                    <sb-menu-title2 class="sb-menu-title"><i class="far fa-list-alt fa-fw"></i> <span> 派工單</span><span class="badge">N</span></sb-menu-title2>
-                    <sb-item2 class="sb-item" onclick="javascript:location.href=''">個人工單</sb-item2>
-                    <sb-item2 class="sb-item" onclick="javascript:location.href=''">全站工單</sb-item2>
-                    <sb-item2 class="sb-item" onclick="javascript:location.href=''">工單進度</sb-item2>
+                    <sb-menu-title2 class="sb-menu-title"><i class="far fa-list-alt fa-fw"></i> <span> 派工單</span><span class="badge">{{$caseCount}}</span></sb-menu-title2>
+                    @if(Auth::user()->permission->assistant == 'Y')
+                    <sb-item2 class="sb-item" onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization]) }}'">個人工單</sb-item2>
+                    @endif
+                    @if(Auth::user()->permission->supervisor == 'Y')
+                    <sb-item2 class="sb-item" onclick="javascript:location.href='{{ route('ht.StrokeManage.supervisor.index',['organization'=>$organization]) }}'">全站工單</sb-item2>
+                    @endif
+                    @if(Auth::user()->permission->staff == 'Y')
+                    <sb-item2 class="sb-item" onclick="javascript:location.href='{{ route('ht.StrokeManage.staff.index',['organization'=>$organization]) }}'">工單進度</sb-item2>
+                    @endif
                 </sb-menu2>
+                @endif
+
+                @if(Auth::user()->permission->cycle_self == 'N' && Auth::user()->permission->cycle_all == 'N' && Auth::user()->permission->cycle_now == 'N')
+
+                @else
                 <sb-menu3 class="sb-menu">
                     <sb-menu-title3 class="sb-menu-title"><i class="fas fa-sync-alt fa-fw"></i> <span>週期循環</span></sb-menu-title3>
-                    <sb-item3 class="sb-item" onclick="javascript:location.href=''">個人週期</sb-item3>
-                    <sb-item3 class="sb-item" onclick="javascript:location.href=''">全站週期</sb-item3>
-                    <sb-item3 class="sb-item" onclick="javascript:location.href=''">全站進度</sb-item3>
+                    @if(Auth::user()->permission->cycle_self == 'Y')
+                    <sb-item3 class="sb-item" onclick="javascript:location.href='{{ route('ht.Cycle.self.index',['organization'=>$organization]) }}'">個人週期</sb-item3>
+                    @endif
+                    @if(Auth::user()->permission->cycle_all == 'Y')
+                    <sb-item3 class="sb-item" onclick="javascript:location.href='{{ route('ht.Cycle.all.index',['organization'=>$organization]) }}'">全站週期</sb-item3>
+                    @endif
+                    @if(Auth::user()->permission->cycle_now == 'Y')
+                    <sb-item3 class="sb-item" onclick="javascript:location.href='{{ route('ht.Cycle.now.index',['organization'=>$organization]) }}'">全站進度</sb-item3>
+                    @endif
                 </sb-menu3>
+                @endif
+
+                @if(Auth::user()->permission->material == 'N' && Auth::user()->permission->material_case == 'N' && Auth::user()->permission->material_stock == 'N')
+
+                @else
                 <sb-menu4 class="sb-menu">
                     <sb-menu-title4 class="sb-menu-title"><i class="fas fa-boxes fa-fw"></i> <span>領退料管理</span></sb-menu-title4>
-                    <sb-item4 class="sb-item" onclick="javascript:location.href=''">領料申請</sb-item4>
-                    <sb-item4 class="sb-item" onclick="javascript:location.href=''">料單管理</sb-item4>
-                    <sb-item4 class="sb-item" onclick="javascript:location.href=''">庫存管理</sb-item4>
+                    @if(Auth::user()->permission->material == 'Y')
+                    <sb-item4 class="sb-item" onclick="javascript:location.href='{{ route('ht.Material.material.index',['organization'=>$organization]) }}'">領料申請</sb-item4>
+                    @endif
+                    @if(Auth::user()->permission->material_case == 'Y')
+                    <sb-item4 class="sb-item" onclick="javascript:location.href='{{ route('ht.Material.case.index',['organization'=>$organization]) }}'">料單管理</sb-item4>
+                    @endif
+                    @if(Auth::user()->permission->material_stock == 'Y')
+                    <sb-item4 class="sb-item" onclick="javascript:location.href='{{ route('ht.Material.stock.index',['organization'=>$organization]) }}'">庫存管理</sb-item4>
+                    @endif
                 </sb-menu4>
-                <a class="" href="">
+                @endif
+
+
+                @if(Auth::user()->permission->custom_info == 'N')
+                <a class="" href="{{ route('ht.Customer.index',['organization'=>$organization]) }}">
                     <sb-item class="sb-item"><i class="fas fa-info-circle fa-fw"></i>客戶資料查詢</sb-item>
                 </a>
+                @endif
+
+                @if(Auth::user()->permission->business_self == 'N' && Auth::user()->permission->business_all == 'N')
+
+                @else
                 <sb-menu5 class="sb-menu">
                     <sb-menu-title5 class="sb-menu-title"><i class="fas fa-briefcase fa-fw"></i> <span>業務管理</span></sb-menu-title5>
-                    <sb-item5 class="sb-item" onclick="javascript:location.href=''">個人業務</sb-item5>
-                    <sb-item5 class="sb-item" onclick="javascript:location.href=''">全站業務</sb-item5>
+                    @if(Auth::user()->permission->business_self == 'Y')
+                    <sb-item5 class="sb-item" onclick="javascript:location.href='{{ route('ht.Business.self.index',['organization'=>$organization]) }}'">個人業務</sb-item5>
+                    @endif
+                    @if(Auth::user()->permission->business_all == 'Y')
+                    <sb-item5 class="sb-item" onclick="javascript:location.href='{{ route('ht.Business.all.index',['organization'=>$organization]) }}'">全站業務</sb-item5>
+                    @endif
                 </sb-menu5>
+                @endif
+
+                @if(Auth::user()->permission->performance_self == 'N' && Auth::user()->permission->performance_all == 'N')
+
+                @else
                 <sb-menu6 class="sb-menu">
                     <sb-menu-title6 class="sb-menu-title"><i class="far fa-chart-bar fa-fw"></i> <span>業績查詢</span></sb-menu-title6>
-                    <sb-item6 class="sb-item" onclick="javascript:location.href=''">個人業績</sb-item6>
-                    <sb-item6 class="sb-item" onclick="javascript:location.href=''">全站業績</sb-item6>
+                    @if(Auth::user()->permission->performance_self == 'Y')
+                    <sb-item6 class="sb-item" onclick="javascript:location.href='{{ route('ht.Performance.self.index',['organization'=>$organization]) }}'">個人業績</sb-item6>
+                    @endif
+                    @if(Auth::user()->permission->performance_all == 'Y')
+                    <sb-item6 class="sb-item" onclick="javascript:location.href='{{ route('ht.Performance.all.index',['organization'=>$organization]) }}'">全站業績</sb-item6>
+                    @endif
                 </sb-menu6>
+                @endif
+
+                @if(Auth::user()->permission->reservation == 'N' && Auth::user()->permission->satisfaction == 'N' && Auth::user()->permission->contact == 'N')
+
+                @else
                 <sb-menu7 class="sb-menu">
                     <sb-menu-title7 class="sb-menu-title"><i class="far fa-file-alt fa-fw"></i> <span>表單設定</span></sb-menu-title7>
-                    <sb-item7 class="sb-item" onclick="javascript:location.href=''">線上預約</sb-item7>
-                    <sb-item7 class="sb-item" onclick="javascript:location.href=''">滿意度調查</sb-item7>
-                    <sb-item7 class="sb-item" onclick="javascript:location.href=''">與我聯繫</sb-item7>
+                    @if(Auth::user()->permission->reservation == 'Y')
+                    <sb-item7 class="sb-item" onclick="javascript:location.href='{{ route('ht.Form.reservation.index',['organization'=>$organization]) }}'">線上預約</sb-item7>
+                    @endif
+                    @if(Auth::user()->permission->satisfaction == 'Y')
+                    <sb-item7 class="sb-item" onclick="javascript:location.href='{{ route('ht.Form.satisfaction.index',['organization'=>$organization]) }}'">滿意度調查</sb-item7>
+                    @endif
+                    @if(Auth::user()->permission->contact == 'Y')
+                    <sb-item7 class="sb-item" onclick="javascript:location.href='{{ route('ht.Form.contact.index',['organization'=>$organization]) }}'">與我聯繫</sb-item7>
+                    @endif
                 </sb-menu7>
+                @endif
+
+                @if(Auth::user()->permission->contactUs == 'N' && Auth::user()->permission->satisfactionSurvey == 'N')
+
+                @else
                 <sb-menu8 class="sb-menu">
                     <sb-menu-title8 class="sb-menu-title"><i class="fas fa-search fa-fw"></i> <span>表單查看</span></sb-menu-title8>
-                    <sb-item8 class="sb-item" onclick="javascript:location.href=''">與我聯繫</sb-item8>
-                    <sb-item8 class="sb-item" onclick="javascript:location.href=''">滿意度調查</sb-item8>
+                    @if(Auth::user()->permission->contactUs == 'Y')
+                    <sb-item8 class="sb-item" onclick="javascript:location.href='{{ route('ht.FormDetails.ContactUs.index',['organization'=>$organization]) }}'">與我聯繫</sb-item8>
+                    @endif
+                    @if(Auth::user()->permission->satisfactionSurvey == 'Y')
+                    <sb-item8 class="sb-item" onclick="javascript:location.href='{{ route('ht.FormDetails.satisfactionSurvey.index',['organization'=>$organization]) }}'">滿意度調查</sb-item8>
+                    @endif
                 </sb-menu8>
-                <a class="" href="timeset.html">
+                @endif
+
+                @if(Auth::user()->permission->timeset == 'Y')
+                <a class="" href="{{ route('ht.Timeset.index',['organization'=>$organization]) }}">
                     <sb-item class="sb-item"><i class="far fa-clock fa-fw"></i> 推播時間設定</sb-item>
                 </a>
+                @endif
 
                 @if(Auth::user()->permission->permission == 'Y')
                 <a class="" href="{{ route('ht.Permission.index',['organization'=>$organization]) }}">
-                    @if(url()->current() == route('ht.Permission.index',['organization'=>$organization]))
-                    <sb-item class="selected"><i class="fas fa-angle-double-right fa-fw"></i> 權限管理</sb-item>
-                    @else
                     <sb-item><i class="fas fa-angle-double-right fa-fw"></i> 權限管理</sb-item>
-                    @endif
                 </a>
                 @endif
             </div>

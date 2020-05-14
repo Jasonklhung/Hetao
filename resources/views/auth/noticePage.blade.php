@@ -1,9 +1,7 @@
-<?php
-    $url = urldecode($_GET['liff.state']);
+<?php  
+    $url =  $_SERVER['QUERY_STRING'];
 
-    $id = explode('=',$url)[1];
-    
-    //echo $_SERVER['QUERY_STRING'];
+    $id = explode('=',$url)[2];
 ?>
 <!DOCTYPE html>
 <html>

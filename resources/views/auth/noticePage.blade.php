@@ -1,8 +1,9 @@
 <?php  
     $url =  $_SERVER['QUERY_STRING'];
-    $url2 = urldecode($url);
+    echo $url;
+    // $url2 = urldecode($url);
 
-    $id = explode('=',$url2)[2];
+    // $id = explode('=',$url2)[2];
 ?>
 <!DOCTYPE html>
 <html>
@@ -65,20 +66,20 @@
     };
     function initializeApp(userId) {
 
-        var id = '<?php echo $id ?>'
+        
 
-         $.ajax({
-            method:'get',
-            url:'{{ route('ht.Auth.getNoticePage') }}',
-            data:{
-                '_token': '{{ csrf_token() }}',
-                'token':userId,
-                'id':id
-            },
-            dataType:'json',
-            success:function(data){
-                window.location = data.redirect;
-            }
-        })
+        //  $.ajax({
+        //     method:'get',
+        //     url:'{{ route('ht.Auth.getNoticePage') }}',
+        //     data:{
+        //         '_token': '{{ csrf_token() }}',
+        //         'token':userId,
+        //         'id':id
+        //     },
+        //     dataType:'json',
+        //     success:function(data){
+        //         window.location = data.redirect;
+        //     }
+        // })
     }
 </script>

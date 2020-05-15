@@ -27,13 +27,13 @@ class CycleController extends Controller
     	}
     	elseif(!empty($date) && empty($dept)){
 
-    		$finish = CycleAssign::whereDate('date','=',$date)->where('status','F')->get();
-    		$turn = CycleAssign::whereDate('date','=',$date)->where('status','T')->get();
+    		$finish = CycleAssign::whereDate('thisDate','=',$date)->where('status','F')->get();
+    		$turn = CycleAssign::whereDate('thisDate','=',$date)->where('status','T')->get();
     	}
     	else{
 
-    		$finish = CycleAssign::where('organization_name',$dept)->whereDate('date','=',$date)->where('status','F')->get();
-    		$turn = CycleAssign::where('organization_name',$dept)->whereDate('date','=',$date)->where('status','T')->get();
+    		$finish = CycleAssign::where('organization_name',$dept)->whereDate('thisDate','=',$date)->where('status','F')->get();
+    		$turn = CycleAssign::where('organization_name',$dept)->whereDate('thisDate','=',$date)->where('status','T')->get();
     	}
 
     	if($finish->isEmpty() && $turn->isEmpty()){

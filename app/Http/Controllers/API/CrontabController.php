@@ -18,9 +18,12 @@ class CrontabController extends Controller
 {
     public function reservationFinish(Request $request) //線上預約完成
     {
+        $turnDate = $request->date;
+
     	$setting = Timeset::where('name','線上預約完成推播時間')->where('status','Y')->get(); //取得全部時間設定
 
-    	$time = Carbon::now()->format('H:i'); //取現在時間
+    	//$time = Carbon::now()->format('H:i'); //取現在時間
+        $time =  date("Y-m-d H:i",$turnDate); //取現在時間
     	$time = $time.':00'; //取現在時間
 
     	foreach ($setting as $key => $value) {
@@ -91,9 +94,12 @@ class CrontabController extends Controller
 
     public function reservationPreviousDay(Request $request)
     {
+        $turnDate = $request->date;
+
         $setting = Timeset::where('name','預約前一日通知推播時間')->where('status','Y')->get(); //取得全部時間設定
 
-        $time = Carbon::now()->format('H:i'); //取現在時間
+        //$time = Carbon::now()->format('H:i'); //取現在時間
+        $time =  date("Y-m-d H:i",$turnDate); //取現在時間
         $time = $time.':00'; //取現在時間
 
         foreach ($setting as $key => $value) {
@@ -164,9 +170,12 @@ class CrontabController extends Controller
 
     public function satisfactionPush(Request $request)
     {
+        $turnDate = $request->date;
+
         $setting = Timeset::where('name','滿意度調查推播時間')->where('status','Y')->get(); //取得全部時間設定
 
-        $time = Carbon::now()->format('H:i'); //取現在時間
+        //$time = Carbon::now()->format('H:i'); //取現在時間
+        $time =  date("Y-m-d H:i",$turnDate); //取現在時間
         $time = $time.':00'; //取現在時間
 
         foreach ($setting as $key => $value) {
@@ -213,9 +222,12 @@ class CrontabController extends Controller
 
     public function supervisorAssign(Request $request)
     {
+        $turnDate = $request->date;
+
         $setting = Timeset::where('name','通知主管指派項目')->where('status','Y')->get(); //取得全部時間設定
 
-        $time = Carbon::now()->format('H:i'); //取現在時間
+        //$time = Carbon::now()->format('H:i'); //取現在時間
+        $time =  date("Y-m-d H:i",$turnDate); //取現在時間
         $time = $time.':00'; //取現在時間
 
         $result = array();
@@ -274,7 +286,10 @@ class CrontabController extends Controller
     {
         $act = Activity::all();
 
-        $time = Carbon::now()->format('Y-m-d H:i'); //取現在時間
+        $turnDate = $request->date;
+
+        //$time = Carbon::now()->format('H:i'); //取現在時間
+        $time =  date("Y-m-d H:i",$turnDate); //取現在時間
         $time = $time.':00'; //取現在時間
 
         foreach ($act as $key => $value) {
@@ -319,15 +334,17 @@ class CrontabController extends Controller
 
     public function noticePush(Request $request)
     {
+        $turnDate = $request->date;
+
         $notice = Notice::all();
 
-        $date = Carbon::now()->format('Y-m-d'); //取現在日期
-        $day = Carbon::now()->format('d'); //取現在日
+        $date =  date("Y-m-d",$turnDate); //取現在日期
+        $day =  date("d",$turnDate); //取現在日
 
-        $dateTime = Carbon::now()->format('Y-m-d H:i'); //取現在日期+時間
+        $dateTime =  date("Y-m-d H:i",$turnDate); //取現在日期+時間
         $dateTime = $dateTime.':00'; //取現在日期+時間
 
-        $time = Carbon::now()->format('H:i'); //取現在時間
+        $time =  date("H:i",$turnDate); //取現在時間
         $time = $time.':00'; //取現在時間
 
         foreach ($notice as $key => $value) {

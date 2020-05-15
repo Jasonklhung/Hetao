@@ -432,7 +432,7 @@
                         $res = explode(',',Auth::user()->organizations_name);
                         $rs = explode(',',Auth::user()->organizations);
                     @endphp
-                    <select name="organizations" id="organizations">
+                    <select name="organizations" id="organizationsSide">
                         @php
                             foreach($res as $key => $value){
                                 foreach($rs as $k => $v){

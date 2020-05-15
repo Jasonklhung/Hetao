@@ -63,6 +63,16 @@
                 location.href = url
             })
         })
+
+        $(document).ready(function(){
+            $('#organizationsSide').on('change',function(){
+
+                var org = ($('#organizationsSide').val())
+                var url = '{{route('ht.Overview.index',['organization'=>':org'])}}'
+                url = url.replace(':org',org);
+                location.href = url
+            })
+        })
     </script>
     @yield('scripts')
 </body>

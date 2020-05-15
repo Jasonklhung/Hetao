@@ -229,19 +229,19 @@
                             <li class="mb-s">
                                 <span class="mb-xs">通知時間</span>
                                 <div class="d-block">
-                                    <input class="choose" id="choose1-2" type="radio" name="category2" value="單次" num="1-29">
+                                    <input class="choose" id="choose1-2" type="radio" name="category2" value="單次" num="1-2">
                                     <label for="choose1-2" class="chooseitem mr-s">單次</label>
 
-                                    <input class="choose" id="choose2-2" type="radio" name="category2" value="每日" num="2-29">
+                                    <input class="choose" id="choose2-2" type="radio" name="category2" value="每日" num="2-2">
                                     <label for="choose2-2" class="chooseitem mr-s">每日</label>
 
-                                    <input class="choose" id="choose3-2" type="radio" name="category2" value="每週" num="3-29">
+                                    <input class="choose" id="choose3-2" type="radio" name="category2" value="每週" num="3-2">
                                     <label for="choose3-2" class="chooseitem mr-s">每週</label>
 
-                                    <input class="choose" id="choose4-2" type="radio" name="category2" value="每月" num="4-29">
+                                    <input class="choose" id="choose4-2" type="radio" name="category2" value="每月" num="4-2">
                                     <label for="choose4-2" class="chooseitem mr-s">每月</label>
 
-                                    <input class="choose" id="choose5-2" type="radio" name="category2" value="不通知" num="5-29">
+                                    <input class="choose" id="choose5-2" type="radio" name="category2" value="不通知" num="5-2">
                                     <label for="choose5-2" class="chooseitem mr-s">不通知</label>
                                 </div>
                                 <div class="">
@@ -375,17 +375,17 @@
                                 <div class="">
                                     <!-- 單次 -->
                                     <div class="i1-2">
-                                        <input type="text" class="date-set form-control" name="startTimeOnce" id="once2" readonly="">
+                                        <input type="text" class="form-control" name="startTimeOnce" id="once2" readonly="">
                                     </div>
                                     <!-- 每日 -->
                                     <div class="i2-2 d-none">
                                         <p>開始日期</p>
-                                        <input type="text" class="date-set form-control" name="startTimeEveryDay" id="everyDay2" readonly="" disabled="">
+                                        <input type="text" class="form-control" name="startTimeEveryDay" id="everyDay2" readonly="" disabled="">
                                     </div>
                                     <!-- 每週 -->
                                     <div class="i3-2 d-none">
                                         <p>開始日期</p>
-                                        <input type="text" class="day-set form-control mb-s" name="startTimeEveryWeek" id="everyWeek2" readonly="">
+                                        <input type="text" class="form-control mb-s" name="startTimeEveryWeek" id="everyWeek2" readonly="">
                                         <div class="form-inline mb-s">
                                             每<input class="form-control mx-s dayy" type="number" value="1" min="1" name="week" id="week2" readonly="">週
                                             <button class="levelinfo" type="button">
@@ -416,7 +416,7 @@
                                     <!-- 每月 -->
                                     <div class="i4-2 d-none">
                                         <p>開始日期</p>
-                                        <input type="text" class="date-set form-control" name="startTimeEveryMonth" id="everyMonth2" readonly="">
+                                        <input type="text" class="form-control" name="startTimeEveryMonth" id="everyMonth2" readonly="">
                                     </div>
                                 </div>
                             </li>
@@ -440,7 +440,7 @@
                                     </select>
                                 </div>
                                 <!-- <button type="button" class="btn add-member meet2">+ 新增</button> -->
-                                <div class="memberwrap2">
+                                <div class="memberwrap3">
                                 </div>
                                 <input type="hidden" name="meetingName2" id="meetingName3">
                                 <input type="hidden" name="meetingToken2" id="meetingToken3">
@@ -523,17 +523,17 @@
     $('input[name=category]').change(function(){
         var num = $(this).attr('num')
         if($(this).prop('checked')==true) {
-            $('.i1, .i2, .i3, .i4').addClass('d-none');
-            $('.i'+num).removeClass('d-none');
+            $(this).parents('ul').find('.i1, .i2, .i3, .i4').addClass('d-none');
+            $(this).parents('ul').find('.i'+num).removeClass('d-none');
         }
     });  
     $('input[name=category2]').change(function(){
         var num = $(this).attr('num')
         if($(this).prop('checked')==true) {
-            $('.i1-2, .i2-2, .i3-2, .i4-2').addClass('d-none');
-            $('.i'+num).removeClass('d-none');
+            $(this).parents('ul').find('.i1-2, .i2-2, .i3-2, .i4-2').addClass('d-none');
+            $(this).parents('ul').find('.i'+num).removeClass('d-none');
         }
-    }); 
+    });  
 
     // 通知對象新增
     var array = [];
@@ -1074,22 +1074,16 @@
 
                 if(res.category == '單次'){
                     $('#once2').val(res.startTime)
-                    $('.i2-2, .i3-2, .i4-2').addClass('d-none');
-                    $('.i1-2').removeClass('d-none');
 
                      $('#week').val("1")
                 }
                 else if(res.category == '每日'){
                     $('#everyDay2').val(res.startTime)
-                    $('.i1-2, .i3-2, .i4-2').addClass('d-none');
-                    $('.i2-2').removeClass('d-none');
 
                      $('#week').val("1")
                 }
                 else if(res.category == '每週'){
                     $('#everyWeek2').val(res.startTime)
-                    $('.i1-2, .i2-2, .i4-2').addClass('d-none');
-                    $('.i3-2').removeClass('d-none');
 
                     $('#week').val(res.week)
 
@@ -1225,14 +1219,11 @@
                 }
                 else if(res.category == '每月'){
                     $('#everyMonth2').val(res.startTime)
-                    $('.i1-2, .i2-2, .i3-2').addClass('d-none');
-                    $('.i4-2').removeClass('d-none');
 
                     $('#week2').val("1")
                 }
                 else if(res.category == '不通知'){
                     $('#everyMonth2').val(res.startTime)
-                    $('.i1-2, .i2-2, .i3-2, .i4-2').addClass('d-none');
 
                     $('#week2').val("1")
                 }
@@ -1240,11 +1231,11 @@
                 var name = res.meeting.split(",")
                 var token = res.token.split(",")
 
-                $('.memberwrap2').html("")
+                $('.memberwrap3').html("")
 
                 $.each(name, function (i, item) {
 
-                    $('.memberwrap2').append('<span class="tag"><div><small>'+ item.split(" ")[0] +'</small><br>'+ item.split(" ")[1] +'</div><button class="close cl2" type="button" value='+token[i]+'>×</button></span>')
+                    $('.memberwrap3').append('<span class="tag"><div><small>'+ item.split(" ")[0] +'</small><br>'+ item.split(" ")[1] +'</div><button class="close cl2" type="button" value='+token[i]+'></button></span>')
                 })
 
                 $('#meetingName3').val(res.meeting)

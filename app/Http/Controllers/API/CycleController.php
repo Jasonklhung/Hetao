@@ -40,14 +40,14 @@ class CycleController extends Controller
     		return json_encode(array("status" => 400 , "message" => "沒有符合的資料"));
     	}
     	else{
-    		$cycle = array("status"=>200);
+    		$cycle = array();
 
     		foreach ($finish as $key => $value) {
-    			$cycle["data"][] = array("id"=>$value->id,"dept"=>$value->organization_name,"date"=>$value->thisDate,"category"=>$value->kind,"custkey"=>$value->custkey,"status"=>$value->status,"statusERP"=>$value->statusERP);
+    			$cycle[] = array("id"=>$value->id,"dept"=>$value->organization_name,"date"=>$value->thisDate,"category"=>$value->kind,"custkey"=>$value->custkey,"status"=>$value->status,"statusERP"=>$value->statusERP);
     		}
 
     		foreach ($turn as $k => $v) {
-    			$cycle["data"][] = array("id"=>$v->id,"dept"=>$v->organization_name,"date"=>$v->thisDate,"category"=>$v->kind,"custkey"=>$v->custkey,"reason"=>$v->turnReason,"status"=>$v->status,"statusERP"=>$v->statusERP);
+    			$cycle[] = array("id"=>$v->id,"dept"=>$v->organization_name,"date"=>$v->thisDate,"category"=>$v->kind,"custkey"=>$v->custkey,"reason"=>$v->turnReason,"status"=>$v->status,"statusERP"=>$v->statusERP);
     		}
 
     		return $cycle;

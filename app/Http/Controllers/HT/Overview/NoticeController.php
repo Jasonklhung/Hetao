@@ -23,7 +23,7 @@ class NoticeController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -52,7 +52,7 @@ class NoticeController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -81,7 +81,7 @@ class NoticeController extends Controller
 
         //所有通知
         $dept = Organization::where('id',$organization->id)->get();
-        $notice = Notice::where('organization_name',$dept[0]['name'])->get();
+        $notice = Notice::where('organization_name',$dept[0]['name'])->where('user_id',Auth::user()->id)->get();
 
         return view('ht.Overview.notice.index',compact('organization','caseCount','org','notice'));
     }
@@ -121,6 +121,7 @@ class NoticeController extends Controller
 
         $notice = new Notice;
         $notice->organization_name = $dept[0]['name'];
+        $notice->user_id = Auth::user()->id;
         $notice->title = $request->title;
         $notice->content = $request->content;
         $notice->category = $request->category;

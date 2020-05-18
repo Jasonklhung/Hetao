@@ -26,7 +26,7 @@
                                                     </div>
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">部門</label>
-                                                        <input type="text" class="form-control" name="dept" value="{{auth::user()->department->name}}" readonly="">
+                                                        <input type="text" class="form-control" name="dept" value="{{$organization->name}}" readonly="">
                                                     </div>
                                                     <div class="form-item">
                                                         <label class="d-block title-deco">是否為線上預約</label>

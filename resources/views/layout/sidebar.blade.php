@@ -75,13 +75,13 @@
                                 <ul class="nav">
 
                                  @if(Auth::user()->permission->assistant == 'Y')
-                                    @if(url()->current() == route('ht.StrokeManage.assistant.index',['organization'=>$organization]))
+                                    @if(url()->current() == route('ht.StrokeManage.staff.index',['organization'=>$organization]))
                                     <li class="selected">
-                                        <a href="{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization]) }}">個人工單</a>
+                                        <a href="{{ route('ht.StrokeManage.staff.index',['organization'=>$organization]) }}">個人工單</a>
                                     </li>
                                     @else
                                     <li>
-                                        <a href="{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization]) }}">個人工單</a>
+                                        <a href="{{ route('ht.StrokeManage.staff.index',['organization'=>$organization]) }}">個人工單</a>
                                     </li>
                                     @endif
                                 @endif
@@ -99,13 +99,13 @@
                                 @endif
 
                                 @if(Auth::user()->permission->staff == 'Y')
-                                    @if(url()->current() == route('ht.StrokeManage.staff.index',['organization'=>$organization]))
+                                    @if(url()->current() == route('ht.StrokeManage.assistant.index',['organization'=>$organization]))
                                     <li class="selected">
-                                        <a href="{{ route('ht.StrokeManage.staff.index',['organization'=>$organization]) }}">工單進度</a>
+                                        <a href="{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization]) }}">工單進度</a>
                                     </li>
                                     @else
                                     <li>
-                                        <a href="{{ route('ht.StrokeManage.staff.index',['organization'=>$organization]) }}">工單進度</a>
+                                        <a href="{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization]) }}">工單進度</a>
                                     </li>
                                     @endif
                                 @endif
@@ -472,7 +472,7 @@
                 <sb-menu2 class="sb-menu">
                     <sb-menu-title2 class="sb-menu-title"><i class="far fa-list-alt fa-fw"></i> <span> 派工單</span><span class="badge">{{$caseCount}}</span></sb-menu-title2>
                     @if(Auth::user()->permission->assistant == 'Y')
-                    <sb-item2 class="sb-item" onclick="javascript:location.href='{{ route('ht.StrokeManage.assistant.index',['organization'=>$organization]) }}'">個人工單</sb-item2>
+                    <sb-item2 class="sb-item" onclick="javascript:location.href='{{ route('ht.StrokeManage.staff.index',['organization'=>$organization]) }}'">個人工單</sb-item2>
                     @endif
                     @if(Auth::user()->permission->supervisor == 'Y')
                     <sb-item2 class="sb-item" onclick="javascript:location.href='{{ route('ht.StrokeManage.supervisor.index',['organization'=>$organization]) }}'">全站工單</sb-item2>

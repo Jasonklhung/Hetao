@@ -402,7 +402,7 @@
             url:'{{ route('ht.StrokeManage.assistant.getData',['organization'=>$organization]) }}',
             data:{
                 "token": '{{Auth::user()->token}}',
-                "DEPT": '{{Auth::user()->department->name}}'
+                "DEPT": '{{$organization->name}}'
             },
             dataType:'json',
             success:function(response){
@@ -648,7 +648,7 @@
             url:'{{ route('ht.StrokeManage.assistant.schedule',['organization'=>$organization]) }}',
             data:{
                 "token": '{{Auth::user()->token}}',
-                "DEPT": '{{Auth::user()->department->name}}'
+                "DEPT": '{{$organization->name}}'
             },
             dataType:'json',
             success:function(response){
@@ -853,7 +853,7 @@
                             "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'T',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": '{{$organization->name}}' //'{{$organization->id}}'
                         },
                         dataType:'json',
                         success:function(response){
@@ -886,7 +886,7 @@
                             "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'F',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": '{{$organization->name}}' //'{{$organization->id}}'
                         },
                         dataType:'json',
                         success:function(response){
@@ -925,7 +925,7 @@
                             "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'R',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": '{{$organization->name}}' //'{{$organization->id}}'
                         },
                         dataType:'json',                 
                         success:function(res){
@@ -948,7 +948,7 @@
             url:'{{ route('ht.StrokeManage.assistant.schedule',['organization'=>$organization]) }}',
             data:{
                 "token": '{{Auth::user()->token}}',
-                "DEPT": '{{Auth::user()->department->name}}'
+                "DEPT": '{{$organization->name}}'
             },
             dataType:'json',
             success:function(response){
@@ -1192,7 +1192,7 @@
             url:'{{ route('ht.StrokeManage.assistant.getData',['organization'=>$organization]) }}',
             data:{
                 "token": '{{Auth::user()->token}}',
-                "DEPT": '{{Auth::user()->department->name}}'
+                "DEPT": '{{$organization->name}}'
             },
             dataType:'json',
             success:function(res){
@@ -1450,7 +1450,7 @@
             url:'{{ route('ht.StrokeManage.assistant.schedule',['organization'=>$organization]) }}',
             data:{
                 "token": '{{Auth::user()->token}}',
-                "DEPT": '{{Auth::user()->department->name}}'
+                "DEPT": '{{$organization->name}}'
             },
             dataType:'json',
             success:function(response){
@@ -1661,7 +1661,7 @@
                             "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'T',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": '{{$organization->name}}' //'{{$organization->id}}'
                         },
                         dataType:'json',
                         success:function(response){
@@ -1694,7 +1694,7 @@
                             "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'F',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": '{{$organization->name}}' //'{{$organization->id}}'
                         },
                         dataType:'json',
                         success:function(response){
@@ -1733,7 +1733,7 @@
                             "token": '{{Auth::user()->token}}',//'{{Auth::user()->token}}'
                             "id":id,
                             "status":'R',
-                            "DEPT": '{{Auth::user()->department->name}}' //'{{Auth::user()->department_id}}'
+                            "DEPT": '{{$organization->name}}' //'{{$organization->id}}'
                         },
                         dataType:'json',                 
                         success:function(res){
@@ -1761,7 +1761,7 @@
             url:'{{ route('ht.StrokeManage.assistant.schedule',['organization'=>$organization]) }}',
             data:{
                 "token": '{{Auth::user()->token}}',
-                "DEPT": '{{Auth::user()->department->name}}'
+                "DEPT": '{{$organization->name}}'
             },
             dataType:'json',
             success:function(response){

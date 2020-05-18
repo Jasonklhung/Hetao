@@ -26,7 +26,7 @@ class StaffController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -55,7 +55,7 @@ class StaffController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -152,7 +152,7 @@ class StaffController extends Controller
                 'work_type' => $request->work_type,
                 'time' => $request->time,
                 'owner_boss' => '',//$user[0]['token'],
-                'DEPT' => Auth::user()->department->name,//$user[0]['department_id'],
+                'DEPT' => $organization->name,//$user[0]['department_id'],
             ])
         ]);
 
@@ -163,7 +163,7 @@ class StaffController extends Controller
                 'token' => Auth::user()->token,//Auth::user()->token,
                 'id' => $request->id,
                 'status'=> '',
-                'DEPT' => Auth::user()->department->name//Auth::user()->department->name,
+                'DEPT' => $organization->name//$organization->name,
             ])
         ]);
 

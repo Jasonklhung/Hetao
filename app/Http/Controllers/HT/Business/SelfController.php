@@ -28,7 +28,7 @@ class SelfController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -57,7 +57,7 @@ class SelfController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -345,7 +345,7 @@ class SelfController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -374,7 +374,7 @@ class SelfController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -510,7 +510,7 @@ class SelfController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -539,7 +539,7 @@ class SelfController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -580,7 +580,7 @@ class SelfController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -609,7 +609,7 @@ class SelfController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 

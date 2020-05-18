@@ -33,7 +33,7 @@ class SupervisorController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -62,7 +62,7 @@ class SupervisorController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -87,6 +87,19 @@ class SupervisorController extends Controller
             $caseCount = count($countArray);
         }
 
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => $request->token,
+                'DEPT' => $request->DEPT
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        
+
     	return view('ht.StrokeManage.supervisor.index',compact('organization','supervisor','caseCount','assign'));
     }
 
@@ -107,7 +120,7 @@ class SupervisorController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -136,7 +149,7 @@ class SupervisorController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -186,7 +199,7 @@ class SupervisorController extends Controller
         $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode([
-                'token' => $request->token,
+                'token' => 'Uc514009f15eeca2f735f6debec395ba4',
                 'DEPT' => $request->DEPT
             ])
         ]);
@@ -198,9 +211,28 @@ class SupervisorController extends Controller
 
     public function getAssign(Organization $organization)
     {
-    	$data = User::where('organization_id',$organization->id)->where('token','!=','')->get();
+        $dept = Organization::where('id',$organization->id)->get();
 
-    	return $data;
+    	$allUser = User::all();
+        $deptUser = array();
+
+        foreach ($allUser as $key => $value) {
+            if($value->organization_id == $dept[0]['id']){
+                $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+            }
+        }
+
+        foreach ($allUser as $key => $value) {
+            $many = explode(',', $value->organizations);
+
+            foreach ($many as $k => $v) {
+                if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id']){
+                    $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+                }
+            }
+        }
+
+    	return $deptUser;
     }
 
     public function assignCaseBoss(Organization $organization,Request $request)
@@ -359,7 +391,7 @@ class SupervisorController extends Controller
                 'work_type' => $request->work_type,
                 'time' => $request->time,
                 'owner_boss' => '',//$user[0]['token'],
-                'DEPT' => Auth::user()->department->name,//$user[0]['department_id'],
+                'DEPT' => $organization->name,//$user[0]['department_id'],
             ])
         ]);
 
@@ -370,7 +402,7 @@ class SupervisorController extends Controller
                 'token' => Auth::user()->token,//Auth::user()->token,
                 'id' => $request->id,
                 'status'=> '',
-                'DEPT' => Auth::user()->department->name//Auth::user()->department->name,
+                'DEPT' => $organization->name//$organization->name,
             ])
         ]);
 

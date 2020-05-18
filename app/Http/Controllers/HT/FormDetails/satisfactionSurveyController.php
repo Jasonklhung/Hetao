@@ -23,7 +23,7 @@ class satisfactionSurveyController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -52,7 +52,7 @@ class satisfactionSurveyController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -80,7 +80,7 @@ class satisfactionSurveyController extends Controller
         $satisfaction = DB::table('satisfaction_answers')
                         ->select('satisfaction_answers.id','satisfaction_answers.case_id','satisfaction_answers.owner','satisfaction_answers.views','accounts.cuskey','accounts.name','satisfaction_answers.created_at')
                         ->leftjoin('accounts','satisfaction_answers.account_id','=','accounts.id')
-                        ->where('satisfaction_answers.department_id',Auth::user()->department_id)
+                        ->where('satisfaction_answers.department_id',$organization->id)
                         ->get();
 
     	return view('ht.FormDetails.satisfactionSurvey.index',compact('organization','caseCount','satisfaction'));
@@ -106,7 +106,7 @@ class satisfactionSurveyController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -135,7 +135,7 @@ class satisfactionSurveyController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -170,7 +170,7 @@ class satisfactionSurveyController extends Controller
         $data = DB::table('satisfaction_answers')
                         ->select('satisfaction_answers.id','satisfaction_answers.case_id','satisfaction_answers.owner','accounts.cuskey','accounts.name','satisfaction_answers.created_at')
                         ->leftjoin('accounts','satisfaction_answers.account_id','=','accounts.id')
-                        ->where('satisfaction_answers.department_id',Auth::user()->department_id)
+                        ->where('satisfaction_answers.department_id',$organization->id)
                         ->whereBetween('satisfaction_answers.created_at',[$request->start,$end])
                         ->get();
 

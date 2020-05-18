@@ -25,7 +25,7 @@ class AssistantController extends Controller
         $reservation = DB::table('reservation_answers')
                         ->select('reservation_answers.id','reservation_answers.views','accounts.cuskey','accounts.name','reservation_answers.created_at')
                         ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
-                        ->where('reservation_answers.department_id',Auth::user()->department_id)
+                        ->where('reservation_answers.department_id',$organization->id)
                         ->get();
 
         $contact = ContactAnswer::all();
@@ -39,7 +39,7 @@ class AssistantController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -68,7 +68,7 @@ class AssistantController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -101,7 +101,7 @@ class AssistantController extends Controller
         $reservation = DB::table('reservation_answers')
                         ->select('reservation_answers.id','reservation_answers.views','accounts.cuskey','accounts.name','reservation_answers.created_at')
                         ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
-                        ->where('reservation_answers.department_id',Auth::user()->department_id)
+                        ->where('reservation_answers.department_id',$organization->id)
                         ->get();
 
         $contact = ContactAnswer::all();
@@ -115,7 +115,7 @@ class AssistantController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -144,7 +144,7 @@ class AssistantController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -177,7 +177,7 @@ class AssistantController extends Controller
         $reservation = DB::table('reservation_answers')
                         ->select('reservation_answers.id','reservation_answers.views','accounts.cuskey','accounts.name','reservation_answers.created_at')
                         ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
-                        ->where('reservation_answers.department_id',Auth::user()->department_id)
+                        ->where('reservation_answers.department_id',$organization->id)
                         ->get();
 
         $contact = ContactAnswer::all();
@@ -191,7 +191,7 @@ class AssistantController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -220,7 +220,7 @@ class AssistantController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -259,7 +259,7 @@ class AssistantController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -288,7 +288,7 @@ class AssistantController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -352,7 +352,7 @@ class AssistantController extends Controller
     			'Urgent' => $request->urgent,
     			'remarks' => $request->remarks,
     			'address' => $request->address,
-    			'DEPT' =>  Auth::user()->department->name
+    			'DEPT' =>  $organization->name
     		])
     	]);
 
@@ -370,7 +370,7 @@ class AssistantController extends Controller
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode([
                 'token' => Auth::user()->token,
-                'DEPT' => Auth::user()->department->name
+                'DEPT' => $organization->name
             ])
         ]);
 
@@ -399,7 +399,7 @@ class AssistantController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -428,7 +428,7 @@ class AssistantController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -472,7 +472,7 @@ class AssistantController extends Controller
                 'address' => $request->address,
                 'CUSTKEY' => $request->CUSTKEY,
                 'id' => $request->id,
-                'DEPT' => Auth::user()->department->name,
+                'DEPT' => $organization->name,
             ])
         ]);
 
@@ -504,7 +504,7 @@ class AssistantController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -533,7 +533,7 @@ class AssistantController extends Controller
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                 'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//Auth::user()->department->name//Auth::user()->department->name
+                'DEPT' => $dept[0]['name']//$organization->name
             ])
             ]);
 
@@ -567,7 +567,7 @@ class AssistantController extends Controller
         $data = DB::table('reservation_answers')
                         ->select('reservation_answers.id','accounts.cuskey','accounts.name','reservation_answers.created_at')
                         ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
-                        ->where('reservation_answers.department_id',Auth::user()->department_id)
+                        ->where('reservation_answers.department_id',$organization->id)
                         ->whereBetween('reservation_answers.created_at',[$request->start,$request->end])
                         ->get();
 
@@ -769,7 +769,7 @@ class AssistantController extends Controller
                 'work_type' => $request->work_type,
                 'time' => $request->time,
                 'owner_boss' => '',//$user[0]['token'],
-                'DEPT' => Auth::user()->department->name,//Auth::user()->department->name,
+                'DEPT' => $organization->name//,$organization->name,
             ])
         ]);
 
@@ -780,7 +780,7 @@ class AssistantController extends Controller
                 'token' => Auth::user()->token,//Auth::user()->token,
                 'id' => $request->id,
                 'status'=> '',
-                'DEPT' => Auth::user()->department->name//Auth::user()->department->name,
+                'DEPT' => $organization->name//$organization->name,
             ])
         ]);
 

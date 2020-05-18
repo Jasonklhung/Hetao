@@ -82,7 +82,7 @@ class OverviewController extends Controller
             $caseCount = count($countArray);
         }
         
-        $user = User::where('organization_id',Auth::user()->organization_id)->where('job','主管')->where('token','!=','')->get();
+        $user = User::where('organization_id',$organization->id)->where('job','主管')->where('token','!=','')->get();
 
         $company = Organization::all();
 
@@ -135,7 +135,7 @@ class OverviewController extends Controller
         }
 
         $activity = new Activity;
-        $activity->organization_id = Auth::user()->organization_id;
+        $activity->organization_id = $organization->id;
         $activity->user_id = Auth::user()->name;
         $activity->owner = Auth::user()->id;
         $activity->title = $request->title;
@@ -167,17 +167,25 @@ class OverviewController extends Controller
     public function show(Organization $organization,Activity $activity,Request $request)
     {
 
-        $activity = Activity::where('organization_id',Auth::user()->organization_id)->orderBy('start','asc')->get();
+        $activity = Activity::where('organization_id',$organization->id)->where('owner',Auth::user()->id)->orderBy('start','asc')->get();
+
+        return $activity;
+    }
+
+    public function showAll(Organization $organization,Activity $activity,Request $request)
+    {
+
+        $activity = Activity::where('organization_id',$organization->id)->orderBy('start','asc')->get();
 
         return $activity;
     }
 
     public function search(Organization $organization,Request $request)
     {
-        $oneDay = Activity::where('organization_id',Auth::user()->organization_id)->whereDate('start',$request->date)->orderBy('start','asc')->get();
+        $oneDay = Activity::where('organization_id',$organization->id)->whereDate('start',$request->date)->orderBy('start','asc')->get();
 
 
-        $activity = Activity::where('organization_id',Auth::user()->organization_id)
+        $activity = Activity::where('organization_id',$organization->id)
                     ->whereDate('start','<',$request->date)
                     ->whereDate('end','>=',$request->date)
                     ->orderBy('start','asc')

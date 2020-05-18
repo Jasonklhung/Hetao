@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/Overview/getName','HT\Overview\OverviewController@getName')->name('ht.Overview.getName');
 		Route::post('/HT/{organization}/Overview/search','HT\Overview\OverviewController@search')->name('ht.Overview.search');
 		Route::post('/HT/{organization}/Overview/searchAct','HT\Overview\OverviewController@searchAct')->name('ht.Overview.searchAct');
+		Route::get('/HT/{organization}/Overview/showAll','HT\Overview\OverviewController@showAll')->name('ht.Overview.showAll');
 
 		//總攬-通知設定
 		Route::get('/HT/{organization}/Overview/notice/index','HT\Overview\NoticeController@index')->name('ht.Overview.notice.index');

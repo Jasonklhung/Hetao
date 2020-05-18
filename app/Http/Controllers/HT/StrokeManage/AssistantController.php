@@ -610,7 +610,7 @@ class AssistantController extends Controller
 
     public function getSupervisor(Organization $organization)
     {
-    	$data = User::where('organization_id',Auth::user()->organization_id)->where('token','!=','')->get();
+    	$data = User::where('organization_id',$organization->id)->where('token','!=','')->get();
 
     	return $data;
     }
@@ -665,7 +665,7 @@ class AssistantController extends Controller
             $supervisor = SupervisorCase::where('case_id',$request->id)->get();
             if($supervisor->isNotEmpty()){
                 $supervisor = SupervisorCase::find($supervisor[0]['id']);
-                $supervisor->organization_id = Auth::user()->organization_id;
+                $supervisor->organization_id = $organization->id;
                 $supervisor->case_id = $request->id;
                 $supervisor->cuskey = $request->name;
                 $supervisor->mobile = $request->mobile;
@@ -680,7 +680,7 @@ class AssistantController extends Controller
                 $supervisor->save();
             }else{
                 $supervisor = new SupervisorCase;
-                $supervisor->organization_id = Auth::user()->organization_id;
+                $supervisor->organization_id = $organization->id;
                 $supervisor->case_id = $request->id;
                 $supervisor->cuskey = $request->name;
                 $supervisor->mobile = $request->mobile;

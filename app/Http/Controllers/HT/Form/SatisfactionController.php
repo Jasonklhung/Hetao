@@ -14,9 +14,9 @@ class SatisfactionController extends Controller
     public function index(Organization $organization)
     {
 
-        $satisfaction = Satisfaction::where('organization_id',Auth::user()->organization_id)->get();
+        $satisfaction = Satisfaction::where('organization_id',$organization->id)->get();
 
-        $count = satisfaction::where('organization_id',Auth::user()->organization_id)->count();
+        $count = satisfaction::where('organization_id',$organization->id)->count();
 
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
@@ -86,7 +86,7 @@ class SatisfactionController extends Controller
 
     public function store(Organization $organization,Request $request)
     {
-        $satisfaction = Satisfaction::where('organization_id',Auth::user()->organization_id)->get();
+        $satisfaction = Satisfaction::where('organization_id',$organization->id)->get();
 
     	$form = array();
 
@@ -100,11 +100,11 @@ class SatisfactionController extends Controller
 
         if($satisfaction->isNotEmpty()){
 
-            $satisfaction = Satisfaction::where('organization_id',Auth::user()->organization_id)->delete();
+            $satisfaction = Satisfaction::where('organization_id',$organization->id)->delete();
 
             foreach ($form as $k => $v) {
                 $res = new Satisfaction;
-                $res->organization_id = Auth::user()->organization_id;
+                $res->organization_id = $organization->id;
                 $res->name = $k;
                 $res->form = json_encode($v);
                 $res->save();   
@@ -115,7 +115,7 @@ class SatisfactionController extends Controller
 
             foreach ($form as $k => $v) {
                 $res = new Satisfaction;
-                $res->organization_id = Auth::user()->organization_id;
+                $res->organization_id = $organization->id;
                 $res->name = $k;
                 $res->form = json_encode($v);
                 $res->save();   

@@ -13,9 +13,9 @@ class ReservationController extends Controller
 {
     public function index(Organization $organization,Request $request)
     {
-        $reservation = Reservation::where('organization_id',Auth::user()->organization_id)->get();
+        $reservation = Reservation::where('organization_id',$organization->id)->get();
 
-        $count = Reservation::where('organization_id',Auth::user()->organization_id)->count();
+        $count = Reservation::where('organization_id',$organization->id)->count();
 
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
@@ -86,7 +86,7 @@ class ReservationController extends Controller
     public function store(Organization $organization,Request $request)
     {
 
-        $reservation = Reservation::where('organization_id',Auth::user()->organization_id)->get();
+        $reservation = Reservation::where('organization_id',$organization->id)->get();
 
     	$form = array();
 
@@ -100,11 +100,11 @@ class ReservationController extends Controller
 
         if($reservation->isNotEmpty()){
 
-            $reservation = Reservation::where('organization_id',Auth::user()->organization_id)->delete();
+            $reservation = Reservation::where('organization_id',$organization->id)->delete();
 
             foreach ($form as $k => $v) {
                 $res = new Reservation;
-                $res->organization_id = Auth::user()->organization_id;
+                $res->organization_id = $organization->id;
                 $res->name = $k;
                 $res->form = json_encode($v);
                 $res->save();   
@@ -114,7 +114,7 @@ class ReservationController extends Controller
 
             foreach ($form as $k => $v) {
                 $res = new Reservation;
-                $res->organization_id = Auth::user()->organization_id;
+                $res->organization_id = $organization->id;
                 $res->name = $k;
                 $res->form = json_encode($v);
                 $res->save();   

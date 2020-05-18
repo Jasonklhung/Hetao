@@ -182,6 +182,29 @@ class OverviewController extends Controller
 
     public function search(Organization $organization,Request $request)
     {
+        $oneDay = Activity::where('organization_id',$organization->id)->where('owner',Auth::user()->id)->whereDate('start',$request->date)->orderBy('start','asc')->get();
+
+
+        $activity = Activity::where('organization_id',$organization->id)
+                    ->whereDate('start','<',$request->date)
+                    ->whereDate('end','>=',$request->date)
+                    ->where('owner',Auth::user()->id)
+                    ->orderBy('start','asc')
+                    ->get();
+
+        if($oneDay->isNotEmpty() && $activity->isEmpty()){
+            return [$oneDay];
+        }
+        elseif($oneDay->isEmpty() && $activity->isNotEmpty()){
+            return [$activity];
+        }
+        else{
+            return [$oneDay,$activity];
+        }
+    }
+
+    public function searchAll(Organization $organization,Request $request)
+    {
         $oneDay = Activity::where('organization_id',$organization->id)->whereDate('start',$request->date)->orderBy('start','asc')->get();
 
 

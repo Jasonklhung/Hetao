@@ -1309,7 +1309,7 @@
                                             else{
                                                 $.ajax({
                                                     method:'post',
-                                                    url:'{{ route('ht.Overview.search',['organization'=>$organization]) }}',
+                                                    url:'{{ route('ht.Overview.searchAll',['organization'=>$organization]) }}',
                                                     dataType:'json',
                                                     data:{
                                                         '_token':'{{csrf_token()}}',

@@ -171,7 +171,7 @@
                                     <select class='form-control mb-s company mr-s' name="company" id="company">
                                         <option selected disabled hidden value="">分公司</option>
                                         @foreach($org as $key => $data)
-                                        <option value="{{ $data->name }}">{{ $data->name }}</option>
+                                        <option value="{{ $data->name }}">{{ $data->name }}{{$data->company_name}}</option>
                                         @endforeach
                                     </select>
                                     <select class='form-control mb-s role mr-s' disabled="disabled" name="job" id="job">
@@ -298,7 +298,7 @@
                                     <select class='form-control mb-s company mr-s' name="company2" id="company2">
                                         <option selected disabled hidden value="">分公司</option>
                                         @foreach($org as $key => $data)
-                                        <option value="{{ $data->name }}">{{ $data->name }}</option>
+                                        <option value="{{ $data->name }}">{{ $data->name }}{{$data->company_name}}</option>
                                         @endforeach
                                     </select>
                                     <select class='form-control mb-s role mr-s' disabled="disabled" name="job2" id="job2">

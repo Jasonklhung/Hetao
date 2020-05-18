@@ -115,6 +115,8 @@ class NoticeController extends Controller
     public function store(Organization $organization,Request $request)
     {
 
+        //dd($request->all());
+
         $dept = Organization::where('id',$organization->id)->get();
 
         $notice = new Notice;
@@ -147,8 +149,22 @@ class NoticeController extends Controller
             $notice->weekend = null;
             $notice->weekendTime = null;
         }
-        $notice->meeting = $request->meetingName;
-        $notice->token = $request->meetingToken;
+
+        //取得新增人的分公司/職稱 姓名
+        if($request->meetingName == null){
+            $notice->meeting = $dept[0]['name']."/".Auth::user()->job." ".Auth::user()->name;
+        }
+        else{
+            $notice->meeting = $request->meetingName;
+        }
+
+        if($request->meetingToken == null){
+            $notice->token = Auth::user()->token;
+        }
+        else{
+           $notice->token = $request->meetingToken;
+        }
+
         $notice->type = $request->type;
         $notice->other = $request->other;
         $notice->save();

@@ -145,8 +145,19 @@ class OverviewController extends Controller
         $activity->notice = $request->notice;
         $activity->noticeTime = $request->noticeTime;
         $activity->pushDate = $push;
-        $activity->meeting = substr($request->meeting,0,-1);
-        $activity->meetingToken = substr($request->meetingToken,0,-1);
+
+        if($request->meeting == null){
+
+            $dept = Organization::where('id',$organization->id)->get();
+            $activity->meeting = $dept[0]['name']."/".Auth::user()->job.Auth::user()->name;
+            $activity->meetingToken = Auth::user()->token;
+        }
+        else{
+
+            $activity->meeting = substr($request->meeting,0,-1);
+            $activity->meetingToken = substr($request->meetingToken,0,-1);
+        }
+
         $activity->description = $request->description;
         $activity->save();
 
@@ -288,12 +299,14 @@ class OverviewController extends Controller
     public function getData(Organization $organization,Request $request)
     {
 
+        $dept = Organization::where('id',$request->DEPT)->get();
+
         $client = new \GuzzleHttp\Client();
         $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode([
                 'token' => $request->token,
-                'DEPT' => $request->DEPT
+                'DEPT' => $dept[0]['name']
             ])
         ]);
 

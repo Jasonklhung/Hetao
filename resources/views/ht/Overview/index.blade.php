@@ -47,9 +47,9 @@
                                                             <input type="hidden" name="notice">
                                                             <input type="hidden" name="noticeTime">
                                                             <li class="mb-s"><i class="fas fa-users"></i>
-                                                                <textarea name="meeting" id="meeting" placeholder="會議對象" required="" class="opmodal o2 form-control" data-toggle="modal" data-target="#person" spellcheck="false"></textarea>
+                                                                <textarea name="meeting" id="meeting" placeholder="會議對象" class="opmodal o2 form-control" data-toggle="modal" data-target="#person" spellcheck="false"></textarea>
                                                                 <!-- <input name="meeting" id="meeting" placeholder="會議對象" required="" class="opmodal o2 form-control" data-toggle="modal" data-target="#person"> --></li>
-                                                            <li class="mb-s"><i class="fas fa-align-left"></i><input class="form-control ps" type="text" name="description" placeholder="新增說明" required=""></li>
+                                                            <li class="mb-s"><i class="fas fa-align-left"></i><input class="form-control ps" type="text" name="description" placeholder="新增說明"></li>
                                                             <li class="text-center"><div class="coupon"><button type="submit">儲存</button></div></li>
                                                         </ul>
                                                     </form>
@@ -136,9 +136,9 @@
                                                 <select class='form-control mb-s company' id="company2" name="company2">
                                                     @foreach($company as $data)
                                                     @if($data->id == Auth::user()->organization_id)
-                                                    <option selected value="{{$data->name}}">{{$data->name}}</option>
+                                                    <option selected value="{{$data->name}}">{{$data->name}}{{$data->company_name}}</option>
                                                     @else
-                                                    <option value="{{$data->name}}">{{$data->name}}</option>
+                                                    <option value="{{$data->name}}">{{$data->name}}{{$data->company_name}}</option>
                                                     @endif
                                                     @endforeach
                                                 </select>
@@ -202,9 +202,9 @@
                     <select class='form-control mb-s company' name="company">
                         @foreach($company as $data)
                             @if($data->id == Auth::user()->organization_id)
-                        <option selected value="{{$data->name}}">{{$data->name}}</option>
+                        <option selected value="{{$data->name}}">{{$data->name}}{{$data->company_name}}</option>
                             @else
-                        <option value="{{$data->name}}">{{$data->name}}</option>
+                        <option value="{{$data->name}}">{{$data->name}}{{$data->company_name}}</option>
                             @endif
                         @endforeach
                     </select>
@@ -312,7 +312,7 @@
             url:'{{ route('ht.Overview.getData',['organization'=>$organization]) }}',
             data:{
                 "token": '{{Auth::user()->token}}',
-                "DEPT": '{{Auth::user()->department->name}}'
+                "DEPT": '{{$organization->id}}'
             },
             dataType:'json',
             success:function(data){
@@ -1087,5 +1087,10 @@
             $(this).parents('.modal').find('input[type="number"]').val('');
             $('.choose[name="t"]').removeAttr('checked');
         });
+    </script>
+    <script type="text/javascript">
+        $('#all-person').on('click',function(){
+            alert(123)
+        })
     </script>
 @endsection

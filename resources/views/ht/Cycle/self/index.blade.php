@@ -234,6 +234,13 @@
 
     $.each(cycle, function (i, item) {
 
+        if(item.other == null || item.other == ''){
+            var other = ''
+        }
+        else{
+            var other = item.other
+        }
+
         data1[i] = {
             first: `
             <div class="td-icon">
@@ -256,7 +263,7 @@
             productid: item.productCode,
             productquantity: item.productNum,
             productprice: item.productPrice,
-            other: item.other
+            other: other
         }
     })
 
@@ -271,7 +278,7 @@
                 <tr class='rwd-show'><td><span class='w-105px'>負責員工：</span>` + d.principal + `</td></tr>
                 <tr><td><span class='w-105px'>家裡電話：</span>` + d.housetel + `</td></tr>
                 <tr><td><span class='w-105px'>行動電話：</span>` + d.mob + `</td></tr>
-                <tr><td><span class='w-105px'>機器地址：</span>` + d.productprice + `</td></tr>
+                <tr><td><span class='w-105px'>機器地址：</span>` + d.mechine + `</td></tr>
                 <tr><td><span class='w-105px'>收款地址：</span>` + d.address + `</td></tr>
                 <tr><td><span class='w-105px'>產品代碼：</span>` + d.productid + `</td></tr>
                 <tr><td><span class='w-105px'>產品數量：</span>` + d.productquantity + `</td></tr>
@@ -419,6 +426,13 @@
 
     $.each(cycleNext, function (i, item) {
 
+        if(item.other == null || item.other == ''){
+            var other = ''
+        }
+        else{
+            var other = item.other
+        }
+
         data2[i] = {
             first: `
             <div class="td-icon">
@@ -437,7 +451,7 @@
             principal: item.staff,
             mob: "<a href='tel:"+item.mobile+"' class='text-nowrap'>"+item.mobile+"</a>",
             cycle: item.kind,
-            other: item.other,
+            other: other,
             mechine: "<a href='https://www.google.com.tw/maps/place/"+item.machine+"' target='_blank'>"+item.machine+"</a>",
             day: item.cycle,
             address: "<a href='https://www.google.com.tw/maps/place/"+item.payAddress+"' target='_blank'>"+item.payAddress+"</a>",
@@ -777,6 +791,13 @@
 
                         $.each(res[0], function (i, item) {
 
+                            if(item.other == null || item.other == ''){
+                                var other = ''
+                            }
+                            else{
+                                var other = item.other
+                            }
+
                             data1[i] = {
                                 first: `
                                 <div class="td-icon">
@@ -799,7 +820,7 @@
                                 productid: item.productCode,
                                 productquantity: item.productNum,
                                 productprice: item.productPrice,
-                                other: item.other
+                                other: other
                             }
                         })
 
@@ -814,7 +835,7 @@
                                 <tr class='rwd-show'><td><span class='w-105px'>負責員工：</span>` + d.principal + `</td></tr>
                                 <tr><td><span class='w-105px'>家裡電話：</span>` + d.housetel + `</td></tr>
                                 <tr><td><span class='w-105px'>行動電話：</span>` + d.mob + `</td></tr>
-                                <tr><td><span class='w-105px'>機器地址：</span>` + d.productprice + `</td></tr>
+                                <tr><td><span class='w-105px'>機器地址：</span>` + d.mechine + `</td></tr>
                                 <tr><td><span class='w-105px'>收款地址：</span>` + d.address + `</td></tr>
                                 <tr><td><span class='w-105px'>產品代碼：</span>` + d.productid + `</td></tr>
                                 <tr><td><span class='w-105px'>產品數量：</span>` + d.productquantity + `</td></tr>
@@ -958,6 +979,13 @@
 
                         $.each(res, function (i, item) {
 
+                            if(item.other == null || item.other == ''){
+                                var other = ''
+                            }
+                            else{
+                                var other = item.other
+                            }
+
                             data2[i] = {
                                 first: `
                                 <div class="td-icon">
@@ -976,7 +1004,7 @@
                                 principal: item.staff,
                                 mob: "<a href='tel:"+item.mobile+"' class='text-nowrap'>"+item.mobile+"</a>",
                                 cycle: item.kind,
-                                other: item.other,
+                                other: other,
                                 mechine: "<a href='https://www.google.com.tw/maps/place/"+item.machine+"' target='_blank'>"+item.machine+"</a>",
                                 day: item.cycle,
                                 address: "<a href='https://www.google.com.tw/maps/place/"+item.payAddress+"' target='_blank'>"+item.payAddress+"</a>",

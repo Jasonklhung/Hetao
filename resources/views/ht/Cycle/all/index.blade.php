@@ -347,6 +347,13 @@
 
     $.each(cycle, function (i, item) {
 
+        if(item.MEMO == null || item.MEMO == ''){
+            var other = ''
+        }
+        else{
+            var other = item.MEMO
+        }
+
         var a = allAssign.indexOf(item.KIND)
 
         if(a == -1){
@@ -371,10 +378,10 @@
                 mob: "<a href='tel:"+item.MPHONE+"' class='text-nowrap'>"+item.MPHONE+"</a>",
                 mechine: "<a href='https://www.google.com.tw/maps/place/"+item.MACHINE+"' target='_blank'>"+item.MACHINE+"</a>",
                 address: "<a href='https://www.google.com.tw/maps/place/"+item.PAYMENT+"' target='_blank'>"+item.PAYMENT+"</a>",
-                productid: item.CDOE,
+                productid: item.CODE,
                 productquantity: item.NUM,
                 productprice: item.PRICE,
-                other: item.MEMO
+                other: other
             }
         }
 
@@ -385,7 +392,7 @@
             `<table class="tb-child">
                 <tr><td><span class='w-105px'>家裡電話：</span>` + d.housetel + `</td>  </tr>
                 <tr><td><span class='w-105px'>行動電話：</span>` + d.mob + `</td></tr>
-                <tr><td><span class='w-105px'>機器地址：</span>` + d.productprice + `</td></tr>
+                <tr><td><span class='w-105px'>機器地址：</span>` + d.mechine + `</td></tr>
                 <tr><td><span class='w-105px'>收款地址：</span>` + d.address + `</td></tr>
                 <tr><td><span class='w-105px'>產品代碼：</span>` + d.productid + `</td></tr>
                 <tr><td><span class='w-105px'>產品數量：</span>` + d.productquantity + `</td></tr>
@@ -494,6 +501,13 @@
             var status = '已完成'
         }
 
+        if(item.other == null || item.other == ''){
+            var other = ''
+        }
+        else{
+            var other = item.other
+        }
+
         data2[i] = {
             first: `
             <div class="td-icon">
@@ -517,7 +531,7 @@
             productid: item.productCode,
             productquantity: item.productNum,
             productprice: item.productPrice,
-            other: item.other
+            other: other
         }
 
     })
@@ -527,7 +541,7 @@
             `<table class="tb-child">
                 <tr><td><span class='w-105px'>家裡電話：</span>` + d.housetel + `</td>  </tr>
                 <tr><td><span class='w-105px'>行動電話：</span>` + d.mob + `</td></tr>
-                <tr><td><span class='w-105px'>機器地址：</span>` + d.productprice + `</td></tr>
+                <tr><td><span class='w-105px'>機器地址：</span>` + d.mechine + `</td></tr>
                 <tr><td><span class='w-105px'>收款地址：</span>` + d.address + `</td></tr>
                 <tr><td><span class='w-105px'>產品代碼：</span>` + d.productid + `</td></tr>
                 <tr><td><span class='w-105px'>產品數量：</span>` + d.productquantity + `</td></tr>
@@ -646,7 +660,7 @@
             `<table class="tb-child">
                 <tr><td>家裡電話：` + d.housetel + `</td>  </tr>
                 <tr><td>行動電話：` + d.mob + `</td></tr>
-                <tr><td>機器地址：` + d.productprice + `</td></tr>
+                <tr><td>機器地址：` + d.mechine + `</td></tr>
                 <tr><td>收款地址：` + d.address + `</td></tr>
                 <tr><td>產品代碼：` + d.productid + `</td></tr>
                 <tr><td>產品數量：` + d.productquantity + `</td></tr>
@@ -897,6 +911,13 @@
 
                             var a = allAssign.indexOf(item.KIND)
 
+                            if(item.MEMO == null || item.MEMO == ''){
+                                var other = ''
+                            }
+                            else{
+                                var other = item.MEMO
+                            }
+
                             if(a == -1){
                                 k++
 
@@ -919,10 +940,10 @@
                                     mob: "<a href='tel:"+item.MPHONE+"' class='text-nowrap'>"+item.MPHONE+"</a>",
                                     mechine: "<a href='https://www.google.com.tw/maps/place/"+item.MACHINE+"' target='_blank'>"+item.MACHINE+"</a>",
                                     address: "<a href='https://www.google.com.tw/maps/place/"+item.PAYMENT+"' target='_blank'>"+item.PAYMENT+"</a>",
-                                    productid: item.CDOE,
+                                    productid: item.CODE,
                                     productquantity: item.NUM,
                                     productprice: item.PRICE,
-                                    other: item.MEMO
+                                    other: other
                                 }
                             }
 
@@ -933,7 +954,7 @@
                                 `<table class="tb-child">
                                 <tr><td><span class='w-105px'>家裡電話：</span>` + d.housetel + `</td>  </tr>
                                 <tr><td><span class='w-105px'>行動電話：</span>` + d.mob + `</td></tr>
-                                <tr><td><span class='w-105px'>機器地址：</span>` + d.productprice + `</td></tr>
+                                <tr><td><span class='w-105px'>機器地址：</span>` + d.mechine + `</td></tr>
                                 <tr><td><span class='w-105px'>收款地址：</span>` + d.address + `</td></tr>
                                 <tr><td><span class='w-105px'>產品代碼：</span>` + d.productid + `</td></tr>
                                 <tr><td><span class='w-105px'>產品數量：</span>` + d.productquantity + `</td></tr>
@@ -1063,6 +1084,13 @@
                                 var status = '已完成'
                             }
 
+                            if(item.other == null || item.other == ''){
+                                var other = ''
+                            }
+                            else{
+                                var other = item.other
+                            }
+
                             data2[i] = {
                                 first: `
                                 <div class="td-icon">
@@ -1086,7 +1114,7 @@
                                 productid: item.productCode,
                                 productquantity: item.productNum,
                                 productprice: item.productPrice,
-                                other: item.other
+                                other: other
                             }
 
                         })
@@ -1096,7 +1124,7 @@
                                 `<table class="tb-child">
                                 <tr><td><span class='w-105px'>家裡電話：</span>` + d.housetel + `</td>  </tr>
                                 <tr><td><span class='w-105px'>行動電話：</span>` + d.mob + `</td></tr>
-                                <tr><td><span class='w-105px'>機器地址：</span>` + d.productprice + `</td></tr>
+                                <tr><td><span class='w-105px'>機器地址：</span>` + d.mechine + `</td></tr>
                                 <tr><td><span class='w-105px'>收款地址：</span>` + d.address + `</td></tr>
                                 <tr><td><span class='w-105px'>產品代碼：</span>` + d.productid + `</td></tr>
                                 <tr><td><span class='w-105px'>產品數量：</span>` + d.productquantity + `</td></tr>
@@ -1236,7 +1264,7 @@
                                 `<table class="tb-child">
                                 <tr><td>家裡電話：` + d.housetel + `</td>  </tr>
                                 <tr><td>行動電話：` + d.mob + `</td></tr>
-                                <tr><td>機器地址：` + d.productprice + `</td></tr>
+                                <tr><td>機器地址：` + d.mechine + `</td></tr>
                                 <tr><td>收款地址：` + d.address + `</td></tr>
                                 <tr><td>產品代碼：` + d.productid + `</td></tr>
                                 <tr><td>產品數量：` + d.productquantity + `</td></tr>

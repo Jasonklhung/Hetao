@@ -77,18 +77,18 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                @foreach($reservation as $key => $data)
                                                                 <tr>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td><span class="text-success text-nowrap">已轉入</span></td> 
-                                                                    <td></td>
+                                                                    <td>{{ $data->cuskey }}</td>
+                                                                    <td>{{ $data->created_at }}</td>
+                                                                    @if($data->views == 'Y')
+                                                                    <td><span class="text-success text-nowrap">已查看</span></td> 
+                                                                    @else
+                                                                    <td><span class="text-danger text-nowrap">未查看</span></td> 
+                                                                    @endif
+                                                                    <td><button type='button' class='btn status' onclick="javascript:location.href='{{ route('ht.StrokeManage.supervisor.show',['organization'=>$organization,'id'=>base64_encode($data->id)]) }}'">查看</button></td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td><span class="text-danger text-nowrap">未轉入</span></td> 
-                                                                    <td></td>
-                                                                </tr>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -125,11 +125,10 @@
                                                                             <li class="divider"></li>
                                                                             <li>
                                                                                 <select class='form-control' id='sel1'>
-                                                                                    <option selected disabled>請指派負責主管</option>
-                                                                                    <option>Ricky</option>
-                                                                                    <option>Eva</option>
-                                                                                    <option>Apple</option>
-                                                                                    <option>Banana</option>
+                                                                                    <option value="" selected disabled>請指派負責人</option>
+                                                                                    @foreach($deptUser as $key =>$data)
+                                                                                    <option value="{{ $data['id'] }}">{{ $data['name'] }}</option>
+                                                                                    @endforeach
                                                                                 </select>
                                                                             </li>
                                                                             <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert" href="#">批次指派</a></li>
@@ -167,24 +166,36 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                @foreach($NotAssignArray as $key => $data)
                                                                 <tr>
                                                                     <td>
                                                                         <div class="td-icon">
-                                                                            <input class="chkall" type="checkbox" value="">
+                                                                            <input class="chkall" name="NotAssignId" type="checkbox" value="{{ $data->id }}">
                                                                         </div>
                                                                     </td>
-                                                                    <td>12345678</td>
+                                                                    <td>{{ $data->id }}</td>
+                                                                    <td>{{ $data->time }}</td>
+                                                                    <td>{{ $data->CUSTKEY }}</td>
+                                                                    <td>{{ $data->name }}</td>
+                                                                    <td>{{ $data->address }}</td>
+                                                                    <td>{{ $data->mobile }}</td>
+                                                                    <td>{{ $data->remarks }}</td>
+                                                                    <td>{{ $data->work_type }}</td>
+                                                                    @if($data->status == 'T')
+                                                                    <td>已完成</td>
+                                                                    @elseif($data->status == 'F')
+                                                                    <td>延遲</td>
+                                                                    @elseif($data->status == 'R')
+                                                                    <td>轉單</td>
+                                                                    @elseif($data->status == null)
                                                                     <td></td>
+                                                                    @else
                                                                     <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
+                                                                    @endif
+                                                                    <td>{{ $data->owner }}</td>
                                                                     <td></td>
                                                                 </tr>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -237,27 +248,15 @@
                                                                             <li class="divider"></li>
                                                                             <li>
                                                                                 <select class='form-control' id='sel2'>
-                                                                                    <option selected disabled>請指派負責主管</option>
-                                                                                    <option>Ricky</option>
-                                                                                    <option>Eva</option>
-                                                                                    <option>Apple</option>
-                                                                                    <option>Banana</option>
+                                                                                    <option value="" selected disabled>請指派負責人</option>
+                                                                                    @foreach($deptUser as $key =>$data)
+                                                                                    <option value="{{ $data['id'] }}">{{ $data['name'] }}</option>
+                                                                                    @endforeach
                                                                                 </select>
                                                                             </li>
                                                                             <li><a class="btn btn-bright m-0" data-toggle="modal" data-target="#op-alert" href="#">批次指派</a></li>
                                                                         </ul>
                                                                     </div>
-                                                                    <!-- <div class='batchwrap'>
-                                                                        <div class='form-group mr-s hide batch-select'><select class='form-control' id='sel1'>
-                                                                                <option selected hidden disabled>請指派負責主管</option>
-                                                                                <option>Ricky</option>
-                                                                                <option>Eva</option>
-                                                                                <option>Apple</option>
-                                                                                <option>Banana</option>
-                                                                            </select></div>
-                                                                        <button type='button' class='btn-bright hide batch-finish'>完成</button><label for='chkall' class='sall'>全選</label><input id='chkall' type='checkbox' value='' />
-                                                                        <button type='button' class='btn-bright batch' type="button">批次指派</button>
-                                                                    </div> -->
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -280,9 +279,10 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                @foreach($assignCaseArray as $key=> $data)
                                                                 <tr>
                                                                     <td><div class="td-icon">
-                                                                            <input class="chkall" type="checkbox" value="">
+                                                                            <input class="chkall" type="checkbox" value="{{ $data->id }}">
                                                                         </div>
                                                                     </td>
                                                                     <td></td>
@@ -298,6 +298,7 @@
                                                                     <td></td>
                                                                     <td></td>
                                                                 </tr>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -322,7 +323,7 @@
                     </div>
                     <div class="modal-body text-center"></div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">確認</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="NotAssign">確認</button>
                     </div>
                 </div>
             </div>
@@ -503,5 +504,38 @@
             `)
         }
     });
-    </script>    
+    </script>
+    <script type="text/javascript">
+        $('#NotAssign').on('click',function(){
+
+            var count = 0
+
+            $('input[name="NotAssignId"]:checked').each(function(){
+
+                 var id = $(this).val()
+                 var owner = $('#sel1').val();
+
+                 $.ajax({
+                    type:'post',
+                    url:"{{ route('ht.StrokeManage.supervisor.assignOwner',['organization'=>$organization]) }}",
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'id':id,
+                        'owner':owner
+                    },
+                    success:function(res){
+                        if(res.status == 200 && count == 0){
+                            count += 1;
+                            alert('工單已指派');
+                            window.location = '{{ route('ht.StrokeManage.supervisor.index',['organization'=>$organization]) }}'
+                        }
+                        else if(res.status == 400 && count == 0){
+                            count += 1;
+                            alert('工單更新失敗');
+                        }
+                    }
+                 })
+            })
+        })
+    </script>
 @endsection

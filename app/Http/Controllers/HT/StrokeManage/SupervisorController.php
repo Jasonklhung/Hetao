@@ -618,16 +618,9 @@ class SupervisorController extends Controller
             }
         }
 
-        foreach ($array as $key => $value) {
-            if($value->owner == '' || $value->owner == null || $value->status == 'R'){
-                $NotAssignArray[] = $value;
-            }
-        }
 
         //取得指派的工單資訊
-        $getCaseArray = array(); 
-
-        foreach ($NotAssignArray as $key => $value) {
+        foreach ($array as $key => $value) {
             if($value->id == $request->id){
                 $getCaseArray[] = $value;
             }
@@ -670,6 +663,7 @@ class SupervisorController extends Controller
                 $supervisor->work_type = $getCaseArray[0]->work_type;
                 $supervisor->time = $getCaseArray[0]->time;
                 $supervisor->owner = $user->name;
+                $supervisor->owner_id = $request->owner;
                 $supervisor->status = '';
                 $supervisor->save();
             }else{
@@ -686,6 +680,7 @@ class SupervisorController extends Controller
                 $supervisor->work_type = $getCaseArray[0]->work_type;
                 $supervisor->time = $getCaseArray[0]->time;
                 $supervisor->owner = $user->name;
+                $supervisor->owner_id = $request->owner;
                 $supervisor->status = '';
                 $supervisor->save();
             }
@@ -695,5 +690,276 @@ class SupervisorController extends Controller
         else{
             return array("status"=>400);
         }
+    }
+
+    public function assignOwnerAgain(Organization $organization,Request $request)
+    {
+        //dd($request->all());
+
+        $user = User::find($request->owner);
+        $dept = Organization::where('id',$organization->id)->get();
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/update-case-status', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => $user->token,
+                'id' => $request->id,
+                'status'=> '',
+                'DEPT' => $dept[0]['name']
+            ])
+        ]);
+
+        //取得待指派工單
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => Auth::user()->token,
+                'DEPT' => $dept[0]['name']
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $array = array();
+        $AssignArray = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+            }
+        }
+
+        //取得指派的工單資訊
+        foreach ($array as $key => $value) {
+            if($value->id == $request->id){
+                $AssignArray[] = $value;
+            }
+        }
+
+        $tt = 'GUI-number';
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/assign-case-boss', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'id' => $request->id,
+                'name' => $AssignArray[0]->CUSTKEY,
+                'mobile'=> $AssignArray[0]->mobile,
+                'GUI_number' => $AssignArray[0]->$tt,
+                'address' => $AssignArray[0]->address,
+                'work_type' => $AssignArray[0]->work_type,
+                'time' => $AssignArray[0]->time,
+                'owner_boss' => $user->token,//$request->owner_boss,
+                'DEPT' => $dept[0]['name'],//$dept_name,
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        if(json_decode($response)->status == 200){
+            //DB
+            $supervisor = SupervisorCase::where('case_id',$request->id)->get();
+            if($supervisor->isNotEmpty()){
+                $supervisor = SupervisorCase::find($supervisor[0]['id']);
+                $supervisor->organization_id = $organization->id;
+                $supervisor->user_id = Auth::user()->id;
+                $supervisor->case_id = $request->id;
+                $supervisor->cuskey = $AssignArray[0]->CUSTKEY;
+                $supervisor->mobile = $AssignArray[0]->mobile;
+                $supervisor->GUI_number = $AssignArray[0]->$tt;
+                $supervisor->address = $AssignArray[0]->address;
+                $supervisor->name = $AssignArray[0]->name;
+                $supervisor->reason = $AssignArray[0]->remarks;
+                $supervisor->work_type = $AssignArray[0]->work_type;
+                $supervisor->time = $AssignArray[0]->time;
+                $supervisor->owner = $user->name;
+                $supervisor->owner_id = $request->owner;
+                $supervisor->status = '';
+                $supervisor->save();
+            }else{
+                $supervisor = new SupervisorCase;
+                $supervisor->organization_id = $organization->id;
+                $supervisor->user_id = Auth::user()->id;
+                $supervisor->case_id = $request->id;
+                $supervisor->cuskey = $AssignArray[0]->CUSTKEY;
+                $supervisor->mobile = $AssignArray[0]->mobile;
+                $supervisor->GUI_number = $AssignArray[0]->$tt;
+                $supervisor->address = $AssignArray[0]->address;
+                $supervisor->name = $AssignArray[0]->name;
+                $supervisor->reason = $AssignArray[0]->remarks;
+                $supervisor->work_type = $AssignArray[0]->work_type;
+                $supervisor->time = $AssignArray[0]->time;
+                $supervisor->owner = $user->name;
+                $supervisor->owner_id = $request->owner;
+                $supervisor->status = '';
+                $supervisor->save();
+            }
+
+            return array("status"=>200);
+        }
+        else{
+            return array("status"=>400);
+        }
+    }
+
+    public function onlineSearch(Organization $organization,Request $request)
+    {
+
+        $start = $request->start;
+        $end = $request->end;
+        $end = date("Y-m-d",strtotime("+1 day",strtotime($end)));
+        $status = $request->status;
+
+        $reservation = DB::table('reservation_answers')
+                        ->select('reservation_answers.id','reservation_answers.views','accounts.cuskey','accounts.name','reservation_answers.created_at')
+                        ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
+                        ->where('reservation_answers.department_id',$organization->id)
+                        ->when($start, function ($query) use ($start,$end) {
+                            return $query->whereBetween('reservation_answers.created_at',[$start,$end]);
+                        })
+                        ->when($status, function ($query) use ($status) {
+                            return $query->where('views',$status);
+                        })
+                        ->get();
+
+        return $reservation;
+    }
+
+    public function notAssignSearch(Organization $organization,Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+        $type = $request->type;
+
+        $dept = Organization::where('id',$organization->id)->get();
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => Auth::user()->token,
+                'DEPT' => $dept[0]['name']
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $array = array();
+        $NotAssignArray = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+            }
+        }
+
+        foreach ($array as $key => $value) {
+            if($value->owner == '' || $value->owner == null || $value->status == 'R'){
+                $NotAssignArray[] = $value;
+            }
+        }
+
+        $searchArray = array();
+
+        if($start != null && $end != null && $type != null){
+
+            foreach ($NotAssignArray as $key => $value) {
+                if($value->time >= $start && $value->time <= $end && $value->work_type == $type){
+                    $searchArray[] = $value;
+                }
+            }
+        }
+        elseif($start != null && $end != null && $type == null){
+
+            foreach ($NotAssignArray as $key => $value) {
+                if($value->time >= $start && $value->time <= $end){
+                    $searchArray[] = $value;
+                }
+            }
+        }
+        elseif($start == null && $end == null && $type != null){
+
+            foreach ($NotAssignArray as $key => $value) {
+                if($value->work_type == $type){
+                    $searchArray[] = $value;
+                }
+            }
+        }
+
+        //取得所有員工
+        $allUser = User::whereIn('job',['助理','主管','員工'])->get();
+        $deptUser = array();
+
+        foreach ($allUser as $key => $value) {
+            if($value->organization_id == $dept[0]['id']){
+                $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+            }
+        }
+
+        foreach ($allUser as $key => $value) {
+            $many = explode(',', $value->organizations);
+
+            foreach ($many as $k => $v) {
+                if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id']){
+                    $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+                }
+            }
+        }
+
+        return [$searchArray,$deptUser];
+    }
+
+    public function assignCaseSearch(Organization $organization,Request $request)
+    {
+
+        $start = $request->start;
+        $end = $request->end;
+        $type = $request->type;
+        $status = $request->status;
+        $staff = $request->staff;
+
+        $assignCaseArray = SupervisorCase::where('organization_id',$organization->id)
+                                        ->when($start, function ($query) use ($start,$end) {
+                                            return $query->whereBetween('time',[$start,$end]);
+                                        })
+                                        ->when($type, function ($query) use ($type) {
+                                            return $query->where('work_type',$type);
+                                        })
+                                        ->when($staff, function ($query) use ($staff) {
+                                            return $query->where('owner',$staff);
+                                        })
+                                        ->when($status, function ($query) use ($status) {
+                                            return $query->where('status',$status);
+                                        })
+                                        ->get();
+
+        //取得所有員工
+        $dept = Organization::where('id',$organization->id)->get();
+        $allUser = User::whereIn('job',['助理','主管','員工'])->get();
+        $deptUser = array();
+
+        foreach ($allUser as $key => $value) {
+            if($value->organization_id == $dept[0]['id']){
+                $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+            }
+        }
+
+        foreach ($allUser as $key => $value) {
+            $many = explode(',', $value->organizations);
+
+            foreach ($many as $k => $v) {
+                if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id']){
+                    $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+                }
+            }
+        }
+
+        return [$assignCaseArray,$deptUser];
     }
 }

@@ -177,6 +177,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::post('/HT/{organization}/StrokeManage/assistant/transfer','HT\StrokeManage\AssistantController@transfer')->name('ht.StrokeManage.assistant.transfer');
 
+		Route::post('/HT/{organization}/StrokeManage/assistant/caseSearch','HT\StrokeManage\AssistantController@caseSearch')->name('ht.StrokeManage.assistant.caseSearch');
+
+
 		//行程管理-主管
 		Route::get('/HT/{organization}/StrokeManage/supervisor/index','HT\StrokeManage\SupervisorController@index')->name('ht.StrokeManage.supervisor.index');
 
@@ -201,7 +204,16 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/StrokeManage/supervisor/searchStatus','HT\StrokeManage\SupervisorController@searchStatus')->name('ht.StrokeManage.supervisor.searchStatus');
 
 		Route::post('/HT/{organization}/StrokeManage/supervisor/searchAssign','HT\StrokeManage\SupervisorController@searchAssign')->name('ht.StrokeManage.supervisor.searchAssign');
+
 		Route::post('/HT/{organization}/StrokeManage/supervisor/assignOwner','HT\StrokeManage\SupervisorController@assignOwner')->name('ht.StrokeManage.supervisor.assignOwner');
+
+		Route::post('/HT/{organization}/StrokeManage/supervisor/assignOwnerAgain','HT\StrokeManage\SupervisorController@assignOwnerAgain')->name('ht.StrokeManage.supervisor.assignOwnerAgain');
+
+		Route::post('/HT/{organization}/StrokeManage/supervisor/onlineSearch','HT\StrokeManage\SupervisorController@onlineSearch')->name('ht.StrokeManage.supervisor.onlineSearch');
+
+		Route::post('/HT/{organization}/StrokeManage/supervisor/notAssignSearch','HT\StrokeManage\SupervisorController@notAssignSearch')->name('ht.StrokeManage.supervisor.notAssignSearch');
+
+		Route::post('/HT/{organization}/StrokeManage/supervisor/assignCaseSearch','HT\StrokeManage\SupervisorController@assignCaseSearch')->name('ht.StrokeManage.supervisor.assignCaseSearch');
 
 
 		//行程管理-員工
@@ -212,6 +224,12 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/StrokeManage/staff/updateStatus','HT\StrokeManage\StaffController@updateStatus')->name('ht.StrokeManage.staff.updateStatus');
 
 		Route::post('/HT/{organization}/StrokeManage/staff/transfer','HT\StrokeManage\StaffController@transfer')->name('ht.StrokeManage.staff.transfer');
+
+		Route::post('/HT/{organization}/StrokeManage/staff/updateCaseStatus','HT\StrokeManage\StaffController@updateCaseStatus')->name('ht.StrokeManage.staff.updateCaseStatus');
+
+		Route::post('/HT/{organization}/StrokeManage/staff/reportAssignSearch','HT\StrokeManage\StaffController@reportAssignSearch')->name('ht.StrokeManage.staff.reportAssignSearch');
+
+		Route::post('/HT/{organization}/StrokeManage/staff/assignCaseSearch','HT\StrokeManage\StaffController@assignCaseSearch')->name('ht.StrokeManage.staff.assignCaseSearch');
 
 
 		//表單設定-線上預約

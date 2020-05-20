@@ -1525,7 +1525,55 @@
                         + "</tr>";
                 })
                 $('#hetao-overview4 tbody').append(rows);
-               
+                var table4 = $("#hetao-overview4").DataTable({
+                    "bPaginate": true,
+                    "searching": true,
+                    "info": true,
+                    "bLengthChange": false,
+                    "bServerSide": false,
+                    "language": {
+                        "search": "",
+                        "searchPlaceholder": "請輸入關鍵字",
+                        "paginate": { "previous": "上一頁", "next": "下一頁" },
+                        "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                        "zeroRecords": "沒有符合的搜尋結果",
+                        "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                        "lengthMenu": "呈現筆數 _MENU_",
+                        "emptyTable": "沒有數據",
+                        "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                    },
+                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                    "buttons": [{
+                        "extend": 'colvis',
+                        "collectionLayout": 'fixed two-column'
+                    }],
+                    "order": [],
+                    "columnDefs": [{
+                        "targets": [0,11],
+                        "orderable": false,
+                    }],
+                    "responsive": {
+                        "breakpoints": [
+                        { name: 'desktop', width: Infinity },
+                        { name: 'tablet', width: 1024 },
+                        ],
+                        "details": {
+                            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                            "type": 'none',
+                            "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
+                            "target": ''
+                        }
+                    },
+                });
+
+                $(".searchInput_s4").on("blur", function() {
+                    table4.search(this.value).draw();
+                });
+
+                $(".searchInput_s4").on("keyup", function() {
+                    table4.search(this.value).draw();
+                });
+
             },
             cache: false,
             contentType: false,

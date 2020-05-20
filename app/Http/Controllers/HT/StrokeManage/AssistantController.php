@@ -93,7 +93,30 @@ class AssistantController extends Controller
             $caseCount = count($countArray);
         }
 
-    	return view('ht.StrokeManage.assistant.index',compact('organization','reservation','contact','caseCount'));
+        $allCase = SupervisorCase::where('organization_id',$organization->id)->get();
+
+        //取得所有員工
+        $dept = Organization::where('id',$organization->id)->get();
+        $allUser = User::whereIn('job',['助理','主管','員工'])->get();
+        $deptUser = array();
+
+        foreach ($allUser as $key => $value) {
+            if($value->organization_id == $dept[0]['id']){
+                $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+            }
+        }
+
+        foreach ($allUser as $key => $value) {
+            $many = explode(',', $value->organizations);
+
+            foreach ($many as $k => $v) {
+                if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id']){
+                    $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+                }
+            }
+        }
+
+    	return view('ht.StrokeManage.assistant.index',compact('organization','reservation','contact','caseCount','allCase','deptUser'));
     }
 
     public function index2(Organization $organization)
@@ -787,6 +810,32 @@ class AssistantController extends Controller
         $response = $response->getBody()->getContents();
 
         return $response;
+    }
+
+    public function caseSearch(Organization $organization,Request $request)
+    {
+
+        $start = $request->start;
+        $end = $request->end;
+        $type = $request->type;
+        $status = $request->status;
+        $staff = $request->staff;
+
+        $allCase = SupervisorCase::where('organization_id',$organization->id)
+                                ->when($start, function ($query) use ($start,$end) {
+                                    return $query->whereBetween('time',[$start,$end]);
+                                })
+                                ->when($type, function ($query) use ($type) {
+                                    return $query->where('work_type',$type);
+                                })
+                                ->when($staff, function ($query) use ($staff) {
+                                    return $query->where('owner',$staff);
+                                })
+                                ->when($status, function ($query) use ($status) {
+                                    return $query->where('status',$status);
+                                })
+                                ->get();
+        return $allCase;
     }
 
 }

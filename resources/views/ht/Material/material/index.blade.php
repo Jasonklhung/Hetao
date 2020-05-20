@@ -76,10 +76,7 @@
                                                                         </div>
                                                                         <div class="form-item">
                                                                             <label class="d-block">機號</label>
-                                                                            <select class="form-control" name="machine_number[]" id="machine_number">
-                                                                                <option value="" selected="">請選擇機號</option>
-                                                                                <option value="null" >無</option>
-                                                                            </select>
+                                                                            <input type="text" class="form-control" name="machine_number[]" id="machine_number">
                                                                         </div>
                                                                         <div class="form-item">
                                                                             <label class="d-block"><span class="text-danger">* </span>領料數量</label>
@@ -275,10 +272,7 @@
                     </div>
                     <div class="form-item">
                         <label class="d-block">機號</label>
-                        <select class="form-control machine_number" name="machine_number[]">
-                            <option value="" selected="">請選擇機號</option>
-                            <option value="null" >無</option>
-                        </select>
+                        <input type="text" class="form-control machine_number" name="machine_number[]">
                     </div>
                     <div class="form-item">
                         <label class="d-block"><span class="text-danger">* </span>領料數量</label>
@@ -321,19 +315,6 @@
 
                                     if(ress[1][0] != null){
                                         $('.materials_spec').val(ress[1][0].materials_spec)
-
-                                        if(ress[1][0].machine_number != null){
-                                            var number = ress[1][0].machine_number.split(",")
-                                            number.pop();
-                                            var selOpts = "<option value='' selected='selected' disabled='true'>請選擇機號</option>";
-                                            selOpts += "<option value='null'>無</option>";
-                                            $.each(number, function (i, item) {
-
-                                                selOpts += "<option value='"+item+"'>"+item+"</option>";    
-                                            })
-                                            $(".machine_number").empty();
-                                            $('.machine_number').append(selOpts);
-                                        }
                                     }              
                                 }
                             })
@@ -341,22 +322,47 @@
                     });
 
                     if(res[1][0] != null){
-                        $('.materials_spec').val(ress[1][0].materials_spec)
-
-                        if(res[1][0].machine_number != null){
-                            var number = res[1][0].machine_number.split(",")
-                            number.pop();
-                            var selOpts = "<option value='none' selected='selected' disabled='true'>請選擇機號</option>";
-                            selOpts += "<option value='null'>無</option>";
-                            $.each(number, function (i, item) {
-
-                                selOpts += "<option value='"+item+"'>"+item+"</option>";    
-                            })
-                            $(".machine_number").empty();
-                            $('.machine_number').append(selOpts);
-                        }
+                        $('.materials_spec').val(res[1][0].materials_spec)
                     }
 
+                }
+            })
+        })
+
+        //即時搜尋機號
+        $('.machine_number').on('keyup',function(){
+            
+            var result = $('.materials_number').val();
+            var result2 = $('.machine_number').val();
+
+            $.ajax({
+                type:'get',
+                url:'{{ route('ht.Material.material.machineNumberSearch',['organization'=>$organization]) }}',
+                data:{
+                    'value':result,
+                    'value2':result2
+                },
+                success:function(res){
+                    var availableTags = res;
+                    $( ".machine_number" ).autocomplete({
+                      source: availableTags,
+                          select: function (event, ui) {
+
+                            var result = ui.item.label;
+                            
+                            $.ajax({
+                                type:'get',
+                                url:'{{ route('ht.Material.material.materialsNumberSearch',['organization'=>$organization]) }}',
+                                data:{
+                                    'value':result
+                                },
+                                success:function(ress){
+
+                                               
+                                }
+                            })
+                        },
+                    });
                 }
             })
         })
@@ -504,19 +510,6 @@
 
                                     if(ress[1][0] != null){
                                         $('#materials_spec').val(ress[1][0].materials_spec)
-
-                                        if(ress[1][0].machine_number != null){
-                                            var number = ress[1][0].machine_number.split(",")
-                                            number.pop();
-                                            var selOpts = "<option value='none' selected='selected' disabled='true'>請選擇機號</option>";
-                                            selOpts += "<option value='null'>無</option>";
-                                            $.each(number, function (i, item) {
-
-                                                selOpts += "<option value='"+item+"'>"+item+"</option>";    
-                                            })
-                                            $("#machine_number").empty();
-                                            $('#machine_number').append(selOpts);
-                                        }
                                     }              
                                 }
                             })
@@ -524,22 +517,46 @@
                     });
 
                     if(res[1][0] != null){
-                        $('#materials_spec').val(ress[1][0].materials_spec)
-
-                        if(res[1][0].machine_number != null){
-                            var number = res[1][0].machine_number.split(",")
-                            number.pop();
-                            var selOpts = "<option value='none' selected='selected' disabled='true'>請選擇機號</option>";
-                            selOpts += "<option value='null'>無</option>";
-                            $.each(number, function (i, item) {
-
-                                selOpts += "<option value='"+item+"'>"+item+"</option>";    
-                            })
-                            $("#machine_number").empty();
-                            $('#machine_number').append(selOpts);
-                        }
+                        $('#materials_spec').val(res[1][0].materials_spec)
                     }
+                }
+            })
+        })
 
+        //即時搜尋機號
+        $('#machine_number').on('keyup',function(){
+            
+            var result = $('#materials_number').val();
+            var result2 = $('#machine_number').val();
+
+            $.ajax({
+                type:'get',
+                url:'{{ route('ht.Material.material.machineNumberSearch',['organization'=>$organization]) }}',
+                data:{
+                    'value':result,
+                    'value2':result2
+                },
+                success:function(res){
+                    var availableTags = res;
+                    $( "#machine_number" ).autocomplete({
+                      source: availableTags,
+                          select: function (event, ui) {
+
+                            var result = ui.item.label;
+                            
+                            $.ajax({
+                                type:'get',
+                                url:'{{ route('ht.Material.material.machineNumberSearch',['organization'=>$organization]) }}',
+                                data:{
+                                    'value':result
+                                },
+                                success:function(ress){
+
+                                               
+                                }
+                            })
+                        },
+                    });
                 }
             })
         })

@@ -107,6 +107,21 @@ class MaterialController extends Controller
         return [$result,$spec];
     }
 
+    public function machineNumberSearch(Organization $organization,Request $request)
+    {
+        $dept = Organization::where('id',$organization->id)->get();
+        $res = MaterialStock::where('organization_name',$dept[0]['name'])->where('materials_number',$request->value)->where('machine_number','like','%'.$request->value2.'%')->get();
+
+        foreach ($res as $key => $value) {
+
+            $machine = substr($value['machine_number'], 0,-1);
+
+            $result = explode(',',$machine);
+        }
+
+        return $result;
+    }
+
     public function store(Organization $organization,Request $request)
     {
 

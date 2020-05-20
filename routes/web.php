@@ -84,6 +84,7 @@ Route::group(['middleware' => ['auth']], function () {
 		//領退料管理-領料申請
 		Route::get('/HT/{organization}/Material/material/index','HT\Material\MaterialController@index')->name('ht.Material.material.index');
 		Route::get('/HT/{organization}/Material/material/materialsNumberSearch','HT\Material\MaterialController@materialsNumberSearch')->name('ht.Material.material.materialsNumberSearch');
+		Route::get('/HT/{organization}/Material/material/machineNumberSearch','HT\Material\MaterialController@machineNumberSearch')->name('ht.Material.material.machineNumberSearch');
 		Route::post('/HT/{organization}/Material/material/store','HT\Material\MaterialController@store')->name('ht.Material.material.store');
 		Route::post('/HT/{organization}/Material/material/storeBack','HT\Material\MaterialController@storeBack')->name('ht.Material.material.storeBack');
 		Route::post('/HT/{organization}/Material/material/notGetMaterialSearch','HT\Material\MaterialController@notGetMaterialSearch')->name('ht.Material.material.notGetMaterialSearch');

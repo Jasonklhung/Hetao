@@ -20,7 +20,11 @@
                                                 <!-- tab標籤 -->
                                                 <ul class="nav nav-tabs">
                                                     <li class="active">
+                                                        @if($cycle != null)
                                                         <a data-toggle="tab" href="#viewers-tab-01">待指派卡片 <span class="badge bg-danger">N</span></a>
+                                                        @else
+                                                        <a data-toggle="tab" href="#viewers-tab-01">待指派卡片</a>
+                                                        @endif
                                                     </li>
                                                     <li>
                                                         <a data-toggle="tab" href="#viewers-tab-02">已指派卡片</a>
@@ -428,7 +432,7 @@
                 "zeroRecords": "沒有符合的搜尋結果",
                 "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
                 "lengthMenu": "呈現筆數 _MENU_",
-                "emptyTable": "目前無工單",
+                "emptyTable": "目前無資料",
                 "infoFiltered": "(從 _MAX_ 筆中篩選)",
             },
             "dom": '<"top"i>rt<"bottom"flp><"clear">',
@@ -566,7 +570,7 @@
                 "zeroRecords": "沒有符合的搜尋結果",
                 "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
                 "lengthMenu": "呈現筆數 _MENU_",
-                "emptyTable": "目前無工單",
+                "emptyTable": "目前無資料",
                 "infoFiltered": "(從 _MAX_ 筆中篩選)",
             },
             "dom": '<"top"i>rt<"bottom"flp><"clear">',
@@ -685,7 +689,7 @@
                 "zeroRecords": "沒有符合的搜尋結果",
                 "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
                 "lengthMenu": "呈現筆數 _MENU_",
-                "emptyTable": "目前無工單",
+                "emptyTable": "目前無資料",
                 "infoFiltered": "(從 _MAX_ 筆中篩選)",
             },
             "dom": '<"top"i>rt<"bottom"flp><"clear">',
@@ -990,7 +994,7 @@
                                     "zeroRecords": "沒有符合的搜尋結果",
                                     "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
                                     "lengthMenu": "呈現筆數 _MENU_",
-                                    "emptyTable": "目前無工單",
+                                    "emptyTable": "目前無資料",
                                     "infoFiltered": "(從 _MAX_ 筆中篩選)",
                                 },
                                 "dom": '<"top"i>rt<"bottom"flp><"clear">',
@@ -1151,7 +1155,7 @@
                                     "zeroRecords": "沒有符合的搜尋結果",
                                     "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
                                     "lengthMenu": "呈現筆數 _MENU_",
-                                    "emptyTable": "目前無工單",
+                                    "emptyTable": "目前無資料",
                                     "infoFiltered": "(從 _MAX_ 筆中篩選)",
                                 },
                                 "dom": '<"top"i>rt<"bottom"flp><"clear">',
@@ -1289,7 +1293,7 @@
                                     "zeroRecords": "沒有符合的搜尋結果",
                                     "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
                                     "lengthMenu": "呈現筆數 _MENU_",
-                                    "emptyTable": "目前無工單",
+                                    "emptyTable": "目前無資料",
                                     "infoFiltered": "(從 _MAX_ 筆中篩選)",
                                 },
                                 "dom": '<"top"i>rt<"bottom"flp><"clear">',

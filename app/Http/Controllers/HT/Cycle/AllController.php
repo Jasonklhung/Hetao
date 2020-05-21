@@ -98,6 +98,10 @@ class AllController extends Controller
             }
         }
 
+        if(!isset($cycle)){
+            $cycle = [];
+        }
+
         $allAssign = array();
 
         $assign = CycleAssign::where('organization_name',$dept[0]['name'])->where('statusERP','N')->get();
@@ -315,6 +319,12 @@ class AllController extends Controller
 
                     $cycleSearchArray[] = array("KIND"=>$value->KIND,"CARDNO"=>$value->CARDNO,"CUSTKEY"=>$value->CUSTKEY,"TOUCH"=>$value->TOUCH,"COMTEL"=>$value->COMTEL,"LSTDATE"=>$value->LSTDATE,"NXTDATE"=>$value->NXTDATE,"CYCLE"=>$value->CYCLE,"AREA"=>$value->AREA,"HOMETEL"=>$value->HOMETEL,"MPHONE"=>$value->MPHONE,"MACHINE"=>$value->MACHINE,"PAYMENT"=>$value->PAYMENT,"CODE"=>$value->CODE,"NUM"=>$value->NUM,"PRICE"=>$value->PRICE,"MEMO"=>$value->MEMO);
                 }
+            }
+        }
+        elseif($startDate == null && $endDate == null && $area == null && $month == null){
+            foreach ($cycle as $key => $value) {
+
+                $cycleSearchArray[] = array("KIND"=>$value->KIND,"CARDNO"=>$value->CARDNO,"CUSTKEY"=>$value->CUSTKEY,"TOUCH"=>$value->TOUCH,"COMTEL"=>$value->COMTEL,"LSTDATE"=>$value->LSTDATE,"NXTDATE"=>$value->NXTDATE,"CYCLE"=>$value->CYCLE,"AREA"=>$value->AREA,"HOMETEL"=>$value->HOMETEL,"MPHONE"=>$value->MPHONE,"MACHINE"=>$value->MACHINE,"PAYMENT"=>$value->PAYMENT,"CODE"=>$value->CODE,"NUM"=>$value->NUM,"PRICE"=>$value->PRICE,"MEMO"=>$value->MEMO);
             }
         }
 

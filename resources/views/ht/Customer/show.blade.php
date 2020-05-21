@@ -412,7 +412,7 @@
                 "zeroRecords": "沒有符合的搜尋結果",
                 "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
                 "lengthMenu": "呈現筆數 _MENU_",
-                "emptyTable": "目前無工單",
+                "emptyTable": "目前無資料",
                 "infoFiltered": "(從 _MAX_ 筆中篩選)",
             },
             "dom": '<"top"i>rt<"bottom"flp><"clear">',

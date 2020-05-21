@@ -119,8 +119,8 @@ class NowController extends Controller
 
        $dept = Organization::where('id',$organization->id)->get();
 
-       //全部分公司使用者
-        $allUser = User::all();
+        //全部分公司使用者
+        $allUser = User::whereIn('job',['助理','主管','員工','業務'])->get();
         $deptUser = array();
 
         foreach ($allUser as $key => $value) {
@@ -322,8 +322,16 @@ class NowController extends Controller
 
         $bbb = array();
 
+
+
         foreach ($fff as $key => $value) {
-           $bbb[$key]['result'] = round(($value['finish']/count($allFinishNotStillArray))*100,2);
+
+            if(count($allFinishNotStillArray) == 0){
+                $bbb[$key]['result'] = 0;
+            }
+            else{
+                $bbb[$key]['result'] = round(($value['finish']/count($allFinishNotStillArray))*100,2);
+            }
         }
 
        $allCardStatusArray = [array("category"=>"已完成","column-1"=>count($allFinishNotStillArray)),array("category"=>"執行中","column-1"=>count($allStillCaseArray))];
@@ -368,7 +376,13 @@ class NowController extends Controller
         $ccc = array();
 
         foreach ($ttt as $key => $value) {
-           $ccc[$key]['result'] = round(($value['turn']/count($allTurnCaseArray))*100,2);
+
+            if(count($allTurnCaseArray) == 0){
+                $ccc[$key]['result'] = 0;
+            }
+            else{
+                $ccc[$key]['result'] = round(($value['turn']/count($allTurnCaseArray))*100,2);
+            }
         }
 
         $allNotTurnCard = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','!=','T')->where('statusERP','N')->get();
@@ -392,7 +406,7 @@ class NowController extends Controller
         $dept = Organization::where('id',$organization->id)->get();
 
        //全部分公司使用者
-        $allUser = User::all();
+        $allUser = User::whereIn('job',['助理','主管','員工','業務'])->get();
         $deptUser = array();
 
         foreach ($allUser as $key => $value) {
@@ -480,7 +494,7 @@ class NowController extends Controller
         $dept = Organization::where('id',$organization->id)->get();
 
         //全部分公司使用者
-        $allUser = User::all();
+        $allUser = User::whereIn('job',['助理','主管','員工','業務'])->get();
         $deptUser = array();
 
         foreach ($allUser as $key => $value) {

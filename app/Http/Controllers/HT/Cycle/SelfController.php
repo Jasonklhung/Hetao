@@ -101,6 +101,15 @@ class SelfController extends Controller
             $cycleNext[] = array("kind"=>$value->kind,"custkey"=>$value->custkey,"touch"=>$value->touch,"companyTel"=>$value->companyTel,"finishDate"=>$value->thisDate,"nextDate"=>Carbon::parse($value->thisDate)->addDays($value->cycle)->format('Y-m-d'),"cycle"=>$value->cycle,"area"=>$value->area,"staff"=>$value->staff,"homeTel"=>$value->homeTel,"mobile"=>$value->mobile,"machine"=>$value->machine,"payAddress"=>$value->payAddress,"productCode"=>$value->productCode,"productNum"=>$value->productNum,"productPrice"=>$value->productPrice,"other"=>$value->other);
         }
 
+        $cycleFinishArray = array();
+        foreach ($cycleFinish as $key => $value) {
+            if(!in_array(explode('-',$value->kind)[0], $cycleFinishArray)){
+                array_push($cycleFinishArray, explode('-',$value->kind)[0]);
+            }
+        }
+
+        $cycleFinishArrayCount = count($cycleFinishArray);
+
         foreach ($cycleNext as $key => $value) {
             if(!in_array($value['productCode'], $cycleCategory)){
                 array_push($cycleCategory, $value['productCode']);
@@ -125,7 +134,7 @@ class SelfController extends Controller
             $cycleT = ($cycleT/$cycleTotal)*100;
         }
 
-        return view('ht.Cycle.self.index',compact('organization','caseCount','cycle','cycleNext','cycleS','cycleF','cycleT','cycleCategory','cycleArrayCount'));
+        return view('ht.Cycle.self.index',compact('organization','caseCount','cycle','cycleNext','cycleS','cycleF','cycleT','cycleCategory','cycleArrayCount','cycleFinishArrayCount'));
     }
 
     public function changeDate(Organization $organization,Request $request)
@@ -172,22 +181,23 @@ class SelfController extends Controller
 
     public function cycleReportSearch(Organization $organization,Request $request)
     {
-        $startDate = $request->start;
-        $endDate = $request->end;
+        $start = $request->start;
+        $end = $request->end;
 
         $dept = Organization::where('id',$organization->id)->get();
 
         $cycle = CycleAssign::where('organization_name',$dept[0]['name'])
                             ->where('staff',Auth::user()->name)
                             ->where('status','S')
-                            ->where('thisDate','>=',$startDate)
-                            ->where('thisDate','<=',$endDate)
+                            ->when($start, function ($query) use ($start,$end) {
+                                return $query->whereBetween('thisDate',[$start,$end]);
+                            })
                             ->get();
 
         $cycleArray = array();
         foreach ($cycle as $key => $value) {
-            if(!in_array($value->kind, $cycleArray)){
-                array_push($cycleArray, $value->kind);
+            if(!in_array(explode('-',$value->kind)[0], $cycleArray)){
+                array_push($cycleArray, explode('-',$value->kind)[0]);
             } 
         }
 
@@ -220,41 +230,31 @@ class SelfController extends Controller
         $dept = Organization::where('id',$organization->id)->get();
         $cycleNextArray = array();
 
-        if($code != null && $start != null && $end != null){
-
-            $cycleFinish = CycleAssign::where('organization_name',$dept[0]['name'])
+        $cycleFinish = CycleAssign::where('organization_name',$dept[0]['name'])
                                     ->where('staff',Auth::user()->name)
                                     ->where('status','=','F')
-                                    ->where('productCode',$request->code)
-                                    ->where('thisDate','>=',$request->start)
-                                    ->where('thisDate','<=',$request->end)
+                                    ->when($start, function ($query) use ($start,$end) {
+                                        return $query->whereBetween('thisDate',[$start,$end]);
+                                    })
+                                    ->when($code, function ($query) use ($code) {
+                                        return $query->where('productCode',$code);
+                                    })
                                     ->get();
-        }
-        elseif($code != null && $start == null && $end == null){
 
-            $cycleFinish = CycleAssign::where('organization_name',$dept[0]['name'])
-                                    ->where('staff',Auth::user()->name)
-                                    ->where('status','=','F')
-                                    ->where('productCode',$request->code)
-                                    ->get();
+        $cycleArray = array();
+        foreach ($cycleFinish as $key => $value) {
+            if(!in_array(explode('-',$value->kind)[0], $cycleArray)){
+                array_push($cycleArray, explode('-',$value->kind)[0]);
+            }
         }
-        elseif($code == null && $start != null && $end != null){
 
-            $cycleFinish = CycleAssign::where('organization_name',$dept[0]['name'])
-                                    ->where('staff',Auth::user()->name)
-                                    ->where('status','=','F')
-                                    ->where('thisDate','>=',$request->start)
-                                    ->where('thisDate','<=',$request->end)
-                                    ->get();
-        }
-        
-
+        $cycleArrayCount = count($cycleArray);
 
         foreach ($cycleFinish as $key => $value) {
 
             $cycleNextArray[] = array("kind"=>$value->kind,"custkey"=>$value->custkey,"touch"=>$value->touch,"companyTel"=>$value->companyTel,"finishDate"=>$value->thisDate,"nextDate"=>Carbon::parse($value->thisDate)->addDays($value->cycle)->format('Y-m-d'),"cycle"=>$value->cycle,"area"=>$value->area,"staff"=>$value->staff,"homeTel"=>$value->homeTel,"mobile"=>$value->mobile,"machine"=>$value->machine,"payAddress"=>$value->payAddress,"productCode"=>$value->productCode,"productNum"=>$value->productNum,"productPrice"=>$value->productPrice,"other"=>$value->other);
         }
 
-        return $cycleNextArray;
+        return [$cycleNextArray,$cycleArrayCount];
     }
 }

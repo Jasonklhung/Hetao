@@ -110,6 +110,17 @@ class AllController extends Controller
             array_push($allAssign, $value->kind);
         }
 
+        //卡張總數
+        $assignArray = array();
+
+        foreach ($assign as $key => $value) {
+            if(!in_array(explode('-', $value->kind)[0], $assignArray)){
+                array_push($assignArray, explode('-', $value->kind)[0]);
+            } 
+        }
+
+        $assignArrayCount = count($assignArray);
+
         //全部區域
         $areaArray = array();
 
@@ -154,7 +165,18 @@ class AllController extends Controller
         //週期異動-轉單
         $assignTurn = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','T')->where('statusERP','N')->get();
 
-        return view('ht.Cycle.all.index',compact('organization','caseCount','cycle','deptUser','allAssign','assign','assignTurn','cycleArrayCount','areaArray'));
+        //卡張總數
+        $assignTurnArray = array();
+
+        foreach ($assignTurn as $key => $value) {
+            if(!in_array(explode('-', $value->kind)[0], $assignTurnArray)){
+                array_push($assignTurnArray, explode('-', $value->kind)[0]);
+            } 
+        }
+
+        $assignTurnArrayCount = count($assignTurnArray);
+
+        return view('ht.Cycle.all.index',compact('organization','caseCount','cycle','deptUser','allAssign','assign','assignTurn','cycleArrayCount','areaArray','assignArrayCount','assignTurnArrayCount'));
     }
 
     public function cycleAssign(Organization $organization,Request $request)
@@ -267,7 +289,7 @@ class AllController extends Controller
 
         if($startDate != null && $endDate != null && $area != null && $month != null){
             foreach ($cycle as $key => $value) {
-                if($value->NXTDATE >= $startDate && $value->NXTDATE <= $endDate && $value->AREA == $area && explode('-',$value->NXTDATE)[1] == $month){
+                if($value->NXTDATE >= $startDate && $value->NXTDATE <= $endDate && $value->AREA == $area && explode('-',$value->NXTDATE)[0] == date('Y') && explode('-',$value->NXTDATE)[1] == $month){
 
                     $cycleSearchArray[] = array("KIND"=>$value->KIND,"CARDNO"=>$value->CARDNO,"CUSTKEY"=>$value->CUSTKEY,"TOUCH"=>$value->TOUCH,"COMTEL"=>$value->COMTEL,"LSTDATE"=>$value->LSTDATE,"NXTDATE"=>$value->NXTDATE,"CYCLE"=>$value->CYCLE,"AREA"=>$value->AREA,"HOMETEL"=>$value->HOMETEL,"MPHONE"=>$value->MPHONE,"MACHINE"=>$value->MACHINE,"PAYMENT"=>$value->PAYMENT,"CODE"=>$value->CODE,"NUM"=>$value->NUM,"PRICE"=>$value->PRICE,"MEMO"=>$value->MEMO);
                 }
@@ -283,7 +305,7 @@ class AllController extends Controller
         }
         elseif($startDate != null && $endDate != null && $area == null && $month != null){
             foreach ($cycle as $key => $value) {
-                if($value->NXTDATE >= $startDate && $value->NXTDATE <= $endDate && explode('-',$value->NXTDATE)[1] == $month){
+                if($value->NXTDATE >= $startDate && $value->NXTDATE <= $endDate && explode('-',$value->NXTDATE)[0] == date('Y') && explode('-',$value->NXTDATE)[1] == $month){
 
                     $cycleSearchArray[] = array("KIND"=>$value->KIND,"CARDNO"=>$value->CARDNO,"CUSTKEY"=>$value->CUSTKEY,"TOUCH"=>$value->TOUCH,"COMTEL"=>$value->COMTEL,"LSTDATE"=>$value->LSTDATE,"NXTDATE"=>$value->NXTDATE,"CYCLE"=>$value->CYCLE,"AREA"=>$value->AREA,"HOMETEL"=>$value->HOMETEL,"MPHONE"=>$value->MPHONE,"MACHINE"=>$value->MACHINE,"PAYMENT"=>$value->PAYMENT,"CODE"=>$value->CODE,"NUM"=>$value->NUM,"PRICE"=>$value->PRICE,"MEMO"=>$value->MEMO);
                 }
@@ -291,7 +313,7 @@ class AllController extends Controller
         }
         elseif($startDate == null && $endDate == null && $area != null && $month != null){
             foreach ($cycle as $key => $value) {
-                if($value->AREA == $area && explode('-',$value->NXTDATE)[1] == $month){
+                if($value->AREA == $area && explode('-',$value->NXTDATE)[0] == date('Y') && explode('-',$value->NXTDATE)[1] == $month){
 
                     $cycleSearchArray[] = array("KIND"=>$value->KIND,"CARDNO"=>$value->CARDNO,"CUSTKEY"=>$value->CUSTKEY,"TOUCH"=>$value->TOUCH,"COMTEL"=>$value->COMTEL,"LSTDATE"=>$value->LSTDATE,"NXTDATE"=>$value->NXTDATE,"CYCLE"=>$value->CYCLE,"AREA"=>$value->AREA,"HOMETEL"=>$value->HOMETEL,"MPHONE"=>$value->MPHONE,"MACHINE"=>$value->MACHINE,"PAYMENT"=>$value->PAYMENT,"CODE"=>$value->CODE,"NUM"=>$value->NUM,"PRICE"=>$value->PRICE,"MEMO"=>$value->MEMO);
                 }
@@ -299,7 +321,7 @@ class AllController extends Controller
         }
         elseif($startDate == null && $endDate == null && $area == null && $month != null){
             foreach ($cycle as $key => $value) {
-                if(explode('-',$value->NXTDATE)[1] == $month){
+                if(explode('-',$value->NXTDATE)[1] == $month && explode('-',$value->NXTDATE)[0] == date('Y')){
 
                     $cycleSearchArray[] = array("KIND"=>$value->KIND,"CARDNO"=>$value->CARDNO,"CUSTKEY"=>$value->CUSTKEY,"TOUCH"=>$value->TOUCH,"COMTEL"=>$value->COMTEL,"LSTDATE"=>$value->LSTDATE,"NXTDATE"=>$value->NXTDATE,"CYCLE"=>$value->CYCLE,"AREA"=>$value->AREA,"HOMETEL"=>$value->HOMETEL,"MPHONE"=>$value->MPHONE,"MACHINE"=>$value->MACHINE,"PAYMENT"=>$value->PAYMENT,"CODE"=>$value->CODE,"NUM"=>$value->NUM,"PRICE"=>$value->PRICE,"MEMO"=>$value->MEMO);
                 }
@@ -334,237 +356,106 @@ class AllController extends Controller
     public function assignCardSearch(Organization $organization,Request $request)
     {
         //dd($request->all());
-        $startDate = $request->startDate;
-        $endDate = $request->endDate;
+        $start = $request->startDate;
+        $end = $request->endDate;
         $status = $request->status;
         $staff = $request->staff;
 
-        $user_name = User::find($staff);
+        $dept = Organization::where('id',$organization->id)->get();
+        $user = User::find($staff);
 
-        if($startDate != null && $endDate != null && $status != null && $staff != null){
-            $cycle = CycleAssign::where('thisDate','>=',$startDate)
-                                ->where('thisDate','<=',$endDate)
-                                ->where('staff',$user_name['name'])
-                                ->where('status',$status)
-                                ->get();
-        }
-        elseif($startDate != null && $endDate != null && $status != null && $staff == null){
-            $cycle = CycleAssign::where('thisDate','>=',$startDate)
-                                ->where('thisDate','<=',$endDate)
-                                ->where('status',$status)
-                                ->get();
-        }
-        elseif($startDate != null && $endDate != null && $status == null && $staff != null){
-            $cycle = CycleAssign::where('thisDate','>=',$startDate)
-                                ->where('thisDate','<=',$endDate)
-                                ->where('staff',$user_name['name'])
-                                ->get();
-        }
-        elseif($startDate != null && $endDate != null && $status == null && $staff == null){
-            $cycle = CycleAssign::where('thisDate','>=',$startDate)
-                                ->where('thisDate','<=',$endDate)
-                                ->get();
-        }
-        elseif($startDate == null && $endDate == null && $status != null && $staff == null){
-            $cycle = CycleAssign::where('status',$status)
-                                ->get();
-        }
-        elseif($startDate == null && $endDate == null && $status != null && $staff != null){
-            $cycle = CycleAssign::where('status',$status)
-                                ->where('staff',$user_name['name'])
-                                ->get();
-        }
-        elseif($startDate == null && $endDate == null && $status == null && $staff != null){
-            $cycle = CycleAssign::where('staff',$user_name['name'])
-                                ->get();
+        $cycle = CycleAssign::where('organization_name',$dept[0]['name'])
+                            ->when($start, function ($query) use ($start,$end) {
+                                return $query->whereBetween('thisDate',[$start,$end]);
+                            })
+                            ->when($status, function ($query) use ($status) {
+                                return $query->where('status',$status);
+                            })
+                            ->when($staff, function ($query) use ($staff,$user) {
+                                return $query->where('staff',$user['name']);
+                            })
+                            ->where('statusERP','N')
+                            ->get();
+
+        //卡張總數
+        $cycleArray = array();
+
+        foreach ($cycle as $key => $value) {
+            if(!in_array(explode('-', $value->kind)[0], $cycleArray)){
+                array_push($cycleArray, explode('-', $value->kind)[0]);
+            } 
         }
 
-        return $cycle;
+        $cycleArrayCount = count($cycleArray);
+
+        return [$cycle,$cycleArrayCount];
 
     }
 
     public function turnCardSearch(Organization $organization,Request $request)
     {
         //dd($request->all());
-        $startDate = $request->startDate;
-        $endDate = $request->endDate;
+        $start = $request->startDate;
+        $end = $request->endDate;
         $month = $request->month;
         $area = $request->area;
         $staff = $request->staff;
 
-        $user_name = User::find($staff);
+        $dept = Organization::where('id',$organization->id)->get();
+        $user = User::find($staff);
 
         $cycleArray = array();
 
-        if($startDate != null && $endDate != null && $month != null && $area != null && $staff != null){
-            $cycle = CycleAssign::where('thisDate','>=',$startDate)
-                                ->where('thisDate','<=',$endDate)
-                                ->where('area',$area)
-                                ->where('staff',$user_name['name'])
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
+        $cycle = CycleAssign::where('organization_name',$dept[0]['name'])
+                            ->when($start, function ($query) use ($start,$end) {
+                                return $query->whereBetween('thisDate',[$start,$end]);
+                            })
+                            ->when($area, function ($query) use ($area) {
+                                 return $query->where('area',$area);
+                            })
+                            ->when($staff, function ($query) use ($staff,$user) {
+                                 return $query->where('staff',$user['name']);
+                            })
+                            ->where('status','T')
+                            ->where('statusERP','N')
+                            ->get();
 
-            foreach ($cycle as $key => $value) {
-                if(explode('-',$value->thisDate)[1] == $month){
-                    $cycleArray[] = array("id"=>$value->id,"organization_name"=>$value->organization_name,"kind"=>$value->kind,"custkey"=>$value->custkey,"touch"=>$value->touch,"companyTel"=>$value->companyTel,"lastDate"=>$value->lastDate,"thisDate"=>$value->thisDate,"cycle"=>$value->cycle,"area"=>$value->area,"staff"=>$value->staff,"homeTel"=>$value->homeTel,"mobile"=>$value->mobile,"machine"=>$value->machine,"payAddress"=>$value->payAddress,"productCode"=>$value->productCode,"productNum"=>$value->productNum,"productPrice"=>$value->productPrice,"other"=>$value->other,"turnReason"=>$value->turnReason,"status"=>$value->status,"statusERP"=>$value->statusERP,"created_at"=>$value->created_at,"updated_at"=>$value->id,"updated_at"=>$value->id);
-                }
-            }
-        }
-        elseif($startDate != null && $endDate != null && $month != null && $area != null && $staff == null){
-            $cycle = CycleAssign::where('thisDate','>=',$startDate)
-                                ->where('thisDate','<=',$endDate)
-                                ->where('area',$area)
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
-
-            foreach ($cycle as $key => $value) {
-                if(explode('-',$value->thisDate)[1] == $month){
-                    $cycleArray[] = array("id"=>$value->id,"organization_name"=>$value->organization_name,"kind"=>$value->kind,"custkey"=>$value->custkey,"touch"=>$value->touch,"companyTel"=>$value->companyTel,"lastDate"=>$value->lastDate,"thisDate"=>$value->thisDate,"cycle"=>$value->cycle,"area"=>$value->area,"staff"=>$value->staff,"homeTel"=>$value->homeTel,"mobile"=>$value->mobile,"machine"=>$value->machine,"payAddress"=>$value->payAddress,"productCode"=>$value->productCode,"productNum"=>$value->productNum,"productPrice"=>$value->productPrice,"other"=>$value->other,"turnReason"=>$value->turnReason,"status"=>$value->status,"statusERP"=>$value->statusERP,"created_at"=>$value->created_at,"updated_at"=>$value->id,"updated_at"=>$value->id);
-                }
-            }
-        }
-        elseif($startDate != null && $endDate != null && $month != null && $area == null && $staff == null){
-            $cycle = CycleAssign::where('thisDate','>=',$startDate)
-                                ->where('thisDate','<=',$endDate)
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
+        if($month == null){
 
             $cycleArray = $cycle;
+
+            //卡張總數
+            $cycleCountArray = array();
+
+            foreach ($cycleArray as $key => $value) {
+                if(!in_array(explode('-', $value->kind)[0], $cycleCountArray)){
+                    array_push($cycleCountArray, explode('-', $value->kind)[0]);
+                } 
+            }
+
+            $cycleCount = count($cycleCountArray);
         }
-        elseif($startDate != null && $endDate != null && $month == null && $area == null && $staff == null){
-            $cycle = CycleAssign::where('thisDate','>=',$startDate)
-                                ->where('thisDate','<=',$endDate)
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
+        else{
 
             foreach ($cycle as $key => $value) {
-                if(explode('-',$value->thisDate)[1] == $month){
+
+                if(explode('-',$value->thisDate)[1] == $month && explode('-',$value->thisDate)[0] == date('Y')){
                     $cycleArray[] = array("id"=>$value->id,"organization_name"=>$value->organization_name,"kind"=>$value->kind,"custkey"=>$value->custkey,"touch"=>$value->touch,"companyTel"=>$value->companyTel,"lastDate"=>$value->lastDate,"thisDate"=>$value->thisDate,"cycle"=>$value->cycle,"area"=>$value->area,"staff"=>$value->staff,"homeTel"=>$value->homeTel,"mobile"=>$value->mobile,"machine"=>$value->machine,"payAddress"=>$value->payAddress,"productCode"=>$value->productCode,"productNum"=>$value->productNum,"productPrice"=>$value->productPrice,"other"=>$value->other,"turnReason"=>$value->turnReason,"status"=>$value->status,"statusERP"=>$value->statusERP,"created_at"=>$value->created_at,"updated_at"=>$value->id,"updated_at"=>$value->id);
                 }
             }
-        }
-        elseif($startDate != null && $endDate != null && $month == null && $area != null && $staff == null){
-            $cycle = CycleAssign::where('thisDate','>=',$startDate)
-                                ->where('thisDate','<=',$endDate)
-                                ->where('area',$area)
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
-            $cycleArray = $cycle;
-        }
-        elseif($startDate != null && $endDate != null && $month == null && $area == null && $staff != null){
-            $cycle = CycleAssign::where('thisDate','>=',$startDate)
-                                ->where('thisDate','<=',$endDate)
-                                ->where('staff',$user_name['name'])
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
 
-            $cycleArray = $cycle;
-        }
-        elseif($startDate != null && $endDate != null && $month == null && $area != null && $staff != null){
-            $cycle = CycleAssign::where('thisDate','>=',$startDate)
-                                ->where('thisDate','<=',$endDate)
-                                ->where('area',$area)
-                                ->where('staff',$user_name['name'])
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
+            //卡張總數
+            $cycleCountArray = array();
 
-            $cycleArray = $cycle;
-        }
-        elseif($startDate != null && $endDate != null && $month != null && $area == null && $staff != null){
-            $cycle = CycleAssign::where('thisDate','>=',$startDate)
-                                ->where('thisDate','<=',$endDate)
-                                ->where('staff',$user_name['name'])
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
-
-            foreach ($cycle as $key => $value) {
-                if(explode('-',$value->thisDate)[1] == $month){
-                    $cycleArray[] = array("id"=>$value->id,"organization_name"=>$value->organization_name,"kind"=>$value->kind,"custkey"=>$value->custkey,"touch"=>$value->touch,"companyTel"=>$value->companyTel,"lastDate"=>$value->lastDate,"thisDate"=>$value->thisDate,"cycle"=>$value->cycle,"area"=>$value->area,"staff"=>$value->staff,"homeTel"=>$value->homeTel,"mobile"=>$value->mobile,"machine"=>$value->machine,"payAddress"=>$value->payAddress,"productCode"=>$value->productCode,"productNum"=>$value->productNum,"productPrice"=>$value->productPrice,"other"=>$value->other,"turnReason"=>$value->turnReason,"status"=>$value->status,"statusERP"=>$value->statusERP,"created_at"=>$value->created_at,"updated_at"=>$value->id,"updated_at"=>$value->id);
-                }
+            foreach ($cycleArray as $key => $value) {
+                if(!in_array(explode('-', $value->kind)[0], $cycleCountArray)){
+                    array_push($cycleCountArray, explode('-', $value->kind)[0]);
+                } 
             }
-        }
-        elseif($startDate == null && $endDate == null && $month != null && $area != null && $staff != null){
-            $cycle = CycleAssign::where('area',$area)
-                                ->where('staff',$user_name['name'])
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
 
-            foreach ($cycle as $key => $value) {
-                if(explode('-',$value->thisDate)[1] == $month){
-                    $cycleArray[] = array("id"=>$value->id,"organization_name"=>$value->organization_name,"kind"=>$value->kind,"custkey"=>$value->custkey,"touch"=>$value->touch,"companyTel"=>$value->companyTel,"lastDate"=>$value->lastDate,"thisDate"=>$value->thisDate,"cycle"=>$value->cycle,"area"=>$value->area,"staff"=>$value->staff,"homeTel"=>$value->homeTel,"mobile"=>$value->mobile,"machine"=>$value->machine,"payAddress"=>$value->payAddress,"productCode"=>$value->productCode,"productNum"=>$value->productNum,"productPrice"=>$value->productPrice,"other"=>$value->other,"turnReason"=>$value->turnReason,"status"=>$value->status,"statusERP"=>$value->statusERP,"created_at"=>$value->created_at,"updated_at"=>$value->id,"updated_at"=>$value->id);
-                }
-            }
-        }
-        elseif($startDate == null && $endDate == null && $month != null && $area == null && $staff == null){
-            $cycle = CycleAssign::where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
-
-            foreach ($cycle as $key => $value) {
-                if(explode('-',$value->thisDate)[1] == $month){
-                    $cycleArray[] = array("id"=>$value->id,"organization_name"=>$value->organization_name,"kind"=>$value->kind,"custkey"=>$value->custkey,"touch"=>$value->touch,"companyTel"=>$value->companyTel,"lastDate"=>$value->lastDate,"thisDate"=>$value->thisDate,"cycle"=>$value->cycle,"area"=>$value->area,"staff"=>$value->staff,"homeTel"=>$value->homeTel,"mobile"=>$value->mobile,"machine"=>$value->machine,"payAddress"=>$value->payAddress,"productCode"=>$value->productCode,"productNum"=>$value->productNum,"productPrice"=>$value->productPrice,"other"=>$value->other,"turnReason"=>$value->turnReason,"status"=>$value->status,"statusERP"=>$value->statusERP,"created_at"=>$value->created_at,"updated_at"=>$value->id,"updated_at"=>$value->id);
-                }
-            }
-        }
-        elseif($startDate == null && $endDate == null && $month != null && $area != null && $staff == null){
-            $cycle = CycleAssign::where('area',$area)
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
-
-            foreach ($cycle as $key => $value) {
-                if(explode('-',$value->thisDate)[1] == $month){
-                    $cycleArray[] = array("id"=>$value->id,"organization_name"=>$value->organization_name,"kind"=>$value->kind,"custkey"=>$value->custkey,"touch"=>$value->touch,"companyTel"=>$value->companyTel,"lastDate"=>$value->lastDate,"thisDate"=>$value->thisDate,"cycle"=>$value->cycle,"area"=>$value->area,"staff"=>$value->staff,"homeTel"=>$value->homeTel,"mobile"=>$value->mobile,"machine"=>$value->machine,"payAddress"=>$value->payAddress,"productCode"=>$value->productCode,"productNum"=>$value->productNum,"productPrice"=>$value->productPrice,"other"=>$value->other,"turnReason"=>$value->turnReason,"status"=>$value->status,"statusERP"=>$value->statusERP,"created_at"=>$value->created_at,"updated_at"=>$value->id,"updated_at"=>$value->id);
-                }
-            }
-        }
-        elseif($startDate == null && $endDate == null && $month != null && $area == null && $staff != null){
-            $cycle = CycleAssign::where('staff',$user_name['name'])
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
-
-            foreach ($cycle as $key => $value) {
-                if(explode('-',$value->thisDate)[1] == $month){
-                    $cycleArray[] = array("id"=>$value->id,"organization_name"=>$value->organization_name,"kind"=>$value->kind,"custkey"=>$value->custkey,"touch"=>$value->touch,"companyTel"=>$value->companyTel,"lastDate"=>$value->lastDate,"thisDate"=>$value->thisDate,"cycle"=>$value->cycle,"area"=>$value->area,"staff"=>$value->staff,"homeTel"=>$value->homeTel,"mobile"=>$value->mobile,"machine"=>$value->machine,"payAddress"=>$value->payAddress,"productCode"=>$value->productCode,"productNum"=>$value->productNum,"productPrice"=>$value->productPrice,"other"=>$value->other,"turnReason"=>$value->turnReason,"status"=>$value->status,"statusERP"=>$value->statusERP,"created_at"=>$value->created_at,"updated_at"=>$value->id,"updated_at"=>$value->id);
-                }
-            }
-        }
-        elseif($startDate == null && $endDate == null && $month == null && $area != null && $staff == null){
-            $cycle = CycleAssign::where('area',$area)
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
-
-            $cycleArray = $cycle;
-        }
-        elseif($startDate == null && $endDate == null && $month == null && $area != null && $staff != null){
-            $cycle = CycleAssign::where('area',$area)
-                                ->where('staff',$user_name['name'])
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
-
-            $cycleArray = $cycle;
-        }
-        elseif($startDate == null && $endDate == null && $month == null && $area == null && $staff != null){
-            $cycle = CycleAssign::where('staff',$user_name['name'])
-                                ->where('status','T')
-                                ->where('statusERP','N')
-                                ->get();
-
-            $cycleArray = $cycle;
+            $cycleCount = count($cycleCountArray);
         }
 
-        return $cycleArray;
+        return [$cycleArray,$cycleCount];
     }
 }

@@ -421,6 +421,7 @@
 
 
     var cycleNext = {!! json_encode($cycleNext) !!}; //php變數轉換
+    var cycleFinishArrayCount = {!! json_encode($cycleFinishArrayCount) !!}; //php變數轉換
 
     var data2 = new Array();
 
@@ -486,7 +487,7 @@
                 "search": "",
                 "searchPlaceholder": "請輸入關鍵字",
                 "paginate": { "previous": "上一頁", "next": "下一頁" },
-                "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                "info": "<p>共有 "+cycleFinishArrayCount+" 張卡片</p>顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
                 "zeroRecords": "沒有符合的搜尋結果",
                 "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
                 "lengthMenu": "呈現筆數 _MENU_",
@@ -977,7 +978,7 @@
 
                         var data2 = new Array();
 
-                        $.each(res, function (i, item) {
+                        $.each(res[0], function (i, item) {
 
                             if(item.other == null || item.other == ''){
                                 var other = ''
@@ -1039,7 +1040,7 @@
                                         "search": "",
                                         "searchPlaceholder": "請輸入關鍵字",
                                         "paginate": { "previous": "上一頁", "next": "下一頁" },
-                                        "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                                        "info": "<p>共有 "+res[1]+" 張卡片</p>顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
                                         "zeroRecords": "沒有符合的搜尋結果",
                                         "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
                                         "lengthMenu": "呈現筆數 _MENU_",

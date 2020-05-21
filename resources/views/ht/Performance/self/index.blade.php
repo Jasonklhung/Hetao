@@ -38,17 +38,17 @@
                                                         </div>
                                                     </form>
                                                 </div>
-                                                <p id="totalMoney">總和： {{$totalMoney}}</p>
+                                                <p id="totalMoney">$： {{$totalMoney}}</p>
                                                 <div class="chartwrap bd overflow-x mb-m">
                                                     <table class="table-striped" id="hetao-sale">
                                                         <thead>
                                                             <tr class="text-center">
                                                                 <th>類別</th>
                                                                 <th>數量</th>
-                                                                <th>小計</th>
+                                                                <th>$</th>
                                                                 <th>類別</th>
                                                                 <th>數量</th>
-                                                                <th>小計</th>
+                                                                <th>$</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>

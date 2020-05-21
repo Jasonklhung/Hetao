@@ -199,15 +199,30 @@ class AllController extends Controller
             }
         }
 
-        foreach ($performance as $key => $value) {
-            if($value->DATE >= $start && $value->DATE <= $end){
+        if($start == null && $end == null){
+
+            foreach ($performance as $key => $value) {
                 if(!in_array($value->TYPE, $type)){
                     array_push($type, $value->TYPE);
                 }
-            }
 
-            if(!in_array($value->NAME, $name)){
-                array_push($name, $value->NAME);
+                if(!in_array($value->NAME, $name)){
+                    array_push($name, $value->NAME);
+                }
+            }
+        }
+        else{
+
+            foreach ($performance as $key => $value) {
+                if($value->DATE >= $start && $value->DATE <= $end){
+                    if(!in_array($value->TYPE, $type)){
+                        array_push($type, $value->TYPE);
+                    }
+                }
+
+                if(!in_array($value->NAME, $name)){
+                    array_push($name, $value->NAME);
+                }
             }
         }
 

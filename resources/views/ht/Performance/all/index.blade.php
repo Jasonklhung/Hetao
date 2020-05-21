@@ -71,7 +71,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td style="display: none"></td>
-                                                                <td class="text-muted">小計</td>
+                                                                <td class="text-muted">$</td>
                                                                     @php
                                                                         $money = 0;
                                                                     @endphp
@@ -159,7 +159,7 @@
             "search": "",
             "searchPlaceholder": "請輸入關鍵字",
             "paginate": { "previous": "上一頁", "next": "下一頁" },
-            "info": "<p class='m-0'>總和： "+totalMoney+"</p>",
+            "info": "<p class='m-0'>$： "+totalMoney+"</p>",
             "zeroRecords": "沒有符合的搜尋結果",
             "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
             "lengthMenu": "呈現筆數 _MENU_",
@@ -368,7 +368,7 @@
                         "search": "",
                         "searchPlaceholder": "請輸入關鍵字",
                         "paginate": { "previous": "上一頁", "next": "下一頁" },
-                        "info": "<p class='m-0'>總和： "+res[1]+"</p>",
+                        "info": "<p class='m-0'>$： "+res[1]+"</p>",
                         "zeroRecords": "沒有符合的搜尋結果",
                         "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
                         "lengthMenu": "呈現筆數 _MENU_",

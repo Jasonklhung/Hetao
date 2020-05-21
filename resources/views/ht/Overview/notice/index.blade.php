@@ -27,22 +27,23 @@
                                         <div class="panel-body">
                                             <div class="tabbable">
                                                 <div class='coupon'>
-                                                    <form class="form-inline">
+                                                    <form class="form-inline" id="noticeSearch">
+                                                        @csrf
                                                         <input type="text" class="form-control mr-s searchInput searchInput_a" placeholder="請輸入關鍵字">
                                                         <div class='form-group'>
                                                             <div class='datetime'>
                                                                 <div class='input-group date day-select'>
-                                                                    <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                    <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                             </div><span class='rwd-hide'>~</span>
                                                             <div class='datetime'>
                                                                 <div class='input-group day date-select mr-s'>
-                                                                    <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                    <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class='btn-wrap'>
-                                                            <button class='mr-s' type="button">查詢</button>
-                                                            <button class='mr-s' type="button">重設</button>
+                                                            <button class='mr-s' type="submit">查詢</button>
+                                                            <button class='mr-s' type="button" id="reset">重設</button>
                                                             <button class='btn-bright' type='button' data-toggle="modal" data-target="#person-n">新增通知</button>
                                                         </div>
                                                     </form>
@@ -328,7 +329,7 @@
                                 <span class="mb-xs">備註</span>
                                 <textarea class="form-control" rows="1" placeholder="輸入備註" name="other" id="other"></textarea>
                             </li>
-                            <li class="text-center"><button type="button" class="btn btn-danger">刪除</button><button type="submit" class="btn btn-primary">儲存</button></li>
+                            <li class="text-center"><button type="submit" class="btn btn-danger" name="submit[del]" value="del">刪除</button><button type="submit" class="btn btn-primary" name="submit[save]" value="save">儲存</button></li>
                         </ul>
                     </form>
                 </div>
@@ -1257,5 +1258,97 @@
         })
         }
     })
+</script>
+<script type="text/javascript">
+     $('#noticeSearch').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Overview.notice.noticeSearch',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+
+                var rows;
+
+                $('#hetao-overview').DataTable().destroy();
+                $('#hetao-overview tbody').empty();
+
+                $.each(res, function (i, item) {
+
+
+                    rows += "<tr class='watch'>"
+                    + "<td>"
+                    + "<strong><a href='#' onclick='noticeFunction("+ item.id +")'><span class='mr-s'>["+ item.type +"]</span>"+ item.title +"</a></strong>"
+                    + "<p>"+ item.content +"</p>"
+                    + "</td>"
+                    + "<td class='text-nowrap'>"+ item.startTime +"</td>"
+                    + "</tr>";
+                })
+                $('#hetao-overview tbody').append(rows);
+                var table = $("#hetao-overview").DataTable({
+                    "bPaginate": true,
+                    "searching": true,
+                    "info": true,
+                    "bLengthChange": false,
+                    "bServerSide": false,
+                    "language": {
+                        "search": "",
+                        "searchPlaceholder": "請輸入關鍵字",
+                        "paginate": { "previous": "上一頁", "next": "下一頁" },
+                        "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                        "zeroRecords": "沒有符合的搜尋結果",
+                        "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                        "lengthMenu": "呈現筆數 _MENU_",
+                        "emptyTable": "沒有數據",
+                        "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                    },
+                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                    "buttons": [{
+                        "extend": 'colvis',
+                        "collectionLayout": 'fixed two-column'
+                    }],
+                    "order": [],
+                    "columnDefs": [{
+                        "targets": [],
+                        "orderable": false,
+                    }, {
+                        "width": "200",
+                        "targets": 1,
+                    }],
+                    "responsive": {
+                        "breakpoints": [
+                        { name: 'desktop', width: Infinity },
+                        { name: 'tablet', width: 1024 },
+                        ],
+                        "details": {
+                            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                            "type": 'none',
+                            "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
+                            "target": ''
+                        }
+                    },
+                });
+
+                $(".searchInput_a").on("blur", function() {
+                    table.search(this.value).draw();
+                });
+
+                $(".searchInput_a").on("keyup", function() {
+                    table.search(this.value).draw();
+                });
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
+
+     $('#reset').on('click',function(){
+        $('#start').val("")
+        $('#end').val("")
+     })
 </script>
 @endsection

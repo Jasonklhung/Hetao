@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/Overview/notice/store','HT\Overview\NoticeController@store')->name('ht.Overview.notice.store');
 		Route::post('/HT/{organization}/Overview/notice/getNotice','HT\Overview\NoticeController@getNotice')->name('ht.Overview.notice.getNotice');
 		Route::post('/HT/{organization}/Overview/notice/edit','HT\Overview\NoticeController@edit')->name('ht.Overview.notice.edit');
+		Route::post('/HT/{organization}/Overview/notice/noticeSearch','HT\Overview\NoticeController@noticeSearch')->name('ht.Overview.notice.noticeSearch');
 
 		//週期循環-個人
 		Route::get('/HT/{organization}/Cycle/self/index','HT\Cycle\SelfController@index')->name('ht.Cycle.self.index');

@@ -81,7 +81,7 @@ class NoticeController extends Controller
 
         //所有通知
         $dept = Organization::where('id',$organization->id)->get();
-        $notice = Notice::where('organization_name',$dept[0]['name'])->where('user_id',Auth::user()->id)->get();
+        $notice = Notice::where('organization_name',$dept[0]['name'])->where('user_id',Auth::user()->id)->orderBy('startTime','desc')->get();
 
         return view('ht.Overview.notice.index',compact('organization','caseCount','org','notice'));
     }
@@ -182,42 +182,73 @@ class NoticeController extends Controller
 
     public function edit(Organization $organization,Request $request)
     {
-        $notice = Notice::find($request->id);
-        $notice->title = $request->title;
-        $notice->content = $request->content;
-        $notice->category = $request->category2;
 
-        if($request->category2 == '單次'){
-            $notice->startTime = $request->startTimeOnce;
-        }
-        elseif($request->category2 == '每日'){
-            $notice->startTime = $request->startTimeEveryDay;
-        }
-        if($request->category2 == '每週'){
-            $notice->startTime = $request->startTimeEveryWeek;
-        }
-        if($request->category2 == '每月'){
-            $notice->startTime = $request->startTimeEveryMonth;
-        }
-        $notice->week = $request->week;
+        $sub = $request->submit;
 
-        if($request->category2 == '每週'){
-            $weekend = implode(',', $request->weekend);
-            $weekendTime = implode(',', $request->weekendTime);
+        if(isset($sub["del"]))
+        {
+            $notice = Notice::find($request->id);
+            $notice->delete();
 
-            $notice->weekend = $weekend;
-            $notice->weekendTime = $weekendTime;
-        }
-        else{
-            $notice->weekend = null;
-            $notice->weekendTime = null;
-        }
-        $notice->meeting = $request->meetingName2;
-        $notice->token = $request->meetingToken2;
-        $notice->type = $request->type;
-        $notice->other = $request->other;
-        $notice->save();
+            return redirect()->route('ht.Overview.notice.index',compact('organization'))->with('success','刪除成功');
+        } 
+        elseif(isset($sub["save"])) 
+        {
+            $notice = Notice::find($request->id);
+            $notice->title = $request->title;
+            $notice->content = $request->content;
+            $notice->category = $request->category2;
 
-        return redirect()->route('ht.Overview.notice.index',compact('organization'))->with('success','儲存成功');
+            if($request->category2 == '單次'){
+                $notice->startTime = $request->startTimeOnce;
+            }
+            elseif($request->category2 == '每日'){
+                $notice->startTime = $request->startTimeEveryDay;
+            }
+            if($request->category2 == '每週'){
+                $notice->startTime = $request->startTimeEveryWeek;
+            }
+            if($request->category2 == '每月'){
+                $notice->startTime = $request->startTimeEveryMonth;
+            }
+            $notice->week = $request->week;
+
+            if($request->category2 == '每週'){
+                $weekend = implode(',', $request->weekend);
+                $weekendTime = implode(',', $request->weekendTime);
+
+                $notice->weekend = $weekend;
+                $notice->weekendTime = $weekendTime;
+            }
+            else{
+                $notice->weekend = null;
+                $notice->weekendTime = null;
+            }
+            $notice->meeting = $request->meetingName2;
+            $notice->token = $request->meetingToken2;
+            $notice->type = $request->type;
+            $notice->other = $request->other;
+            $notice->save();
+
+            return redirect()->route('ht.Overview.notice.index',compact('organization'))->with('success','儲存成功');
+        }
+    }
+
+    public function noticeSearch(Organization $organization,Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+        $end = date("Y-m-d",strtotime("+1 day",strtotime($end)));
+
+        $dept = Organization::where('id',$organization->id)->get();
+        $notice = Notice::where('organization_name',$dept[0]['name'])
+                        ->where('user_id',Auth::user()->id)
+                        ->when($start, function ($query) use ($start,$end) {
+                            return $query->whereBetween('startTime',[$start,$end]);
+                        })
+                        ->orderBy('startTime','desc')
+                        ->get();
+
+        return $notice;
     }
 }

@@ -15,11 +15,6 @@ class PermissionController extends Controller
     public function index(Organization $organization,User $user)
     {
 
-    	$users = User::select('users.*','organizations.name as company','organizations.area')
-    			->Leftjoin('organizations','users.organization_id','=','organizations.id')
-    			->where('organization_id',$organization->id)->get();
-
-
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
@@ -85,6 +80,32 @@ class PermissionController extends Controller
 
         //列出所有營站
         $org = Organization::where('id','!=','1')->get();
+
+        //取出員工列表
+        $allUser = User::all();
+        $users = array();
+
+        // $users = User::select('users.*','organizations.name as company','organizations.area')
+        //         ->Leftjoin('organizations','users.organization_id','=','organizations.id')
+        //         ->where('organization_id',$organization->id)->get();
+
+        $areaCom = Organization::find($organization->id); //取出地區
+
+        foreach ($allUser as $key => $value) {
+            if($value->organization_id == $dept[0]['id']){
+                $users[] = array('id'=>$value->id,'area'=>$areaCom['area'],'company'=>$areaCom['name'],"job"=>$value->job,"name"=>$value->name,'is_verified'=>$value->is_verified,'mobile'=>$value->mobile,'updated_at'=>$value->updated_at);
+            }
+        }
+
+        foreach ($allUser as $key => $value) {
+            $many = explode(',', $value->organizations);
+
+            foreach ($many as $k => $v) {
+                if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id']){
+                    $users[] = array('id'=>$value->id,'area'=>$areaCom['area'],'company'=>$areaCom['name'],"job"=>$value->job,"name"=>$value->name,'is_verified'=>$value->is_verified,'mobile'=>$value->mobile,'updated_at'=>$value->updated_at);
+                }
+            }
+        }
 
     	return view('ht.Permission.index',compact('organization','users','caseCount','org'));
     }
@@ -467,10 +488,38 @@ class PermissionController extends Controller
 
     public function searchUser(Organization $organization,Request $request)
     {
-        $user = User::select('users.*','organizations.name as company','organizations.area')
+        //取出員工列表
+        if($request->id == 'All'){
+            $users = User::select('users.*','organizations.name as company','organizations.area')
                 ->Leftjoin('organizations','users.organization_id','=','organizations.id')
-                ->where('organization_id',$request->id)->get();
+                ->where('organization_id','!=','1')
+                ->get();
 
-        return $user;
+            return $users;
+        }
+        else{
+            $allUser = User::all();
+            $user = array();
+
+            $areaCom = Organization::find($request->id); //取出地區
+
+            foreach ($allUser as $key => $value) {
+                if($value->organization_id == $request->id){
+                    $user[] = array('id'=>$value->id,'area'=>$areaCom['area'],'company'=>$areaCom['name'],"job"=>$value->job,"name"=>$value->name,'is_verified'=>$value->is_verified,'mobile'=>$value->mobile,'updated_at'=>date('Y-m-d H:i:s',strtotime($value->updated_at)));
+                }
+            }
+
+            foreach ($allUser as $key => $value) {
+                $many = explode(',', $value->organizations);
+
+                foreach ($many as $k => $v) {
+                    if($v == $request->id && $value->organization_id != $request->id){
+                        $user[] = array('id'=>$value->id,'area'=>$areaCom['area'],'company'=>$areaCom['name'],"job"=>$value->job,"name"=>$value->name,'is_verified'=>$value->is_verified,'mobile'=>$value->mobile,'updated_at'=>date('Y-m-d H:i:s',strtotime($value->updated_at)));
+                    }
+                }
+            }
+
+            return $user;
+        }
     }
 }

@@ -26,6 +26,9 @@
                                                                 <option value="助理">助理</option>
                                                                 <option value="主管">主管</option>
                                                                 <option value="員工">員工</option>
+                                                                <option value="業務">業務</option>
+                                                                <option value="經管部-1">經管部-1</option>
+                                                                <option value="經管部-2">經管部-2</option>
                                                             </select></div>
                                                     </div>
                                                     <div class="form-item">
@@ -289,37 +292,211 @@
             var value = $('#job').val();
 
             if(value == '助理'){
+
+                document.all.overview.checked = true;
+                document.all.notice.checked = true;
+
                 document.all.assistant.checked = true;
                 document.all.supervisor.checked = true;
                 document.all.staff.checked = true;
 
-                document.all.reservation.checked = true;
-                document.all.satisfaction.checked = true;
-                document.all.contact.checked = true;
+                document.all.cycle_self.checked = false;
+                document.all.cycle_all.checked = true;
+                document.all.cycle_now.checked = true;
 
-                document.all.timeset.checked = true;
-                document.all.permission.checked = false;
-            }
-            else if(value == '主管'){
-                document.all.assistant.checked = true;
-                document.all.supervisor.checked = true;
-                document.all.staff.checked = true;
+                document.all.material.checked = true;
+                document.all.material_case.checked = true;
+                document.all.material_stock.checked = false;
+
+                document.all.custom_info.checked = true;
+
+                document.all.business_self.checked = false;
+                document.all.business_all.checked = true;
+
+                document.all.performance_self.checked = true;
+                document.all.performance_all.checked = true;
 
                 document.all.reservation.checked = false;
                 document.all.satisfaction.checked = false;
                 document.all.contact.checked = false;
+
+                document.all.contactUs.checked = false;
+                document.all.satisfactionSurvey.checked = false;
+
+                document.all.timeset.checked = false;
+                document.all.permission.checked = false;
+            }
+            else if(value == '主管'){
+
+                document.all.overview.checked = true;
+                document.all.notice.checked = true;
+
+                document.all.assistant.checked = true;
+                document.all.supervisor.checked = true;
+                document.all.staff.checked = true;
+
+                document.all.cycle_self.checked = true;
+                document.all.cycle_all.checked = true;
+                document.all.cycle_now.checked = true;
+
+                document.all.material.checked = true;
+                document.all.material_case.checked = false;
+                document.all.material_stock.checked = false;
+
+                document.all.custom_info.checked = true;
+
+                document.all.business_self.checked = true;
+                document.all.business_all.checked = true;
+
+                document.all.performance_self.checked = true;
+                document.all.performance_all.checked = true;
+
+                document.all.reservation.checked = false;
+                document.all.satisfaction.checked = false;
+                document.all.contact.checked = false;
+
+                document.all.contactUs.checked = false;
+                document.all.satisfactionSurvey.checked = true;
 
                 document.all.timeset.checked = false;
                 document.all.permission.checked = false;
             }
             else if(value == '員工'){
+
+                document.all.overview.checked = true;
+                document.all.notice.checked = true;
+
                 document.all.assistant.checked = true;
                 document.all.supervisor.checked = false;
-                document.all.staff.checked = true;
+                document.all.staff.checked = false;
+
+                document.all.cycle_self.checked = true;
+                document.all.cycle_all.checked = false;
+                document.all.cycle_now.checked = false;
+
+                document.all.material.checked = true;
+                document.all.material_case.checked = false;
+                document.all.material_stock.checked = false;
+
+                document.all.custom_info.checked = true;
+
+                document.all.business_self.checked = false;
+                document.all.business_all.checked = false;
+
+                document.all.performance_self.checked = true;
+                document.all.performance_all.checked = false;
 
                 document.all.reservation.checked = false;
                 document.all.satisfaction.checked = false;
                 document.all.contact.checked = false;
+
+                document.all.contactUs.checked = false;
+                document.all.satisfactionSurvey.checked = false;
+
+                document.all.timeset.checked = false;
+                document.all.permission.checked = false;
+            }
+            else if(value == '業務'){
+
+                document.all.overview.checked = true;
+                document.all.notice.checked = true;
+
+                document.all.assistant.checked = true;
+                document.all.supervisor.checked = false;
+                document.all.staff.checked = false;
+
+                document.all.cycle_self.checked = false;
+                document.all.cycle_all.checked = false;
+                document.all.cycle_now.checked = false;
+
+                document.all.material.checked = true;
+                document.all.material_case.checked = false;
+                document.all.material_stock.checked = false;
+
+                document.all.custom_info.checked = true;
+
+                document.all.business_self.checked = true;
+                document.all.business_all.checked = true;
+
+                document.all.performance_self.checked = true;
+                document.all.performance_all.checked = false;
+
+                document.all.reservation.checked = false;
+                document.all.satisfaction.checked = false;
+                document.all.contact.checked = false;
+
+                document.all.contactUs.checked = false;
+                document.all.satisfactionSurvey.checked = false;
+
+                document.all.timeset.checked = false;
+                document.all.permission.checked = false;
+            }
+            else if(value == '經管部-1'){
+                
+                document.all.overview.checked = true;
+                document.all.notice.checked = true;
+
+                document.all.assistant.checked = false;
+                document.all.supervisor.checked = false;
+                document.all.staff.checked = true;
+
+                document.all.cycle_self.checked = false;
+                document.all.cycle_all.checked = true;
+                document.all.cycle_now.checked = true;
+
+                document.all.material.checked = false;
+                document.all.material_case.checked = false;
+                document.all.material_stock.checked = false;
+
+                document.all.custom_info.checked = true;
+
+                document.all.business_self.checked = false;
+                document.all.business_all.checked = true;
+
+                document.all.performance_self.checked = false;
+                document.all.performance_all.checked = true;
+
+                document.all.reservation.checked = false;
+                document.all.satisfaction.checked = false;
+                document.all.contact.checked = false;
+
+                document.all.contactUs.checked = true;
+                document.all.satisfactionSurvey.checked = true;
+
+                document.all.timeset.checked = false;
+                document.all.permission.checked = false;
+            }
+            else if(value == '經管部-2'){
+                
+                document.all.overview.checked = true;
+                document.all.notice.checked = true;
+
+                document.all.assistant.checked = false;
+                document.all.supervisor.checked = false;
+                document.all.staff.checked = false;
+
+                document.all.cycle_self.checked = false;
+                document.all.cycle_all.checked = false;
+                document.all.cycle_now.checked = false;
+
+                document.all.material.checked = false;
+                document.all.material_case.checked = false;
+                document.all.material_stock.checked = false;
+
+                document.all.custom_info.checked = true;
+
+                document.all.business_self.checked = false;
+                document.all.business_all.checked = false;
+
+                document.all.performance_self.checked = false;
+                document.all.performance_all.checked = false;
+
+                document.all.reservation.checked = false;
+                document.all.satisfaction.checked = false;
+                document.all.contact.checked = false;
+
+                document.all.contactUs.checked = false;
+                document.all.satisfactionSurvey.checked = false;
 
                 document.all.timeset.checked = false;
                 document.all.permission.checked = false;

@@ -27,6 +27,9 @@
                                                                 <option value="助理">助理</option>
                                                                 <option value="主管">主管</option>
                                                                 <option value="員工">員工</option>
+                                                                <option value="業務">業務</option>
+                                                                <option value="經管部-1">經管部-1</option>
+                                                                <option value="經管部-2">經管部-2</option>
                                                             </select></div>
                                                     </div>
                                                     <div class="form-item">
@@ -266,19 +269,31 @@
                                                                     <ul class="text-left pl-m">
                                                                         <li class="si">線上預約
                                                                             <label class="switch">
+                                                                                @if($permission->reservation == 'Y')
                                                                                 <input type="checkbox" name="reservation" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="reservation">
+                                                                                @endif
                                                                                 <span class="slider round"></span>
                                                                             </label>
                                                                         </li>
                                                                         <li class="si">滿意度調查
                                                                             <label class="switch">
+                                                                                @if($permission->satisfaction == 'Y')
                                                                                 <input type="checkbox" name="satisfaction" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="satisfaction">
+                                                                                @endif
                                                                                 <span class="slider round"></span>
                                                                             </label>
                                                                         </li>
                                                                         <li class="si">與我聯繫
                                                                             <label class="switch">
+                                                                                @if($permission->contact == 'Y')
                                                                                 <input type="checkbox" name="contact" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="contact">
+                                                                                @endif
                                                                                 <span class="slider round"></span>
                                                                             </label>
                                                                         </li>
@@ -289,13 +304,21 @@
                                                                     <ul class="text-left pl-m">
                                                                         <li class="si">與我聯繫
                                                                             <label class="switch">
+                                                                                @if($permission->contactUs == 'Y')
                                                                                 <input type="checkbox" name="contactUs" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="contactUs">
+                                                                                @endif
                                                                                 <span class="slider round"></span>
                                                                             </label>
                                                                         </li>
                                                                         <li class="si">滿意度調查
                                                                             <label class="switch">
+                                                                                @if($permission->satisfactionSurvey == 'Y')
                                                                                 <input type="checkbox" name="satisfactionSurvey" checked>
+                                                                                @else
+                                                                                <input type="checkbox" name="satisfactionSurvey">
+                                                                                @endif
                                                                                 <span class="slider round"></span>
                                                                             </label>
                                                                         </li>
@@ -304,14 +327,22 @@
                                                                 <li>
                                                                     <span class="text-left"><i class="w-20px far fa-clock"></i> 推播時間設定</span>
                                                                     <label class="switch">
+                                                                        @if($permission->timeset == 'Y')
                                                                         <input type="checkbox" name="timeset" checked>
+                                                                        @else
+                                                                        <input type="checkbox" name="timeset">
+                                                                        @endif
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </li>
                                                                 <li>
                                                                     <span class="text-left"><i class="w-20px fas fa-cog"></i> 權限管理</span>
                                                                     <label class="switch">
+                                                                        @if($permission->permission == 'Y')
                                                                         <input type="checkbox" name="permission" checked>
+                                                                        @else
+                                                                        <input type="checkbox" name="permission">
+                                                                        @endif
                                                                         <span class="slider round"></span>
                                                                     </label>
                                                                 </li>

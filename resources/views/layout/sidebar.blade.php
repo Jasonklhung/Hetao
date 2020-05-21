@@ -591,7 +591,7 @@
 
                 @if(Auth::user()->permission->permission == 'Y')
                 <a class="" href="{{ route('ht.Permission.index',['organization'=>$organization]) }}">
-                    <sb-item><i class="fas fa-angle-double-right fa-fw"></i> 權限管理</sb-item>
+                    <sb-item class="sb-item"><i class="fas fa-angle-double-right fa-fw"></i> 權限管理</sb-item>
                 </a>
                 @endif
             </div>

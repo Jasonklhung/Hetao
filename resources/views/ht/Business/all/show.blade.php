@@ -229,10 +229,16 @@
                                                                     @endif
                                                                 </select>
                                                             </div>
-                                                            <div class="form-item reason" style="display: none;">
+                                                            @if($case_track->result == '流單')
+                                                            <div class="form-item reason">
                                                                 <label class="d-block">原因</label>
                                                                 <input type="text" class="form-control" placeholder="" name="reason" value="{{ $case_track->reason }}" disabled="">
                                                             </div>
+                                                            @else
+                                                            <div class="form-item reason" style="display: none;">
+                                                                <label class="d-block">原因</label>
+                                                                <input type="text" class="form-control" placeholder="" name="reason" value="{{ $case_track->reason }}">
+                                                            @endif
                                                             <div class="form-item">
                                                                 <label class="d-block">備註</label>
                                                                 <textarea rows="5" class="form-control" placeholder="" disabled="" name="other">{{ $case_track->other }}</textarea>

@@ -191,6 +191,10 @@ class CustomerController extends Controller
             }
         }
 
+        if(!isset($trade)){
+             $trade = [];
+        }
+
         //應收帳款
         $client = new \GuzzleHttp\Client();
         $response = $client->post('http://60.251.216.90:8855/api_/search-info', [

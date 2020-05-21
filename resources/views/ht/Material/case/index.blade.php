@@ -110,7 +110,11 @@
                                                                         <td>{{ $data->emp_name }}</td>
                                                                         <td>{{ $data->materials_number }}</td>
                                                                         <td>{{ $data->materials_spec }}</td>
+                                                                        @if($data->machine_number == 'null')
+                                                                        <td></td>
+                                                                        @else
                                                                         <td>{{ $data->machine_number }}</td>
+                                                                        @endif
                                                                         <td>{{ $data->quantity }}</td>
                                                                         <td>{{ $data->other }}</td>
                                                                         @if($data->statusEdit == 'Y')
@@ -205,7 +209,11 @@
                                                                         <td>{{ $data->emp_name }}</td>
                                                                         <td>{{ $data->materials_number }}</td>
                                                                         <td>{{ $data->materials_spec }}</td>
+                                                                        @if($data->machine_number == 'null')
+                                                                        <td></td>
+                                                                        @else
                                                                         <td>{{ $data->machine_number }}</td>
+                                                                        @endif
                                                                         <td>{{ $data->quantity }}</td>
                                                                         <td>{{ $data->other }}</td>
                                                                         @if($data->statusDL == 'Y')
@@ -296,7 +304,11 @@
                                                                         <td>{{ $data->emp_name }}</td>
                                                                         <td>{{ $data->materials_number }}</td>
                                                                         <td>{{ $data->materials_spec }}</td>
+                                                                        @if($data->machine_number == 'null')
+                                                                        <td></td>
+                                                                        @else
                                                                         <td>{{ $data->machine_number }}</td>
+                                                                        @endif
                                                                         <td>{{ $data->quantity }}</td>
                                                                         <td>{{ $data->back_quantity }}</td>
                                                                         <td>{{ $data->other }}</td>
@@ -393,7 +405,11 @@
                                                                         <td>{{ $data->emp_name }}</td>
                                                                         <td>{{ $data->materials_number }}</td>
                                                                         <td>{{ $data->material_spec }}</td>
+                                                                        @if($data->machine_number == 'null')
+                                                                        <td></td>
+                                                                        @else
                                                                         <td>{{ $data->machine_number }}</td>
+                                                                        @endif
                                                                         <td>{{ $data->quantity }}</td>
                                                                         <td>{{ $data->back_quantity }}</td>
                                                                         <td>{{ $data->other }}</td>
@@ -1146,10 +1162,20 @@
                         + "<td>"+ item.emp_name +"</td>"
                         + "<td>"+ item.materials_number +"</td>"
                         + "<td>"+ item.materials_spec +"</td>"
-                        + "<td>"+ item.machine_number +"</td>"
-                        + "<td>"+ item.quantity +"</td>"
-                        + "<td>"+ item.other +"</td>"
-                        + "<td>"+ status +"</td>"
+                        if(item.machine_number == 'null' || item.machine_number == null){
+                             rows += "<td></td>"
+                        }
+                        else{
+                             rows += "<td>" + item.machine_number + "</td>"
+                        }
+                        rows += "<td>"+ item.quantity +"</td>"
+                        if(item.other == null){
+                             rows += "<td></td>"
+                        }
+                        else{
+                             rows += "<td>" + item.other + "</td>"
+                        }
+                        rows += "<td>"+ status +"</td>"
                         + "<td><button type='button' class='btn btn-primary materialing' value="+item.id+">編輯</button></td>"
                         + "</tr>";
                 })
@@ -1278,10 +1304,20 @@
                         + "<td>"+ item.emp_name +"</td>"
                         + "<td>"+ item.materials_number +"</td>"
                         + "<td>"+ item.materials_spec +"</td>"
-                        + "<td>"+ item.machine_number +"</td>"
-                        + "<td>"+ item.quantity +"</td>"
-                        + "<td>"+ item.other +"</td>"
-                        + "<td>"+ statusDL +"</td>"
+                        if(item.machine_number == 'null' || item.machine_number == null){
+                             rows += "<td></td>"
+                        }
+                        else{
+                             rows += "<td>" + item.machine_number + "</td>"
+                        }
+                        rows += "<td>"+ item.quantity +"</td>"
+                        if(item.other == null){
+                             rows += "<td></td>"
+                        }
+                        else{
+                             rows += "<td>" + item.other + "</td>"
+                        }
+                        rows += "<td>"+ statusDL +"</td>"
                         + "<td>"+ statusERP +"</td>"
                         + "</tr>";
                 })
@@ -1380,11 +1416,21 @@
                         + "<td>"+ item.emp_name +"</td>"
                         + "<td>"+ item.materials_number +"</td>"
                         + "<td>"+ item.materials_spec +"</td>"
-                        + "<td>"+ item.machine_number +"</td>"
-                        + "<td>"+ item.quantity +"</td>"
+                        if(item.machine_number == 'null' || item.machine_number == null){
+                             rows += "<td></td>"
+                        }
+                        else{
+                             rows += "<td>" + item.machine_number + "</td>"
+                        }
+                        rows += "<td>"+ item.quantity +"</td>"
                         + "<td>"+ item.back_quantity +"</td>"
-                        + "<td>"+ item.other +"</td>"
-                        + "<td>"+ status +"</td>"
+                        if(item.other == null){
+                             rows += "<td></td>"
+                        }
+                        else{
+                             rows += "<td>" + item.other + "</td>"
+                        }
+                        rows += "<td>"+ status +"</td>"
                         + "<td><button type='button' class='btn btn-primary editBack' value="+item.id+">編輯</button></td>"
                         + "</tr>";
                 })
@@ -1516,11 +1562,21 @@
                         + "<td>"+ item.emp_name +"</td>"
                         + "<td>"+ item.materials_number +"</td>"
                         + "<td>"+ item.materials_spec +"</td>"
-                        + "<td>"+ item.machine_number +"</td>"
-                        + "<td>"+ item.quantity +"</td>"
+                        if(item.machine_number == 'null' || item.machine_number == null){
+                             rows += "<td></td>"
+                        }
+                        else{
+                             rows += "<td>" + item.machine_number + "</td>"
+                        }
+                        rows += "<td>"+ item.quantity +"</td>"
                         + "<td>"+ item.back_quantity +"</td>"
-                        + "<td>"+ item.other +"</td>"
-                        + "<td>"+ statusDL +"</td>"
+                        if(item.other == null){
+                             rows += "<td></td>"
+                        }
+                        else{
+                             rows += "<td>" + item.other + "</td>"
+                        }
+                        rows += "<td>"+ statusDL +"</td>"
                         + "<td>"+ statusERP +"</td>"
                         + "</tr>";
                 })

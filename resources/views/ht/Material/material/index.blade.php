@@ -131,7 +131,11 @@
                                                                         <td>{{ $data->date }}</td>
                                                                         <td>{{ $data->materials_number }}</td>
                                                                         <td>{{ $data->materials_spec }}</td>
+                                                                        @if($data->machine_number == 'null')
+                                                                        <td></td>
+                                                                        @else
                                                                         <td>{{ $data->machine_number }}</td>
+                                                                        @endif
                                                                         <td>{{ $data->quantity }}</td>
                                                                         <td>{{ $data->other }}</td>
                                                                     </tr>
@@ -182,7 +186,11 @@
                                                                         <td>{{ $data->date }}</td>
                                                                         <td>{{ $data->materials_number }}</td>
                                                                         <td>{{ $data->materials_spec }}</td>
+                                                                        @if($data->machine_number == 'null')
+                                                                        <td></td>
+                                                                        @else
                                                                         <td>{{ $data->machine_number }}</td>
+                                                                        @endif
                                                                         <td>{{ $data->quantity }}</td>
                                                                         <td>{{ $data->other }}</td>
                                                                         <td><button type="button" class="btn btn-primary backs" value="{{ $data->id }}">退料</button></td>
@@ -471,11 +479,11 @@
     });
 
     $(".searchInput_s2").on("blur", function() {
-        table.search(this.value).draw();
+        table2.search(this.value).draw();
     });
 
     $(".searchInput_s2").on("keyup", function() {
-        table.search(this.value).draw();
+        table2.search(this.value).draw();
     });
 </script>
 <script type="text/javascript">
@@ -609,10 +617,20 @@ $('.backs').on('click', function(){
                         + "<td>" + item.date + "</td>"
                         + "<td>" + item.materials_number + "</a></td>"
                         + "<td>" + item.materials_spec + "</td>"
-                        + "<td>" + item.machine_number + "</td>"
-                        + "<td>" + item.quantity + "</td>"
-                        + "<td>" + item.other + "</td>"
-                        + "</tr>";
+                        if(item.machine_number == 'null' || item.machine_number == null){
+                             rows += "<td></td>"
+                        }
+                        else{
+                             rows += "<td>" + item.machine_number + "</td>"
+                        }
+                        rows += "<td>" + item.quantity + "</td>"
+                        if(item.other == null){
+                             rows += "<td></td>"
+                        }
+                        else{
+                             rows += "<td>" + item.other + "</td>"
+                        }
+                        rows += "</tr>";
                 })
                 $('#hetao-overview1 tbody').append(rows);
                 var table = $("#hetao-overview1").DataTable({
@@ -692,10 +710,20 @@ $('.backs').on('click', function(){
                         + "<td>" + item.date + "</td>"
                         + "<td>" + item.materials_number + "</a></td>"
                         + "<td>" + item.materials_spec + "</td>"
-                        + "<td>" + item.machine_number + "</td>"
-                        + "<td>" + item.quantity + "</td>"
-                        + "<td>" + item.other + "</td>"
-                        + "<td><button type='button' class='btn btn-primary backs' value="+ item.id + ">退料</button></td>"
+                        if(item.machine_number == 'null' || item.machine_number == null){
+                             rows += "<td></td>"
+                        }
+                        else{
+                             rows += "<td>" + item.machine_number + "</td>"
+                        }
+                        rows += "<td>" + item.quantity + "</td>"
+                        if(item.other == null){
+                             rows += "<td></td>"
+                        }
+                        else{
+                             rows += "<td>" + item.other + "</td>"
+                        }
+                        rows += "<td><button type='button' class='btn btn-primary backs' value="+ item.id + ">退料</button></td>"
                         + "</tr>";
                 })
                 $('#hetao-overview2 tbody').append(rows);
@@ -741,11 +769,11 @@ $('.backs').on('click', function(){
                 });
 
                 $(".searchInput_s2").on("blur", function() {
-                    table.search(this.value).draw();
+                    table2.search(this.value).draw();
                 });
 
                 $(".searchInput_s2").on("keyup", function() {
-                    table.search(this.value).draw();
+                    table2.search(this.value).draw();
                 });
 
                 $('.backs').on('click', function(){

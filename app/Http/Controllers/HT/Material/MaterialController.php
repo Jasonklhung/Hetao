@@ -181,8 +181,9 @@ class MaterialController extends Controller
         $materialN =  Material::where('user_id',Auth::user()->id)
                                 ->where('organization_name',$dept[0]['name'])
                                 ->where('status','N')
-                                ->where('date','>=',$start)
-                                ->where('date','<=',$end)
+                                ->when($start, function ($query) use ($start,$end) {
+                                    return $query->whereBetween('date',[$start,$end]);
+                                })
                                 ->get();
 
         return $materialN;
@@ -198,8 +199,9 @@ class MaterialController extends Controller
         $materialY =  Material::where('user_id',Auth::user()->id)
                                 ->where('organization_name',$dept[0]['name'])
                                 ->where('status','Y')
-                                ->where('date','>=',$start)
-                                ->where('date','<=',$end)
+                                ->when($start, function ($query) use ($start,$end) {
+                                    return $query->whereBetween('date',[$start,$end]);
+                                })
                                 ->get();
 
         return $materialY;

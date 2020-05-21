@@ -199,7 +199,7 @@
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <div class="form-item">
-                                                                <label class="d-block">覆訪日期 <a class="float-right" href="#" data-toggle="modal" data-target="#person-e"><i class="fas fa-bell"></i> 通知</a></label>
+                                                                <label class="d-block">覆訪日期 <a class="float-right" href="#" data-toggle="modal" id="notice"><i class="fas fa-bell"></i> 通知</a></label>
                                                                 <div class="datetime">
                                                                     <div class="input-group date day-set">
                                                                         <input class="form-control" placeholder="請選擇日期" type="text" name="date_again" value="{{ $case_track->date_again }}"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -210,19 +210,28 @@
                                                                 <label class="d-block">結果</label>
                                                                 <select class="form-control mr-s result" name="result">
                                                                     <option selected hidden disabled value="">請選擇</option>
-                                                                    @if($case_track->result == '成交')
+                                                                    @if($case_track->result == '無')
+                                                                    <option value="無" selected="">無</option>
+                                                                    <option value="成交">成交</option>
+                                                                    <option value="流單">流單</option>
+                                                                    <option value="其他">其他</option>
+                                                                    @elseif($case_track->result == '成交')
+                                                                    <option value="無" >無</option>
                                                                     <option value="成交" selected="">成交</option>
                                                                     <option value="流單">流單</option>
                                                                     <option value="其他">其他</option>
                                                                     @elseif($case_track->result == '流單')
+                                                                    <option value="無" >無</option>
                                                                     <option value="成交">成交</option>
                                                                     <option value="流單" selected="">流單</option>
                                                                     <option value="其他">其他</option>
                                                                     @elseif($case_track->result == '其他')
+                                                                    <option value="無" >無</option>
                                                                     <option value="成交">成交</option>
                                                                     <option value="流單">流單</option>
                                                                     <option value="其他" selected="">其他</option>
                                                                     @else
+                                                                    <option value="無" >無</option>
                                                                     <option value="成交">成交</option>
                                                                     <option value="流單">流單</option>
                                                                     <option value="其他">其他</option>
@@ -345,115 +354,122 @@
             <div class="modal-content">
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <div class="modal-body">
-                    <form action="">
+                    <form  method="post" id="addNotice">
+                        @csrf
                         <ul>
                             <li class="mb-s">
                                 <span class="mb-xs">標題</span>
-                                <input class="form-control" type="text" placeholder="輸入標題" value="A公司拜訪">
+                                <input class="form-control" type="hidden" placeholder="輸入標題" name="id" id="id" value="{{$id}}">
+                                <input class="form-control" type="text" placeholder="輸入標題" name="title" id="title">
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">內容</span>
-                                <textarea class="form-control" rows="1" placeholder="輸入內容">A公司拜訪</textarea>
+                                <textarea class="form-control" rows="1" placeholder="輸入內容" name="content" id="content"></textarea>
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">通知時間</span>
                                 <div class="d-block">
-                                    <input class="choose" id="choose1-2" type="radio" name="at-2" value="單次" num="1-2" checked>
-                                    <label for="choose1-2" class="chooseitem mr-s">單次</label>
-                                    <input class="choose" id="choose2-2" type="radio" name="at-2" value="每日" num="2-2">
-                                    <label for="choose2-2" class="chooseitem ml-s mr-s">每日</label>
-                                    <input class="choose" id="choose3-2" type="radio" name="at-2" value="每週" num="3-2">
-                                    <label for="choose3-2" class="chooseitem ml-s mr-s">每週</label>
-                                    <input class="choose" id="choose4-2" type="radio" name="at-2" value="每月" num="4-2">
-                                    <label for="choose4-2" class="chooseitem ml-s">每月</label>
-                                    <input class="choose" id="choose5-2" type="radio" name="at-2" value="不通知" num="5-2">
-                                    <label for="choose5-2" class="chooseitem ml-s">不通知</label>
+                                    <input class="choose" id="choose1" type="radio" name="category" num="1" value="單次" checked>
+                                    <label for="choose1" class="chooseitem mr-s">單次</label>
+
+                                    <input class="choose" id="choose2" type="radio" name="category" num="2" value="每日">
+                                    <label for="choose2" class="chooseitem mr-s">每日</label>
+
+                                    <input class="choose" id="choose3" type="radio" name="category" num="3" value="每週">
+                                    <label for="choose3" class="chooseitem mr-s">每週</label>
+
+                                    <input class="choose" id="choose4" type="radio" name="category" num="4" value="每月">
+                                    <label for="choose4" class="chooseitem mr-s">每月</label>
+
+                                    <input class="choose" id="choose5" type="radio" name="category" value="不通知" num="5">
+                                    <label for="choose5" class="chooseitem mr-s">不通知</label>
                                 </div>
                                 <div class="">
                                     <!-- 單次 -->
-                                    <div class="i1-2">
-                                        <input type="text" class="date-set form-control">
+                                    <div class="i1">
+                                        <input type="text" class="date-set form-control" name="startTimeOnce" id="once">
                                     </div>
                                     <!-- 每日 -->
-                                    <div class="i2-2 d-none">
+                                    <div class="i2 d-none">
                                         <p>開始日期</p>
-                                        <input type="text" class="date-set form-control">
+                                        <input type="text" class="date-set form-control" name="startTimeEveryDay" id="everyDay">
                                     </div>
                                     <!-- 每週 -->
-                                    <div class="i3-2 d-none">
+                                    <div class="i3 d-none">
                                         <p>開始日期</p>
-                                        <input type="text" class="day-set form-control mb-s">
+                                        <input type="text" class="day-set form-control mb-s" name="startTimeEveryWeek" id="everyWeek">
                                         <div class="form-inline mb-s">
-                                            每隔<input class="form-control mx-s dayy" type="number" value="1" min="1">週
+                                            <span>每</span><input class="form-control mx-s dayy" type="number" value="1" min="1" name="week" id="week"><span>週</span>
+                                            <button class="levelinfo" type="button">
+                                                <i class="fas fa-info-circle text-bright"></i>
+                                                <ul class="levelinfo-menu">
+                                                    <li><span class="text-primary">每1週：</span>每週</li>
+                                                    <li><span class="text-primary">每2週：</span>隔一週</li>
+                                                </ul>
+                                            </button>
                                             <button type="button" class="btn add-member week-b">+ 新增</button>
                                         </div>
                                         <div class="weekwrap">
                                             <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
-                                                <select name="" id="" class="form-control my-xs">
-                                                    <option value="">星期一</option>
-                                                    <option value="">星期二</option>
-                                                    <option value="">星期三</option>
-                                                    <option value="">星期四</option>
-                                                    <option value="">星期五</option>
-                                                    <option value="">星期六</option>
-                                                    <option value="">星期日</option>
+                                                <select class="form-control" name="weekend[]">
+                                                    <option value="星期一">星期一</option>
+                                                    <option value="星期二">星期二</option>
+                                                    <option value="星期三">星期三</option>
+                                                    <option value="星期四">星期四</option>
+                                                    <option value="星期五">星期五</option>
+                                                    <option value="星期六">星期六</option>
+                                                    <option value="星期日">星期日</option>
                                                 </select>
-                                                <input type="text" class="time-set form-control my-xs">
-                                                <button class="close my-xs" type="button">×</button>
+                                                <input type="text" class="time-set form-control" name="weekendTime[]">
+                                                <button class="close" type="button">×</button>
                                             </div>
                                         </div>
+
                                     </div>
                                     <!-- 每月 -->
-                                    <div class="i4-2 d-none">
+                                    <div class="i4 d-none">
                                         <p>開始日期</p>
-                                        <input type="text" class="date-set form-control">
+                                        <input type="text" class="date-set form-control" name="startTimeEveryMonth" id="everyMonth">
                                     </div>
                                 </div>
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">通知對象</span>
                                 <div class="d-flex">
-                                    <select class='form-control mb-s company mr-s'>
+                                    <select class='form-control mb-s company mr-s' name="company" id="company">
                                         <option selected disabled hidden value="">分公司</option>
-                                        <option>台北</option>
-                                        <option>新北</option>
-                                        <option>桃園</option>
-                                        <option>台中</option>
-                                        <option>台南</option>
-                                        <option>高雄</option>
+                                        @foreach($org as $key => $data)
+                                        <option value="{{ $data->name }}">{{ $data->name }}{{$data->company_name}}</option>
+                                        @endforeach
                                     </select>
-                                    <select class='form-control mb-s role mr-s' disabled="disabled">
+                                    <select class='form-control mb-s role mr-s' disabled="disabled" name="job" id="job">
                                         <option selected hidden value="">職稱</option>
                                         <option value="助理">助理</option>
                                         <option value="主管">主管</option>
                                         <option value="員工">員工</option>
                                     </select>
-                                    <select class='form-control mb-s staffname' disabled="disabled">
+                                    <select class='form-control mb-s staffname' disabled="disabled" name="name" id="name">
                                         <option selected hidden value="">員工名稱</option>
-                                        <option value="小美">小美</option>
-                                        <option value="小王">小王</option>
-                                        <option value="小名">小名</option>
-                                        <option value="小強">小強</option>
-                                        <option value="小花">小花</option>
-                                        <option value="小白">小白</option>
                                     </select>
                                 </div>
-                                <button type="button" class="btn add-member meet">+ 新增</button>
+                                <button type="button" class="btn add-member meet" id="addUser">+ 新增</button>
                                 <div class="memberwrap">
                                 </div>
+                                <input type="hidden" name="meetingName" id="meetingName">
+                                <input type="hidden" name="meetingToken" id="meetingToken">
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">類型</span>
-                                <select class="form-control">
-                                    <option value="">一般</option>
-                                    <option value="">覆訪</option>
+                                <select class="form-control" name="type" id="type">
+                                    <option value="一般">一般</option>
+                                    <option value="覆訪">覆訪</option>
                                 </select>
                             </li>
                             <li class="mb-s">
                                 <span class="mb-xs">備註</span>
-                                <textarea class="form-control" rows="1" placeholder="輸入備註"></textarea>
+                                <textarea class="form-control" rows="1" placeholder="輸入備註" name="other" id="other"></textarea>
                             </li>
-                            <li class="text-center"><button type="button" class="btn btn-danger">取消</button><button type="button" class="btn btn-primary" data-dismiss="modal">確認</button></li>
+                            <li class="text-center"><button type="button" class="btn btn-danger" data-dismiss="modal">取消</button><button type="submit" class="btn btn-primary">確認</button></li>
                         </ul>
                     </form>
                 </div>
@@ -632,18 +648,82 @@
     });
 
     ////////通知對象新增
-    $('body').on('click', '.Overview-set .add-member.meet', function() {
+    var array = [];
+    var staffNameArray = [];
+    $('body').on('click', '.Overview-set .add-member.meet', function(){
         var company = $(this).parents('.Overview-set').find(".company").val()
         var role = $(this).parents('.Overview-set').find(".role").val()
-        var staffname = $(this).parents('.Overview-set').find(".staffname").val()
-        if ((company && role && staffname) !== null) {
-            $(this).siblings('.memberwrap').append('<span class="tag"><div><small>' + company + '/' + role + '</small><br>' + staffname + '</div><button class="close" type="button">×</button></span>');
+        var staffname = $(this).parents('.Overview-set').find(".staffname").find("option:selected").text()
+        var token = $(this).parents('.Overview-set').find(".staffname").find("option:selected").val()
+
+        if(array.indexOf(token) == -1){
+            array.push(token)
+            staffNameArray.push(company+"/"+role+" "+staffname)
+
+            var aaa = array.join(',')
+            var bbb = staffNameArray.join(',')
+
+            if((company && role && staffname) !== null){
+                $(this).siblings('.memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close cl" type="button" value='+token+'>×</button></span>');
+            }
+
+            $("input[name='meetingToken']").val(aaa)
+            $("input[name='meetingName']").val(bbb)
+        }
+        else{
+            alert('此人員已新增')
         }
     });
 
     ////////通知對象/新增星期刪除
-    $('body').on('click', '.Overview-set .close', function() {
+    $('body').on('click', '.Overview-set .close.cl', function(){
+
+        //新增
+        var meetingToken = $('#meetingToken').val()
+        var meetingName = $('#meetingName').val()
+
+        if (meetingToken.indexOf(',') > -1) {
+            var meetingTokenArray = meetingToken.split(',');
+        }
+        else{
+            var meetingTokenArray = [meetingToken];
+        }
+
+
+        if (meetingName.indexOf(',') > -1) {
+            var meetingNameArray = meetingName.split(',');
+        }
+        else{
+            var meetingNameArray = [meetingName];
+        }
+
+
+        var meetingTokenArray = meetingToken.split(',');
+        var meetingNameArray = meetingName.split(',');
+
+
+        var removeToken = $(this).val()
+
+        $.each(meetingTokenArray, function (i, item) {
+
+            if(removeToken == item){
+                var removeKey = i;
+
+                meetingTokenArray.splice(removeKey, 1);
+                meetingNameArray.splice(removeKey, 1);
+
+                var aaa = meetingTokenArray.join(',')
+                var bbb = meetingNameArray.join(',')
+
+                $("input[name='meetingToken']").val(aaa)
+                $("input[name='meetingName']").val(bbb)
+
+            }
+
+        })
+
         $(this).parent('.tag, .week').remove();
+
     });
 
     ////////通知對象控制鎖select
@@ -807,6 +887,287 @@
                 contentType: false,
                 processData: false
             })
+        })
+    })
+</script>
+<script type="text/javascript">
+    //尋找員工
+    $("select[name='job']").on('change',function(){
+
+        var company = $("select[id='company']").val();
+        var job = $("select[id='job']").val();
+
+        $.ajax({
+            url:"{{ route('ht.Overview.notice.getUserName',['organization'=>$organization]) }}", 
+            method:"post",
+            dataType:'json',
+            data:{
+                '_token':'{{csrf_token()}}',
+                'company':company,
+                'job':job
+            },              
+            success:function(res){
+
+
+                if(res == ""){
+                    var selOpts = "<option selected disabled hidden>員工名稱</option><option disabled>沒有人員</option>";
+                }
+                else{
+                 var selOpts = "<option selected disabled hidden>員工名稱</option>";
+             }
+
+             $.each(res, function (i, item) {
+
+                selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
+
+            })
+
+             $("select[name='name']").empty();
+             $("select[name='name']").append(selOpts);
+         }
+     })
+    });
+
+    var trackNotice = {!! json_encode($trackNotice) !!}; //php變數轉換
+    var track = {!! json_encode($track) !!}; //php變數轉換
+
+    if(trackNotice.length != 0){
+
+        $('#notice').on('click',function(){
+
+                $('#title').val(trackNotice[0]['title'])
+                $('#content').text(trackNotice[0]['content'])
+
+                var category = $('input[name="category2"]')
+
+                $('input[name="category2"]').prop("checked", false)
+
+                for (var i = 0; i < category.length; i++) {
+
+                    if(category[i].value == trackNotice[0]['category']){
+                        $('input[name="category2"][value='+trackNotice[0]['category']+']').prop("checked", true)
+                    }
+                }
+
+                if(trackNotice[0]['category'] == '單次'){
+                    $('#once').val(trackNotice[0]['startTime'])
+                    $('.i2-2, .i3-2, .i4-2').addClass('d-none');
+                    $('.i1-2').removeClass('d-none');
+
+                     $('#week').val("1")
+                }
+                else if(trackNotice[0]['category'] == '每日'){
+                    $('#everyDay').val(trackNotice[0]['startTime'])
+                    $('.i1-2, .i3-2, .i4-2').addClass('d-none');
+                    $('.i2-2').removeClass('d-none');
+
+                     $('#week').val("1")
+                }
+                else if(trackNotice[0]['category'] == '每週'){
+                    $('#everyWeek').val(trackNotice[0]['startTime'])
+                    $('.i1-2, .i2-2, .i4-2').addClass('d-none');
+                    $('.i3-2').removeClass('d-none');
+
+                    $('#week').val(trackNotice[0]['week'])
+
+                    $('.weekwrap').html("")
+
+                    var weekArray = trackNotice[0]['weekend'].split(',');
+                    var weekTimeArray = trackNotice[0]['weekendTime'].split(',');
+
+                    $.each(weekArray, function (i, item) {
+
+                        if(item == '星期一'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一" selected>星期一</option>
+                                <option value="星期二">星期二</option>
+                                <option value="星期三">星期三</option>
+                                <option value="星期四">星期四</option>
+                                <option value="星期五">星期五</option>
+                                <option value="星期六">星期六</option>
+                                <option value="星期日">星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        else if(item == '星期二'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一">星期一</option>
+                                <option value="星期二" selected>星期二</option>
+                                <option value="星期三">星期三</option>
+                                <option value="星期四">星期四</option>
+                                <option value="星期五">星期五</option>
+                                <option value="星期六">星期六</option>
+                                <option value="星期日">星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        else if(item == '星期三'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一">星期一</option>
+                                <option value="星期二">星期二</option>
+                                <option value="星期三" selected>星期三</option>
+                                <option value="星期四">星期四</option>
+                                <option value="星期五">星期五</option>
+                                <option value="星期六">星期六</option>
+                                <option value="星期日">星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        else if(item == '星期四'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一">星期一</option>
+                                <option value="星期二">星期二</option>
+                                <option value="星期三">星期三</option>
+                                <option value="星期四" selected>星期四</option>
+                                <option value="星期五">星期五</option>
+                                <option value="星期六">星期六</option>
+                                <option value="星期日">星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        else if(item == '星期五'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一">星期一</option>
+                                <option value="星期二">星期二</option>
+                                <option value="星期三">星期三</option>
+                                <option value="星期四">星期四</option>
+                                <option value="星期五" selected>星期五</option>
+                                <option value="星期六">星期六</option>
+                                <option value="星期日">星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        else if(item == '星期六'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一">星期一</option>
+                                <option value="星期二">星期二</option>
+                                <option value="星期三">星期三</option>
+                                <option value="星期四">星期四</option>
+                                <option value="星期五">星期五</option>
+                                <option value="星期六" selected>星期六</option>
+                                <option value="星期日">星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        else if(item == '星期日'){
+                            $('.Overview-set').find('.weekwrap').append(`
+                                <div class="form-inline mb-s bg-gray d-flex week justify-content-between">
+                                <select class="form-control" name="weekend[]">
+                                <option value="星期一">星期一</option>
+                                <option value="星期二">星期二</option>
+                                <option value="星期三">星期三</option>
+                                <option value="星期四">星期四</option>
+                                <option value="星期五">星期五</option>
+                                <option value="星期六">星期六</option>
+                                <option value="星期日" selected>星期日</option>    
+                                </select>
+                                <input type="text" class="time-set form-control" name="weekendTime[]" value=`+weekTimeArray[i]+`>
+                                <button class="close" type="button">×</button>
+                                </div>
+                            `);
+                        }
+                        
+
+                    })
+                }
+                else if(trackNotice[0]['category'] == '每月'){
+                    $('#everyMonth').val(trackNotice[0]['startTime'])
+                    $('.i1-2, .i2-2, .i3-2').addClass('d-none');
+                    $('.i4-2').removeClass('d-none');
+
+                    $('#week').val("1")
+                }
+                else if(trackNotice[0]['category'] == '不通知'){
+                    $('#everyMonth').val(trackNotice[0]['startTime'])
+                    $('.i1-2, .i2-2, .i3-2, .i4-2').addClass('d-none');
+
+                    $('#week').val("1")
+                }
+
+                var name = trackNotice[0]['meeting'].split(",")
+                var token = trackNotice[0]['token'].split(",")
+
+                $('.memberwrap').html("")
+
+                $.each(name, function (i, item) {
+
+                    $('.memberwrap').append('<span class="tag"><div><small>'+ item.split(" ")[0] +'</small><br>'+ item.split(" ")[1] +'</div><button class="close cl2" type="button" value='+token[i]+'>×</button></span>')
+                })
+
+                $('#meetingName').val(trackNotice[0]['meeting'])
+                $('#meetingToken').val(trackNotice[0]['token'])
+
+                var numbers = $("#type").find("option");
+
+                for (var j = 1; j < numbers.length; j++) {
+                    if ($(numbers[j]).val() == trackNotice[0]['type']) {
+                        $(numbers[j]).attr("selected", "selected");
+                    }
+                }
+
+                $('#other').val(trackNotice[0]['other'])
+
+                $('#person-e').modal('show')
+        })
+    }
+    else{
+
+        $('#notice').on('click',function(){
+
+            $('#title').val(track[0]['name']+"拜訪")
+            $('#content').html(track[0]['name']+"拜訪")
+            $('#person-e').modal('show')
+        })
+    }
+
+</script>
+<script type="text/javascript">
+    $('#addNotice').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Business.self.addNotice',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+                alert('新增成功');
+                window.location.reload()
+            },
+            cache: false,
+            contentType: false,
+            processData: false
         })
     })
 </script>

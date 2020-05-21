@@ -129,6 +129,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/Business/self/visitSearch','HT\Business\SelfController@visitSearch')->name('ht.Business.self.visitSearch');
 		Route::post('/HT/{organization}/Business/self/trackSearch','HT\Business\SelfController@trackSearch')->name('ht.Business.self.trackSearch');
 		Route::post('/HT/{organization}/Business/self/monthSearch','HT\Business\SelfController@monthSearch')->name('ht.Business.self.monthSearch');
+		Route::post('/HT/{organization}/Business/self/addNotice','HT\Business\SelfController@addNotice')->name('ht.Business.self.addNotice');
 
 		//業務管理-全站業務
 		Route::get('/HT/{organization}/Business/all/index','HT\Business\AllController@index')->name('ht.Business.all.index');

@@ -11,6 +11,7 @@ use DB;
 use App\Business;
 use App\BusinessTrack;
 use App\BusinessCaseDetail;
+use App\Notice;
 use App\Exports\BusinessDownloadExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
@@ -634,6 +635,8 @@ class SelfController extends Controller
             $caseCount = count($countArray);
         }
 
+        $org = Organization::where('id','!=','1')->get();
+
         //案件追蹤
         $dept = Organization::where('id',$organization->id)->get();
         $track = BusinessTrack::query()
@@ -647,7 +650,9 @@ class SelfController extends Controller
         $case_track = BusinessTrack::find($id);
         $detail = BusinessCaseDetail::where('business_track_id',$id)->get();
 
-        return view('ht.Business.self.trackEdit',compact('organization','caseCount','track','id','case_track','detail'));
+        $trackNotice = Notice::where('track_id',$id)->get();
+
+        return view('ht.Business.self.trackEdit',compact('organization','caseCount','track','id','case_track','detail','org','trackNotice'));
     }
 
     public function trackUpdate(Organization $organization,Request $request,$id)
@@ -1246,5 +1251,124 @@ class SelfController extends Controller
         }
 
         return [$businessChart,$allBusinessMonth,$resultChart,$finishChartCount,$money,$newCustomChartCount,$numberChart,$numberTotalChart];
+    }
+
+    public function addNotice(Organization $organization,Request $request)
+    {
+
+        $dept = Organization::where('id',$organization->id)->get();
+
+        $trackNoticeFind = Notice::where('track_id',$request->id)->get();
+
+        if($trackNoticeFind->isNotEmpty()){
+
+            $notice = Notice::find($trackNoticeFind[0]['id']);
+
+            $notice->title = $request->title;
+            $notice->content = $request->content;
+            $notice->category = $request->category;
+            if($request->category == '單次'){
+                $notice->startTime = $request->startTimeOnce;
+            }
+            elseif($request->category == '每日'){
+                $notice->startTime = $request->startTimeEveryDay;
+            }
+            if($request->category == '每週'){
+                $notice->startTime = $request->startTimeEveryWeek;
+            }
+            if($request->category == '每月'){
+                $notice->startTime = $request->startTimeEveryMonth;
+            }
+
+            $notice->week = $request->week;
+            if($request->category == '每週'){
+                $weekend = implode(',', $request->weekend);
+                $weekendTime = implode(',', $request->weekendTime);
+
+                $notice->weekend = $weekend;
+                $notice->weekendTime = $weekendTime;
+            }
+            else{
+                $notice->weekend = null;
+                $notice->weekendTime = null;
+            }
+
+            //取得新增人的分公司/職稱 姓名
+            if($request->meetingName == null){
+                $notice->meeting = $dept[0]['name']."/".Auth::user()->job." ".Auth::user()->name;
+            }
+            else{
+                $notice->meeting = $request->meetingName;
+            }
+
+            if($request->meetingToken == null){
+                $notice->token = Auth::user()->token;
+            }
+            else{
+               $notice->token = $request->meetingToken;
+            }
+
+            $notice->type = $request->type;
+            $notice->other = $request->other;
+            $notice->save();
+
+            return redirect()->route('ht.Overview.notice.index',compact('organization'))->with('success','新增成功');
+        }
+        else{
+
+            $notice = new Notice;
+            $notice->organization_name = $dept[0]['name'];
+            $notice->user_id = Auth::user()->id;
+            $notice->track_id = $request->id;
+            $notice->title = $request->title;
+            $notice->content = $request->content;
+            $notice->category = $request->category;
+            if($request->category == '單次'){
+                $notice->startTime = $request->startTimeOnce;
+            }
+            elseif($request->category == '每日'){
+                $notice->startTime = $request->startTimeEveryDay;
+            }
+            if($request->category == '每週'){
+                $notice->startTime = $request->startTimeEveryWeek;
+            }
+            if($request->category == '每月'){
+                $notice->startTime = $request->startTimeEveryMonth;
+            }
+
+            $notice->week = $request->week;
+            if($request->category == '每週'){
+                $weekend = implode(',', $request->weekend);
+                $weekendTime = implode(',', $request->weekendTime);
+
+                $notice->weekend = $weekend;
+                $notice->weekendTime = $weekendTime;
+            }
+            else{
+                $notice->weekend = null;
+                $notice->weekendTime = null;
+            }
+
+            //取得新增人的分公司/職稱 姓名
+            if($request->meetingName == null){
+                $notice->meeting = $dept[0]['name']."/".Auth::user()->job." ".Auth::user()->name;
+            }
+            else{
+                $notice->meeting = $request->meetingName;
+            }
+
+            if($request->meetingToken == null){
+                $notice->token = Auth::user()->token;
+            }
+            else{
+               $notice->token = $request->meetingToken;
+            }
+
+            $notice->type = $request->type;
+            $notice->other = $request->other;
+            $notice->save();
+
+            return redirect()->route('ht.Overview.notice.index',compact('organization'))->with('success','新增成功');
+        }
     }
 }

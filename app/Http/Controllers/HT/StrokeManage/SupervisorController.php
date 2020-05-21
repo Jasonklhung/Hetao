@@ -128,7 +128,7 @@ class SupervisorController extends Controller
         }
 
         //取得所有員工
-        $allUser = User::whereIn('job',['助理','主管','員工'])->get();
+        $allUser = User::whereIn('job',['助理','主管','員工','業務'])->get();
         $deptUser = array();
 
         foreach ($allUser as $key => $value) {

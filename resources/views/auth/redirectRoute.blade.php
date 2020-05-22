@@ -65,7 +65,7 @@
             data:{
                 '_token': '{{ csrf_token() }}',
                 'token':userId,
-                'route':'<?php echo $route ?>'
+                'route':'<?php echo $_GET['route'] ?>'
             },
             dataType:'json',
             success:function(data){

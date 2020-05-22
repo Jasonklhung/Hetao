@@ -220,26 +220,20 @@ class LoginController extends Controller
                 if($route == 'overview'){
                     return redirect()->route('ht.Overview.index',compact('organization'));
                 }
-            }
-        }
-        else{
-            return 'failed';
-        }
-    }
-
-    public function getRedirectRoute(Request $request)
-    {
-        $user = User::where('token', $request->token)->first();
-        $route = $request->route;
-
-        if(isset($user)){
-
-            if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){
-
-                if($route == 'overview'){
-                    return response()->json([
-                        'redirect'=>route('ht.Overview.index',['organization'=>$user['organization_id']]),
-                    ],  200);
+                elseif($route == 'notice'){
+                    return redirect()->route('ht.Overview.notice.index',compact('organization'));
+                }
+                elseif($route == 'customer'){
+                    return redirect()->route('ht.Customer.index',compact('organization'));
+                }
+                elseif($route == 'visit'){
+                    return redirect()->route('ht.Business.self.index',compact('organization'));
+                }
+                elseif($route == 'track'){
+                    return redirect()->route('ht.Business.self.index2',compact('organization'));
+                }
+                elseif($route == 'caseReport'){
+                    return redirect()->route('ht.StrokeManage.assistant.index',compact('organization'));
                 }
             }
         }

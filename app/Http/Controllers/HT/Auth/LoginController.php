@@ -204,6 +204,11 @@ class LoginController extends Controller
         }
     }
 
+    public function redirectRoute()
+    {
+        return view('auth.redirectRoute');
+    }
+
     public function getRedirectRoute(Request $request)
     {
         $user = User::where('token', $request->token)->first();

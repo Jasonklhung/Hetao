@@ -380,7 +380,7 @@ class PermissionController extends Controller
 
                 $userId = $user['token'];
                 $client = new \GuzzleHttp\Client();
-                $response = $client->post('https://accunixwh.azurewebsites.net/api/LINEBot/5dfafa8e/authenticate/26', [
+                $response = $client->post('https://api-tf.accunix.net/api/LINEBot/5dfafa8e/authenticate/26', [
                     'headers' => ['Content-Type' => 'application/json'],
                     'body' => json_encode([
                         'user_token' => $userId,
@@ -392,7 +392,7 @@ class PermissionController extends Controller
 
                 $userId = $user['token'];
                 $client = new \GuzzleHttp\Client();
-                $response = $client->post('https://accunixwh.azurewebsites.net/api/LINEBot/5dfafa8e/authenticate/26', [
+                $response = $client->post('https://api-tf.accunix.net/api/LINEBot/5dfafa8e/authenticate/26', [
                     'headers' => ['Content-Type' => 'application/json'],
                     'body' => json_encode([
                         'user_token' => $userId,
@@ -404,7 +404,7 @@ class PermissionController extends Controller
 
                 $userId = $user['token'];
                 $client = new \GuzzleHttp\Client();
-                $response = $client->post('https://accunixwh.azurewebsites.net/api/LINEBot/5dfafa8e/authenticate/26', [
+                $response = $client->post('https://api-tf.accunix.net/api/LINEBot/5dfafa8e/authenticate/26', [
                     'headers' => ['Content-Type' => 'application/json'],
                     'body' => json_encode([
                         'user_token' => $userId,
@@ -451,7 +451,7 @@ class PermissionController extends Controller
             // ]);
 
             $client = new \GuzzleHttp\Client();
-            $response = $client->post('https://accunixwh.azurewebsites.net/api/LINEBot/5dfafa8e/authenticate/26', [
+            $response = $client->post('https://api-tf.accunix.net/api/LINEBot/5dfafa8e/authenticate/26', [
                 'headers' => ['Content-Type' => 'application/json'],
                 'body' => json_encode([
                     'user_token' => $userId,

@@ -163,7 +163,7 @@ class SupervisorController extends Controller
 
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
-        
+
         if($job == '員工'){
             $client = new \GuzzleHttp\Client();
             $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
@@ -224,7 +224,69 @@ class SupervisorController extends Controller
             $caseCount = count($countArray);
         }
 
-        return view('ht.StrokeManage.supervisor.index3',compact('organization','supervisor','caseCount','assign'));
+        //線上預約
+        $reservation = DB::table('reservation_answers')
+                        ->select('reservation_answers.id','reservation_answers.views','accounts.cuskey','accounts.name','reservation_answers.created_at')
+                        ->leftjoin('accounts','reservation_answers.account_id','=','accounts.id')
+                        ->where('reservation_answers.department_id',$organization->id)
+                        ->get();
+
+
+        //取得待指派工單
+        $dept = Organization::where('id',$organization->id)->get();
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => Auth::user()->token,
+                'DEPT' => $dept[0]['name']
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $array = array();
+        $NotAssignArray = array();
+
+        foreach ($data as $key => $value) {
+            if($key == 'data'){
+                $array = $value;
+            }
+        }
+
+        foreach ($array as $key => $value) {
+            if($value->owner == '' || $value->owner == null || $value->status == 'R'){
+                $NotAssignArray[] = $value;
+            }
+        }
+
+        //取得所有員工
+        $allUser = User::whereIn('job',['助理','主管','員工','業務'])->get();
+        $deptUser = array();
+
+        foreach ($allUser as $key => $value) {
+            if($value->organization_id == $dept[0]['id']){
+                $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+            }
+        }
+
+        foreach ($allUser as $key => $value) {
+            $many = explode(',', $value->organizations);
+
+            foreach ($many as $k => $v) {
+                if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id']){
+                    $deptUser[] = array("id"=>$value->id,"name"=>$value->name);
+                }
+            }
+        }
+
+        //已指派工單
+        $assignCaseArray = SupervisorCase::where('organization_id',$organization->id)->get();
+
+        return view('ht.StrokeManage.supervisor.index3',compact('organization','supervisor','caseCount','assign','reservation','NotAssignArray','deptUser','assignCaseArray'));
     }
 
     public function getData(Organization $organization,Request $request)

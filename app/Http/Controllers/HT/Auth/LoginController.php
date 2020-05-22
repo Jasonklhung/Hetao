@@ -203,4 +203,25 @@ class LoginController extends Controller
             return 'failed';
         }
     }
+
+    public function getRedirectRoute(Request $request)
+    {
+        $user = User::where('token', $request->token)->first();
+        $route = $request->route;
+
+        if(isset($user)){
+
+            if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){
+
+                if($route == 'overview'){
+                    return response()->json([
+                        'redirect'=>route('ht.Overview.index',['organization'=>$user['organization_id']]),
+                    ],  200);
+                }
+            }
+        }
+        else{
+            return 'failed';
+        }
+    }
 }

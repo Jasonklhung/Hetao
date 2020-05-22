@@ -35,6 +35,10 @@ Route::get('/HT/getOverview','HT\Auth\LoginController@getOverview')->name('ht.Au
 Route::get('/HT/noticePage','HT\Auth\LoginController@noticePage')->name('ht.Auth.noticePage');
 Route::get('/HT/getNoticePage','HT\Auth\LoginController@getNoticePage')->name('ht.Auth.getNoticePage');
 
+//跳轉頁中心
+Route::get('/HT/redirectRoute','HT\Auth\LoginController@redirectRoute')->name('ht.Auth.redirectRoute');
+Route::get('/HT/getRedirectRoute','HT\Auth\LoginController@getRedirectRoute')->name('ht.Auth.getRedirectRoute');
+
 Route::group(['middleware' => ['auth']], function () {
 
 	Route::middleware(['check.organization'])->group(function (){

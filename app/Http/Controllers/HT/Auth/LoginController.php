@@ -204,8 +204,10 @@ class LoginController extends Controller
         }
     }
 
-    public function redirectRoute()
+    public function redirectRoute(Request $request)
     {
+        dd($request->all());
+
         return view('auth.redirectRoute');
     }
 

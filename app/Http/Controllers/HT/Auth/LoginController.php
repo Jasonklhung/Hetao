@@ -206,9 +206,27 @@ class LoginController extends Controller
 
     public function redirectRoute(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
-        return view('auth.redirectRoute');
+        // return view('auth.redirectRoute');
+
+        $user = User::where('token', $request->user_token)->first();
+        $route = $request->route;
+
+        if(isset($user)){
+
+            if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){
+
+                if($route == 'overview'){
+                    return response()->json([
+                        'redirect'=>route('ht.Overview.index',['organization'=>$user['organization_id']]),
+                    ],  200);
+                }
+            }
+        }
+        else{
+            return 'failed';
+        }
     }
 
     public function getRedirectRoute(Request $request)

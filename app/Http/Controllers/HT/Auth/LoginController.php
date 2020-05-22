@@ -217,6 +217,8 @@ class LoginController extends Controller
 
             if (Auth::attempt(array('mobile' => $user['mobile'], 'password' => $user['emp_id']))){
 
+                $organization = $user['organization_id'];
+
                 if($route == 'overview'){
                     return redirect()->route('ht.Overview.index',compact('organization'));
                 }

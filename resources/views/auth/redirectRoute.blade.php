@@ -24,7 +24,9 @@
         <div class="login">
             <div class="login-container">
                 <p>賀桃工單管理系統</p>
-                
+                @php
+                    $route = $_GET['route'];
+                @endphp
                 <span>跳轉中...</span>
             </div>
         </div>
@@ -65,7 +67,7 @@
             data:{
                 '_token': '{{ csrf_token() }}',
                 'token':userId,
-                'route':'<?php echo $_GET['route'] ?>'
+                'route':'<?php echo $route ?>'
             },
             dataType:'json',
             success:function(data){

@@ -37,7 +37,6 @@ Route::get('/HT/getNoticePage','HT\Auth\LoginController@getNoticePage')->name('h
 
 //跳轉頁中心
 Route::get('/HT/redirectRoute','HT\Auth\LoginController@redirectRoute')->name('ht.Auth.redirectRoute');
-Route::get('/HT/getRedirectRoute','HT\Auth\LoginController@getRedirectRoute')->name('ht.Auth.getRedirectRoute');
 
 Route::group(['middleware' => ['auth']], function () {
 

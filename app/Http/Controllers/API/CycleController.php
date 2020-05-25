@@ -43,11 +43,11 @@ class CycleController extends Controller
     		$cycle = array();
 
     		foreach ($finish as $key => $value) {
-    			$cycle[] = array("id"=>$value->id,"dept"=>$value->organization_name,"date"=>$value->thisDate,"category"=>$value->kind,"custkey"=>$value->custkey,"status"=>$value->status,"statusERP"=>$value->statusERP);
+    			$cycle[] = array("id"=>$value->id,"dept"=>$value->organization_name,"date"=>$value->thisDate,"category"=>$value->kind,"custkey"=>$value->custkey,"staff"=>$value->staff,"status"=>$value->status,"statusERP"=>$value->statusERP);
     		}
 
     		foreach ($turn as $k => $v) {
-    			$cycle[] = array("id"=>$v->id,"dept"=>$v->organization_name,"date"=>$v->thisDate,"category"=>$v->kind,"custkey"=>$v->custkey,"reason"=>$v->turnReason,"status"=>$v->status,"statusERP"=>$v->statusERP);
+    			$cycle[] = array("id"=>$v->id,"dept"=>$v->organization_name,"date"=>$v->thisDate,"category"=>$v->kind,"custkey"=>$v->custkey,"reason"=>$v->turnReason,"staff"=>$value->staff,"status"=>$v->status,"statusERP"=>$v->statusERP);
     		}
 
     		return $cycle;

@@ -649,7 +649,7 @@ class SelfController extends Controller
             }
         }
 
-        return view('ht.Business.self.index',compact('organization','caseCount','visit','track','businessChartCount','businessChart','trackChartCount','TrackBusinessChartCount','resultChart','finishChartCount','money','newCustomChartCount','numberChart','numberTotalChart','allBusinessMonth','trackNumberArray'));
+        return view('ht.Business.self.index2',compact('organization','caseCount','visit','track','businessChartCount','businessChart','trackChartCount','TrackBusinessChartCount','resultChart','finishChartCount','money','newCustomChartCount','numberChart','numberTotalChart','allBusinessMonth','trackNumberArray'));
     }
 
     public function create(Organization $organization)

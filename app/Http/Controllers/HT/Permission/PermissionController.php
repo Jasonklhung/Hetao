@@ -396,7 +396,7 @@ class PermissionController extends Controller
                     'headers' => ['Content-Type' => 'application/json'],
                     'body' => json_encode([
                         'user_token' => $userId,
-                        'role'=>76,
+                        'role'=>127,
                     ])
                 ]);
             }
@@ -408,7 +408,43 @@ class PermissionController extends Controller
                     'headers' => ['Content-Type' => 'application/json'],
                     'body' => json_encode([
                         'user_token' => $userId,
-                        'role'=>76,
+                        'role'=>128,
+                    ])
+                ]);
+            }
+            elseif($request->job == '業務'){
+
+                $userId = $user['token'];
+                $client = new \GuzzleHttp\Client();
+                $response = $client->post('https://api-tf.accunix.net/api/LINEBot/5dfafa8e/authenticate/26', [
+                    'headers' => ['Content-Type' => 'application/json'],
+                    'body' => json_encode([
+                        'user_token' => $userId,
+                        'role'=>126,
+                    ])
+                ]);
+            }
+            elseif($request->job == '經管部-1'){
+
+                $userId = $user['token'];
+                $client = new \GuzzleHttp\Client();
+                $response = $client->post('https://api-tf.accunix.net/api/LINEBot/5dfafa8e/authenticate/26', [
+                    'headers' => ['Content-Type' => 'application/json'],
+                    'body' => json_encode([
+                        'user_token' => $userId,
+                        'role'=>129,
+                    ])
+                ]);
+            }
+            elseif($request->job == '經管部-2'){
+
+                $userId = $user['token'];
+                $client = new \GuzzleHttp\Client();
+                $response = $client->post('https://api-tf.accunix.net/api/LINEBot/5dfafa8e/authenticate/26', [
+                    'headers' => ['Content-Type' => 'application/json'],
+                    'body' => json_encode([
+                        'user_token' => $userId,
+                        'role'=>130,
                     ])
                 ]);
             }

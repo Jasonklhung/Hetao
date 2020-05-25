@@ -25,7 +25,7 @@
                                                                 <option value="" selected disabled="">請選擇職務</option>
                                                                 <option value="助理">助理</option>
                                                                 <option value="主管">主管</option>
-                                                                <option value="員工">員工</option>
+                                                                <option value="員工">客服</option>
                                                                 <option value="業務">業務</option>
                                                                 <option value="經管部-1">經管部-1</option>
                                                                 <option value="經管部-2">經管部-2</option>

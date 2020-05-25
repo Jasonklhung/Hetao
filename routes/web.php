@@ -118,6 +118,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 		//業務管理-個人業務
 		Route::get('/HT/{organization}/Business/self/index','HT\Business\SelfController@index')->name('ht.Business.self.index');
+		Route::get('/HT/{organization}/Business/self/index2','HT\Business\SelfController@index2')->name('ht.Business.self.index2');
 		Route::get('/HT/{organization}/Business/self/create','HT\Business\SelfController@create')->name('ht.Business.self.create');
 		Route::post('/HT/{organization}/Business/self/store','HT\Business\SelfController@store')->name('ht.Business.self.store');
 		Route::post('/HT/{organization}/Business/self/update/{id}','HT\Business\SelfController@update')->name('ht.Business.self.update');

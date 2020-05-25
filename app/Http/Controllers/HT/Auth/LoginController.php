@@ -252,6 +252,15 @@ class LoginController extends Controller
                 elseif($route == 'businessAll'){
                     return redirect()->route('ht.Business.all.index',compact('organization'));
                 }
+                elseif($route == 'cycleAssign'){
+                    return redirect()->route('ht.Cycle.all.index',compact('organization'));
+                }
+                elseif($route == 'materialCase'){
+                    return redirect()->route('ht.Material.case.index',compact('organization'));
+                }
+                elseif($route == 'caseAssign'){
+                    return redirect()->route('ht.StrokeManage.supervisor.index3',compact('organization'));
+                }
             }
         }
         else{

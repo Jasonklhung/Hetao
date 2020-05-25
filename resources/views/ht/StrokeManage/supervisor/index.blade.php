@@ -675,7 +675,16 @@
         $('select[name="assign"]').on('change',function(){
 
             var owner = $(this).val()
-            var id = $(this).parents('tr').children('td')[2].textContent 
+            var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+            if(RWD == 0){
+
+                var id = $(this).parents('tr').children('td')[2].textContent 
+            }
+            else{
+
+                var id = $(this).closest('tbody').find("tr:eq(0)").children("td").children("div").children("input").val();
+            }
             
             $.ajax({
                 type:'post',
@@ -700,7 +709,16 @@
         $('select[name="assign2"]').on('change',function(){
 
             var owner = $(this).val()
-            var id = $(this).parents('tr').children('td')[2].textContent 
+            var RWD = $(this).parents('table').parents('tr').find('.child').length;
+            
+            if(RWD == 0){
+
+                var id = $(this).parents('tr').children('td')[2].textContent 
+            }
+            else{
+
+                var id = $(this).closest('tbody').find("tr:eq(0)").children("td").children("div").children("input").val();
+            }
             
             $.ajax({
                 type:'post',
@@ -960,7 +978,16 @@
                     $('select[name="assign"]').on('change',function(){
 
                         var owner = $(this).val()
-                        var id = $(this).parents('tr').children('td')[2].textContent 
+                        var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                        if(RWD == 0){
+
+                            var id = $(this).parents('tr').children('td')[2].textContent 
+                        }
+                        else{
+
+                            var id = $(this).closest('tbody').find("tr:eq(0)").children("td").children("div").children("input").val();
+                        }
 
                         $.ajax({
                             type:'post',
@@ -1140,7 +1167,16 @@
                     $('select[name="assign2"]').on('change',function(){
 
                         var owner = $(this).val()
-                        var id = $(this).parents('tr').children('td')[2].textContent 
+                        var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+                        if(RWD == 0){
+
+                            var id = $(this).parents('tr').children('td')[2].textContent 
+                        }
+                        else{
+
+                            var id = $(this).closest('tbody').find("tr:eq(0)").children("td").children("div").children("input").val();
+                        }
 
                         $.ajax({
                             type:'post',

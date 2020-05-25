@@ -138,7 +138,7 @@
                                                                 </div>  
                                                                 <div class="chartwrap1"> 
                                                                     <div class="col-sm-6">
-                                                                        <h4 class="mt-m text-center" id="finishCase">共有{{count($allFinishNotStillArray)}}張卡片</h4>   
+                                                                        <h4 class="mt-m text-center" id="finishCase">共有{{count($allFinishCaseArray)}}張卡片</h4>   
                                                                         <table id="hetao-sale">
                                                                             <thead>
                                                                                 <tr>

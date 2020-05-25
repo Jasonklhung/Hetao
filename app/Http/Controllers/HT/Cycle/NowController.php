@@ -205,6 +205,7 @@ class NowController extends Controller
                 $kindFinishArray = array();
                 $kindFinishNotStillArray = array();
                 $allcardArray = array();
+                $turnCardArray = array();
 
                 $a = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$value['name'])->whereNotIn('status',['F','T'])->where('statusERP','N')->get();
 
@@ -212,7 +213,7 @@ class NowController extends Controller
 
                 $c = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$value['name'])->where('statusERP','N')->get();
 
-                $d = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$value['name'])->where('status','T')->where('statusERP','N')->count();
+                $d = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$value['name'])->where('status','T')->where('statusERP','N')->get();
 
                 foreach ($c as $keyy => $valuee) {
                    if(!in_array(explode('-', $valuee->kind)[0], $allcardArray)){
@@ -232,24 +233,30 @@ class NowController extends Controller
                     }
                 }
 
-                $kindStillImp = implode(',', $kindStillArray);
-
-                if($kindStillImp){
-                    foreach ($kindFinishArray as $kkk => $vvv) {
-                        if(!strstr($kindStillImp,$vvv)){
-                            if(!in_array($vvv, $kindFinishNotStillArray)){
-                                array_push($kindFinishNotStillArray, $vvv);
-                            }
-                        }
+                foreach ($d as $kkss => $vvss) {
+                    if(!in_array(explode('-', $vvss->kind)[0], $turnCardArray)){
+                        array_push($turnCardArray, explode('-', $vvss->kind)[0]);
                     }
                 }
-                else{
-                    $kindFinishNotStillArray = $kindFinishArray;
-                }
+
+                // $kindStillImp = implode(',', $kindStillArray);
+
+                // if($kindStillImp){
+                //     foreach ($kindFinishArray as $kkk => $vvv) {
+                //         if(!strstr($kindStillImp,$vvv)){
+                //             if(!in_array($vvv, $kindFinishNotStillArray)){
+                //                 array_push($kindFinishNotStillArray, $vvv);
+                //             }
+                //         }
+                //     }
+                // }
+                // else{
+                //     $kindFinishNotStillArray = $kindFinishArray;
+                // }
 
                 $allStaffArray2[$value['name']]['still'] = count($kindStillArray);
-                $allStaffArray2[$value['name']]['finish'] = count($kindFinishNotStillArray);
-                $allStaffArray2[$value['name']]['turn'] = $d;
+                $allStaffArray2[$value['name']]['finish'] = count($kindFinishArray);
+                $allStaffArray2[$value['name']]['turn'] = count($turnCardArray);
                 $allStaffArray2[$value['name']]['count'] = count($allcardArray);
 
         }
@@ -281,20 +288,20 @@ class NowController extends Controller
             }
        }
 
-       $allStillCaseImp = implode(',', $allStillCaseArray);
+       // $allStillCaseImp = implode(',', $allStillCaseArray);
 
-       if($allStillCaseImp){
-            foreach ($allFinishCaseArray as $kkk => $vvv) {
-                if(!strstr($allStillCaseImp,$vvv)){
-                    if(!in_array($vvv, $allFinishNotStillArray)){
-                        array_push($allFinishNotStillArray, $vvv);
-                    }
-                }
-            }
-        }
-        else{
-            $allFinishNotStillArray = $allFinishCaseArray;
-        }
+       // if($allStillCaseImp){
+       //      foreach ($allFinishCaseArray as $kkk => $vvv) {
+       //          if(!strstr($allStillCaseImp,$vvv)){
+       //              if(!in_array($vvv, $allFinishNotStillArray)){
+       //                  array_push($allFinishNotStillArray, $vvv);
+       //              }
+       //          }
+       //      }
+       //  }
+       //  else{
+       //      $allFinishNotStillArray = $allFinishCaseArray;
+       //  }
 
         //週期儀錶板
         $fff = array();
@@ -308,7 +315,7 @@ class NowController extends Controller
             $done = array();
 
             foreach ($f as $keysss => $valuesss) {
-                foreach ($allFinishNotStillArray as $keys => $values) {
+                foreach ($allFinishCaseArray as $keys => $values) {
 
                     if(explode('-',$valuesss->kind)[0] == $values && $valuesss->staff == $valuess['name']){
                         if(!in_array(explode('-',$valuesss->kind)[0], $done)){
@@ -326,15 +333,15 @@ class NowController extends Controller
 
         foreach ($fff as $key => $value) {
 
-            if(count($allFinishNotStillArray) == 0){
+            if(count($allFinishCaseArray) == 0){
                 $bbb[$key]['result'] = 0;
             }
             else{
-                $bbb[$key]['result'] = round(($value['finish']/count($allFinishNotStillArray))*100,2);
+                $bbb[$key]['result'] = round(($value['finish']/count($allFinishCaseArray))*100,2);
             }
         }
 
-       $allCardStatusArray = [array("category"=>"已完成","column-1"=>count($allFinishNotStillArray)),array("category"=>"執行中","column-1"=>count($allStillCaseArray))];
+       $allCardStatusArray = [array("category"=>"已完成","column-1"=>count($allFinishCaseArray)),array("category"=>"執行中","column-1"=>count($allStillCaseArray))];
 
         //全站卡片數據狀態-轉單
         $allTurnCase = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','T')->where('statusERP','N')->get();
@@ -394,7 +401,7 @@ class NowController extends Controller
 
         $allCardTurnArray = [array("category"=>"轉單","column-1"=>count($allTurnCaseArray)),array("category"=>"正常接單","column-1"=>count($allNotTurnCardArray))];
 
-        return view('ht.Cycle.now.index',compact('organization','caseCount','monthDay','allStaffArray2','companyName','allStaffArray','allFinishNotStillArray','bbb','allCardStatusArray','allTurnCaseArray','allCardTurnArray','ccc'));
+        return view('ht.Cycle.now.index',compact('organization','caseCount','monthDay','allStaffArray2','companyName','allStaffArray','allFinishCaseArray','bbb','allCardStatusArray','allTurnCaseArray','allCardTurnArray','ccc'));
     }
 
     public function staffNowSearch(Organization $organization,Request $request)
@@ -433,14 +440,42 @@ class NowController extends Controller
                 $kindFinishArray = array();
                 $kindFinishNotStillArray = array();
                 $allcardArray = array();
+                $turnCardArray = array();
 
-                $a = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$value['name'])->whereNotIn('status',['F','T'])->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+                $a = CycleAssign::where('organization_name',$dept[0]['name'])
+                    ->where('staff',$value['name'])
+                    ->whereNotIn('status',['F','T'])
+                    ->where('statusERP','N')
+                    ->when($start, function ($query) use ($start,$end) {
+                        return $query->whereBetween('thisDate',[$start,$end]);
+                    })
+                    ->get();
 
-                $b = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$value['name'])->whereNotIn('status',['S','T'])->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+                $b = CycleAssign::where('organization_name',$dept[0]['name'])
+                    ->where('staff',$value['name'])
+                    ->whereNotIn('status',['S','T'])
+                    ->where('statusERP','N')
+                    ->when($start, function ($query) use ($start,$end) {
+                        return $query->whereBetween('thisDate',[$start,$end]);
+                    })
+                    ->get();
 
-                $c = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$value['name'])->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+                $c = CycleAssign::where('organization_name',$dept[0]['name'])
+                    ->where('staff',$value['name'])
+                    ->where('statusERP','N')
+                    ->when($start, function ($query) use ($start,$end) {
+                        return $query->whereBetween('thisDate',[$start,$end]);
+                    })
+                    ->get();
 
-                $d = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$value['name'])->where('status','T')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->count();
+                $d = CycleAssign::where('organization_name',$dept[0]['name'])
+                    ->where('staff',$value['name'])
+                    ->where('status','T')
+                    ->where('statusERP','N')
+                    ->when($start, function ($query) use ($start,$end) {
+                        return $query->whereBetween('thisDate',[$start,$end]);
+                    })
+                    ->get();
 
                 foreach ($c as $keyy => $valuee) {
                    if(!in_array(explode('-', $valuee->kind)[0], $allcardArray)){
@@ -460,24 +495,30 @@ class NowController extends Controller
                     }
                 }
 
-                $kindStillImp = implode(',', $kindStillArray);
-
-                if($kindStillImp){
-                    foreach ($kindFinishArray as $kkk => $vvv) {
-                        if(!strstr($kindStillImp,$vvv)){
-                            if(!in_array($vvv, $kindFinishNotStillArray)){
-                                array_push($kindFinishNotStillArray, $vvv);
-                            }
-                        }
+                foreach ($d as $kkss => $vvss) {
+                    if(!in_array(explode('-', $vvss->kind)[0], $turnCardArray)){
+                        array_push($turnCardArray, explode('-', $vvss->kind)[0]);
                     }
                 }
-                else{
-                    $kindFinishNotStillArray = $kindFinishArray;
-                }
+
+                // $kindStillImp = implode(',', $kindStillArray);
+
+                // if($kindStillImp){
+                //     foreach ($kindFinishArray as $kkk => $vvv) {
+                //         if(!strstr($kindStillImp,$vvv)){
+                //             if(!in_array($vvv, $kindFinishNotStillArray)){
+                //                 array_push($kindFinishNotStillArray, $vvv);
+                //             }
+                //         }
+                //     }
+                // }
+                // else{
+                //     $kindFinishNotStillArray = $kindFinishArray;
+                // }
 
                 $staffNowArray[$value['name']]['still'] = count($kindStillArray);
-                $staffNowArray[$value['name']]['finish'] = count($kindFinishNotStillArray);
-                $staffNowArray[$value['name']]['turn'] = $d;
+                $staffNowArray[$value['name']]['finish'] = count($kindFinishArray);
+                $staffNowArray[$value['name']]['turn'] = count($turnCardArray);
                 $staffNowArray[$value['name']]['count'] = count($allcardArray);
 
         }
@@ -514,8 +555,20 @@ class NowController extends Controller
         }
 
         //全站卡片數據狀態-執行中&已完成
-       $allFinishCase = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','F')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
-       $allStillCase = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','S')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+       $allFinishCase = CycleAssign::where('organization_name',$dept[0]['name'])
+                        ->where('status','F')
+                        ->where('statusERP','N')
+                        ->when($start, function ($query) use ($start,$end) {
+                            return $query->whereBetween('thisDate',[$start,$end]);
+                        })
+                        ->get();
+       $allStillCase = CycleAssign::where('organization_name',$dept[0]['name'])
+                        ->where('status','S')
+                        ->where('statusERP','N')
+                        ->when($start, function ($query) use ($start,$end) {
+                            return $query->whereBetween('thisDate',[$start,$end]);
+                        })
+                        ->get();
 
        $allFinishCaseArray = array();
        $allStillCaseArray = array();
@@ -536,20 +589,20 @@ class NowController extends Controller
             }
        }
 
-       $allStillCaseImp = implode(',', $allStillCaseArray);
+       // $allStillCaseImp = implode(',', $allStillCaseArray);
 
-       if($allStillCaseImp){
-            foreach ($allFinishCaseArray as $kkk => $vvv) {
-                if(!strstr($allStillCaseImp,$vvv)){
-                    if(!in_array($vvv, $allFinishNotStillArray)){
-                        array_push($allFinishNotStillArray, $vvv);
-                    }
-                }
-            }
-        }
-        else{
-            $allFinishNotStillArray = $allFinishCaseArray;
-        }
+       // if($allStillCaseImp){
+       //      foreach ($allFinishCaseArray as $kkk => $vvv) {
+       //          if(!strstr($allStillCaseImp,$vvv)){
+       //              if(!in_array($vvv, $allFinishNotStillArray)){
+       //                  array_push($allFinishNotStillArray, $vvv);
+       //              }
+       //          }
+       //      }
+       //  }
+       //  else{
+       //      $allFinishNotStillArray = $allFinishCaseArray;
+       //  }
 
         //週期儀錶板
         $fff = array();
@@ -557,13 +610,19 @@ class NowController extends Controller
         
         foreach ($deptUser as $keyss => $valuess) {
 
-            $f = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$valuess['name'])->where('status','F')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+            $f = CycleAssign::where('organization_name',$dept[0]['name'])
+                ->where('staff',$valuess['name'])->where('status','F')
+                ->where('statusERP','N')
+                ->when($start, function ($query) use ($start,$end) {
+                    return $query->whereBetween('thisDate',[$start,$end]);
+                })
+                ->get();
 
             $fff[$valuess['name']]['finish'] = 0;
             $done = array();
 
             foreach ($f as $keysss => $valuesss) {
-                foreach ($allFinishNotStillArray as $keys => $values) {
+                foreach ($allFinishCaseArray as $keys => $values) {
 
                     if(explode('-',$valuesss->kind)[0] == $values && $valuesss->staff == $valuess['name']){
                         if(!in_array(explode('-',$valuesss->kind)[0], $done)){
@@ -577,21 +636,26 @@ class NowController extends Controller
 
         $bbb = array();
 
-        if($allFinishNotStillArray == null){
+        if($allFinishCaseArray == null){
             foreach ($fff as $key => $value) {
                $bbb[$key]['result'] = 0;
             }
         }
         else{
             foreach ($fff as $key => $value) {
-               $bbb[$key]['result'] = round(($value['finish']/count($allFinishNotStillArray))*100,2);
+               $bbb[$key]['result'] = round(($value['finish']/count($allFinishCaseArray))*100,2);
             }
         }
 
-       $allCardStatusArray = [array("category"=>"已完成","column-1"=>count($allFinishNotStillArray)),array("category"=>"執行中","column-1"=>count($allStillCaseArray))];
+       $allCardStatusArray = [array("category"=>"已完成","column-1"=>count($allFinishCaseArray)),array("category"=>"執行中","column-1"=>count($allStillCaseArray))];
 
         //全站卡片數據狀態-轉單
-        $allTurnCase = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','T')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+        $allTurnCase = CycleAssign::where('organization_name',$dept[0]['name'])
+                        ->where('status','T')->where('statusERP','N')
+                        ->when($start, function ($query) use ($start,$end) {
+                            return $query->whereBetween('thisDate',[$start,$end]);
+                        })
+                        ->get();
         $allTurnCaseArray = array();
         $allCardTurnArray = array();
         $allNotTurnCardArray = array();
@@ -608,7 +672,13 @@ class NowController extends Controller
         
             foreach ($deptUser as $keyss => $valuess) {
 
-                $t = CycleAssign::where('organization_name',$dept[0]['name'])->where('staff',$valuess['name'])->where('status','T')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+                $t = CycleAssign::where('organization_name',$dept[0]['name'])
+                    ->where('staff',$valuess['name'])->where('status','T')
+                    ->where('statusERP','N')
+                    ->when($start, function ($query) use ($start,$end) {
+                        return $query->whereBetween('thisDate',[$start,$end]);
+                    })
+                    ->get();
 
                 $ttt[$valuess['name']]['turn'] = 0;
                 $done = array();
@@ -640,7 +710,12 @@ class NowController extends Controller
             }
         }
 
-        $allNotTurnCard = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','!=','T')->where('statusERP','N')->where('thisDate','>=',$request->start)->where('thisDate','<=',$request->end)->get();
+        $allNotTurnCard = CycleAssign::where('organization_name',$dept[0]['name'])
+                        ->where('status','!=','T')->where('statusERP','N')
+                        ->when($start, function ($query) use ($start,$end) {
+                            return $query->whereBetween('thisDate',[$start,$end]);
+                        })
+                        ->get();
         foreach ($allNotTurnCard as $key => $value) {
             if(!in_array(explode('-',$value->kind)[0], $allNotTurnCardArray)){
                 array_push($allNotTurnCardArray, explode('-',$value->kind)[0]);
@@ -649,7 +724,7 @@ class NowController extends Controller
 
         $allCardTurnArray = [array("category"=>"轉單","column-1"=>count($allTurnCaseArray)),array("category"=>"正常接單","column-1"=>count($allNotTurnCardArray))];
 
-        $countFinishArray = count($allFinishNotStillArray);
+        $countFinishArray = count($allFinishCaseArray);
         $countTurnArray = count($allTurnCaseArray);
 
         return [$countFinishArray,$bbb,$countTurnArray,$ccc,$allCardStatusArray,$allCardTurnArray];

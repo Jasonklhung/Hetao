@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/HT/{organization}/Cycle/self/cycleReportSearch','HT\Cycle\SelfController@cycleReportSearch')->name('ht.Cycle.self.cycleReportSearch');
 		Route::post('/HT/{organization}/Cycle/self/thisDateChange','HT\Cycle\SelfController@thisDateChange')->name('ht.Cycle.self.thisDateChange');
 		Route::post('/HT/{organization}/Cycle/self/cycleNowSearch','HT\Cycle\SelfController@cycleNowSearch')->name('ht.Cycle.self.cycleNowSearch');
+		Route::post('/HT/{organization}/Cycle/self/cycleNotice','HT\Cycle\SelfController@cycleNotice')->name('ht.Cycle.self.cycleNotice');
 
 		//週期循環-全站
 		Route::get('/HT/{organization}/Cycle/all/index','HT\Cycle\AllController@index')->name('ht.Cycle.all.index');

@@ -210,7 +210,7 @@
                 </div>
                 <div class="modal-body text-center"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">確認</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="cycleNotice">確認</button>
                 </div>
             </div>
         </div>
@@ -580,7 +580,7 @@
                 <p>確認` + text + `嗎？</p>
             `)
         } else {
-            $('#op-alert .modal-body').html(`
+            $('#op-alert2 .modal-body').html(`
                 <p>您沒有選取案件唷！</p>
             `)
         }
@@ -595,7 +595,7 @@
                 <p>確認` + text + `嗎？</p>
             `)
         } else {
-            $('#op-alert .modal-body').html(`
+            $('#op-alert3 .modal-body').html(`
                 <p>您沒有選取案件唷！</p>
             `)
         }
@@ -769,7 +769,37 @@
             })
         })
 
-        //直接改日期
+        //通知
+        $('#cycleNotice').on('click',function(){
+
+            var count = 0
+
+            $('input[name="assignId"]:checked').each(function(){
+
+                 var id = $(this).val()
+                 var custkey = $(this).parents('tr').children('td')[3].textContent
+
+                 $.ajax({
+                    type:'post',
+                    url:"{{ route('ht.Cycle.self.cycleNotice',['organization'=>$organization]) }}",
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'id':id,
+                        'custkey':custkey
+                    },
+                    success:function(res){
+                        if(res.status == 200 && count == 0){
+                            count += 1;
+                            alert('週期已完成');
+                            window.location = '{{ route('ht.Cycle.self.index',['organization'=>$organization]) }}'
+                        }
+                        else if(res.status == 404){
+                            alert("客戶尚未加入LineBot");
+                        }
+                    }
+                 })
+            })
+        })
 
     </script>
     <script type="text/javascript">

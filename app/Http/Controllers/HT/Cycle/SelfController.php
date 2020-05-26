@@ -10,6 +10,7 @@ use Auth;
 use App\User;
 use App\CycleAssign;
 use Carbon\Carbon;
+use App\Account;
 
 class SelfController extends Controller
 {
@@ -256,5 +257,30 @@ class SelfController extends Controller
         }
 
         return [$cycleNextArray,$cycleArrayCount];
+    }
+
+    public function cycleNotice(Organization $organization,Request $request)
+    {
+        $cycle = CycleAssign::find($request->id);
+        $custkey = $request->custkey;
+        $account = Account::where('cuskey',$custkey)->get();
+        $dept = Organization::where('id',$organization->id)->get();
+
+        if($account->isNotEmpty()){
+
+            //週期通知
+            $client = new \GuzzleHttp\Client();
+            $response = $client->post('https://api.line.me/v2/bot/message/push', [
+               'headers' => ['Content-Type' => 'application/json','Authorization' => 'Bearer tUUaaoKE6K7OzVZGGIZ8azdFiAefwV4UwqChfM9DuCBMzdGdEbj31rt+zOuaLXGZkUnQDMqrm+wRHiKOW8WQYNwpcKe6u0Th0cRQvkgIVaM5krOGe8KGSKgGxAeAwNVph46aSdzQoJ0/O35z74Sr5FGUYhWQfeY8sLGRXgo3xvw='],
+               'body' => json_encode([
+                'to' => $v->owner_token,
+                'messages' =>json_decode('[{"type":"flex","altText":"已傳送給您工單通知","contents":{"type":"flex","altText":"週期服務通知，賀眾牌 關心您！","contents":{"type":"bubble","body":{"type":"box","layout":"vertical","contents":[{"type":"text","text":"週期提醒","weight":"bold","color":"#1D77B4","size":"sm"},{"type":"text","text":"'.$account[0]['name'].'","color":"#555555","weight":"bold","offsetTop":"3px","size":"lg"},{"type":"separator","margin":"xxl"},{"type":"box","layout":"vertical","margin":"xxl","spacing":"sm","contents":[{"type":"box","layout":"baseline","contents":[{"type":"text","text":"您好！","flex":1,"size":"md","wrap":true}]},{"type":"box","layout":"baseline","contents":[{"type":"text","text":"預計於:","size":"md","flex":2},{"type":"text","size":"md","color":"#AE0000","wrap":true,"flex":5,"text":"'.$cycle->thisDate.'","weight":"bold"}]},{"type":"filler"},{"type":"box","layout":"baseline","contents":[{"type":"text","text":"將有專人進行週期性服務，謝謝。","wrap":true,"flex":5}]},{"type":"filler"},{"type":"box","layout":"baseline","contents":[{"type":"text","text":"客服專線：","wrap":true,"size":"md","flex":1},{"type":"text","text":"'.$dept[0]['phone'].'","size":"md","color":"#1D77B4","weight":"bold","flex":2,"action":{"type":"uri","label":"action","uri":"http://linecorp.com/"}}]},{"type":"filler"},{"type":"filler"}]},{"type":"separator","margin":"xxl"},{"type":"box","layout":"horizontal","margin":"sm","contents":[{"type":"text","text":"賀眾牌 關心您！","size":"lg","color":"#1D77B4","weight":"bold","offsetTop":"2px","align":"center"}]}]},"styles":{"footer":{"separator":true}}}}}]')
+            ])
+           ]);
+        }
+        else{
+
+            return array('status'=>404);
+        }
     }
 }

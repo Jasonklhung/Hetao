@@ -195,7 +195,7 @@
                                                         <div class='coupon'>
                                                             <form class='form-inline' id="turnCardSearch">
                                                                 @csrf
-                                                                <input type="text" class="form-control mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
+                                                                <input type="text" class="form-control mr-s searchInput searchInput_s3" placeholder="請輸入關鍵字">
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
                                                                         <div class='input-group date date-select'>

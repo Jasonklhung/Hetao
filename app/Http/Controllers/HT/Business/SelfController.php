@@ -97,6 +97,46 @@ class SelfController extends Controller
                 ->where('business_tracks.statusTrack','Y')
                 ->get();
 
+        $trackIdArray = array();
+        $trackIdArray2 = array();
+        $trackDetailArray = array();
+        $trackDetailResultArray = array();
+        $trackSameArray = array();
+
+        foreach ($track as $key => $value) {
+            if(!in_array($value->id, $trackIdArray)){
+                array_push($trackIdArray, $value->id);
+            }
+        }
+
+        foreach ($track as $key => $value) {
+            foreach ($trackIdArray as $k => $v) {
+                if($value->id == $v){
+                    $trackDetailArray[$v][] = $value->numbers;
+                }
+            }
+        }
+
+        foreach ($trackDetailArray as $key => $value) {
+
+            $detailImplode = implode(',', $value);
+
+            $trackDetailResultArray[] = array("id"=>$key,"detail"=>$detailImplode);
+        }
+
+        foreach ($track as $key => $value) {
+            if(!in_array($value->id, $trackIdArray2)){
+                foreach ($trackDetailResultArray as $k => $v) {
+
+                    if($v['id'] == $value->id){
+                        $trackSameArray[] = array("id"=>$value->id,"date"=>$value->date,"level"=>$value->level,"schedule"=>$value->schedule,"category"=>$value->category,"name"=>$value->name,"business_name"=>$value->touch,"phone"=>$value->phone,"date_again"=>$value->date_again,"result"=>$value->result,"statusOpen"=>$value->statusOpen,"uniform_numbers"=>$value->uniform_numbers,"email"=>$value->email,"address"=>$value->address,"numbers"=>$v['detail']);
+                    }
+
+                }
+                array_push($trackIdArray2, $value->id);
+            }
+        }
+
         $trackNumberArray = array();
         foreach ($track as $key => $value) {
             if(!in_array($value->numbers, $trackNumberArray)){
@@ -332,7 +372,7 @@ class SelfController extends Controller
             }
         }
 
-        return view('ht.Business.self.index',compact('organization','caseCount','visit','track','businessChartCount','businessChart','trackChartCount','TrackBusinessChartCount','resultChart','finishChartCount','money','newCustomChartCount','numberChart','numberTotalChart','allBusinessMonth','trackNumberArray'));
+        return view('ht.Business.self.index',compact('organization','caseCount','visit','track','businessChartCount','businessChart','trackChartCount','TrackBusinessChartCount','resultChart','finishChartCount','money','newCustomChartCount','numberChart','numberTotalChart','allBusinessMonth','trackNumberArray','trackSameArray'));
     }
 
     public function index2(Organization $organization)
@@ -1107,12 +1147,14 @@ class SelfController extends Controller
         $today = date('Y-m-d');
 
         // foreach ($request->id as $key => $value) {
+            $totlaMoney = 0;
 
-        //     $business = BusinessTrack::query()
-        //                 ->select('businesses.date','businesses.name','business_tracks.touch','businesses.city','businesses.area','businesses.address','businesses.address','businesses.phone','business_tracks.email','businesses.business_name')
-        //                 ->leftjoin('businesses','business_tracks.business_id','=','businesses.id')
-        //                 ->where('business_tracks.id',$value)
-        //                 ->get();
+            $business = BusinessTrack::query()
+                        ->select('business_tracks.*','businesses.date','businesses.name','businesses.business_name','businesses.address','businesses.phone','business_case_details.numbers','business_case_details.money','business_case_details.quantity','business_case_details.total','business_case_details.description')
+                        ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
+                        ->leftjoin('business_case_details','business_case_details.business_track_id','=','business_tracks.id')
+                        ->where('business_tracks.id',$request->id)
+                        ->get();
 
             //foreach ($business as $k => $v) {
                 //$date = $v['date'];
@@ -1147,15 +1189,15 @@ class SelfController extends Controller
                 $textSize = array('size' => 12, 'bold' => true,'valign' => 'center');
                 $table->addRow(400);
                 $table->addCell(3000)->addText(htmlspecialchars('公司寶號'),$textSize);
-                $table->addCell(10000,array('gridSpan'=> 3))->addText(htmlspecialchars(''));
+                $table->addCell(10000,array('gridSpan'=> 3))->addText(htmlspecialchars($business[0]['name']),$textSize);
                 $table->addCell(3000)->addText(htmlspecialchars('承辦人'),$textSize);
-                $table->addCell(8000)->addText(htmlspecialchars(''));
+                $table->addCell(8000)->addText(htmlspecialchars($business[0]['touch']),$textSize);
 
                 $table->addRow(400);
                 $table->addCell(3000)->addText(htmlspecialchars('公司地址'),$textSize);
-                $table->addCell(10000,array('gridSpan'=> 3))->addText(htmlspecialchars(''));
+                $table->addCell(10000,array('gridSpan'=> 3))->addText(htmlspecialchars($business[0]['city'].$business[0]['area'].$business[0]['address']),$textSize);
                 $table->addCell(3000)->addText(htmlspecialchars('電子郵件'),$textSize);
-                $table->addCell(8000)->addText(htmlspecialchars(''));
+                $table->addCell(8000)->addText(htmlspecialchars($business[0]['email']),$textSize);
 
                 $table->addRow(400);
                 $table->addCell(3000)->addText(htmlspecialchars('公司電話'),$textSize);
@@ -1163,7 +1205,7 @@ class SelfController extends Controller
                 $table->addCell(3000)->addText(htmlspecialchars('傳真電話'),$textSize);
                 $table->addCell(5000)->addText(htmlspecialchars(''));
                 $table->addCell(3000)->addText(htmlspecialchars('行動電話'),$textSize);
-                $table->addCell(8000)->addText(htmlspecialchars(''));
+                $table->addCell(8000)->addText(htmlspecialchars($business[0]['phone']),$textSize);
 
                 $styleTable = array('borderSize' => 10, 'borderColor' => '999999');
                 $phpWord->addTableStyle('New Table', $styleTable);
@@ -1173,7 +1215,7 @@ class SelfController extends Controller
                 $table->addCell(3000)->addText(htmlspecialchars('報價單位'),$textSize);
                 $table->addCell(10000,array('gridSpan'=> 3))->addText(htmlspecialchars(''));
                 $table->addCell(3000)->addText(htmlspecialchars('業務人員'),$textSize);
-                $table->addCell(8000)->addText(htmlspecialchars(''));
+                $table->addCell(8000)->addText(htmlspecialchars($business[0]['business_name']),$textSize);
 
                 $table->addRow(400);
                 $table->addCell(3000)->addText(htmlspecialchars('公司地址'),$textSize);
@@ -1203,51 +1245,24 @@ class SelfController extends Controller
                 $table->addCell(2000)->addText(htmlspecialchars('合計'),$textSize);
                 $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars('說明'),$textSize);
 
-                $table->addRow(400);
-                $table->addCell(3000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(6000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(2000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
+                foreach($business as $key => $data){
 
-                $table->addRow(400);
-                $table->addCell(3000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(6000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(2000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
+                    $totlaMoney += $data['total'];
 
-                $table->addRow(400);
-                $table->addCell(3000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(6000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(2000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
-
-                $table->addRow(400);
-                $table->addCell(3000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(6000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(2000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
-
-                $table->addRow(400);
-                $table->addCell(3000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(6000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(1800)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(2000)->addText(htmlspecialchars(''),$textSize);
-                $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars(''),$textSize);
+                    $table->addRow(400);
+                    $table->addCell(3000)->addText(htmlspecialchars($key+1),$textSize);
+                    $table->addCell(6000)->addText(htmlspecialchars($data['numbers']),$textSize);
+                    $table->addCell(1800)->addText(htmlspecialchars($data['money']),$textSize);
+                    $table->addCell(1800)->addText(htmlspecialchars($data['quantity']),$textSize);
+                    $table->addCell(2000)->addText(htmlspecialchars($data['total']),$textSize);
+                    $table->addCell(8000,array('gridSpan'=> 2))->addText(htmlspecialchars($data['description']),$textSize);
+                }
 
                 $table->addRow(400);
                 $table->addCell(3000)->addText(htmlspecialchars('總價款'),$textSize);
-                $table->addCell(11600,array('gridSpan'=> 4))->addText(htmlspecialchars('新台幣:兩萬三千零五十二元整'),$textSize);
+                $table->addCell(11600,array('gridSpan'=> 4))->addText(htmlspecialchars('新台幣:'),$textSize);
                 $table->addCell(4000)->addText(htmlspecialchars('NTD'),$textSize);
-                $table->addCell(4000)->addText(htmlspecialchars('23052'),$textSize);
+                $table->addCell(4000)->addText(htmlspecialchars($totlaMoney),$textSize);
 
                 $section->addTextBreak(1);
 
@@ -1393,7 +1408,47 @@ class SelfController extends Controller
             ->where('business_tracks.statusTrack','Y')
             ->get();
 
-        return $trackArray;
+        $trackIdArray = array();
+        $trackIdArray2 = array();
+        $trackDetailArray = array();
+        $trackDetailResultArray = array();
+        $trackSameArray = array();
+
+        foreach ($trackArray as $key => $value) {
+            if(!in_array($value->id, $trackIdArray)){
+                array_push($trackIdArray, $value->id);
+            }
+        }
+
+        foreach ($trackArray as $key => $value) {
+            foreach ($trackIdArray as $k => $v) {
+                if($value->id == $v){
+                    $trackDetailArray[$v][] = $value->numbers;
+                }
+            }
+        }
+
+        foreach ($trackDetailArray as $key => $value) {
+
+            $detailImplode = implode(',', $value);
+
+            $trackDetailResultArray[] = array("id"=>$key,"detail"=>$detailImplode);
+        }
+
+        foreach ($trackArray as $key => $value) {
+            if(!in_array($value->id, $trackIdArray2)){
+                foreach ($trackDetailResultArray as $k => $v) {
+
+                    if($v['id'] == $value->id){
+                        $trackSameArray[] = array("id"=>$value->id,"date"=>$value->date,"level"=>$value->level,"schedule"=>$value->schedule,"category"=>$value->category,"name"=>$value->name,"business_name"=>$value->touch,"phone"=>$value->phone,"date_again"=>$value->date_again,"result"=>$value->result,"statusOpen"=>$value->statusOpen,"uniform_numbers"=>$value->uniform_numbers,"email"=>$value->email,"address"=>$value->address,"numbers"=>$v['detail']);
+                    }
+
+                }
+                array_push($trackIdArray2, $value->id);
+            }
+        }
+
+        return $trackSameArray;
     }
 
     public function monthSearch(Organization $organization,Request $request)

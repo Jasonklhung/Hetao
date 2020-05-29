@@ -345,6 +345,8 @@ class OverviewController extends Controller
 
         $data = json_decode($response);
 
+        $newArray = array();
+
         $date = array();
         $typeArray = array();
         $custkeyArray = array();
@@ -378,13 +380,19 @@ class OverviewController extends Controller
                 }
             }
 
-            foreach ($array as $k => $v) {
+            foreach ($array as $key => $value) {
+                if($value->owner == Auth::user()->name){
+                    $newArray[] = $value;
+                }
+            }
+
+            foreach ($newArray as $k => $v) {
                 if(!in_array($v->time, $date)){
                     array_push($date, $v->time);
                 }
             }
 
-            foreach ($array as $k => $v) {
+            foreach ($newArray as $k => $v) {
                 foreach ($date as $kk => $vv) {
                     if($v->time == $vv){
                         $typeArray[$vv][] = $v->work_type;
@@ -399,6 +407,7 @@ class OverviewController extends Controller
                     }
                 }
             }
+
 
             foreach ($typeArray as $type => $types) {
 
@@ -678,19 +687,47 @@ class OverviewController extends Controller
     {
         //dd($request->all());
 
+        $dept = Organization::where('name',$request->company)->get();
+        $allUser = User::all();
+        $deptUser = array();
+
         if($request->job != '其他'){
 
-            $org = Organization::where('name',$request->company)->get(); 
-            $name = User::where('organization_id',$org[0]['id'])->where('job',$request->job)->where('token','!=','')->get();
+            foreach ($allUser as $key => $value) {
+                if($value->organization_id == $dept[0]['id'] && $value->job == $request->job && ($value->token != '' || $value->token != null)){
+                    $deptUser[] = array("name"=>$value->name,"token"=>$value->token);
+                }
+            }
 
-            return $name;
+            foreach ($allUser as $key => $value) {
+                $many = explode(',', $value->organizations);
+
+                foreach ($many as $k => $v) {
+                    if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id'] && $value->job == $request->job && ($value->token != '' || $value->token != null)){
+                        $deptUser[] = array("name"=>$value->name,"token"=>$value->token);
+                    }
+                }
+            }
         }
         else{
 
-            $org = Organization::where('name',$request->company)->get(); 
-            $name = User::where('organization_id',$org[0]['id'])->where('token','!=','')->get();
+            foreach ($allUser as $key => $value) {
+                if($value->organization_id == $dept[0]['id']  && ($value->token != '' || $value->token != null)){
+                    $deptUser[] = array("name"=>$value->name,"token"=>$value->token);
+                }
+            }
 
-            return $name;
+            foreach ($allUser as $key => $value) {
+                $many = explode(',', $value->organizations);
+
+                foreach ($many as $k => $v) {
+                    if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id'] && ($value->token != '' || $value->token != null)){
+                        $deptUser[] = array("name"=>$value->name,"token"=>$value->token);
+                    }
+                }
+            }
         }
+
+        return $deptUser;
     }
 }

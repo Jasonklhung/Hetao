@@ -397,7 +397,7 @@
                     <iframe src="轉mailiframe.html"></iframe>
                 </div> -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="sendMail" data-dismiss="modal">預覽</button>
+                    <button type="button" class="btn btn-primary" id="sendMail" data-dismiss="modal">確認</button>
                 </div>
             </div>
         </div>
@@ -573,7 +573,7 @@
         table_s1.search(this.value).draw();
     });
 
-    var track = {!! json_encode($track) !!}; //php變數轉換
+    var track = {!! json_encode($trackSameArray) !!}; //php變數轉換
 
     var data = new Array();
 
@@ -1281,40 +1281,38 @@
 
                var id = $(this).val()
 
-               trackArray.push(id)
+               $.ajax({
+                    xhrFields: {
+                        responseType: 'blob',
+                    },
+                    type:'post',
+                    url:"{{ route('ht.Business.self.trackWord',['organization'=>$organization]) }}",
+                    data:{
+                        '_token':'{{csrf_token()}}',
+                        'id':id
+                    },
+                    success: function(result, status, xhr) {
+
+                        var disposition = xhr.getResponseHeader('content-disposition');
+                        var matches = /"([^"]*)"/.exec(disposition);
+                        var filename = (matches != null && matches[1] ? matches[1] : '報價單.docx');
+
+                        var blob = new Blob([result], {
+                            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                        });
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = filename;
+
+                        document.body.appendChild(link);
+
+                        link.click();
+                        document.body.removeChild(link);
+
+                        //window.location = '{{ route('ht.Business.self.index',['organization'=>$organization]) }}'
+                    }
+                })
            })
-
-            $.ajax({
-                xhrFields: {
-                    responseType: 'blob',
-                },
-                type:'post',
-                url:"{{ route('ht.Business.self.trackWord',['organization'=>$organization]) }}",
-                data:{
-                    '_token':'{{csrf_token()}}',
-                    'id':trackArray
-                },
-                success: function(result, status, xhr) {
-
-                    var disposition = xhr.getResponseHeader('content-disposition');
-                    var matches = /"([^"]*)"/.exec(disposition);
-                    var filename = (matches != null && matches[1] ? matches[1] : '報價單.docx');
-
-                    var blob = new Blob([result], {
-                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                    });
-                    var link = document.createElement('a');
-                    link.href = window.URL.createObjectURL(blob);
-                    link.download = filename;
-
-                    document.body.appendChild(link);
-
-                    link.click();
-                    document.body.removeChild(link);
-
-                    window.location = '{{ route('ht.Business.self.index',['organization'=>$organization]) }}'
-                }
-            })
         })
 </script>
 <script type="text/javascript">

@@ -143,7 +143,7 @@ class CaseController extends Controller
     {
         $today = date('Y-m-d');
 
-        return (new MaterialDownloadExport)->search($request->id)->download($today.'報備明細表.xlsx');
+        return (new MaterialDownloadExport)->search($request->id)->download($today.'報品明細表.xlsx');
     }
 
     public function materialBackEdit(Organization $organization,Request $request)
@@ -173,7 +173,7 @@ class CaseController extends Controller
     {
         $today = date('Y-m-d');
 
-        return (new MaterialBackDownloadExport)->search($request->id)->download($today.'報備明細表.xlsx');
+        return (new MaterialBackDownloadExport)->search($request->id)->download($today.'報品明細表.xlsx');
     }
 
     public function materialingSearch(Organization $organization,Request $request)

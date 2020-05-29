@@ -143,7 +143,7 @@ class AllController extends Controller
 
         //全部分公司使用者
         $dept = Organization::where('id',$organization->id)->get();
-        $allUser = User::all();
+        $allUser = User::whereIn('job',['助理','主管','員工'])->get();
         $deptUser = array();
 
         foreach ($allUser as $key => $value) {

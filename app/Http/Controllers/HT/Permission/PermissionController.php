@@ -174,16 +174,23 @@ class PermissionController extends Controller
 
     public function store(Organization $organization,Permission $permission,Request $request)
     {
+
+
         $organizations_name = array();
         foreach ($request->company as $key => $value) {
             $rs = Organization::find($value);
             array_push($organizations_name, $rs['name'].$rs['company_name']);
         }
 
+        $company = $request->company;
+
+        sort($company);
+        sort($organizations_name);
+
     	$user = new User;
-    	$user->organization_id = $request->company[0];
-    	$user->department_id = $request->company[0];
-        (count($request->company) > 1)? $user->organizations = implode(',', $request->company) : $user->organizations = $request->company[0]; 
+    	$user->organization_id = $company[0];
+    	$user->department_id = $company[0];
+        (count($request->company) > 1)? $user->organizations = implode(',', $company) : $user->organizations = $company[0]; 
         (count($request->company) > 1)? $user->organizations_name = implode(',', $organizations_name) : $user->organizations_name = $organizations_name[0]; 
     	$user->name = $request->name;
     	$user->ID_number = $request->ID_number;
@@ -331,10 +338,15 @@ class PermissionController extends Controller
             array_push($organizations_name, $rs['name'].$rs['company_name']);
         }
 
+        $company = $request->company;
+
+        sort($company);
+        sort($organizations_name);
+
     	$user = User::find($request->id);
-        $user->organization_id = $request->company[0];
-        $user->department_id = $request->company[0];
-        (count($request->company) > 1)? $user->organizations = implode(',', $request->company) : $user->organizations = $request->company[0];
+        $user->organization_id = $company[0];
+        $user->department_id = $company[0];
+        (count($request->company) > 1)? $user->organizations = implode(',', $company) : $user->organizations = $company[0];
         (count($request->company) > 1)? $user->organizations_name = implode(',', $organizations_name) : $user->organizations_name = $organizations_name[0]; 
         $user->name = $request->name;
         $user->ID_number = $request->ID_number;

@@ -928,15 +928,33 @@
         //領料單編輯
         $('.materialing').on('click',function(){
 
-            var date = $(this).parents('tr').find("td:eq(1)").text();
-            var emp_id = $(this).parents('tr').find("td:eq(2)").text();
-            var emp_name = $(this).parents('tr').find("td:eq(3)").text();
-            var materials_number = $(this).parents('tr').find("td:eq(4)").text();
-            var materials_spec = $(this).parents('tr').find("td:eq(5)").text();
-            var machine_number = $(this).parents('tr').find("td:eq(6)").text();
-            var quantity = $(this).parents('tr').find("td:eq(7)").text();
-            var other = $(this).parents('tr').find("td:eq(8)").text();
-            var id = $(this).parents('tr').find("td:eq(10)").children('button').val();
+            var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+            if(RWD == 0){
+
+                var date = $(this).parents('tr').find("td:eq(1)").text();
+                var emp_id = $(this).parents('tr').find("td:eq(2)").text();
+                var emp_name = $(this).parents('tr').find("td:eq(3)").text();
+                var materials_number = $(this).parents('tr').find("td:eq(4)").text();
+                var materials_spec = $(this).parents('tr').find("td:eq(5)").text();
+                var machine_number = $(this).parents('tr').find("td:eq(6)").text();
+                var quantity = $(this).parents('tr').find("td:eq(7)").text();
+                var other = $(this).parents('tr').find("td:eq(8)").text();
+                var id = $(this).parents('tr').find("td:eq(10)").children('button').val();
+            }
+            else{
+
+                var date = $(this).closest('tbody').find("tr:eq(1)").find("td:eq(1)")[0].textContent;
+                var emp_id = $(this).closest('tbody').find("tr:eq(2)").find("td:eq(1)")[0].textContent;
+                var emp_name = $(this).closest('tbody').find("tr:eq(3)").find("td:eq(1)")[0].textContent;
+                var materials_number = $(this).closest('tbody').find("tr:eq(4)").find("td:eq(1)")[0].textContent;
+                var materials_spec = $(this).closest('tbody').find("tr:eq(5)").find("td:eq(1)")[0].textContent;
+                var machine_number = $(this).closest('tbody').find("tr:eq(6)").find("td:eq(1)")[0].textContent;
+                var quantity = $(this).closest('tbody').find("tr:eq(7)").find("td:eq(1)")[0].textContent;
+                var other = $(this).closest('tbody').find("tr:eq(8)").find("td:eq(1)")[0].textContent;
+                var id = $(this).closest('tbody').find("tr:eq(10)").find("td:eq(1)").find("button")[0].value;
+            }
+
 
             $("#date").val(date);
             $("#emp_id").val(emp_id);
@@ -1002,9 +1020,12 @@
                 },
                 success: function(result, status, xhr) {
 
+                    var Today=new Date();
+                    var today = Today.getFullYear()+""+(Today.getMonth()+1)+""+Today.getDate();
+
                     var disposition = xhr.getResponseHeader('content-disposition');
                     var matches = /"([^"]*)"/.exec(disposition);
-                    var filename = (matches != null && matches[1] ? matches[1] : '報備明細表.xlsx');
+                    var filename = (matches != null && matches[1] ? matches[1] : today+'報品明細表.xlsx');
 
                     var blob = new Blob([result], {
                         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -1026,16 +1047,34 @@
         //退料單編輯
         $('.editBack').on('click',function(){
 
-            var date = $(this).parents('tr').find("td:eq(1)").text();
-            var emp_id = $(this).parents('tr').find("td:eq(2)").text();
-            var emp_name = $(this).parents('tr').find("td:eq(3)").text();
-            var materials_number = $(this).parents('tr').find("td:eq(4)").text();
-            var materials_spec = $(this).parents('tr').find("td:eq(5)").text();
-            var machine_number = $(this).parents('tr').find("td:eq(6)").text();
-            var quantity = $(this).parents('tr').find("td:eq(7)").text();
-            var back_quantity = $(this).parents('tr').find("td:eq(8)").text();
-            var other = $(this).parents('tr').find("td:eq(9)").text();
-            var id = $(this).parents('tr').find("td:eq(11)").children('button').val();
+            var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+            if(RWD == 0){
+
+                var date = $(this).parents('tr').find("td:eq(1)").text();
+                var emp_id = $(this).parents('tr').find("td:eq(2)").text();
+                var emp_name = $(this).parents('tr').find("td:eq(3)").text();
+                var materials_number = $(this).parents('tr').find("td:eq(4)").text();
+                var materials_spec = $(this).parents('tr').find("td:eq(5)").text();
+                var machine_number = $(this).parents('tr').find("td:eq(6)").text();
+                var quantity = $(this).parents('tr').find("td:eq(7)").text();
+                var back_quantity = $(this).parents('tr').find("td:eq(8)").text();
+                var other = $(this).parents('tr').find("td:eq(9)").text();
+                var id = $(this).parents('tr').find("td:eq(11)").children('button').val();
+            }
+            else{
+
+                var date = $(this).closest('tbody').find("tr:eq(1)").find("td:eq(1)")[0].textContent;
+                var emp_id = $(this).closest('tbody').find("tr:eq(2)").find("td:eq(1)")[0].textContent;
+                var emp_name = $(this).closest('tbody').find("tr:eq(3)").find("td:eq(1)")[0].textContent;
+                var materials_number = $(this).closest('tbody').find("tr:eq(4)").find("td:eq(1)")[0].textContent;
+                var materials_spec = $(this).closest('tbody').find("tr:eq(5)").find("td:eq(1)")[0].textContent;
+                var machine_number = $(this).closest('tbody').find("tr:eq(6)").find("td:eq(1)")[0].textContent;
+                var quantity = $(this).closest('tbody').find("tr:eq(7)").find("td:eq(1)")[0].textContent;
+                var back_quantity = $(this).closest('tbody').find("tr:eq(8)").find("td:eq(1)")[0].textContent;
+                var other = $(this).closest('tbody').find("tr:eq(9)").find("td:eq(1)")[0].textContent;
+                var id = $(this).closest('tbody').find("tr:eq(11)").find("td:eq(1)").find("button")[0].value;
+            }
 
             $("#back_date").val(date);
             $("#back_emp_id").val(emp_id);
@@ -1102,9 +1141,12 @@
                 },
                 success: function(result, status, xhr) {
 
+                    var Today=new Date();
+                    var today = Today.getFullYear()+""+(Today.getMonth()+1)+""+Today.getDate();
+
                     var disposition = xhr.getResponseHeader('content-disposition');
                     var matches = /"([^"]*)"/.exec(disposition);
-                    var filename = (matches != null && matches[1] ? matches[1] : '報備明細表.xlsx');
+                    var filename = (matches != null && matches[1] ? matches[1] : today+'報品明細表.xlsx');
 
                     var blob = new Blob([result], {
                         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'

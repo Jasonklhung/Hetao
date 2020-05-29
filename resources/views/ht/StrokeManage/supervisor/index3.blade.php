@@ -149,12 +149,12 @@
                                                                     <th class="desktop">工單日期</th>
                                                                     <th class="desktop">客戶代碼</th>
                                                                     <th class="desktop">承辦人員</th>
-                                                                    <th class="desktop">地址</th>
-                                                                    <th class="desktop">電話</th>
+                                                                    <th class="desktop">聯絡地址</th>
+                                                                    <th class="desktop">聯絡電話</th>
                                                                     <th class="desktop">派工原因</th>
                                                                     <th class="desktop">派工類型</th>
-                                                                    <th class="desktop">狀態</th>
-                                                                    <th class="desktop">負責人</th>
+                                                                    <th class="desktop">工單狀態</th>
+                                                                    <th class="desktop">負責員工</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>

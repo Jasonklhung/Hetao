@@ -346,7 +346,7 @@
                         + "</tr>"
                         + "<tr>"
                         + "<td style='display: none'></td>"
-                        + "<td class='text-muted'>小計</td>"
+                        + "<td class='text-muted'>$</td>"
                         $.each(item, function (iii, itemss) {
 
                             money += itemss.money;

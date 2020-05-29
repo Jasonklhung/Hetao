@@ -806,6 +806,33 @@
                     $(".searchInput_s1").on("keyup", function() {
                         table_s1.search(this.value).draw();
                     });
+
+                    // 隱藏rwd沒有標題的:
+                    $(document).ready(function(){
+                        $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                            if($(this).text()==":") {
+                                $(this).css('visibility', 'hidden');
+                            }
+                        });
+                        $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                            if($(this).text()==":") {
+                                $(this).css('visibility', 'hidden');
+                            }
+                        });
+                    });
+
+                    $(window).on('resize', function(){
+                        $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                            if($(this).text()==":") {
+                                $(this).css('visibility', 'hidden');
+                            }
+                        });
+                        $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                            if($(this).text()==":") {
+                                $(this).css('visibility', 'hidden');
+                            }
+                        });
+                    });
                 },
                 cache: false,
                 contentType: false,
@@ -955,6 +982,33 @@
 
                     $(".searchInput_s2").on("keyup", function() {
                         table_s2.search(this.value).draw();
+                    });
+
+                    // 隱藏rwd沒有標題的:
+                    $(document).ready(function(){
+                        $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                            if($(this).text()==":") {
+                                $(this).css('visibility', 'hidden');
+                            }
+                        });
+                        $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                            if($(this).text()==":") {
+                                $(this).css('visibility', 'hidden');
+                            }
+                        });
+                    });
+
+                    $(window).on('resize', function(){
+                        $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                            if($(this).text()==":") {
+                                $(this).css('visibility', 'hidden');
+                            }
+                        });
+                        $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                            if($(this).text()==":") {
+                                $(this).css('visibility', 'hidden');
+                            }
+                        });
                     });
 
                     $('select[name="assign"]').on('change',function(){
@@ -1135,6 +1189,33 @@
 
                     $(".searchInput_s3").on("keyup", function() {
                         table_s3.search(this.value).draw();
+                    });
+
+                    // 隱藏rwd沒有標題的:
+                    $(document).ready(function(){
+                        $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                            if($(this).text()==":") {
+                                $(this).css('visibility', 'hidden');
+                            }
+                        });
+                        $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                            if($(this).text()==":") {
+                                $(this).css('visibility', 'hidden');
+                            }
+                        });
+                    });
+
+                    $(window).on('resize', function(){
+                        $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                            if($(this).text()==":") {
+                                $(this).css('visibility', 'hidden');
+                            }
+                        });
+                        $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                            if($(this).text()==":") {
+                                $(this).css('visibility', 'hidden');
+                            }
+                        });
                     });
 
                     $('select[name="assign2"]').on('change',function(){

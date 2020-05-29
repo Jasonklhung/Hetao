@@ -1271,6 +1271,33 @@
                     table.search(this.value).draw();
                 });
 
+                // 隱藏rwd沒有標題的:
+                $(document).ready(function(){
+                    $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                    $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                });
+
+                $(window).on('resize', function(){
+                    $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                    $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                });
+
                 $('.materialing').on('click',function(){
 
                     var date = $(this).parents('tr').find("td:eq(1)").text();
@@ -1413,6 +1440,33 @@
                     table2.search(this.value).draw();
                 });
 
+                // 隱藏rwd沒有標題的:
+                $(document).ready(function(){
+                    $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                    $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                });
+
+                $(window).on('resize', function(){
+                    $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                    $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                });
+
             },
             cache: false,
             contentType: false,
@@ -1524,6 +1578,33 @@
 
                 $(".searchInput_s3").on("keyup", function() {
                     table3.search(this.value).draw();
+                });
+
+                // 隱藏rwd沒有標題的:
+                $(document).ready(function(){
+                    $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                    $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                });
+
+                $(window).on('resize', function(){
+                    $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                    $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
                 });
                
                 $('.editBack').on('click',function(){
@@ -1670,6 +1751,33 @@
 
                 $(".searchInput_s4").on("keyup", function() {
                     table4.search(this.value).draw();
+                });
+
+                // 隱藏rwd沒有標題的:
+                $(document).ready(function(){
+                    $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                    $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                });
+
+                $(window).on('resize', function(){
+                    $('.dtr-details tr:nth-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
+                    $('.dtr-details tr:nth-last-child(1) td:nth-child(odd)').each(function(){
+                        if($(this).text()==":") {
+                            $(this).css('visibility', 'hidden');
+                        }
+                    });
                 });
 
             },

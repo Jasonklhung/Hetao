@@ -645,7 +645,8 @@
         "guides": [],
         "valueAxes": [{
             "id": "ValueAxis-1",
-            "title": ""
+            "title": "",
+            "integersOnly":true
         }],
         "allLabels": [{
             "id": "Label-1",
@@ -1131,7 +1132,8 @@
                     "guides": [],
                     "valueAxes": [{
                         "id": "ValueAxis-1",
-                        "title": ""
+                        "title": "",
+                        "integersOnly":true
                     }],
                     "allLabels": [{
                         "id": "Label-1",

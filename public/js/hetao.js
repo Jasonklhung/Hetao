@@ -606,3 +606,13 @@ $(window).on('resize', function(){
         }
     });
 });
+
+$(document).mouseup(function(e) {
+    var droptoolmenu = $(".droptool-menu");
+    var droptool = $(".droptool");
+    var chkall = $('.tab-pane .td-icon .chkall')
+    if ($(e.target).closest(chkall).length == 0 && !droptool.is(e.target) && !droptoolmenu.is(e.target) && droptoolmenu.has(e.target).length == 0) {
+        droptoolmenu.hide(500);
+        chkall.hide(500);
+    }
+});

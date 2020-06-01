@@ -2281,6 +2281,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child, table.
     border-radius: 6px;
     padding: 5px 0;
     display: none;
+    right: 0;
 }
 
 .droptool-menu a {

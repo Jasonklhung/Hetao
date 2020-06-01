@@ -36,11 +36,11 @@
                                                                 <input type="text" class="form-control mr-s searchInput searchInput_s1" placeholder="請輸入關鍵字">
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select'>
+                                                                        <div class='input-group date date-select' id="datetimepicker1">
                                                                             <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide span-d'>~</span>
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select mr-s'>
+                                                                        <div class='input-group date date-select mr-s' id="datetimepicker2">
                                                                             <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
@@ -127,11 +127,11 @@
                                                                 </select>
                                                                 <div class='form-group'>
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select'>
+                                                                        <div class='input-group date date-select' id="datetimepicker3">
                                                                             <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start2"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                     </div><span class='rwd-hide span-d'>~</span>
                                                                     <div class='datetime'>
-                                                                        <div class='input-group date date-select mr-s'>
+                                                                        <div class='input-group date date-select mr-s' id="datetimepicker4">
                                                                             <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end2"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                         </div>
                                                                     </div>
@@ -548,10 +548,13 @@
 
 
     $(".droptool button").on('click', function() {
-        $(this).parents('.droptool').siblings('.droptool .droptool-menu').hide();
-        $(this).siblings('.droptool-menu').toggle('hide', false);
-        if (!$(this).parent().hasClass('no-fixed')) {
-            $(this).parents('.tab-pane').find('.td-icon .chkall').toggle('show');
+        var display =$(this).siblings('.droptool-menu').css('display');
+        if (display == 'none') {
+            $(this).parents('.droptool').siblings('.droptool .droptool-menu').hide();
+            $(this).siblings('.droptool-menu').show(500);
+            if (!$(this).parent().hasClass('no-fixed')) {
+                $(this).parents('.tab-pane').find('.td-icon .chkall').show(500);
+            }
         }
     });
 
@@ -1147,5 +1150,20 @@
             $('#start2').val("")
             $('#end2').val("")
         })
+    </script>
+    <script type="text/javascript">
+        $("#datetimepicker1").on("dp.change", function (e) {
+            $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker2").on("dp.change", function (e) {
+            $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+        });
+
+        $("#datetimepicker3").on("dp.change", function (e) {
+            $('#datetimepicker4').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker4").on("dp.change", function (e) {
+            $('#datetimepicker3').data("DateTimePicker").maxDate(e.date);
+        });
     </script>
 @endsection

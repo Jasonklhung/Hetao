@@ -49,11 +49,11 @@
                                                         </select>
                                                         <div class='form-group'>
                                                             <div class='datetime'>
-                                                                <div class='input-group date date-select'>
+                                                                <div class='input-group date date-select' id="datetimepicker1">
                                                                     <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                             </div><span class='rwd-hide'>~</span>
                                                             <div class='datetime'>
-                                                                <div class='input-group date date-select mr-s'>
+                                                                <div class='input-group date date-select mr-s' id="datetimepicker2">
                                                                     <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                 </div>
                                                             </div>
@@ -319,5 +319,13 @@
         $('#staff').val("")
         $('#type').val("")
     })
+</script>
+<script type="text/javascript">
+    $("#datetimepicker1").on("dp.change", function (e) {
+        $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+    });
+    $("#datetimepicker2").on("dp.change", function (e) {
+        $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+    });
 </script>
 @endsection

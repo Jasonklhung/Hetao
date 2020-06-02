@@ -110,8 +110,7 @@ class StockController extends Controller
                         foreach ($array as $k => $v) {
                             $materials_number = $v->CODE;
                             $materials_spec = $v->DESCRIBE;
-                            $machine_number = $v->MACNSERAL->MACNSERAL;
-                            $machine_number = implode(',', $machine_number);
+                            $machine_number = $v->MACNSERAL;
                             $suppkey = $v->SUPPKEY;
                             $quantity = $v->HAND1;
 

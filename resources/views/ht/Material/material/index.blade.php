@@ -72,7 +72,7 @@
                                                                         </div>
                                                                         <div class="form-item">
                                                                             <label class="d-block"><span class="text-danger">* </span>品名規格</label>
-                                                                            <input type="text" class="form-control" name="materials_spec[]" id="materials_spec" required disabled="">
+                                                                            <input type="text" class="form-control" name="materials_spec[]" id="materials_spec" required readonly="">
                                                                         </div>
                                                                         <div class="form-item">
                                                                             <label class="d-block">機號</label>
@@ -276,7 +276,7 @@
                     </div>
                     <div class="form-item">
                         <label class="d-block"><span class="text-danger">* </span>品名規格</label>
-                        <input type="text" class="form-control materials_spec" name="materials_spec[]" required disabled>
+                        <input type="text" class="form-control materials_spec" name="materials_spec[]" required readonly="">
                     </div>
                     <div class="form-item">
                         <label class="d-block">機號</label>

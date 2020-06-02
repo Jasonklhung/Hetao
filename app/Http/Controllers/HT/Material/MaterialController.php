@@ -124,7 +124,7 @@ class MaterialController extends Controller
 
     public function store(Organization $organization,Request $request)
     {
-
+        
         $dept = Organization::where('id',$organization->id)->get();
         $name = $dept[0]['name'];
 

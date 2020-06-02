@@ -74,13 +74,13 @@
                                                                 <tr>
                                                                     <td class="text-nowrap">
                                                                         @if($data->status == 'F')
-                                                                        <button type="button" class="btn status" id="turn" value="{{ $data->id }}">轉單</button>
+                                                                        <button type="button" class="btn status turn" id="turn" value="{{ $data->id }}">轉單</button>
                                                                         <button type="button" class="btn status btn-primary" id="delay" value="{{ $data->id }}">延後</button>
-                                                                        <button type="button" class="btn status" id="finish" value="{{ $data->id }}">完成</button>
+                                                                        <button type="button" class="btn status finish" id="finish" value="{{ $data->id }}">完成</button>
                                                                         @else
-                                                                        <button type="button" class="btn status" id="turn" value="{{ $data->id }}">轉單</button>
-                                                                        <button type="button" class="btn status" id="delay" value="{{ $data->id }}">延後</button>
-                                                                        <button type="button" class="btn status" id="finish" value="{{ $data->id }}">完成</button>
+                                                                        <button type="button" class="btn status turn" id="turn" value="{{ $data->id }}">轉單</button>
+                                                                        <button type="button" class="btn status delay" id="delay" value="{{ $data->id }}">延後</button>
+                                                                        <button type="button" class="btn status finish" id="finish" value="{{ $data->id }}">完成</button>
                                                                         @endif
                                                                     </td>
                                                                     <td>{{ $data->case_id }}</td>
@@ -324,7 +324,7 @@
     });
     </script>
     <script type="text/javascript">
-        $('#turn').on('click',function(){
+        $('.turn').on('click',function(){
 
             var case_id = $(this).parents('tr').children('td')[1].textContent 
             var id = $(this).val()
@@ -350,7 +350,7 @@
             })
         })
 
-        $('#delay').on('click',function(){
+        $('.delay').on('click',function(){
 
             var case_id = $(this).parents('tr').children('td')[1].textContent 
             var id = $(this).val()
@@ -376,7 +376,7 @@
             })
         })
 
-        $('#finish').on('click',function(){
+        $('.finish').on('click',function(){
 
             var case_id = $(this).parents('tr').children('td')[1].textContent 
             var id = $(this).val()
@@ -428,11 +428,11 @@
 
                         if(item.status == 'F'){
                             rows += "<td class='text-nowrap'>"
-                            + "<button type='button' class='btn status' id='turn' value="+ item.id +">轉單</button><button type='button' class='btn status btn-primary' id='delay' value="+ item.id +">延後</button><button type='button' class='btn status' id='finish' value=" + item.id +">完成</button></td>"
+                            + "<button type='button' class='btn status turn' id='turn' value="+ item.id +">轉單</button><button type='button' class='btn status btn-primary delay' id='delay' value="+ item.id +">延後</button><button type='button' class='btn status finish' id='finish' value=" + item.id +">完成</button></td>"
                         }
                         else{
                             rows += "<td class='text-nowrap'>"
-                            + "<button type='button' class='btn status' id='turn' value="+ item.id +">轉單</button><button type='button' class='btn status' id='delay' value="+ item.id +">延後</button><button type='button' class='btn status' id='finish' value=" + item.id +">完成</button></td>"
+                            + "<button type='button' class='btn status turn' id='turn' value="+ item.id +">轉單</button><button type='button' class='btn status delay' id='delay' value="+ item.id +">延後</button><button type='button' class='btn status finish' id='finish' value=" + item.id +">完成</button></td>"
                         }
 
                         rows += "<td>" + item.case_id + "</td>"
@@ -542,7 +542,7 @@
                         table_s2.search(this.value).draw();
                     });
 
-                    $('#turn').on('click',function(){
+                    $('.turn').on('click',function(){
 
                         var case_id = $(this).parents('tr').children('td')[1].textContent 
                         var id = $(this).val()

@@ -197,6 +197,7 @@ class ReservationController extends Controller
             $result[$key]['CARDNO'] = $account->card_number;
             $result[$key]['data'] = $res;
             $result[$key]['status'] = $value->status;
+            $result[$key]['created_at'] = $value->created_at;
 
         }
 

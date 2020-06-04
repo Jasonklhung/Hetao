@@ -127,7 +127,7 @@ class CaseController extends Controller
         $material->statusEdit = 'Y';
         $material->save();
 
-        return redirect()->route('ht.Material.case.index',compact('organization'))->with('success','領料單已編輯');
+        return redirect()->route('ht.Material.case.index',compact('organization'));
     }
 
     public function material_confirm(Organization $organization,Request $request)

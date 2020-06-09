@@ -23,7 +23,7 @@ class CrontabController extends Controller
     	$setting = Timeset::where('name','線上預約完成推播時間')->where('status','Y')->get(); //取得全部時間設定
 
     	//$time = Carbon::now()->format('H:i'); //取現在時間
-        $time =  date("Y-m-d H:i",$turnDate); //取現在時間
+        $time =  date("H:i",$turnDate); //取現在時間
     	$time = $time.':00'; //取現在時間
 
     	foreach ($setting as $key => $value) {
@@ -99,15 +99,15 @@ class CrontabController extends Controller
         $setting = Timeset::where('name','預約前一日通知推播時間')->where('status','Y')->get(); //取得全部時間設定
 
         //$time = Carbon::now()->format('H:i'); //取現在時間
-        $time =  date("Y-m-d H:i",$turnDate); //取現在時間
+        $time =  date("H:i",$turnDate); //取現在時間
         $time = $time.':00'; //取現在時間
 
         foreach ($setting as $key => $value) {
             $date = Carbon::parse('+'.$value->days.' days')->format('Y-m-d'); //預約完成後推播 所以要用減
             $DEPT = Department::where('organization_id',$value->organization_id)->get(); //取得部門代號
 
-            if($time == $value->time){ //現在時間 = 設定時間
 
+            if($time == $value->time){ //現在時間 = 設定時間
                 $client = new \GuzzleHttp\Client();
                 $response = $client->post('http://60.251.216.90:8855/api_/work-push', [
                     'headers' => ['Content-Type' => 'application/json'],
@@ -127,6 +127,7 @@ class CrontabController extends Controller
 
                         foreach ($array as $k => $v) {
                             if($v->status != 'T'){
+
                                 if(empty($v->custoken)){    //只推播員工
 
                                     $client = new \GuzzleHttp\Client();
@@ -175,7 +176,7 @@ class CrontabController extends Controller
         $setting = Timeset::where('name','滿意度調查推播時間')->where('status','Y')->get(); //取得全部時間設定
 
         //$time = Carbon::now()->format('H:i'); //取現在時間
-        $time =  date("Y-m-d H:i",$turnDate); //取現在時間
+        $time =  date("H:i",$turnDate); //取現在時間
         $time = $time.':00'; //取現在時間
 
         foreach ($setting as $key => $value) {
@@ -227,7 +228,7 @@ class CrontabController extends Controller
         $setting = Timeset::where('name','通知主管指派項目')->where('status','Y')->get(); //取得全部時間設定
 
         //$time = Carbon::now()->format('H:i'); //取現在時間
-        $time =  date("Y-m-d H:i",$turnDate); //取現在時間
+        $time =  date("H:i",$turnDate); //取現在時間
         $time = $time.':00'; //取現在時間
 
         $result = array();

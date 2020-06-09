@@ -359,7 +359,7 @@ class CrontabController extends Controller
 
                     $meetImp = implode('、', $meetArray);    //人名、隔開
 
-                    $other = $request->other;
+                    $other = $value->other;
                     if($other == null){
                         $other = '無';
                     }
@@ -387,7 +387,7 @@ class CrontabController extends Controller
 
                     $meetImp = implode('、', $meetArray);    //人名、隔開
 
-                    $other = $request->other;
+                    $other = $value->other;
                     if($other == null){
                         $other = '無';
                     }
@@ -456,7 +456,7 @@ class CrontabController extends Controller
 
                                 $meetImp = implode('、', $meetArray);    //人名、隔開
 
-                                $other = $request->other;
+                                $other = $value->other;
                                 if($other == null){
                                     $other = '無';
                                 }
@@ -565,7 +565,7 @@ class CrontabController extends Controller
 
                         $meetImp = implode('、', $meetArray);   //人名、隔開
 
-                        $other = $request->other;
+                        $other = $value->other;
                         if($other == null){
                             $other = '無';
                         }

@@ -326,7 +326,17 @@
     <script type="text/javascript">
         $('.turn').on('click',function(){
 
-            var case_id = $(this).parents('tr').children('td')[1].textContent 
+            var RWD = $(this).parents('table').parents('tr').find('.child').length;
+            
+            if(RWD == 0){
+
+                var case_id = $(this).parents('tr').children('td')[1].textContent 
+            }
+            else{
+
+                var case_id = $(this).closest('tbody').find("tr:eq(1)").find("td:eq(1)").html();
+            }
+
             var id = $(this).val()
 
             $.ajax({
@@ -352,7 +362,16 @@
 
         $('.delay').on('click',function(){
 
-            var case_id = $(this).parents('tr').children('td')[1].textContent 
+            var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+            if(RWD == 0){
+
+                var case_id = $(this).parents('tr').children('td')[1].textContent 
+            }
+            else{
+
+                var case_id = $(this).closest('tbody').find("tr:eq(1)").find("td:eq(1)").html();
+            }
             var id = $(this).val()
 
             $.ajax({
@@ -378,7 +397,16 @@
 
         $('.finish').on('click',function(){
 
-            var case_id = $(this).parents('tr').children('td')[1].textContent 
+            var RWD = $(this).parents('table').parents('tr').find('.child').length;
+
+            if(RWD == 0){
+
+                var case_id = $(this).parents('tr').children('td')[1].textContent 
+            }
+            else{
+
+                var case_id = $(this).closest('tbody').find("tr:eq(1)").find("td:eq(1)").html();
+            }
             var id = $(this).val()
 
             $.ajax({

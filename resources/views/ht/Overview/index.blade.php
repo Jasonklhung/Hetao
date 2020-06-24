@@ -1134,7 +1134,7 @@
 
                     $.ajax({
                         method:'get',
-                        url:'{{ route('ht.Overview.getData',['organization'=>$organization]) }}',
+                        url:'{{ route('ht.Overview.getAllData',['organization'=>$organization]) }}',
                         data:{
                             "token": '{{Auth::user()->token}}',
                             "DEPT": '{{$organization->id}}'

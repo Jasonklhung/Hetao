@@ -23,32 +23,7 @@ class OverviewController extends Controller
         $dept = Organization::where('id',$organization->id)->get();
         
         if($job == '員工'){
-            $client = new \GuzzleHttp\Client();
-            $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
-                'headers' => ['Content-Type' => 'application/json'],
-                'body' => json_encode([
-                'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//$organization->name
-            ])
-            ]);
-
-            $response = $response->getBody()->getContents();
-
-            $data = json_decode($response);
-
-            $countArray = array();
-
-            foreach ($data as $key => $value) {
-                if($key == 'data'){
-                    $array = $value;
-
-                    foreach ($array as $k => $v) {
-                        if($v->status == null || $v->status == '' || $v->status == 'F'){
-                            array_push($countArray,$v);
-                        }
-                    }
-                }
-            }
+            $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
         }else{
@@ -91,6 +66,7 @@ class OverviewController extends Controller
 
     public function store(Organization $organization,Request $request)
     {
+        //dd($request->all());
 
         if($request->start == null){
             $request->start = date('Y-m-d');
@@ -133,6 +109,9 @@ class OverviewController extends Controller
                 $push = Carbon::parse($request->start.' '.$request->startTime)->subWeeks($request->notice)->format('Y-m-d H:i:s');
             }
         }
+        else{
+            $push = null;
+        }
 
         $activity = new Activity;
         $activity->organization_id = $organization->id;
@@ -146,7 +125,7 @@ class OverviewController extends Controller
         $activity->noticeTime = $request->noticeTime;
         $activity->pushDate = $push;
 
-        if($request->meeting == null){
+        if($request->meeting == null || $request->meeting == '會議對象'){
 
             $dept = Organization::where('id',$organization->id)->get();
             $activity->meeting = $dept[0]['name']."/".Auth::user()->job.Auth::user()->name;
@@ -408,6 +387,353 @@ class OverviewController extends Controller
                 }
             }
 
+            foreach ($typeArray as $type => $types) {
+
+                $test = array();
+
+                foreach ($types as $aa => $aaa) {
+
+                    end($types);
+
+                    $last = key($types);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $typeNew[$type]['type'] = $resultArray;
+                    }
+
+                }
+            }
+
+            foreach ($custkeyArray as $custkey => $custkeys) {
+
+                $test = array();
+
+                foreach ($custkeys as $aa => $aaa) {
+
+                    end($custkeys);
+
+                    $last = key($custkeys);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $custkeyNew[$custkey]['custkey'] = $resultArray;
+                    }
+
+                }
+            }
+
+            foreach ($addressArray as $address => $addresss) {
+
+                $test = array();
+
+                foreach ($addresss as $aa => $aaa) {
+
+                    end($addresss);
+
+                    $last = key($addresss);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $addressNew[$address]['address'] = $resultArray;
+                    }
+
+                }
+            }
+
+            foreach ($mobileArray as $mobile => $mobiles) {
+
+                $test = array();
+
+                foreach ($mobiles as $aa => $aaa) {
+
+                    end($mobiles);
+
+                    $last = key($mobiles);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $mobileNew[$mobile]['mobile'] = $resultArray;
+                    }
+
+                }
+            }
+
+            foreach ($reasonArray as $reason => $reasons) {
+
+                $test = array();
+
+                foreach ($reasons as $aa => $aaa) {
+
+                    end($reasons);
+
+                    $last = key($reasons);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $reasonNew[$reason]['reason'] = $resultArray;
+                    }
+
+                }
+            }
+
+            foreach ($ownerArray as $owner => $owners) {
+
+                $test = array();
+
+                foreach ($owners as $aa => $aaa) {
+
+                    end($owners);
+
+                    $last = key($owners);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $ownerNew[$owner]['owner'] = $resultArray;
+                    }
+
+                }
+            }
+
+            foreach ($idArray as $id => $ids) {
+
+                $test = array();
+
+                foreach ($ids as $aa => $aaa) {
+
+                    end($ids);
+
+                    $last = key($ids);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $idNew[$id]['number'] = $resultArray;
+                    }
+
+                }
+            }
+
+            foreach ($dateArray as $date => $dates) {
+
+                $test = array();
+
+                foreach ($dates as $aa => $aaa) {
+
+                    $dateNew[$date]['date'] = $date;
+
+                }
+            }
+
+            foreach ($statusArray as $status => $statuss) {
+
+                $test = array();
+
+                foreach ($statuss as $aa => $aaa) {
+
+                    end($statuss);
+
+                    $last = key($statuss);
+
+                    array_push($test,$aaa);
+
+                    if($aa == $last){
+
+                        $resultArray = implode("|||",$test);
+
+                        $statusNew[$status]['status'] = $resultArray;
+                    }
+
+                }
+            }
+
+            foreach ($typeNew as $key => $value) {
+                foreach ($custkeyNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $value;
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($addressNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($mobileNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($reasonNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($ownerNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($idNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($dateNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $key => $value) {
+                foreach ($statusNew as $k => $v) {
+                    if($key == $k){
+                        $test[$key][] = $v;
+                    }
+                }
+            }
+
+            foreach ($test as $aa => $aaa) {
+                if($aa == 0 || $aaa == null || $aaa == 'F'){
+                    unset($test[$aa]);
+                }
+            }
+
+            //$test = array_splice($test, '0'); 
+           // $test = array_splice($test, '1'); 
+            //$test = array_splice($test, '2'); 
+
+
+            return $test;
+        }
+    }
+
+    public function getAllData(Organization $organization,Request $request)
+    {
+
+        $dept = Organization::where('id',$request->DEPT)->get();
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('http://60.251.216.90:8855/api_/get-all-case', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode([
+                'token' => $request->token,
+                'DEPT' => $dept[0]['name']
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+        $newArray = array();
+
+        $date = array();
+        $typeArray = array();
+        $custkeyArray = array();
+        $addressArray = array();
+        $mobileArray = array();
+        $reasonArray = array();
+        $ownerArray = array();
+        $idArray = array();
+        $dateArray = array();
+        $statusArray = array();
+
+        $typeNew = array();
+        $custkeyNew = array();
+        $addressNew = array();
+        $mobileNew = array();
+        $reasonNew = array();
+        $ownerNew = array();
+        $idNew = array();
+        $dateNew = array();
+        $statusNew = array();
+
+        $test = array();
+
+        if(!$data){
+            return [];
+        }
+        else{
+            foreach ($data as $key => $value) {
+                if($key == 'data'){
+                    $array = $value;
+                }
+            }
+
+            foreach ($array as $key => $value) {
+                //if($value->owner == Auth::user()->name){
+                    $newArray[] = $value;
+                //}
+            }
+
+            foreach ($newArray as $k => $v) {
+                if(!in_array($v->time, $date)){
+                    array_push($date, $v->time);
+                }
+            }
+
+            foreach ($newArray as $k => $v) {
+                foreach ($date as $kk => $vv) {
+                    if($v->time == $vv){
+                        $typeArray[$vv][] = $v->work_type;
+                        $custkeyArray[$vv][] = $v->CUSTKEY;
+                        $addressArray[$vv][] = $v->address;
+                        $mobileArray[$vv][] = $v->mobile;
+                        $reasonArray[$vv][] = $v->remarks;
+                        $ownerArray[$vv][] = $v->owner;
+                        $idArray[$vv][] = $v->id;
+                        $dateArray[$vv][] = $v->time;
+                        $statusArray[$vv][] = $v->status;
+                    }
+                }
+            }
 
             foreach ($typeArray as $type => $types) {
 

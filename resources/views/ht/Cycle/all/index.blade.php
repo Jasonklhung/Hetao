@@ -21,7 +21,7 @@
                                                 <ul class="nav nav-tabs">
                                                     <li class="active">
                                                         @if($cycle != null)
-                                                        <a data-toggle="tab" href="#viewers-tab-01">待指派卡片 <span class="badge bg-danger">N</span></a>
+                                                        <a data-toggle="tab" href="#viewers-tab-01">待指派卡片 <span class="badge bg-danger">{{$allCount}}</span></a>
                                                         @else
                                                         <a data-toggle="tab" href="#viewers-tab-01">待指派卡片</a>
                                                         @endif

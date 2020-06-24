@@ -519,6 +519,8 @@
 
 
                 @if(Auth::user()->permission->custom_info == 'N')
+
+                @else
                 <a class="" href="{{ route('ht.Customer.index',['organization'=>$organization]) }}">
                     <sb-item class="sb-item"><i class="fas fa-info-circle fa-fw"></i>客戶資料查詢</sb-item>
                 </a>

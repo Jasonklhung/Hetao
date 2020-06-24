@@ -24,32 +24,7 @@ class SelfController extends Controller
         $dept = Organization::where('id',$organization->id)->get();
 
         if($job == '員工'){
-            $client = new \GuzzleHttp\Client();
-            $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
-                'headers' => ['Content-Type' => 'application/json'],
-                'body' => json_encode([
-                'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//$organization->name
-            ])
-            ]);
-
-            $response = $response->getBody()->getContents();
-
-            $data = json_decode($response);
-
-            $countArray = array();
-
-            foreach ($data as $key => $value) {
-                if($key == 'data'){
-                    $array = $value;
-
-                    foreach ($array as $k => $v) {
-                        if($v->status == null || $v->status == '' || $v->status == 'F'){
-                            array_push($countArray,$v);
-                        }
-                    }
-                }
-            }
+            $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
         }else{
@@ -381,32 +356,7 @@ class SelfController extends Controller
         $dept = Organization::where('id',$organization->id)->get();
 
         if($job == '員工'){
-            $client = new \GuzzleHttp\Client();
-            $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
-                'headers' => ['Content-Type' => 'application/json'],
-                'body' => json_encode([
-                'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//$organization->name
-            ])
-            ]);
-
-            $response = $response->getBody()->getContents();
-
-            $data = json_decode($response);
-
-            $countArray = array();
-
-            foreach ($data as $key => $value) {
-                if($key == 'data'){
-                    $array = $value;
-
-                    foreach ($array as $k => $v) {
-                        if($v->status == null || $v->status == '' || $v->status == 'F'){
-                            array_push($countArray,$v);
-                        }
-                    }
-                }
-            }
+            $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
         }else{
@@ -698,32 +648,7 @@ class SelfController extends Controller
         $dept = Organization::where('id',$organization->id)->get();
 
         if($job == '員工'){
-            $client = new \GuzzleHttp\Client();
-            $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
-                'headers' => ['Content-Type' => 'application/json'],
-                'body' => json_encode([
-                'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//$organization->name
-            ])
-            ]);
-
-            $response = $response->getBody()->getContents();
-
-            $data = json_decode($response);
-
-            $countArray = array();
-
-            foreach ($data as $key => $value) {
-                if($key == 'data'){
-                    $array = $value;
-
-                    foreach ($array as $k => $v) {
-                        if($v->status == null || $v->status == '' || $v->status == 'F'){
-                            array_push($countArray,$v);
-                        }
-                    }
-                }
-            }
+            $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
         }else{
@@ -863,32 +788,7 @@ class SelfController extends Controller
         $dept = Organization::where('id',$organization->id)->get();
 
         if($job == '員工'){
-            $client = new \GuzzleHttp\Client();
-            $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
-                'headers' => ['Content-Type' => 'application/json'],
-                'body' => json_encode([
-                'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//$organization->name
-            ])
-            ]);
-
-            $response = $response->getBody()->getContents();
-
-            $data = json_decode($response);
-
-            $countArray = array();
-
-            foreach ($data as $key => $value) {
-                if($key == 'data'){
-                    $array = $value;
-
-                    foreach ($array as $k => $v) {
-                        if($v->status == null || $v->status == '' || $v->status == 'F'){
-                            array_push($countArray,$v);
-                        }
-                    }
-                }
-            }
+            $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
         }else{
@@ -933,32 +833,7 @@ class SelfController extends Controller
         $dept = Organization::where('id',$organization->id)->get();
         
         if($job == '員工'){
-            $client = new \GuzzleHttp\Client();
-            $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
-                'headers' => ['Content-Type' => 'application/json'],
-                'body' => json_encode([
-                'token' => Auth::user()->token,//Auth::user()->token,
-                'DEPT' => $dept[0]['name']//$organization->name
-            ])
-            ]);
-
-            $response = $response->getBody()->getContents();
-
-            $data = json_decode($response);
-
-            $countArray = array();
-
-            foreach ($data as $key => $value) {
-                if($key == 'data'){
-                    $array = $value;
-
-                    foreach ($array as $k => $v) {
-                        if($v->status == null || $v->status == '' || $v->status == 'F'){
-                            array_push($countArray,$v);
-                        }
-                    }
-                }
-            }
+            $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
         }else{

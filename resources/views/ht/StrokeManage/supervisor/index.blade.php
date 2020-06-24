@@ -1090,7 +1090,87 @@
 
                     $.each(res[0], function (i, item) {
 
-                        rows += "<tr>"
+                        if(res[2] == 'T'){
+                            rows += "<tr>"
+                            + "<td>"
+                            + "<div class='td-icon'>"
+                            + "<input class='chkall' name='AssignId' type='checkbox' value="+item.id+">"
+                            + "</div>"
+                            + "</td>"
+                            + "<td>"
+                            + "<select name='assign2' class='form-control' style='margin-right:28px;' disabled>"
+                            for (var j = 0; j < res[1].length; j++) {
+                                if(res[1][j].name == item.owner){ 
+                                    rows += "<option value="+ res[1][j].id+" selected>"+res[1][j].name+"</option>"
+                                }
+                                else{
+                                    rows += "<option value="+ res[1][j].id+">"+res[1][j].name+"</option>"
+                                }
+                            }
+                            rows += "</select></td>"
+                            + "<td>" + item.case_id + "</td>"
+                            + "<td class='text-nowrap'>" + item.time + "</td>"
+                            + "<td>" + item.cuskey + "</td>"
+                            if(item.name == null || item.name == '' || item.name == 'null'){
+                                rows += "<td></td>"
+                            }
+                            else{
+                                rows += "<td>" + item.name + "</td>"
+                            }
+                            rows += "<td class='text-nowrap'><a href='tel:"+ item.mobile +"'>"+ item.mobile +"</a></td>"
+                                 + "<td><a href='https://www.google.com.tw/maps/place/"+item.address+"' target='_blank'>"+item.address+"</a></td>"
+                                 + "<td>"+ item.GUI_number +"</td>"
+                                 + "<td>"+ item.owner +"</td>"
+                                 + "<td>" + item.reason + "</td>"
+                            if(item.work_type == '維修'){
+                                rows += "<td><span class='color-btn' style='background-color: #e64242'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '洽機'){
+                                rows += "<td><span class='color-btn' style='background-color: #f59d56'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '收款'){
+                                rows += "<td><span class='color-btn' style='background-color: #ffe167'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '送水'){
+                                rows += "<td><span class='color-btn' style='background-color: #91d35c'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '裝機'){
+                                rows += "<td><span class='color-btn' style='background-color: #1bab9f'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '拆機'){
+                                rows += "<td><span class='color-btn' style='background-color: #00c0ff'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '回機'){
+                                rows += "<td><span class='color-btn' style='background-color: #41438f'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '保養'){
+                                rows += "<td><span class='color-btn' style='background-color: #a080c3'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '合約'){
+                                rows += "<td><span class='color-btn' style='background-color: #f73e99'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '其他'){
+                                rows += "<td><span class='color-btn' style='background-color: #a1602c'>" + item.work_type + "</span></td>"
+                            }
+                            else if(item.work_type == '送貨'){
+                                rows += "<td><span class='color-btn' style='background-color: #3f3f3f'>" + item.work_type + "</span></td>"
+                            }
+                            if(item.status == 'R'){
+                                rows += "<td>轉單</td>"
+                            }
+                            else if(item.status == 'T'){
+                                rows += "<td>完成</td>"
+                            }
+                            else if(item.status == 'F'){
+                                rows += "<td>延遲</td>"
+                            }
+                            else{
+                                rows += "<td></td>"
+                            }
+                            rows += "</tr>";     
+                        }
+                        else{
+                            rows += "<tr>"
                             + "<td>"
                             + "<div class='td-icon'>"
                             + "<input class='chkall' name='AssignId' type='checkbox' value="+item.id+">"
@@ -1167,6 +1247,7 @@
                                 rows += "<td></td>"
                             }
                             rows += "</tr>";     
+                        }
    
                        
                     })

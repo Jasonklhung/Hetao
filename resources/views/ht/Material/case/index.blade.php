@@ -681,7 +681,7 @@
             "extend": 'colvis',
             "collectionLayout": 'fixed two-column'
         }],
-        "order": [],
+        "order": [1,'desc'],
         "columnDefs": [{
             "targets": [0],
             "orderable": false,

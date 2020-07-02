@@ -23,7 +23,7 @@
     <div id="login-wrapper">
         <div class="login">
             <div class="login-container">
-                <p>賀桃工單管理系統</p>
+                <p>賀桃管理系統</p>
                 <div class="login-main">
                     <div class="content">
                         <img src="{{$qrcode}}" style="height: 260px;width: 260px">

@@ -92,6 +92,17 @@
                                                     <form action="" class="form-inline mt-m mb-s" id="businessSearch">
                                                         @csrf
                                                         <input type="text" class="form-control mb-s mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
+                                                        <div class='form-group'>
+                                                            <div class='datetime'>
+                                                                <div class='input-group date date-select' id="datetimepicker1">
+                                                                    <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start2"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                            </div><span class='rwd-hide span-d'>~</span>
+                                                            <div class='datetime'>
+                                                                <div class='input-group date date-select mr-s' id="datetimepicker2">
+                                                                    <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end2"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <select  class="form-control d-inline w-auto mb-s mr-s" name="business" id="business">
                                                             <option value="" selected>業務</option>
                                                             @foreach($name as $key => $data)
@@ -420,7 +431,7 @@
 
                 var data = new Array();
 
-                $.each(res, function (i, item) {
+                $.each(res[0], function (i, item) {
 
                     data[i] = {
                         day: "<span class='text-nowrap'>"+item.DATE+"</span>",
@@ -440,6 +451,20 @@
                         phone: "<a href='tel:"+item.COMTEL+"'>"+item.COMTEL+"</a>"
                     }
                 })
+
+                var selOpts = "<option value='' selected>業務</option>";
+                $.each(res[1], function (i, item) {
+                    selOpts += "<option value='"+item+"'>"+item+"</option>";
+                })
+                $("#business").empty();
+                $('#business').append(selOpts);
+
+                var selOpts = "<option value='' selected>類別</option>";
+                $.each(res[2], function (i, item) {
+                    selOpts += "<option value='"+item+"'>"+item+"</option>";
+                })
+                $("#type").empty();
+                $('#type').append(selOpts);
 
                 function format(d) {
                     return (

@@ -1025,7 +1025,7 @@ class SelfController extends Controller
             $totlaMoney = 0;
 
             $business = BusinessTrack::query()
-                        ->select('business_tracks.*','businesses.date','businesses.name','businesses.business_name','businesses.address','businesses.phone','business_case_details.numbers','business_case_details.money','business_case_details.quantity','business_case_details.total','business_case_details.description')
+                        ->select('business_tracks.*','businesses.date','businesses.name','businesses.business_name','businesses.city','businesses.area','businesses.address','businesses.phone','business_case_details.numbers','business_case_details.money','business_case_details.quantity','business_case_details.total','business_case_details.description')
                         ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
                         ->leftjoin('business_case_details','business_case_details.business_track_id','=','business_tracks.id')
                         ->where('business_tracks.id',$request->id)

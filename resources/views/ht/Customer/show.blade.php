@@ -115,28 +115,36 @@
                                                 </div>
                                                 <div class="info2">
                                                     <div class='coupon'>
-                                                        <form class='form-inline'>
+                                                        <form class='form-inline' id="tradeSearch">
+                                                            @csrf
                                                             <input type="text" class="form-control mr-s searchInput searchInput_s1" placeholder="請輸入關鍵字">
                                                             <div class='form-group'>
                                                                 <div class='datetime'>
                                                                     <div class='input-group date date-select' id="datetimepicker1">
-                                                                        <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                        <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                 </div><span class='rwd-hide span-d'>~</span>
                                                                 <div class='datetime'>
                                                                     <div class='input-group date date-select mr-s' id="datetimepicker2">
-                                                                        <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                        <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <select name="" class="form-control mb-s mr-s">
+                                                            <input type="hidden" name="custkey" value="{{$custkey}}">
+                                                            <select class="form-control mb-s mr-s" name="staff" id="staff">
                                                                 <option value="">報帳人員</option>
+                                                                @foreach($tradeStaff as $key => $data)
+                                                                    <option value="{{$data}}">{{$data}}</option>
+                                                                @endforeach
                                                             </select>
-                                                            <select name="" class="form-control mb-s mr-s">
+                                                            <select class="form-control mb-s mr-s" name="code" id="code">
                                                                 <option value="">產品代碼</option>
+                                                                @foreach($tradeCode as $key => $data)
+                                                                    <option value="{{$data}}">{{$data}}</option>
+                                                                @endforeach
                                                             </select>
                                                             <div class='btn-wrap'>
-                                                                <button class='mr-s' type="button">查詢</button>
-                                                                <button class='mr-s' type="button">重設</button>
+                                                                <button class='mr-s' type="submit">查詢</button>
+                                                                <button class='mr-s' type="button" id="reset">重設</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -159,25 +167,30 @@
                                                 </div>
                                                 <div class="info3">
                                                     <div class='coupon'>
-                                                        <form class='form-inline'>
+                                                        <form class='form-inline' id="arapSearch">
+                                                            @csrf
                                                             <input type="text" class="form-control mr-s searchInput searchInput_s2" placeholder="請輸入關鍵字">
                                                             <div class='form-group'>
                                                                 <div class='datetime'>
                                                                     <div class='input-group date date-select' id="datetimepicker3">
-                                                                        <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                        <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start2"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                 </div><span class='rwd-hide span-d'>~</span>
                                                                 <div class='datetime'>
                                                                     <div class='input-group date date-select mr-s' id="datetimepicker4">
-                                                                        <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                        <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end2"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <select name="" class="form-control mb-s mr-s">
+                                                            <input type="hidden" name="custkey" value="{{$custkey}}">
+                                                            <select class="form-control mb-s mr-s" name="staff" id="staff2">
                                                                 <option selected hidden disabled value="">負責員工</option>
+                                                                @foreach($arapStaff as $key => $data)
+                                                                <option value="{{$data}}">{{$data}}</option>
+                                                                @endforeach
                                                             </select>
                                                             <div class='btn-wrap'>
-                                                                <button class='mr-s' type="button">查詢</button>
-                                                                <button class='mr-s' type="button">重設</button>
+                                                                <button class='mr-s' type="submit">查詢</button>
+                                                                <button class='mr-s' type="button" id="reset2">重設</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -209,22 +222,24 @@
                                                 </div>
                                                 <div class="info4">
                                                     <div class='coupon'>
-                                                        <form class='form-inline'>
+                                                        <form class='form-inline' id="cycleSearch">
+                                                            @csrf
                                                             <input type="text" class="form-control mr-s searchInput searchInput_s3" placeholder="請輸入關鍵字">
                                                             <div class='form-group'>
                                                                 <div class='datetime'>
                                                                     <div class='input-group date date-select' id="datetimepicker5">
-                                                                        <input class='form-control' placeholder='選擇起始日期' type='text'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
+                                                                        <input class='form-control' placeholder='選擇起始日期' type='text' name="start" id="start3"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>
                                                                 </div><span class='rwd-hide span-d'>~</span>
                                                                 <div class='datetime'>
                                                                     <div class='input-group date date-select mr-s' id="datetimepicker6">
-                                                                        <input class='form-control' placeholder='選擇結束日期' type='text'> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
+                                                                        <input class='form-control' placeholder='選擇結束日期' type='text' name="end" id="end3"> <span class='input-group-addon mr-s'><span class='glyphicon glyphicon-calendar'></span></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <input type="hidden" name="custkey" value="{{$custkey}}">
                                                             <div class='btn-wrap'>
-                                                                <button class='mr-s' type="button">查詢</button>
-                                                                <button class='mr-s' type="button">重設</button>
+                                                                <button class='mr-s' type="submit">查詢</button>
+                                                                <button class='mr-s' type="button" id="reset3">重設</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -583,5 +598,381 @@
     $("#datetimepicker6").on("dp.change", function (e) {
         $('#datetimepicker5').data("DateTimePicker").maxDate(e.date);
     });
+</script>
+<script type="text/javascript">
+    $('#tradeSearch').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Customer.show.tradeSearch',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+
+                $('#hetao-list-norwd').DataTable().destroy();
+                $('#hetao-list-norwd tbody').empty();
+
+                var data = new Array();
+
+                $.each(res, function (i, item) {
+
+                    if(item.STATUS == 'S'){
+                        var status = '送貨單'
+                    }
+                    else if(item.STATUS == 'P'){
+                        var status = '預收貨款'
+                    }
+                    else if(item.STATUS == 'G'){
+                        var status = '轉帳傳票'
+                    }
+
+                    if(item.TRANS == 'T'){
+                        var trans = '是'
+                    }
+                    else{
+                        var trans = '否'
+                    }
+
+                    data[i] = {
+                        day: item.DATE,
+                        number: item.SALENUM,
+                        staff: item.FAMILY,
+                        name: item.CUSTKEY,
+                        invoice: item.INVOICE,
+                        productid: item.CODE,
+                        productquantity: item.MATE,
+                        price: item.PRICE,
+                        ps1: item.SPC1,
+                        ps2: item.SPC2,
+                        tax: item.TAX,
+                        notax: item.AMOUNT,
+                        includetax: item.TAXAMOUNT,
+                        cash: item.CASH,
+                        check: item.CHEQUE,
+                        checknum: item.CHECKNO,
+                        exchangeday: item.CASHDAY,
+                        electric: item.TTT,
+                        discount: item.DISCOUNT,
+                        receivable: item.RECEIVES,
+                        prepaid: item.PREMONEY,
+                        prepaidprice: item.PREPLUS,
+                        prepaidday: item.ACCPDAY,
+                        group: item.TYPE,
+                        ifprepaid: status,
+                        allocate: trans,
+                        note: item.MEMO1,
+                        other: item.MEMO2,
+                        return: item.RETNBOTT,
+                        damaged: item.BRKGBOTT,
+                        mortgage: item.DEPOSITE,
+                        bottle: item.BOTINCOME,
+                        noreturn: item.BOTTLE,
+                        notto: item.WAT_DEBT,
+                    }
+                })
+
+                function format(d) {
+                    return (
+                        `<table class="tb-child">
+                            <tr><td><span class="w-105px">加註1</span>：` + d.ps1 + `</td></tr>
+                            <tr><td><span class="w-105px">加註2</span>：` + d.ps2 + `</td></tr>
+                            <tr><td><span class="w-105px">稅金</span>：` + d.tax + `</td></tr>
+                            <tr><td><span class="w-105px">未稅總價</span>：` + d.notax + `</td></tr>
+                            <tr><td><span class="w-105px">含稅總價</span>：` + d.includetax + `</td></tr>
+                            <tr><td><span class="w-105px">現金</span>：` + d.cash + `</td></tr>
+                            <tr><td><span class="w-105px">支票</span>：` + d.check + `</td></tr>
+                            <tr><td><span class="w-105px">支票號碼</span>：` + d.checknum + `</td></tr>
+                            <tr><td><span class="w-105px">兌換日期</span>：` + d.exchangeday + `</td></tr>
+                            <tr><td><span class="w-105px">電匯</span>：` + d.electric + `</td></tr>
+                            <tr><td><span class="w-105px">折讓</span>：` + d.discount + `</td></tr>
+                            <tr><td><span class="w-105px">應收帳款</span>：` + d.receivable + `</td></tr>
+                            <tr><td><span class="w-105px">銷貨預收</span>：` + d.prepaid + `</td></tr>
+                            <tr><td><span class="w-105px">預收貨款</span>：` + d.prepaidprice + `</td></tr>
+                            <tr><td><span class="w-105px">預計收款日</span>：` + d.prepaidday + `</td></tr>
+                            <tr><td><span class="w-105px">收款群組</span>：` + d.group + `</td></tr>
+                            <tr><td><span class="w-105px">是否預收貨款</span>：` + d.ifprepaid + `</td></tr>
+                            <tr><td><span class="w-105px">調撥賣給單位</span>：` + d.allocate + `</td></tr>
+                            <tr><td><span class="w-105px">備註</span>：` + d.note + `</td></tr>
+                            <tr><td><span class="w-105px">其他備註</span>：` + d.other + `</td></tr>
+                            <tr><td><span class="w-105px">退空瓶</span>：` + d.return+`</td></tr>
+                            <tr><td><span class="w-105px">破損瓶</span>：` + d.damaged + `</td></tr>
+                            <tr><td><span class="w-105px">抵押金</span>：` + d.mortgage + `</td></tr>
+                            <tr><td><span class="w-105px">空瓶價</span>：` + d.bottle + `</td></tr>
+                            <tr><td><span class="w-105px">未還空瓶</span>：` + d.noreturn + `</td></tr>
+                            <tr><td><span class="w-105px">預付未送瓶</span>：` + d.notto + `</td></tr>
+                        </table>`
+                    );
+                }
+                $(document).ready(function() {
+                    var table_s1 = $("#hetao-list-norwd").DataTable({
+                        "data": data,
+                        "bPaginate": true,
+                        "searching": true,
+                        "info": true,
+                        "bLengthChange": false,
+                        "bServerSide": false,
+                        "language": {
+                            "search": "",
+                            "searchPlaceholder": "請輸入關鍵字",
+                            "paginate": { "previous": "上一頁", "next": "下一頁" },
+                            "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                            "zeroRecords": "沒有符合的搜尋結果",
+                            "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                            "lengthMenu": "呈現筆數 _MENU_",
+                            "emptyTable": "目前無資料",
+                            "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                        },
+                        "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                        "buttons": [{
+                            "extend": "colvis",
+                            "collectionLayout": "fixed two-column"
+                        }],
+                        "order": [1,'desc'],
+                        "columnDefs": [{
+                            "targets": [0],
+                            "orderable": false,
+                        }, ],
+                        "responsive": false,
+                        columns: [{
+                                className: "details-control",
+                                orderable: false,
+                                data: null,
+                                defaultContent: '<span class="lnr lnr-chevron-down"></span>'
+                            },
+                            { data: "day" },
+                            { data: "number" },
+                            { data: "staff" },
+                            { data: "name" },
+                            { data: "invoice" },
+                            { data: "productid" },
+                            { data: "productquantity" },
+                            { data: "price" },
+                        ],
+                    });
+
+                    $("#hetao-list-norwd tbody").on("click", "td.details-control", function() {
+                        var tr = $(this).closest("tr");
+                        var row = table_s1.row(tr);
+
+                        if (row.child.isShown()) {
+                            row.child.hide();
+                            tr.removeClass("shown");
+                        } else {
+                            row.child(format(row.data()), "p-0").show();
+                            tr.addClass("shown");
+                        }
+                    });
+
+                    $(".searchInput_s2").on("blur", function() {
+                        table_s1.search(this.value).draw();
+                    });
+
+                    $(".searchInput_s2").on("keyup", function() {
+                        table_s1.search(this.value).draw();
+                    });
+                });
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
+
+    $('#arapSearch').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Customer.show.arapSearch',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+
+                var rows;
+                $('#hetao-list-s-2').DataTable().destroy();
+                $('#hetao-list-s-2 tbody').empty();
+
+                $.each(res, function (i, item) {
+
+                    rows += "<tr>"
+                    + "<td class='text-nowrap'>" + item.DATE + "</td>"
+                    + "<td>" + item.SALENUM + "</td>"
+                    + "<td>$" + item.RECEIVES + "</td>"
+                    + "<td>" + item.INVOICE + "</td>"
+                    + "<td class='text-nowrap'>" + item.ACCPDAY + "</td>"
+                    + "<td>" + item.FAMILY + "</td>"
+                    + "</tr>"
+                })
+                $('#hetao-list-s-2 tbody').append(rows);
+                var table_s2 = $("#hetao-list-s-2").DataTable({
+                    "bPaginate": true,
+                    "searching": true,
+                    "info": true,
+                    "bLengthChange": false,
+                    "bServerSide": false,
+                    "language": {
+                        "search": "",
+                        "searchPlaceholder": "請輸入關鍵字",
+                        "paginate": { "previous": "上一頁", "next": "下一頁" },
+                        "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                        "zeroRecords": "沒有符合的搜尋結果",
+                        "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                        "lengthMenu": "呈現筆數 _MENU_",
+                        "emptyTable": "目前無應收帳款",
+                        "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                    },
+                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                    "buttons": [{
+                        "extend": "colvis",
+                        "collectionLayout": "fixed two-column"
+                    }],
+                    "order": [],
+                    "columnDefs": [{
+                        "targets": [],
+                        "orderable": false,
+                    }],
+                    "responsive": {
+                        "breakpoints": [
+                            { name: 'desktop', width: Infinity },
+                            { name: 'tablet', width: 1024 },
+                        ],
+                        "details": {
+                            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                            "type": 'none',
+                            "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
+                            "target": ''
+                        }
+                    },
+                });
+                $(".searchInput_s2").on("blur", function() {
+                    table_s2.search(this.value).draw();
+                });
+
+                $(".searchInput_s2").on("keyup", function() {
+                    table_s2.search(this.value).draw();
+                });
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
+
+    $('#cycleSearch').on('submit',function(e){
+
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Customer.show.cycleSearch',['organization'=>$organization]) }}",
+            data:formData,
+            success:function(res){
+
+                var rows;
+                $('#hetao-list-s-3').DataTable().destroy();
+                $('#hetao-list-s-3 tbody').empty();
+
+                $.each(res, function (i, item) {
+
+                    rows += "<tr>"
+                    + "<td class='text-nowrap'>" + item.BGNDATE + "</td>"
+                    + "<td>" + item.CODE + "</td>"
+                    + "<td>" + item.NUM + "</td>"
+                    + "<td>$" + item.PRICE + "</td>"
+                    + "<td>" + item.CYCLE + "</td>"
+                    + "<td class='text-nowrap'>" + item.LSTDATE + "</td>"
+                    + "<td class='text-nowrap'>" + item.NXTDATE + "</td>"
+                    + "<td>" + item.MEMO + "</td>"
+                    if(item.CEASE == '1'){
+                        rows += "<td>是</td>"
+                    }
+                    else if(item.CEASE == '0' || item.CEASE == null){
+                        rows += "<td>否</td>"
+                    }
+                    if(item.CEASE == null){
+                        rows += "<td class='text-nowrap'></td>"
+                    }
+                    else{
+                        rows += "<td class='text-nowrap'>" + item.STOPDATE + "</td>"
+                    }
+                    rows + "</tr>"
+                })
+                $('#hetao-list-s-3 tbody').append(rows);
+                var table_s3 = $("#hetao-list-s-3").DataTable({
+                    "bPaginate": true,
+                    "searching": true,
+                    "info": true,
+                    "bLengthChange": false,
+                    "bServerSide": false,
+                    "language": {
+                        "search": "",
+                        "searchPlaceholder": "請輸入關鍵字",
+                        "paginate": { "previous": "上一頁", "next": "下一頁" },
+                        "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                        "zeroRecords": "沒有符合的搜尋結果",
+                        "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                        "lengthMenu": "呈現筆數 _MENU_",
+                        "emptyTable": "目前無週期循環",
+                        "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                    },
+                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                    "buttons": [{
+                        "extend": "colvis",
+                        "collectionLayout": "fixed two-column"
+                    }],
+                    "order": [],
+                    "columnDefs": [{
+                        "targets": [],
+                        "orderable": false,
+                    }],
+                    "responsive": {
+                        "breakpoints": [
+                            { name: 'desktop', width: Infinity },
+                            { name: 'tablet', width: 1024 },
+                        ],
+                        "details": {
+                            "display": $.fn.dataTable.Responsive.display.childRowImmediate,
+                            "type": 'none',
+                            "renderer": $.fn.dataTable.Responsive.renderer.tableAll(),
+                            "target": ''
+                        }
+                    },
+                });
+                $(".searchInput_s3").on("blur", function() {
+                    table_s3.search(this.value).draw();
+                });
+
+                $(".searchInput_s3").on("keyup", function() {
+                    table_s3.search(this.value).draw();
+                });
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+    })
+</script>
+<script type="text/javascript">
+    $('#reset').on('click',function(){
+        $('#start').val("")
+        $('#end').val("")
+        $('#staff').val("")
+        $('#code').val("")
+    })
+
+    $('#reset2').on('click',function(){
+        $('#start2').val("")
+        $('#end2').val("")
+        $('#staff2').val("")
+    })
+
+    $('#reset3').on('click',function(){
+        $('#start3').val("")
+        $('#end3').val("")
+    })
 </script>
 @endsection

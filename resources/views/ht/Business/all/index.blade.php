@@ -379,7 +379,7 @@
             "extend": "colvis",
             "collectionLayout": "fixed two-column"
         }],
-        "order": [],
+        "order": [0,'desc'],
         "columnDefs": [{
             "targets": [],
             "orderable": false,
@@ -405,11 +405,11 @@
         table_s1.search(this.value).draw();
     });
 
-    var track = {!! json_encode($trackTable) !!}; //php變數轉換
+    var trackSameArray = {!! json_encode($trackSameArray) !!}; //php變數轉換
 
     var data = new Array();
 
-    $.each(track, function (i, item) {
+    $.each(trackSameArray, function (i, item) {
 
         if(item.statusOpen == 'Y'){
             var statusOpen = "<span class='text-success'>已發布</span>"
@@ -478,7 +478,7 @@
             watch: "<a href='"+url+"'><button class='btn btn-primary' type='button'>查看</button>",
             uniform: uniform_numbers,
             mail: email,
-            address: item.address,
+            address: item.city+item.area+item.address,
             type: item.numbers
         }
     })

@@ -23,7 +23,7 @@
     <div id="login-wrapper">
         <div class="login">
             <div class="login-container">
-                <p>賀桃工單管理系統</p>
+                <p>賀桃管理系統</p>
                 @php
                     $route = $_GET['route'];
                 @endphp

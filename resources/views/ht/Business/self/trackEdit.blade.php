@@ -636,6 +636,14 @@
         }
     });
 
+    var res = $('select.result').val()
+
+    if (res == "流單" || res == "其他") {
+        $('.reason').show();
+    } else {
+        $('.reason').hide();
+    }
+
 
     ////////通知時間設定選項
     $('input[name=at-1]').change(function() {

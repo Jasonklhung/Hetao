@@ -211,7 +211,7 @@ class AllController extends Controller
                 $aaa[$vv][$v]['money'] = 0;
 
                 foreach ($performance as $key => $value) {
-                   if($value->TYPE == $v && $value->NAME == $vv){
+                   if($value->DATE >= $start && $value->DATE <= $end && $value->TYPE == $v && $value->NAME == $vv){
                         $total[$vv][$k]['mount'] += $value->MATE;
                         $total[$vv][$k]['money'] += $value->AMOUNT;
                         $aaa[$vv][$v]['mount'] += $value->MATE;
@@ -239,6 +239,8 @@ class AllController extends Controller
     {
         //dd($request->all());
 
+        $start = $request->start;
+        $end = $request->end;
         $business = $request->business;
         $types = $request->type;
 
@@ -268,28 +270,66 @@ class AllController extends Controller
             if($key == 'data'){
                 $performance = $value;
             }
+            else{
+                $performance = [];
+            }
         }
 
         $businessArray = array();
+        $busi = array();
+        $category = array();
 
         foreach ($performance as $key => $value) {
-            if($business != null && $types != null){
-                if($value->NAME == $business && $value->TYPE == $types){
+            if($start != null && $end != null && $business != null && $types != null){
+                if($value->DATE >= $start && $value->DATE <= $end && $value->NAME == $business && $value->TYPE == $types){
                     $businessArray[] = $value;
                 }
             }
-            elseif($business != null && $types == null){
+            elseif($start != null && $end != null && $business != null && $types == null){
+                if($value->DATE >= $start && $value->DATE <= $end && $value->NAME == $business){
+                    $businessArray[] = $value;
+                }
+            }
+            elseif($start != null && $end != null && $business == null && $types != null){
+                if($value->DATE >= $start && $value->DATE <= $end && $value->TYPE == $type){
+                    $businessArray[] = $value;
+                }
+            }
+            elseif($start != null && $end != null && $business == null && $types == null){
+                if($value->DATE >= $start && $value->DATE <= $end && $value->NAME == $business && $value->TYPE == $types){
+                    $businessArray[] = $value;
+                }
+            }
+            elseif($start == null && $end == null && $business != null && $types == null){
                 if($value->NAME == $business){
                     $businessArray[] = $value;
                 }
             }
-            elseif($business == null && $types != null){
+            elseif($start == null && $end == null && $business == null && $types != null){
                 if($value->TYPE == $type){
                     $businessArray[] = $value;
                 }
             }
+            elseif($start == null && $end == null && $business != null && $types != null){
+                if($value->NAME == $business && $value->TYPE == $types){
+                    $businessArray[] = $value;
+                }
+            }
+            elseif($start == null && $end == null && $business == null && $types == null){
+                $businessArray[] = $value;
+            }
         }
 
-        return $businessArray;
+        foreach ($businessArray as $key => $value) {
+            if(!in_array($value->NAME,$busi)){
+                array_push($busi, $value->NAME);
+            }
+
+            if(!in_array($value->TYPE,$category)){
+                array_push($category, $value->TYPE);
+            }
+        }
+
+        return [$businessArray,$busi,$category];
     }
 }

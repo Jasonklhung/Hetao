@@ -167,7 +167,7 @@ class SelfController extends Controller
             $total[$v]['money'] = 0;
 
             foreach ($performance as $key => $value) {
-               if($value->TYPE == $v){
+               if($value->DATE >= $start && $value->DATE <= $end && $value->TYPE == $v){
                     $total[$v]['mount'] += $value->MATE;
                     $total[$v]['money'] += $value->AMOUNT;
                 }

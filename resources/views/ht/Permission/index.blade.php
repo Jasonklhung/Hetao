@@ -52,7 +52,11 @@
                                                         <tr>
                                                             <td>{{ $data['area'] }}</td>
                                                             <td>{{ $data['company'] }}</td>
+                                                            @if($data['job'] == '員工')
+                                                            <td>客服</td>
+                                                            @else
                                                             <td>{{ $data['job'] }}</td>
+                                                            @endif
                                                             <td>{{ $data['name'] }}</td>
                                                             @if($data['is_verified'] == 'N')
                                                             <td>否</td>

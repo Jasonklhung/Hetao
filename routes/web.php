@@ -117,6 +117,9 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/HT/{organization}/Customer/index','HT\Customer\CustomerController@index')->name('ht.Customer.index');
 		Route::get('/HT/{organization}/Customer/show/{id}','HT\Customer\CustomerController@show')->name('ht.Customer.show');
 		Route::post('/HT/{organization}/Customer/search','HT\Customer\CustomerController@search')->name('ht.Customer.search');
+		Route::post('/HT/{organization}/Customer/show/tradeSearch','HT\Customer\CustomerController@tradeSearch')->name('ht.Customer.show.tradeSearch');
+		Route::post('/HT/{organization}/Customer/show/arapSearch','HT\Customer\CustomerController@arapSearch')->name('ht.Customer.show.arapSearch');
+		Route::post('/HT/{organization}/Customer/show/cycleSearch','HT\Customer\CustomerController@cycleSearch')->name('ht.Customer.show.cycleSearch');
 
 		//業務管理-個人業務
 		Route::get('/HT/{organization}/Business/self/index','HT\Business\SelfController@index')->name('ht.Business.self.index');

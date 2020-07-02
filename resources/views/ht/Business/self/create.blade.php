@@ -61,7 +61,7 @@
                                                         </div>
                                                         <div class="form-item">
                                                             <label class="d-block"><span class="text-danger">* </span>拜訪內容</label>
-                                                            <input type="text" class="form-control" name="content" required="">
+                                                            <textarea rows="5" class="form-control" placeholder="" name="content"></textarea>
                                                         </div>
                                                     </div>    
 
@@ -80,12 +80,12 @@
                                                             <input type="text" class="form-control" placeholder="地址" name="address" required="">
                                                         </div>
                                                         <div class="form-item">
-                                                            <label class="d-block"><span class="text-danger">* </span>聯絡電話</label>
-                                                            <input type="number" class="form-control" placeholder="聯絡電話" name="phone" required="">
+                                                            <label class="d-block"><span class="text-danger"></span>聯絡電話</label>
+                                                            <input type="number" class="form-control" placeholder="聯絡電話" name="phone">
                                                         </div>
                                                         <div class="form-item">
                                                             <label class="d-block">備註其他</label>
-                                                            <textarea rows="5" class="form-control" placeholder="" name="other"></textarea>
+                                                            <input type="text" class="form-control" name="other">
                                                         </div>
                                                         <div class="form-item">
                                                             <label class="d-block">附件上傳</label>
@@ -95,7 +95,7 @@
                                                         <div class="form-item ">
                                                             <span class="d-block">狀態
                                                                 <label class="switch follow-status">
-                                                                    <input type="checkbox" checked name="statusTrack">
+                                                                    <input type="checkbox" name="statusTrack">
                                                                     <span class="slider round"></span>
                                                                 </label>
                                                             </span>

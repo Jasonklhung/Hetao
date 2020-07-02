@@ -457,15 +457,15 @@ class PermissionController extends Controller
                 ])
             ]);
 
-            $client = new \GuzzleHttp\Client();
-            $response = $client->post('https://linebotclient.azurewebsites.net/line/1608443818/liff/api/updateSet.php', [
-                'headers' => ['Content-Type' => 'application/json'],
-                'body' => json_encode([
-                    'userId' => $userId,
-                ])
-            ]);
+            // $client = new \GuzzleHttp\Client();
+            // $response = $client->post('https://linebotclient.azurewebsites.net/line/1608443818/liff/api/updateSet.php', [
+            //     'headers' => ['Content-Type' => 'application/json'],
+            //     'body' => json_encode([
+            //         'userId' => $userId,
+            //     ])
+            // ]);
 
-            $response = $response->getBody()->getContents();
+            // $response = $response->getBody()->getContents();
 
             return redirect()->route('ht.Permission.index',compact('organization'))->with('success','刪除成功');
         }

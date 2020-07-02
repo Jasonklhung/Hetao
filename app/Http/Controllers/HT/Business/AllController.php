@@ -87,13 +87,53 @@ class AllController extends Controller
 
         //案件追蹤-table
         $trackTable = BusinessTrack::query()
-                ->select('business_tracks.*','businesses.date','businesses.name','businesses.business_name','businesses.address','businesses.phone','business_case_details.numbers')
+                ->select('business_tracks.*','businesses.date','businesses.name','businesses.business_name','businesses.city','businesses.area','businesses.address','businesses.phone','business_case_details.numbers')
                 ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
                 ->leftjoin('business_case_details','business_case_details.business_track_id','=','business_tracks.id')
                 ->where('business_tracks.organization_name',$dept[0]['name'])
                 ->where('business_tracks.statusTrack','Y')
                 ->where('business_tracks.statusOpen','Y')
                 ->get();
+
+        $trackIdArray = array();
+        $trackIdArray2 = array();
+        $trackDetailArray = array();
+        $trackDetailResultArray = array();
+        $trackSameArray = array();
+
+        foreach ($trackTable as $key => $value) {
+            if(!in_array($value->id, $trackIdArray)){
+                array_push($trackIdArray, $value->id);
+            }
+        }
+
+        foreach ($trackTable as $key => $value) {
+            foreach ($trackIdArray as $k => $v) {
+                if($value->id == $v){
+                    $trackDetailArray[$v][] = $value->numbers;
+                }
+            }
+        }
+
+        foreach ($trackDetailArray as $key => $value) {
+
+            $detailImplode = implode(',', $value);
+
+            $trackDetailResultArray[] = array("id"=>$key,"detail"=>$detailImplode);
+        }
+
+        foreach ($trackTable as $key => $value) {
+            if(!in_array($value->id, $trackIdArray2)){
+                foreach ($trackDetailResultArray as $k => $v) {
+
+                    if($v['id'] == $value->id){
+                        $trackSameArray[] = array("id"=>$value->id,"date"=>$value->date,"level"=>$value->level,"schedule"=>$value->schedule,"category"=>$value->category,"name"=>$value->name,"business_name"=>$value->touch,"phone"=>$value->phone,"date_again"=>$value->date_again,"result"=>$value->result,"statusOpen"=>$value->statusOpen,"uniform_numbers"=>$value->uniform_numbers,"email"=>$value->email,"city"=>$value->city,"area"=>$value->area,"address"=>$value->address,"numbers"=>$v['detail']);
+                    }
+
+                }
+                array_push($trackIdArray2, $value->id);
+            }
+        }
 
         $trackNumberArray = array();
         foreach ($trackTable as $key => $value) {
@@ -361,7 +401,7 @@ class AllController extends Controller
             $numberFinalChart[] = array("category"=>$key,'column-1'=>$value);
         }
 
-        return view('ht.Business.all.index',compact('organization','caseCount','deptUser','visitTable','trackTable','businessChartCount','businessChart','TrackBusinessChartCount','resultChart','trackChartCount','finishChartCount','money','newCustomChartCount','userTableArray','numberSelect','numberChart','numberFinalChart','allBusinessMonth','trackNumberArray'));
+        return view('ht.Business.all.index',compact('organization','caseCount','deptUser','visitTable','trackTable','businessChartCount','businessChart','TrackBusinessChartCount','resultChart','trackChartCount','finishChartCount','money','newCustomChartCount','userTableArray','numberSelect','numberChart','numberFinalChart','allBusinessMonth','trackNumberArray','trackSameArray'));
     }
 
     public function show(Organization $organization,Request $request,$id)
@@ -622,7 +662,7 @@ class AllController extends Controller
                                 })
                                 ->get();
 
-        $finishChartCount = count($chart);
+        //$finishChartCount = count($chart);
 
         $money = 0;
         foreach ($chart as $key => $value) {
@@ -731,7 +771,7 @@ class AllController extends Controller
             }
         }
 
-        return [$businessChart,$allBusinessMonth,$resultChart,$finishChartCount,$money,$newCustomChartCount,$numberFinalChart,$userTableArray,$numberSelect];
+        return [$businessChart,$allBusinessMonth,$resultChart,$a,$money,$newCustomChartCount,$numberFinalChart,$userTableArray,$numberSelect];
     }
 
     public function numberSearch(Organization $organization,Request $request)

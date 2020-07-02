@@ -311,5 +311,13 @@
 @endsection
 
 @section('scripts')
+<script type="text/javascript">
+    var res = $('select.result').val()
 
+    if (res == "流單" || res == "其他") {
+        $('.reason').show();
+    } else {
+        $('.reason').hide();
+    }
+</script>
 @endsection

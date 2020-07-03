@@ -127,11 +127,11 @@ $('body').on('click', '.multi-con .close', function() {
 
 
 var seleArray = new Array;
-var selel = $('.sele').length
+var selel = $('.select').length
 
 for (var i = 0; i < selel; i++) {
 
-    seleArray.push($('.sele')[i].name.split("sele")[1]);
+    seleArray.push($('.select')[i].name.split("select")[1]);
 }
 
 if(seleArray == ''){

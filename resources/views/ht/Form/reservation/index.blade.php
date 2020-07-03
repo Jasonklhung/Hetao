@@ -1526,12 +1526,12 @@
 
 @section('scripts')
 <!-- ▼本頁引用▼ -->
-<!-- @if($reservation->isNotEmpty())
+@if($reservation->isNotEmpty())
 <script src="{{ asset('js/formset.js') }}"></script>
 @else
 <script src="{{ asset('js/formset2.js') }}"></script>
-@endif -->
-<script src="{{ asset('js/formset2.js') }}"></script>
+@endif
+<!-- <script src="{{ asset('js/formset2.js') }}"></script> -->
 <!-- ▲本頁引用▲ -->
 <script type="text/javascript">
 //新增頁面

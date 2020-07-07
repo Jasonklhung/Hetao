@@ -599,6 +599,16 @@
     // 通知對象/新增星期刪除
     $('body').on('click', '.Overview-set .close.cl', function(){
 
+        var token = $(this).parents('.memberwrap').children('.tag').children('.cl')[0].value
+        console.log(token)
+
+        $.each(array, function (i, item) {
+            if(item == token){
+                array.splice(i, 1);
+            }
+        });
+        console.log(array)
+
         //新增
         var meetingToken = $('#meetingToken').val()
         var meetingName = $('#meetingName').val()

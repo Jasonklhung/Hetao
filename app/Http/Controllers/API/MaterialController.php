@@ -73,23 +73,23 @@ class MaterialController extends Controller
 
     	if($type == 'receive'){
 
-    		foreach ($id as $key => $value) {
+    		//foreach ($id as $key => $value) {
     			$update = Material::where('id', '=', $value)->update(['statusERP' => 'Y']);
 
     			if($update == true){
     				array_push($result, $value);
     			}
-    		}
+    		//}
     	}
     	elseif($type == 'back'){
 
-    		foreach ($id as $key => $value) {
+    		//foreach ($id as $key => $value) {
     			$update = MaterialBack::where('id', '=', $value)->update(['statusERP' => 'Y']);
 
     			if($update == true){
     				array_push($result, $value);
     			}
-    		}
+    		//}
     	}
 
     	$result = implode(',', $result);

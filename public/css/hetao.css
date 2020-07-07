@@ -2421,7 +2421,7 @@ div[id^="hetao-list-norwd"] {
 div[id^="hetao-list-norwd-cycle"] {
     width: 100%;
     margin: 0 auto;
-    overflow: inherit;
+    overflow: auto;
 }
 
 div[id^="hetao-list-norwd"] .odd, div[id^="hetao-list-norwd"] .even {

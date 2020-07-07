@@ -374,7 +374,7 @@ $('body').on('click', '#person .add-member', function(){
     var role = $("#person .role").val()
     var staffname = $("#person .staffname").find("option:selected").text()
     var token = $("#person .staffname").find("option:selected").val()
-    console.log(token)
+    //console.log(token)
     if(array.indexOf(token) == -1){
         array.push(token)
         if((company && role && staffname) !== null){
@@ -386,8 +386,17 @@ $('body').on('click', '#person .add-member', function(){
     }
 });
 
+
 /*刪除會議對象*/
 $('body').on('click', '#person .close', function(){
+    var token = $("#person .staffname").find("option:selected").val()
+    console.log(token)
+    $.each(array, function (i, item) {
+        if(item == token){
+            array.splice(i, 1);
+        }
+    });
+    console.log(array);
     $(this).parent('#person .tag').remove();
 });
 

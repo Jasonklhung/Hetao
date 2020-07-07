@@ -1072,15 +1072,15 @@
         })
     </script>
     <script type="text/javascript">
-        $('#addName').on('click',function(){
-            var val  = $("select[name='name']").val();
-            var numbers = $("select[name='name']").find("option");
-            for (var j = 0; j < numbers.length; j++) {
-                if ($(numbers[j]).val() == val) {
-                    $(numbers[j]).attr("hidden", "hidden");
-                }
-            }
-        })
+        // $('#addName').on('click',function(){
+        //     var val  = $("select[name='name']").val();
+        //     var numbers = $("select[name='name']").find("option");
+        //     for (var j = 0; j < numbers.length; j++) {
+        //         if ($(numbers[j]).val() == val) {
+        //             $(numbers[j]).attr("hidden", "hidden");
+        //         }
+        //     }
+        // })
 
         //會議時間重設
         $('.reset').on('click', function(){

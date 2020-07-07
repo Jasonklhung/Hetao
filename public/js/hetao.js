@@ -378,7 +378,7 @@ $('body').on('click', '#person .add-member', function(){
     if(array.indexOf(token) == -1){
         array.push(token)
         if((company && role && staffname) !== null){
-            $(this).parents('#person').find('.memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button></span><span class="tok" hidden>'+token+'×</span>');
+            $(this).parents('#person').find('.memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button><span class="tok" hidden>'+token+'</span></span>');
         }
     }
     else{
@@ -389,14 +389,14 @@ $('body').on('click', '#person .add-member', function(){
 
 /*刪除會議對象*/
 $('body').on('click', '#person .close', function(){
-    var token = $("#person .staffname").find("option:selected").val()
-    console.log(token)
+    var token = $(this).parents('.memberwrap').children('.tag').children('.tok')[0].textContent
+    //console.log(token)
     $.each(array, function (i, item) {
         if(item == token){
             array.splice(i, 1);
         }
     });
-    console.log(array);
+    //console.log(array)
     $(this).parent('#person .tag').remove();
 });
 

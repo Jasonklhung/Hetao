@@ -71,20 +71,20 @@ class CycleController extends Controller
     	if($type == 'finish'){
 
     		//foreach ($id as $key => $value) {
-    			$update = CycleAssign::where('id', '=', $value)->update(['statusERP' => 'Y']);
+    			$update = CycleAssign::where('id', '=', $id)->update(['statusERP' => 'Y']);
 
     			if($update == true){
-    				array_push($result, $value);
+    				array_push($result, $id);
     			}
     		//}
     	}
     	elseif($type == 'turn'){
 
     		//foreach ($id as $key => $value) {
-    			$update = CycleAssign::where('id', '=', $value)->update(['statusERP' => 'Y']);
+    			$update = CycleAssign::where('id', '=', $id)->update(['statusERP' => 'Y']);
 
     			if($update == true){
-    				array_push($result, $value);
+    				array_push($result, $id);
     			}
     		//}
     	}

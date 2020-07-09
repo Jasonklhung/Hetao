@@ -555,7 +555,7 @@
                                                                     }
 
                                                                     for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"></span>")
+                                                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
                                                                     }
                                                                     $("input[name='meetingToken']").val(response.meetingToken);
                                                                     $("input[name='description2']").val(response.description);
@@ -674,7 +674,7 @@
                                                                     }
 
                                                                     for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"></span>")
+                                                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
                                                                     }
                                                                     $("input[name='meetingToken']").val(response.meetingToken);
                                                                     $("input[name='description2']").val(response.description);
@@ -793,7 +793,7 @@
                                                                     }
 
                                                                     for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"></span>")
+                                                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
                                                                     }
                                                                     $("input[name='meetingToken']").val(response.meetingToken);
                                                                     $("input[name='description2']").val(response.description);
@@ -988,7 +988,7 @@
                             selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
                         }
                         else{
-                            selOpts += "<option hidden value='"+item.token+"'>"+item.name+"</option>";
+                            selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
                         }
                     })
 
@@ -1380,7 +1380,7 @@
                                                                                 }
 
                                                                                 for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"></span>")
+                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
                                                                                 }
                                                                                 $("input[name='meetingToken']").val(response.meetingToken);
                                                                                 $("input[name='description2']").val(response.description);
@@ -1499,7 +1499,7 @@
                                                                                 }
 
                                                                                 for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"></span>")
+                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
                                                                                 }
                                                                                 $("input[name='meetingToken']").val(response.meetingToken);
                                                                                 $("input[name='description2']").val(response.description);
@@ -1618,7 +1618,7 @@
                                                                                 }
 
                                                                                 for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"></span>")
+                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
                                                                                 }
                                                                                 $("input[name='meetingToken']").val(response.meetingToken);
                                                                                 $("input[name='description2']").val(response.description);
@@ -2006,7 +2006,7 @@
                                                                                 }
 
                                                                                 for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"></span>")
+                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
                                                                                 }
                                                                                 $("input[name='meetingToken']").val(response.meetingToken);
                                                                                 $("input[name='description2']").val(response.description);
@@ -2125,7 +2125,7 @@
                                                                                 }
 
                                                                                 for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"></span>")
+                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
                                                                                 }
                                                                                 $("input[name='meetingToken']").val(response.meetingToken);
                                                                                 $("input[name='description2']").val(response.description);
@@ -2244,7 +2244,7 @@
                                                                                 }
 
                                                                                 for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"></span>")
+                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
                                                                                 }
                                                                                 $("input[name='meetingToken']").val(response.meetingToken);
                                                                                 $("input[name='description2']").val(response.description);

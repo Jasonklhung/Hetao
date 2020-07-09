@@ -56,46 +56,41 @@ class CycleController extends Controller
 
     public function cycle_update(Request $request)
     {
-    	$id = $request->id;
-    	$type = $request->type;
 
-    	if(empty($type)){
-    		return json_encode(array("status" => 400 , "message" => "缺少type參數"));
-    	}
-    	elseif(empty($id)){
-    		return json_encode(array("status" => 400 , "message" => "缺少id參數"));
-    	}
+        $data = $request->data;
 
-    	$result = array();
+        foreach ($data as $key => $value) {
 
-    	if($type == 'finish'){
+            if($value['type'] == 'finish'){
 
-    		//foreach ($id as $key => $value) {
-    			$update = CycleAssign::where('id', '=', $id)->update(['statusERP' => 'Y']);
+                $res = CycleAssign::find($value['id']);
 
-    			if($update == true){
-    				array_push($result, $id);
-    			}
-    		//}
-    	}
-    	elseif($type == 'turn'){
+                if($res == null){
+                    return json_encode(array('status' => 400, 'message' => '無效的id')) ;
+                }
+                else{
+                    $res->statusERP = 'Y';
+                    $res->save();
+                }
+            }
+            elseif($value['type'] == 'turn'){
 
-    		//foreach ($id as $key => $value) {
-    			$update = CycleAssign::where('id', '=', $id)->update(['statusERP' => 'Y']);
+                $res = CycleAssign::find($value['id']);
 
-    			if($update == true){
-    				array_push($result, $id);
-    			}
-    		//}
-    	}
+                if($res == null){
+                    return json_encode(array('status' => 400, 'message' => '無效的id')) ;
+                }
+                else{
+                    $res->statusERP = 'Y';
+                    $res->save();
+                }
+            }
+            else{
+                return json_encode(array('status' => 400, 'message' => '無效的type')) ;
+            }
+        }
 
-    	$result = implode(',', $result);
+        return json_encode(array('status' => 200, 'message' => '更新成功')) ;
 
-    	if(!empty($result)){
-    		return json_encode(array("status" => 200 , "message" => "id:".$result."更新成功"));
-    	}
-    	else{
-    		return json_encode(array("status" => 400 , "message" => "查無可更新的資料"));
-    	}
     }
 }

@@ -457,15 +457,25 @@ $('body').on('click', '#meet .add-member', function(){
     if(array.indexOf(token) == -1){
         array.push(token)
         if((company && role && staffname) !== null){
-            $('#meet .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button><input type="hidden" name="meeting2[]" value='+company+'/'+role+staffname+'></span></span>');
+            $('#meet .memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button><input type="hidden" name="meeting2[]" value='+company+'/'+role+staffname+'><span class="tok" hidden>'+token+'</span></span></span></span>');
         }
     }
     else{
+        console.log(array)
         alert('此人員已新增')
     }
 });
 /*刪除會議對象*/
 $('body').on('click', '#meet .close', function(){
+    console.log(array)
+    var token = $(this).parents('.memberwrap').children('.tag').children('.tok')[0].textContent
+    console.log(token)
+    $.each(array, function (i, item) {
+        if(item == token){
+            array.splice(i, 1);
+        }
+    });
+    console.log(array)
     $(this).parent('#meet .tag').remove();
 });
 /*選了分公司才能選職稱*/

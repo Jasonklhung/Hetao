@@ -59,46 +59,40 @@ class MaterialController extends Controller
 
     public function material_update(Request $request)
     {
-    	$id = $request->id;
-    	$type = $request->type;
 
-    	if(empty($type)){
-    		return json_encode(array("status" => 400 , "message" => "缺少type參數"));
-    	}
-    	elseif(empty($id)){
-    		return json_encode(array("status" => 400 , "message" => "缺少id參數"));
-    	}
+        $data = $request->data;
 
-    	$result = array();
+        foreach ($data as $key => $value) {
 
-    	if($type == 'receive'){
+            if($value['type'] == 'receive'){
 
-    		//foreach ($id as $key => $value) {
-    			$update = Material::where('id', '=', $id)->update(['statusERP' => 'Y']);
+                $res = Material::find($value['id']);
 
-    			if($update == true){
-    				array_push($result, $id);
-    			}
-    		//}
-    	}
-    	elseif($type == 'back'){
+                if($res == null){
+                    return json_encode(array('status' => 400, 'message' => '無效的id')) ;
+                }
+                else{
+                    $res->statusERP = 'Y';
+                    $res->save();
+                }
+            }
+            elseif($value['type'] == 'back'){
 
-    		//foreach ($id as $key => $value) {
-    			$update = MaterialBack::where('id', '=', $id)->update(['statusERP' => 'Y']);
+                $res = MaterialBack::find($value['id']);
 
-    			if($update == true){
-    				array_push($result, $id);
-    			}
-    		//}
-    	}
+                if($res == null){
+                    return json_encode(array('status' => 400, 'message' => '無效的id')) ;
+                }
+                else{
+                    $res->statusERP = 'Y';
+                    $res->save();
+                }
+            }
+            else{
+                return json_encode(array('status' => 400, 'message' => '無效的type')) ;
+            }
+        }
 
-    	$result = implode(',', $result);
-
-    	if(!empty($result)){
-    		return json_encode(array("status" => 200 , "message" => "id:".$result."更新成功"));
-    	}
-    	else{
-    		return json_encode(array("status" => 400 , "message" => "查無可更新的資料"));
-    	}
+        return json_encode(array('status' => 200, 'message' => '更新成功')) ;
     }
 }

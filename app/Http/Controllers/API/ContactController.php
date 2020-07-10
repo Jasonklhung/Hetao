@@ -60,9 +60,9 @@ class ContactController extends Controller
         $client = new \GuzzleHttp\Client();
         $response = $client->post('https://notify-api.line.me/api/notify', [
             'headers' => ['Content-Type' => 'application/x-www-form-urlencoded','Authorization'=> 'Bearer vlsUUu5KTNA1uChSjBMrmoXaaVbqXzjXzPVWekuz9zy'],
-            'body' => json_encode([
-                'message' => 'test'
-            ])
+            'form_params' => [
+                'message' => "區經理 您好！\n有客戶於線上填寫聯繫表單\n\n編號：202006020005\n名稱：賀眾企業股份有限公司\n電話： (02)22919000\n地址：新北產業園區五權三路32號\n詳細資訊請至賀眾牌LineBot的表單查看-與我聯繫，謝謝。",
+            ]
         ]);
 
         $response = $response->getBody()->getContents();

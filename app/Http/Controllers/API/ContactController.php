@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Contact;
 use App\ContactAnswer;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 
 class ContactController extends Controller
 {
@@ -56,7 +57,19 @@ class ContactController extends Controller
     	$res->form = json_encode($form);
     	$res->save();   
 
-    	return 'ok';
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('https://notify-api.line.me/api/notify', [
+            'headers' => ['Content-Type' => 'application/x-www-form-urlencoded','Authorization'=> 'Bearer vlsUUu5KTNA1uChSjBMrmoXaaVbqXzjXzPVWekuz9zy'],
+            'body' => json_encode([
+                'message' => 'test'
+            ])
+        ]);
+
+        $response = $response->getBody()->getContents();
+
+        $data = json_decode($response);
+
+    	return $data;
     }
 
     public function show()

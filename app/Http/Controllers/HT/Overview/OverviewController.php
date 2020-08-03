@@ -135,6 +135,7 @@ class OverviewController extends Controller
 
             if(strpos(substr($request->meetingToken,0,-1),Auth::user()->token) === false){ 
 
+                $dept = Organization::where('id',$organization->id)->get();
                 $activity->meeting = substr($request->meeting,0,-1).",".$dept[0]['name']."/".Auth::user()->job.Auth::user()->name;
                 $activity->meetingToken = substr($request->meetingToken,0,-1).",".Auth::user()->token;
             }

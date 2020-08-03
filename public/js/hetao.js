@@ -378,7 +378,7 @@ $('body').on('click', '#person .add-member', function(){
     if(array.indexOf(token) == -1){
         array.push(token)
         if((company && role && staffname) !== null){
-            $(this).parents('#person').find('.memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button><span class="tok" hidden>'+token+'</span></span>');
+            $(this).parents('#person').find('.memberwrap').append('<span class="tag"><div><small>'+ company +'/'+ role +'</small><br>'+ staffname +'</div><button class="close" type="button">×</button><span class="tok" hidden>'+token+'×</span></span>');
         }
     }
     else{
@@ -389,14 +389,13 @@ $('body').on('click', '#person .add-member', function(){
 
 /*刪除會議對象*/
 $('body').on('click', '#person .close', function(){
-    var token = $(this).parents('.memberwrap').children('.tag').children('.tok')[0].textContent
-    //console.log(token)
+    var token = $(this).parents('.tag').children('.tok')[0].textContent
+    var token = token.substring(0, token.length-1)
     $.each(array, function (i, item) {
         if(item == token){
             array.splice(i, 1);
         }
     });
-    //console.log(array)
     $(this).parent('#person .tag').remove();
 });
 
@@ -421,14 +420,26 @@ $('body').on('change', '#person .role', function(){
 $('body').on('click', '#person .finish', function(){
     var member = $('#person .tag').text()
     var token = $('#person .tok').text()
-    var noxx = member.replace(/\×/g, ', ')
+    var noxx = member.replace(/\×/g, ',')
     var noxxx = token.replace(/\×/g, ',')
+    
+    var noxx = noxx.split(",");
+
+    console.log(noxx)
+
+    var re = '';
+    $.each(noxx, function (i, item) {
+        if(i%2 == 0){
+            re += item+",";
+        }  
+    })
+
+    var re = re.substring(0, re.length-1)
+
     if($('#person .memberwrap span').hasClass('tag')) {
         // $('.main .o2').html(noxx);
-        $('textarea[name="meeting"]').html(noxx);
-        console.log(noxx)
-        console.log(noxxx)
-        $('.main .o2').after("<input type='hidden' name='meeting' value='"+noxx+"'>");
+        $('textarea[name="meeting"]').html(re);
+        $('.main .o2').after("<input type='hidden' name='meeting' value='"+re+"'>");
         $('.main .o2').after("<input type='hidden' name='meetingToken' value='"+noxxx+"'>");
         // $('textarea[name="meeting"]').css('height', 'auto');
         document.getElementById('meeting').style.height = "34px";
@@ -447,13 +458,14 @@ $('body').on('click', '#meet .add-member', function(){
     var role = $("#meet .role").val()
     var staffname = $("#meet .staffname").find("option:selected").text()
     var token = $("#meet .staffname").find("option:selected").val()
-
-    var haveToken = $("input[name='meetingToken']").val();
-    var aaa = haveToken.split(",");
-    console.log(haveToken)
-    for (var i = 0; i < aaa.length; i++) {
-        array.push(aaa[i]);
+    if(array == null || array == ''){
+        var haveToken = $("input[name='meetingToken']").val();
+        var aaa = haveToken.split(",");
+        for (var i = 0; i < aaa.length; i++) {
+            array.push(aaa[i]);
+        }
     }
+
     if(array.indexOf(token) == -1){
         array.push(token)
         if((company && role && staffname) !== null){
@@ -461,14 +473,24 @@ $('body').on('click', '#meet .add-member', function(){
         }
     }
     else{
-        console.log(array)
         alert('此人員已新增')
     }
+    console.log(array)
 });
+
+var count = 0
 /*刪除會議對象*/
 $('body').on('click', '#meet .close', function(){
-    console.log(array)
-    var token = $(this).parents('.memberwrap').children('.tag').children('.tok')[0].textContent
+
+    if(count == 0){
+        var haveToken = $("input[name='meetingToken']").val();
+        var aaa = haveToken.split(",");
+        for (var i = 0; i < aaa.length; i++) {
+            array.push(aaa[i]);
+        }
+    }
+    // var token = $(this).parents('.memberwrap').children('.tag').children('.tok')[0].textContent
+    var token = $(this).parents('.tag').children('.tok')[0].textContent
     console.log(token)
     $.each(array, function (i, item) {
         if(item == token){
@@ -477,6 +499,7 @@ $('body').on('click', '#meet .close', function(){
     });
     console.log(array)
     $(this).parent('#meet .tag').remove();
+    ++count
 });
 /*選了分公司才能選職稱*/
 $('body').on('change', '#meet .company', function(){
@@ -494,6 +517,7 @@ $('body').on('change', '#meet .role', function(){
 /*會議對象按下完成*/
 $('body').on('click', '#meet .finish', function(){
     var member = $('#meet .tag').text()
+    console.log(member)
     var noxx = member.replace(/\×/g, ', ')
     if($('#meet .memberwrap span').hasClass('tag')) {
         $('#meet .o2').text(noxx);

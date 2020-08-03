@@ -131,14 +131,26 @@ class NoticeController extends Controller
             $notice->meeting = $dept[0]['name']."/".Auth::user()->job." ".Auth::user()->name;
         }
         else{
-            $notice->meeting = $request->meetingName;
+
+            if(strpos($request->meetingToken,Auth::user()->token) === false){ 
+                $notice->meeting = $request->meetingName.",".$dept[0]['name']."/".Auth::user()->job." ".Auth::user()->name;
+            }
+            else{
+                $notice->meeting = $request->meetingName;
+            }
         }
 
         if($request->meetingToken == null){
             $notice->token = Auth::user()->token;
         }
         else{
-           $notice->token = $request->meetingToken;
+
+            if(strpos($request->meetingToken,Auth::user()->token) === false){ 
+                $notice->token = $request->meetingToken.",".Auth::user()->token;
+            }
+            else{
+                $notice->token = $request->meetingToken;
+            }
         }
 
         $notice->type = $request->type;

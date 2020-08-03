@@ -119,7 +119,7 @@
                                         <li class="mb-s"><i class="fas fa-bell"></i>
                                             <div class="edit">
                                                 <div class="mb-s">
-                                                    <input class="form-control messenger" type="number" min="1" value="10" name="notice2" required="">
+                                                    <input class="form-control messenger" type="number" min="1" value="10" name="notice2">
                                                     <select class="form-control messenger" id="noticeTime2" name="noticeTime2" id="" required="">
                                                         <option value="分鐘前">分鐘前</option>
                                                         <option value="小時前">小時前</option>
@@ -144,10 +144,13 @@
                                                 </select>
                                                 <select class='form-control mb-s role' id="job2" name="job2">
                                                     <option value="" selected="" disabled="">請選擇職稱</option>
+                                                    <option value="經管部-1">經管部-1</option>
+                                                    <option value="經管部-2">經管部-2</option>
                                                     <option value="助理">助理</option>
-                                                    <option value="主管">主管</option>
-                                                    <option value="員工">員工</option>
-                                                    <option value="其他">其他</option>
+                                                    <option selected value="主管">主管</option>
+                                                    <option value="員工">客服</option>
+                                                    <option value="業務">業務</option>
+                                                    <option value="其他">全員</option>
                                                 </select>
                                                 <select class='form-control mb-s staffname' id="name2" name="name2" disabled="">
                                                     <option value="" selected="" disabled="">員工名稱</option>
@@ -209,10 +212,13 @@
                         @endforeach
                     </select>
                     <select class='form-control mb-s role' name="job">
+                        <option value="經管部-1">經管部-1</option>
+                        <option value="經管部-2">經管部-2</option>
                         <option value="助理">助理</option>
                         <option selected value="主管">主管</option>
-                        <option value="員工">員工</option>
-                        <option value="其他">其他</option>
+                        <option value="員工">客服</option>
+                        <option value="業務">業務</option>
+                        <option value="其他">全員</option>
                     </select>
                     <select class='form-control mb-s staffname' name="name">
                         @if($user->isEmpty())
@@ -555,7 +561,7 @@
                                                                     }
 
                                                                     for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
+                                                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken.split(",")[i]+"</span></span>")
                                                                     }
                                                                     $("input[name='meetingToken']").val(response.meetingToken);
                                                                     $("input[name='description2']").val(response.description);
@@ -674,7 +680,7 @@
                                                                     }
 
                                                                     for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
+                                                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken.split(",")[i]+"</span></span>")
                                                                     }
                                                                     $("input[name='meetingToken']").val(response.meetingToken);
                                                                     $("input[name='description2']").val(response.description);
@@ -793,7 +799,7 @@
                                                                     }
 
                                                                     for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
+                                                                        $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken.split(",")[i]+"</span></span>")
                                                                     }
                                                                     $("input[name='meetingToken']").val(response.meetingToken);
                                                                     $("input[name='description2']").val(response.description);
@@ -945,7 +951,7 @@
                             selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
                         }
                         else{
-                            selOpts += "<option hidden value='"+item.token+"'>"+item.name+"</option>";
+                            selOpts += "<option value='"+item.token+"'>"+item.name+"</option>";
                         }
                     })
 
@@ -1380,7 +1386,7 @@
                                                                                 }
 
                                                                                 for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
+                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken.split(",")[i]+"</span></span>")
                                                                                 }
                                                                                 $("input[name='meetingToken']").val(response.meetingToken);
                                                                                 $("input[name='description2']").val(response.description);
@@ -1499,7 +1505,7 @@
                                                                                 }
 
                                                                                 for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
+                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken.split(",")[i]+"</span></span>")
                                                                                 }
                                                                                 $("input[name='meetingToken']").val(response.meetingToken);
                                                                                 $("input[name='description2']").val(response.description);
@@ -1618,7 +1624,7 @@
                                                                                 }
 
                                                                                 for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
+                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken.split(",")[i]+"</span></span>")
                                                                                 }
                                                                                 $("input[name='meetingToken']").val(response.meetingToken);
                                                                                 $("input[name='description2']").val(response.description);
@@ -2006,7 +2012,7 @@
                                                                                 }
 
                                                                                 for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
+                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken.split(",")[i]+"</span></span>")
                                                                                 }
                                                                                 $("input[name='meetingToken']").val(response.meetingToken);
                                                                                 $("input[name='description2']").val(response.description);
@@ -2125,7 +2131,7 @@
                                                                                 }
 
                                                                                 for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
+                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken.split(",")[i]+"</span></span>")
                                                                                 }
                                                                                 $("input[name='meetingToken']").val(response.meetingToken);
                                                                                 $("input[name='description2']").val(response.description);
@@ -2244,7 +2250,7 @@
                                                                                 }
 
                                                                                 for (var i = 0; i < response.meeting.split(",").length; i++) {
-                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken+"</span></span>")
+                                                                                    $("div[class='memberwrap']").append("<span class='tag'><div><small>"+response.meeting.split(",")[i]+"</small></div><button class='close' type='button'>×</button><input type='hidden' name='meeting2[]' value="+response.meeting.split(",")[i]+"><span class='tok' hidden>"+response.meetingToken.split(",")[i]+"</span></span>")
                                                                                 }
                                                                                 $("input[name='meetingToken']").val(response.meetingToken);
                                                                                 $("input[name='description2']").val(response.description);

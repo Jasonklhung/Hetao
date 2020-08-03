@@ -133,8 +133,15 @@ class OverviewController extends Controller
         }
         else{
 
-            $activity->meeting = substr($request->meeting,0,-1);
-            $activity->meetingToken = substr($request->meetingToken,0,-1);
+            if(strpos(substr($request->meetingToken,0,-1),Auth::user()->token) === false){ 
+
+                $activity->meeting = substr($request->meeting,0,-1).",".$dept[0]['name']."/".Auth::user()->job.Auth::user()->name;
+                $activity->meetingToken = substr($request->meetingToken,0,-1).",".Auth::user()->token;
+            }
+            else{
+                $activity->meeting = substr($request->meeting,0,-1);
+                $activity->meetingToken = substr($request->meetingToken,0,-1);
+            }
         }
 
         $activity->description = $request->description;
@@ -213,7 +220,6 @@ class OverviewController extends Controller
 
     public function updateDel(Organization $organization,Request $request)
     {
-
         if (isset($_POST["submit"])) {
             $sub = $_POST["submit"];
 
@@ -251,6 +257,9 @@ class OverviewController extends Controller
                     else{
                         $push = Carbon::parse($request->start2.' '.$request->startTime2)->subWeeks($request->notice2)->format('Y-m-d H:i:s');
                     }
+                }
+                else{
+                    $push = null;
                 }
 
                 $activity = Activity::find($request->id2);

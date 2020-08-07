@@ -20,7 +20,7 @@
                                                 <div class='coupon'>
                                                     <form class='form-inline' method="post" id="customerSearch">
                                                         @csrf
-                                                        <select class="form-control mr-s mb-s" name="type" required="">
+                                                        <select class="form-control mr-s mb-s" name="type" required="" id="type">
                                                             <option value="" selected="" disabled="">請選擇條件</option>
                                                             <option value="CARDNO">客戶卡號</option>
                                                             <option value="FULLNAME">客戶全銜</option>
@@ -34,7 +34,7 @@
                                                         <input type="text" class="form-control mr-s searchInput searchInput_s1" name="key" placeholder="請輸入關鍵字">
                                                         <div class='btn-wrap'>
                                                             <button class='mr-s' type="submit">查詢</button>
-                                                            <button class='mr-s' type="button">重設</button>
+                                                            <button class='mr-s' type="button" id="reset">重設</button>
                                                         </div>
                                                     </form>
                                                 </div>                                    
@@ -213,6 +213,11 @@
                 processData: false
             })
        })
+    })
+</script>
+<script type="text/javascript">
+    $('#reset').on('click',function(){
+        $('#type').val("")
     })
 </script>
 @endsection

@@ -33,7 +33,7 @@ class AssistantController extends Controller
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -107,7 +107,7 @@ class AssistantController extends Controller
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -158,7 +158,7 @@ class AssistantController extends Controller
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -201,7 +201,7 @@ class AssistantController extends Controller
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -316,7 +316,7 @@ class AssistantController extends Controller
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -396,7 +396,7 @@ class AssistantController extends Controller
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
         
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -671,7 +671,22 @@ class AssistantController extends Controller
         $status = $request->status;
         $staff = $request->staff;
 
-        $allCase = SupervisorCase::where('organization_id',$organization->id)
+        if($status == 'null'){
+            $allCase = SupervisorCase::where('organization_id',$organization->id)
+                                ->when($start, function ($query) use ($start,$end) {
+                                    return $query->whereBetween('time',[$start,$end]);
+                                })
+                                ->when($type, function ($query) use ($type) {
+                                    return $query->where('work_type',$type);
+                                })
+                                ->when($staff, function ($query) use ($staff) {
+                                    return $query->where('owner',$staff);
+                                })
+                                ->where('status','')
+                                ->get();
+        }
+        else{
+            $allCase = SupervisorCase::where('organization_id',$organization->id)
                                 ->when($start, function ($query) use ($start,$end) {
                                     return $query->whereBetween('time',[$start,$end]);
                                 })
@@ -685,6 +700,7 @@ class AssistantController extends Controller
                                     return $query->where('status',$status);
                                 })
                                 ->get();
+        }
         return $allCase;
     }
 

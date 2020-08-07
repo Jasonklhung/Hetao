@@ -1264,7 +1264,7 @@
                 $('#numberSelect').append("<option value=''>全部</option>")
 
                 $.each(res[8], function (i, item) {
-                    $('#numberSelect').append("<option value="+item+">"+item+"</option>")
+                    $('#numberSelect').append(`<option value="`+item+`">"`+item+`"</option>`)
                 });
 
             },

@@ -20,7 +20,7 @@ class StaffController extends Controller
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
         
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             // $client = new \GuzzleHttp\Client();
             // $response = $client->post('http://60.251.216.90:8855/api_/schedule', [
             //     'headers' => ['Content-Type' => 'application/json'],

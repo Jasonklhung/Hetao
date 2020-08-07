@@ -177,9 +177,13 @@
                                     </select>
                                     <select class='form-control mb-s role mr-s' disabled="disabled" name="job" id="job">
                                         <option selected hidden value="">職稱</option>
+                                        <option value="經管部-1">經管部-1</option>
+                                        <option value="經管部-2">經管部-2</option>
                                         <option value="助理">助理</option>
-                                        <option value="主管">主管</option>
-                                        <option value="員工">員工</option>
+                                        <option selected value="主管">主管</option>
+                                        <option value="員工">客服</option>
+                                        <option value="業務">業務</option>
+                                        <option value="其他">全員</option>
                                     </select>
                                     <select class='form-control mb-s staffname' disabled="disabled" name="name" id="name">
                                         <option selected hidden value="">員工名稱</option>
@@ -304,9 +308,13 @@
                                     </select>
                                     <select class='form-control mb-s role mr-s' disabled="disabled" name="job2" id="job2">
                                         <option selected hidden value="">職稱</option>
+                                        <option value="經管部-1">經管部-1</option>
+                                        <option value="經管部-2">經管部-2</option>
                                         <option value="助理">助理</option>
-                                        <option value="主管">主管</option>
-                                        <option value="員工">員工</option>
+                                        <option selected value="主管">主管</option>
+                                        <option value="員工">客服</option>
+                                        <option value="業務">業務</option>
+                                        <option value="其他">全員</option>
                                     </select>
                                     <select class='form-control mb-s staffname' disabled="disabled" name="name2" id="name2">
                                         <option selected hidden value="">員工名稱</option>

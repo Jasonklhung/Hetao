@@ -101,6 +101,7 @@
                                                             <thead class="rwdhide">
                                                                 <tr>
                                                                     <th class="desktop"></th>
+                                                                    <th class="desktop">操作</th>
                                                                     <th class="desktop">拜訪日期</th>
                                                                     <th class="desktop">拜訪時間</th>
                                                                     <th class="desktop">業主名稱</th>
@@ -110,7 +111,6 @@
                                                                     <th class="desktop">電話</th>
                                                                     <th class="desktop">發布</th>
                                                                     <th class="desktop">狀態</th>
-                                                                    <th class="desktop">操作</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -124,6 +124,7 @@
                                                                             @endif
                                                                         </div>
                                                                     </td>
+                                                                    <td><a href="{{ route('ht.Business.self.visitEdit',['organization'=>$organization,'id'=>$data->id]) }}"><button class="btn btn-primary" type="button">查看</button></td>
                                                                     <td class="text-nowrap">{{ $data->date }}</td>
                                                                     <td>{{ $data->time }}</td>
                                                                     <td>{{ $data->name }}</td>
@@ -142,7 +143,6 @@
                                                                     @else
                                                                     <td><span class="text-danger text-nowrap">未追蹤</span></td>
                                                                     @endif
-                                                                    <td><a href="{{ route('ht.Business.self.visitEdit',['organization'=>$organization,'id'=>$data->id]) }}"><button class="btn btn-primary" type="button">查看</button></td>
                                                                 </tr>
                                                                 @endforeach
                                                             </tbody>
@@ -237,6 +237,7 @@
                                                                 <tr>
                                                                     <th class="desktop"></th>
                                                                     <th class="desktop"></th>
+                                                                    <th class="desktop">操作</th>
                                                                     <th class="desktop">日期</th>
                                                                     <th class="desktop">
                                                                         <div class="d-flex">
@@ -260,7 +261,6 @@
                                                                     <th class="desktop">覆訪日期</th>
                                                                     <th class="desktop">結果</th>
                                                                     <th class="desktop">發布</th>
-                                                                    <th class="desktop">操作</th>
                                                                 </tr>
                                                             </thead>
                                                         </table>
@@ -547,7 +547,7 @@
             "extend": "colvis",
             "collectionLayout": "fixed two-column"
         }],
-        "order": [1,'desc'],
+        "order": [2,'desc'],
         "columnDefs": [{
             "targets": [0, 10],
             "orderable": false,
@@ -645,7 +645,7 @@
             watch: "<a href='"+url+"'><button class='btn btn-primary' type='button'>查看</button>",
             uniform: uniform_numbers,
             mail: email,
-            address: item.address,
+            address: item.city+item.area+item.address,
             type: item.numbers
         }
     })
@@ -653,6 +653,7 @@
     function format(d) {
         return (
             `<table class="tb-child">
+                <tr class='rwd-show'><td><span class='w-105px'>操作：</span>` + d.watch + `</td></tr>
                 <tr class='rwd-show'><td><span class='w-105px'>發布：</span>` + d.public + `</td></tr>            
                 <tr class='rwd-show'><td><span class='w-105px'>進度：</span>` + d.progress + `</td></tr>
                 <tr class='rwd-show'><td><span class='w-105px'>類別：</span>` + d.kind + `</td></tr>
@@ -663,7 +664,6 @@
                 <tr><td colspan="3"><span class='w-105px'>產品型號：</span>` + d.type + `</td></tr>                
                 <tr class='rwd-show'><td><span class='w-105px'>覆訪日期：</span>` + d.reday + `</td></tr>
                 <tr class='rwd-show'><td><span class='w-105px'>結果：</span>` + d.result + `</td></tr>
-                <tr class='rwd-show'><td><span class='w-105px'>操作：</span>` + d.watch + `</td></tr>
             </table>`
         );
     }
@@ -706,6 +706,7 @@
                     data: null,
                     defaultContent: '<span class="lnr lnr-chevron-down"></span>'
                 },
+                { data: "watch" },
                 { data: "day" },
                 { data: "level" },
                 { data: "progress" },
@@ -715,8 +716,7 @@
                 { data: "phone" },
                 { data: "reday" },
                 { data: "result" },
-                { data: "public" },
-                { data: "watch" }
+                { data: "public" }
 
             ],
         });
@@ -1255,9 +1255,12 @@
             },
             success: function(result, status, xhr) {
 
+                var Today=new Date()
+                var todays = Today.getFullYear()+ "-" + (Today.getMonth()+1) + "-" + Today.getDate()
+
                 var disposition = xhr.getResponseHeader('content-disposition');
                 var matches = /"([^"]*)"/.exec(disposition);
-                var filename = (matches != null && matches[1] ? matches[1] : '案件追蹤表.xlsx');
+                var filename = (matches != null && matches[1] ? matches[1] : todays+'案件追蹤表.xlsx');
 
                 var blob = new Blob([result], {
                     type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -1366,6 +1369,7 @@
                     }
                     rows += "</div>"
                     + "</td>"
+                    + "<td><a href="+ url +"><button class='btn btn-primary' type='button'>查看</button></td>"
                     + "<td class='text-nowrap'>"+ item.date +"</td>"
                     + "<td>"+ item.time +"</td>"
                     + "<td>"+ item.name +"</td>"
@@ -1375,7 +1379,6 @@
                     + "<td><a class='text-nowrap' href='tel:"+ item.phone +"'>" + item.phone + "</a></td>"
                     + "<td>" + statusOpen + "</td>"
                     + "<td>" + statusTrack +"</td>"
-                    + "<td><a href="+ url +"><button class='btn btn-primary' type='button'>查看</button></td>"
                     + "</tr>"
                 })
                 $('#hetao-list-s-1 tbody').append(rows);
@@ -1401,7 +1404,7 @@
                         "extend": "colvis",
                         "collectionLayout": "fixed two-column"
                     }],
-                    "order": [],
+                    "order": [2,'desc'],
                     "columnDefs": [{
                         "targets": [0, 10],
                         "orderable": false,
@@ -1517,7 +1520,7 @@
                         watch: "<a href='"+url+"'><button class='btn btn-primary' type='button'>查看</button>",
                         uniform: uniform_numbers,
                         mail: email,
-                        address: item.address,
+                        address: item.city+item.area+item.address,
                         type: item.numbers
                     }
                 })
@@ -1525,6 +1528,7 @@
                 function format(d) {
                     return (
                         `<table class="tb-child">
+                        <tr class='rwd-show'><td><span class='w-105px'>操作：</span>` + d.watch + `</td></tr>
                         <tr class='rwd-show'><td><span class='w-105px'>發布：</span>` + d.public + `</td></tr>            
                         <tr class='rwd-show'><td><span class='w-105px'>進度：</span>` + d.progress + `</td></tr>
                         <tr class='rwd-show'><td><span class='w-105px'>類別：</span>` + d.kind + `</td></tr>
@@ -1535,7 +1539,6 @@
                         <tr><td colspan="3"><span class='w-105px'>產品型號：</span>` + d.type + `</td></tr>                
                         <tr class='rwd-show'><td><span class='w-105px'>覆訪日期：</span>` + d.reday + `</td></tr>
                         <tr class='rwd-show'><td><span class='w-105px'>結果：</span>` + d.result + `</td></tr>
-                        <tr class='rwd-show'><td><span class='w-105px'>操作：</span>` + d.watch + `</td></tr>
                         </table>`
                         );
                 }
@@ -1578,6 +1581,7 @@
                             data: null,
                             defaultContent: '<span class="lnr lnr-chevron-down"></span>'
                         },
+                        { data: "watch" },
                         { data: "day" },
                         { data: "level" },
                         { data: "progress" },
@@ -1587,9 +1591,7 @@
                         { data: "phone" },
                         { data: "reday" },
                         { data: "result" },
-                        { data: "public" },
-                        { data: "watch" }
-
+                        { data: "public" }
                         ],
                     });
 

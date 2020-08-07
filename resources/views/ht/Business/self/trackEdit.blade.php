@@ -44,17 +44,17 @@
                                                                     <option value="B">B</option>
                                                                     <option value="C">C</option>
                                                                     <option value="D">D</option>
-                                                                    @elseif($case_track == 'B')
+                                                                    @elseif($case_track->level == 'B')
                                                                     <option value="A">A</option>
                                                                     <option value="B" selected="">B</option>
                                                                     <option value="C">C</option>
                                                                     <option value="D">D</option>
-                                                                    @elseif($case_track == 'C')
+                                                                    @elseif($case_track->level == 'C')
                                                                     <option value="A">A</option>
                                                                     <option value="B">B</option>
                                                                     <option value="C" selected="">C</option>
                                                                     <option value="D">D</option>
-                                                                    @elseif($case_track == 'D')
+                                                                    @elseif($case_track->level == 'D')
                                                                     <option value="A">A</option>
                                                                     <option value="B">B</option>
                                                                     <option value="C">C</option>
@@ -78,35 +78,35 @@
                                                                     <option value="已成待裝機">已成待裝機</option>
                                                                     <option value="已裝機完成">已裝機完成</option>
                                                                     <option value="已收款">已收款</option>
-                                                                    @elseif($case_track == '已拜訪介紹')
+                                                                    @elseif($case_track->schedule == '已拜訪介紹')
                                                                     <option value="尚未找到窗口">尚未找到窗口</option>
                                                                     <option value="已拜訪介紹" selected="">已拜訪介紹</option>
                                                                     <option value="已報價">已報價</option>
                                                                     <option value="已成待裝機">已成待裝機</option>
                                                                     <option value="已裝機完成">已裝機完成</option>
                                                                     <option value="已收款">已收款</option>
-                                                                    @elseif($case_track == '已報價')
+                                                                    @elseif($case_track->schedule == '已報價')
                                                                     <option value="尚未找到窗口">尚未找到窗口</option>
                                                                     <option value="已拜訪介紹">已拜訪介紹</option>
                                                                     <option value="已報價" selected="">已報價</option>
                                                                     <option value="已成待裝機">已成待裝機</option>
                                                                     <option value="已裝機完成">已裝機完成</option>
                                                                     <option value="已收款">已收款</option>
-                                                                    @elseif($case_track == '已成待裝機')
+                                                                    @elseif($case_track->schedule == '已成待裝機')
                                                                     <option value="尚未找到窗口">尚未找到窗口</option>
                                                                     <option value="已拜訪介紹">已拜訪介紹</option>
                                                                     <option value="已報價">已報價</option>
                                                                     <option value="已成待裝機" selected="">已成待裝機</option>
                                                                     <option value="已裝機完成">已裝機完成</option>
                                                                     <option value="已收款">已收款</option>
-                                                                    @elseif($case_track == '已裝機完成')
+                                                                    @elseif($case_track->schedule == '已裝機完成')
                                                                     <option value="尚未找到窗口">尚未找到窗口</option>
                                                                     <option value="已拜訪介紹">已拜訪介紹</option>
                                                                     <option value="已報價">已報價</option>
                                                                     <option value="已成待裝機">已成待裝機</option>
                                                                     <option value="已裝機完成" selected="">已裝機完成</option>
                                                                     <option value="已收款">已收款</option>
-                                                                    @elseif($case_track == '已收款')
+                                                                    @elseif($case_track->schedule == '已收款')
                                                                     <option value="尚未找到窗口">尚未找到窗口</option>
                                                                     <option value="已拜訪介紹">已拜訪介紹</option>
                                                                     <option value="已報價">已報價</option>

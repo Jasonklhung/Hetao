@@ -15,7 +15,7 @@ class AllController extends Controller
     	$job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
         
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -296,7 +296,7 @@ class AllController extends Controller
                 }
             }
             elseif($start != null && $end != null && $business == null && $types == null){
-                if($value->DATE >= $start && $value->DATE <= $end && $value->NAME == $business && $value->TYPE == $types){
+                if($value->DATE >= $start && $value->DATE <= $end){
                     $businessArray[] = $value;
                 }
             }

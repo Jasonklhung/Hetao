@@ -17,7 +17,7 @@ class NoticeController extends Controller
     	$job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
         
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -68,18 +68,39 @@ class NoticeController extends Controller
         $allUser = User::all();
         $deptUser = array();
 
-        foreach ($allUser as $key => $value) {
-            if($value->organization_id == $dept[0]['id'] && $value->token != null && $value->job == $request->job){
-                $deptUser[] = array("token"=>$value->token,"name"=>$value->name);
+        if($request->job != '其他'){
+
+            foreach ($allUser as $key => $value) {
+                if($value->organization_id == $dept[0]['id'] && $value->job == $request->job && ($value->token != '' || $value->token != null)){
+                    $deptUser[] = array("name"=>$value->name,"token"=>$value->token);
+                }
+            }
+
+            foreach ($allUser as $key => $value) {
+                $many = explode(',', $value->organizations);
+
+                foreach ($many as $k => $v) {
+                    if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id'] && $value->job == $request->job && ($value->token != '' || $value->token != null)){
+                        $deptUser[] = array("name"=>$value->name,"token"=>$value->token);
+                    }
+                }
             }
         }
+        else{
 
-        foreach ($allUser as $key => $value) {
-            $many = explode(',', $value->organizations);
+            foreach ($allUser as $key => $value) {
+                if($value->organization_id == $dept[0]['id']  && ($value->token != '' || $value->token != null)){
+                    $deptUser[] = array("name"=>$value->name,"token"=>$value->token);
+                }
+            }
 
-            foreach ($many as $k => $v) {
-                if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id'] && $value->token != null && $value->job == $request->job){
-                    $deptUser[] = array("token"=>$value->token,"name"=>$value->name);
+            foreach ($allUser as $key => $value) {
+                $many = explode(',', $value->organizations);
+
+                foreach ($many as $k => $v) {
+                    if($v == $dept[0]['id'] && $value->organization_id != $dept[0]['id'] && ($value->token != '' || $value->token != null)){
+                        $deptUser[] = array("name"=>$value->name,"token"=>$value->token);
+                    }
                 }
             }
         }

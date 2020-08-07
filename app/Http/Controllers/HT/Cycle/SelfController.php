@@ -19,7 +19,7 @@ class SelfController extends Controller
     	$job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
         
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);

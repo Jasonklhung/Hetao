@@ -242,7 +242,7 @@
             data:formData,
             success:function(res){
 
-                $('#totalMoney').val(res[1]);
+                $('#totalMoney').html('$：'+res[1]);
 
                 var rows;
                 $('#hetao-sale tbody').empty();
@@ -268,6 +268,122 @@
            
                 })
                 $('#hetao-sale tbody').append(rows);
+
+                $('#hetao-list-norwd').DataTable().destroy();
+                $('#hetao-list-norwd tbody').empty();
+
+                var data = new Array();
+
+                $.each(res[2], function (i, item) {
+
+                    data[i] = {
+                        day: "<span class='text-nowrap'>"+item.DATE+"</span>",
+                        number: item.SALENUM,
+                        name: item.CUSTKEY,
+                        card: item.CARDNO,
+                        productid: item.CODE,
+                        productintro: item.DESCRIBE,
+                        kind: item.TYPE,
+                        quantity: item.MATE,
+                        price: item.PRICE,
+                        total: item.AMOUNT,
+                        invoice: item.INVOICE,
+                        company: item.FULLNAME,
+                        staff: item.TOUCH,
+                        phone: "<a href='tel:"+item.COMTEL+"'>"+item.COMTEL+"</a>"
+                    }
+                })
+
+                function format(d) {
+                    return (
+                        `<table class="tb-child">
+                        <tr><td><span class='w-105px'>發票號碼：</span>` + d.invoice + `</td></tr>
+                        <tr><td><span class='w-105px'>客戶全銜：</span>` + d.company + `</td></tr>
+                        <tr><td><span class='w-105px'>聯絡人：</span>` + d.staff + `</td></tr>
+                        <tr><td class="text-nowrap"><span class='w-105px'>聯絡電話：</span>` + d.phone + `</td></tr>
+                        </table>`
+                        );
+                }
+                $(document).ready(function() {
+                    var table_s2 = $("#hetao-list-norwd").DataTable({
+                        "data": data,
+                        "bPaginate": true,
+                        "searching": true,
+                        "info": true,
+                        "bLengthChange": false,
+                        "bServerSide": false,
+                        "language": {
+                            "search": "",
+                            "searchPlaceholder": "請輸入關鍵字",
+                            "paginate": { "previous": "上一頁", "next": "下一頁" },
+                            "info": "顯示 _START_ 至 _END_ 筆，共有 _TOTAL_ 筆",
+                            "zeroRecords": "沒有符合的搜尋結果",
+                            "infoEmpty": "顯示 0 至 0 筆，共 0 筆",
+                            "lengthMenu": "呈現筆數 _MENU_",
+                            "emptyTable": "目前無資料",
+                            "infoFiltered": "(從 _MAX_ 筆中篩選)",
+                        },
+                        "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                        "buttons": [{
+                            "extend": "colvis",
+                            "collectionLayout": "fixed two-column"
+                        }],
+                        "order": [],
+                        "columnDefs": [{
+                            "targets": [0],
+                            "orderable": false,
+                        }, ],
+                        "responsive": false,
+                        columns: [
+                        {
+                            className: "details-control",
+                            orderable: false,
+                            data: null,
+                            defaultContent: '<span class="lnr lnr-chevron-down"></span>'
+                        },
+                        { data: "day" },
+                        { data: "number" },
+                        { data: "name" },
+                        { data: "card" },
+                        { data: "productid" },
+                        { data: "productintro" },
+                        { data: "kind" },
+                        { data: "quantity" },
+                        { data: "price" },
+                        { data: "total" }
+
+                        ],
+                    });
+
+                    $("#hetao-list-norwd tbody").on("click", "td.details-control", function() {
+                        var tr = $(this).closest("tr");
+                        var row = table_s2.row(tr);
+
+                        if (row.child.isShown()) {
+                            row.child.hide();
+                            tr.removeClass("shown");
+                        } else {
+                            row.child(format(row.data()), "p-0").show();
+                            tr.addClass("shown");
+                        }
+                    });
+
+                    $(".searchInput_s2").on("blur", function() {
+                        table_s2.search(this.value).draw();
+                    });
+
+                    $(".searchInput_s2").on("keyup", function() {
+                        table_s2.search(this.value).draw();
+                    });
+                });
+
+                var selOpts = "<option value='' selected='selected' disabled='true'>請選擇類別</option>";
+                    selOpts += "<option value='ALL'>全部</option>";
+                $.each(res[3], function (i, item) {
+                    selOpts += "<option value='"+item+"'>"+item+"</option>";
+                })
+                $("#category").empty();
+                $('#category').append(selOpts);
             },
             cache: false,
             contentType: false,
@@ -279,6 +395,12 @@
 
         e.preventDefault();
         var formData = new FormData(this);
+
+        var start = $('#start').val()
+        var end = $('#end').val()
+
+        formData.append('start', start);
+        formData.append('end', end);
 
         $.ajax({
             type:'post',

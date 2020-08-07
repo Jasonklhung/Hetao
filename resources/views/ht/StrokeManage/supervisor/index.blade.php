@@ -20,19 +20,19 @@
                                                 <!-- tab標籤 -->
                                                 <ul class="nav nav-tabs">
                                                     <li class="active">
-                                                        <a data-toggle="tab" href="#viewers-tab-01">線上預約</a>
-                                                    </li>
-                                                    <li>
                                                         <a data-toggle="tab" href="#viewers-tab-02">待指派工單</a>
                                                     </li>
                                                     <li>
                                                         <a data-toggle="tab" href="#viewers-tab-03">已指派工單</a>
                                                     </li>
+                                                    <li>
+                                                        <a data-toggle="tab" href="#viewers-tab-01">線上預約</a>
+                                                    </li>
                                                 </ul>
                                                 <!-- tab標籤內容 -->
                                                 <div class="tab-content">
                                                     <!-- 線上預約 -->
-                                                    <div class="tab-pane active" id="viewers-tab-01">
+                                                    <div class="tab-pane" id="viewers-tab-01">
                                                         <div class='coupon'>
                                                             <form class='form-inline' id="onlineSearch">
                                                                 @csrf
@@ -85,7 +85,7 @@
                                                         </table>
                                                     </div>
                                                     <!-- 待指派工單 -->
-                                                    <div class="tab-pane" id="viewers-tab-02">
+                                                    <div class="tab-pane active" id="viewers-tab-02">
                                                         <div class='coupon'>
                                                             <form class='form-inline' id="notAssignSearch">
                                                                 @csrf
@@ -229,6 +229,7 @@
                                                                 <div class='form-group mr-s'>
                                                                     <select class='form-control' name="status" id="status2">
                                                                         <option selected value="">所有狀態</option>
+                                                                        <option value="null">執行中</option>
                                                                         <option value="F">延後</option>
                                                                         <option value="R">轉單</option>
                                                                         <option value="T">完成</option>
@@ -322,10 +323,18 @@
                                                                     <td>
                                                                         <select name="assign2" class="form-control" style="margin-right:28px;">
                                                                          @foreach($deptUser as $res)
-                                                                            @if($res['name'] == $data->owner)
-                                                                            <option selected value="{{ $res['id'] }}" >{{ $res['name'] }}</option>
+                                                                            @if($data->status == 'T')
+                                                                                @if($res['name'] == $data->owner)
+                                                                                <option selected value="{{ $res['id'] }}">{{ $res['name'] }}</option>
+                                                                                @else
+                                                                                <option value="{{ $res['id'] }}" disabled="">{{ $res['name'] }}</option>
+                                                                                @endif
                                                                             @else
-                                                                            <option value="{{ $res['id'] }}">{{ $res['name'] }}</option>
+                                                                                @if($res['name'] == $data->owner)
+                                                                                <option selected value="{{ $res['id'] }}" >{{ $res['name'] }}</option>
+                                                                                @else
+                                                                                <option value="{{ $res['id'] }}">{{ $res['name'] }}</option>
+                                                                                @endif
                                                                             @endif
                                                                         @endforeach
                                                                         </select>
@@ -369,7 +378,7 @@
                                                                     @elseif($data->status == 'R')
                                                                     <td>轉單</td>
                                                                     @else
-                                                                    <td></td>
+                                                                    <td>執行中</td>
                                                                     @endif
                                                                 </tr>
                                                                 @endforeach
@@ -947,7 +956,7 @@
                                 rows += "<td>延遲</td>"
                             }
                             else{
-                                rows += "<td></td>"
+                                rows += "<td>執行中</td>"
                             }
                             rows += "<td>" + item.owner + "</td>"
                                  + "</tr>";        
@@ -1099,12 +1108,24 @@
                             + "</td>"
                             + "<td>"
                             + "<select name='assign2' class='form-control' style='margin-right:28px;' disabled>"
-                            for (var j = 0; j < res[1].length; j++) {
-                                if(res[1][j].name == item.owner){ 
-                                    rows += "<option value="+ res[1][j].id+" selected>"+res[1][j].name+"</option>"
+                            if(item.status == 'T'){
+                                for (var j = 0; j < res[1].length; j++) {
+                                    if(res[1][j].name == item.owner){ 
+                                        rows += "<option value="+ res[1][j].id+" selected>"+res[1][j].name+"</option>"
+                                    }
+                                    else{
+                                        rows += "<option value="+ res[1][j].id+" disabled>"+res[1][j].name+"</option>"
+                                    }
                                 }
-                                else{
-                                    rows += "<option value="+ res[1][j].id+">"+res[1][j].name+"</option>"
+                            }
+                            else{
+                                for (var j = 0; j < res[1].length; j++) {
+                                    if(res[1][j].name == item.owner){ 
+                                        rows += "<option value="+ res[1][j].id+" selected>"+res[1][j].name+"</option>"
+                                    }
+                                    else{
+                                        rows += "<option value="+ res[1][j].id+">"+res[1][j].name+"</option>"
+                                    }
                                 }
                             }
                             rows += "</select></td>"
@@ -1165,7 +1186,7 @@
                                 rows += "<td>延遲</td>"
                             }
                             else{
-                                rows += "<td></td>"
+                                rows += "<td>執行中</td>"
                             }
                             rows += "</tr>";     
                         }
@@ -1178,12 +1199,24 @@
                             + "</td>"
                             + "<td>"
                             + "<select name='assign2' class='form-control' style='margin-right:28px;'>"
-                            for (var j = 0; j < res[1].length; j++) {
-                                if(res[1][j].name == item.owner){ 
-                                    rows += "<option value="+ res[1][j].id+" selected>"+res[1][j].name+"</option>"
+                            if(item.status == 'T'){
+                                for (var j = 0; j < res[1].length; j++) {
+                                    if(res[1][j].name == item.owner){ 
+                                        rows += "<option value="+ res[1][j].id+" selected>"+res[1][j].name+"</option>"
+                                    }
+                                    else{
+                                        rows += "<option value="+ res[1][j].id+" disabled>"+res[1][j].name+"</option>"
+                                    }
                                 }
-                                else{
-                                    rows += "<option value="+ res[1][j].id+">"+res[1][j].name+"</option>"
+                            }
+                            else{
+                                for (var j = 0; j < res[1].length; j++) {
+                                    if(res[1][j].name == item.owner){ 
+                                        rows += "<option value="+ res[1][j].id+" selected>"+res[1][j].name+"</option>"
+                                    }
+                                    else{
+                                        rows += "<option value="+ res[1][j].id+">"+res[1][j].name+"</option>"
+                                    }
                                 }
                             }
                             rows += "</select></td>"
@@ -1244,7 +1277,7 @@
                                 rows += "<td>延遲</td>"
                             }
                             else{
-                                rows += "<td></td>"
+                                rows += "<td>執行中</td>"
                             }
                             rows += "</tr>";     
                         }

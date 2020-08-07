@@ -23,7 +23,7 @@ class SelfController extends Controller
     	$job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -64,7 +64,7 @@ class SelfController extends Controller
 
         //案件追蹤
         $track = BusinessTrack::query()
-                ->select('business_tracks.*','businesses.date','businesses.name','businesses.business_name','businesses.address','businesses.phone','business_case_details.numbers')
+                ->select('business_tracks.*','businesses.date','businesses.name','businesses.business_name','businesses.city','businesses.area','businesses.address','businesses.phone','business_case_details.numbers')
                 ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
                 ->leftjoin('business_case_details','business_case_details.business_track_id','=','business_tracks.id')
                 ->where('business_tracks.user_id',Auth::user()->id)
@@ -104,7 +104,7 @@ class SelfController extends Controller
                 foreach ($trackDetailResultArray as $k => $v) {
 
                     if($v['id'] == $value->id){
-                        $trackSameArray[] = array("id"=>$value->id,"date"=>$value->date,"level"=>$value->level,"schedule"=>$value->schedule,"category"=>$value->category,"name"=>$value->name,"business_name"=>$value->touch,"phone"=>$value->phone,"date_again"=>$value->date_again,"result"=>$value->result,"statusOpen"=>$value->statusOpen,"uniform_numbers"=>$value->uniform_numbers,"email"=>$value->email,"address"=>$value->address,"numbers"=>$v['detail']);
+                        $trackSameArray[] = array("id"=>$value->id,"date"=>$value->date,"level"=>$value->level,"schedule"=>$value->schedule,"category"=>$value->category,"name"=>$value->name,"business_name"=>$value->touch,"phone"=>$value->phone,"date_again"=>$value->date_again,"result"=>$value->result,"statusOpen"=>$value->statusOpen,"uniform_numbers"=>$value->uniform_numbers,"email"=>$value->email,"city"=>$value->city,"area"=>$value->area,"address"=>$value->address,"numbers"=>$v['detail']);
                     }
 
                 }
@@ -291,7 +291,7 @@ class SelfController extends Controller
                                 ->where('business_tracks.result','成交')
                                 ->get();
 
-        $finishChartCount = count($chart);
+        $finishChartCount = $a+$b+$c;
 
         $money = 0;
         foreach ($chart as $key => $value) {
@@ -355,7 +355,7 @@ class SelfController extends Controller
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -583,7 +583,7 @@ class SelfController extends Controller
                                 ->where('business_tracks.result','成交')
                                 ->get();
 
-        $finishChartCount = count($chart);
+        $finishChartCount = $a+$b+$c;
 
         $money = 0;
         foreach ($chart as $key => $value) {
@@ -647,7 +647,7 @@ class SelfController extends Controller
     	$job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -787,7 +787,7 @@ class SelfController extends Controller
     	$job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -832,7 +832,7 @@ class SelfController extends Controller
     	$job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
         
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -1257,7 +1257,7 @@ class SelfController extends Controller
         $dept = Organization::where('id',$organization->id)->get();
 
         $trackArray = BusinessTrack::query()
-            ->select('business_tracks.*','businesses.date','businesses.name','businesses.business_name','businesses.address','businesses.phone','business_case_details.numbers')
+            ->select('business_tracks.*','businesses.date','businesses.name','businesses.business_name','businesses.city','businesses.area','businesses.address','businesses.phone','business_case_details.numbers')
             ->leftjoin('businesses','businesses.id','=','business_tracks.business_id')
             ->leftjoin('business_case_details','business_case_details.business_track_id','=','business_tracks.id')
             ->when($start, function ($query) use ($start,$end) {
@@ -1315,7 +1315,7 @@ class SelfController extends Controller
                 foreach ($trackDetailResultArray as $k => $v) {
 
                     if($v['id'] == $value->id){
-                        $trackSameArray[] = array("id"=>$value->id,"date"=>$value->date,"level"=>$value->level,"schedule"=>$value->schedule,"category"=>$value->category,"name"=>$value->name,"business_name"=>$value->touch,"phone"=>$value->phone,"date_again"=>$value->date_again,"result"=>$value->result,"statusOpen"=>$value->statusOpen,"uniform_numbers"=>$value->uniform_numbers,"email"=>$value->email,"address"=>$value->address,"numbers"=>$v['detail']);
+                        $trackSameArray[] = array("id"=>$value->id,"date"=>$value->date,"level"=>$value->level,"schedule"=>$value->schedule,"category"=>$value->category,"name"=>$value->name,"business_name"=>$value->touch,"phone"=>$value->phone,"date_again"=>$value->date_again,"result"=>$value->result,"statusOpen"=>$value->statusOpen,"uniform_numbers"=>$value->uniform_numbers,"email"=>$value->email,"city"=>$value->city,"area"=>$value->area,"address"=>$value->address,"numbers"=>$v['detail']);
                     }
 
                 }

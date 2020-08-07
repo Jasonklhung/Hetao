@@ -19,7 +19,7 @@ class AllController extends Controller
     	$job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -409,7 +409,7 @@ class AllController extends Controller
     	$job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
         
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -828,6 +828,8 @@ class AllController extends Controller
         }
 
 
+        $number = $request->number;
+
         //圖表-各機型銷售狀況-右邊表格
         $chart = BusinessTrack::query()
                             ->select('users.name','business_case_details.numbers','business_case_details.quantity')
@@ -847,6 +849,7 @@ class AllController extends Controller
                                      return $query->where('business_tracks.user_id',$business);
                             })
                             ->get();
+        //dd($chart);
 
         $userTable = array();
         $numberSelect = array();

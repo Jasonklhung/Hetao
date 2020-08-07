@@ -471,11 +471,11 @@
             }
         });
 
-        $(".searchInput_s2").on("blur", function() {
+        $(".searchInput_s1").on("blur", function() {
             table_s1.search(this.value).draw();
         });
 
-        $(".searchInput_s2").on("keyup", function() {
+        $(".searchInput_s1").on("keyup", function() {
             table_s1.search(this.value).draw();
         });
     });
@@ -765,11 +765,11 @@
                         }
                     });
 
-                    $(".searchInput_s2").on("blur", function() {
+                    $(".searchInput_s1").on("blur", function() {
                         table_s1.search(this.value).draw();
                     });
 
-                    $(".searchInput_s2").on("keyup", function() {
+                    $(".searchInput_s1").on("keyup", function() {
                         table_s1.search(this.value).draw();
                     });
                 });

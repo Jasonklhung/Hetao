@@ -15,7 +15,7 @@ class SelfController extends Controller
     	$job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
         
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -142,18 +142,27 @@ class SelfController extends Controller
 
         $type = array();
         $total = array();
+        $performanceArray = array();
 
         foreach ($data as $key => $value) {
             if($key == 'data'){
+                // if($start <= $value->DATE && $end >= $value->DATE){
+                //     $performance[] = $value;
+                // }
                 $performance = $value;
             }
             else{
                 $performance = [];
             }
         }
+        
+
 
         foreach ($performance as $key => $value) {
             if($value->DATE >= $start && $value->DATE <= $end){
+
+                $performanceArray[] = $value;
+
                 if(!in_array($value->TYPE, $type)){
                     array_push($type, $value->TYPE);
                 }
@@ -179,12 +188,14 @@ class SelfController extends Controller
             $totalMoney += $value['money'];
         }
 
-        return [$total,$totalMoney];
+        return [$total,$totalMoney,$performanceArray,$type];
     }
 
     public function categorySearch(Organization $organization,Request $request)
     {
         $category = $request->category;
+        $start = $request->start;
+        $end = $request->end;
 
         $dept = Organization::where('id',$organization->id)->get();
 
@@ -213,11 +224,25 @@ class SelfController extends Controller
             }
         }
 
-        $typeArray = array();
+        $performanceArray = array();
 
         foreach ($performance as $key => $value) {
+            if($value->DATE >= $start && $value->DATE <= $end){
+
+                $performanceArray[] = $value;
+
+            }
+        }        
+
+        $typeArray = array();
+
+        foreach ($performanceArray as $key => $value) {
             
             if($value->TYPE == $category){
+                $typeArray[] = $value;
+            }
+
+            if($category == 'ALL'){
                 $typeArray[] = $value;
             }
         }

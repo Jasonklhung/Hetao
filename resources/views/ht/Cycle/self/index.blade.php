@@ -312,7 +312,7 @@
                 "extend": "colvis",
                 "collectionLayout": "fixed two-column"
             }],
-            "order": [],
+            "order": [6,'desc'],
             "columnDefs": [{
                 "targets": [0, 1],
                 "orderable": false,
@@ -499,7 +499,7 @@
                 "extend": "colvis",
                 "collectionLayout": "fixed two-column"
             }],
-            "order": [],
+            "order": [2,'desc'],
             "columnDefs": [{
                 "targets": [0, 1],
                 "orderable": false,
@@ -903,7 +903,7 @@
                                     "extend": "colvis",
                                     "collectionLayout": "fixed two-column"
                                 }],
-                                "order": [],
+                                "order": [6,'desc'],
                                 "columnDefs": [{
                                     "targets": [0, 1],
                                     "orderable": false,
@@ -1085,7 +1085,7 @@
                                         "extend": "colvis",
                                         "collectionLayout": "fixed two-column"
                                     }],
-                                    "order": [],
+                                    "order": [2,'desc'],
                                     "columnDefs": [{
                                         "targets": [0, 1],
                                         "orderable": false,

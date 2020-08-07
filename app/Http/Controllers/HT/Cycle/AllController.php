@@ -17,7 +17,7 @@ class AllController extends Controller
     	$job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
         
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -424,8 +424,8 @@ class AllController extends Controller
             $cycleCountArray = array();
 
             foreach ($cycleArray as $key => $value) {
-                if(!in_array(explode('-', $value->kind)[0], $cycleCountArray)){
-                    array_push($cycleCountArray, explode('-', $value->kind)[0]);
+                if(!in_array(explode('-', $value['kind'])[0], $cycleCountArray)){
+                    array_push($cycleCountArray, explode('-', $value['kind'])[0]);
                 } 
             }
 

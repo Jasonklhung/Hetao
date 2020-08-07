@@ -28,7 +28,7 @@ class SupervisorController extends Controller
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -139,7 +139,7 @@ class SupervisorController extends Controller
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
 
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -526,7 +526,7 @@ class SupervisorController extends Controller
         $job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();
         
-        if($job == '員工'){
+        if($job == '員工' || $job == '業務'){
             $countArray = SupervisorCase::where('owner_id',Auth::user()->id)->whereIn('status',[null,'','F'])->get();
 
             $caseCount = count($countArray);
@@ -904,6 +904,7 @@ class SupervisorController extends Controller
 
     public function assignCaseSearch(Organization $organization,Request $request)
     {
+        //dd($request->all());
 
         $start = $request->start;
         $end = $request->end;
@@ -911,7 +912,22 @@ class SupervisorController extends Controller
         $status = $request->status;
         $staff = $request->staff;
 
-        $assignCaseArray = SupervisorCase::where('organization_id',$organization->id)
+        if($status == 'null'){
+            $assignCaseArray = SupervisorCase::where('organization_id',$organization->id)
+                                        ->when($start, function ($query) use ($start,$end) {
+                                            return $query->whereBetween('time',[$start,$end]);
+                                        })
+                                        ->when($type, function ($query) use ($type) {
+                                            return $query->where('work_type',$type);
+                                        })
+                                        ->when($staff, function ($query) use ($staff) {
+                                            return $query->where('owner',$staff);
+                                        })
+                                        ->where('status','')
+                                        ->get();
+        }
+        else{
+            $assignCaseArray = SupervisorCase::where('organization_id',$organization->id)
                                         ->when($start, function ($query) use ($start,$end) {
                                             return $query->whereBetween('time',[$start,$end]);
                                         })
@@ -925,6 +941,7 @@ class SupervisorController extends Controller
                                             return $query->where('status',$status);
                                         })
                                         ->get();
+        }
 
         //取得所有員工
         $dept = Organization::where('id',$organization->id)->get();

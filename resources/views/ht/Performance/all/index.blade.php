@@ -117,7 +117,7 @@
                                                         </select>
                                                         <div class='btn-wrap'>
                                                             <button class='mr-s' type="submit">查詢</button>
-                                                            <button class='mr-s' type="button" id="resets">重設</button>
+                                                            <button class='mr-s' type="button" id="reset2">重設</button>
                                                         </div>
                                                     </form>    
                                                 </div> 
@@ -453,6 +453,7 @@
                 })
 
                 var selOpts = "<option value='' selected>業務</option>";
+                    selOpts += "<option value='ALL'>全部</option>";
                 $.each(res[1], function (i, item) {
                     selOpts += "<option value='"+item+"'>"+item+"</option>";
                 })
@@ -460,6 +461,7 @@
                 $('#business').append(selOpts);
 
                 var selOpts = "<option value='' selected>類別</option>";
+                    selOpts += "<option value='ALL'>全部</option>";
                 $.each(res[2], function (i, item) {
                     selOpts += "<option value='"+item+"'>"+item+"</option>";
                 })
@@ -564,5 +566,18 @@
     $("#datetimepicker2").on("dp.change", function (e) {
         $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
     });
+</script>
+<script type="text/javascript">
+    $('#reset').on('click',function(){
+        $('#start').val("")
+        $('#end').val("")
+    })
+
+    $('#reset2').on('click',function(){
+        $('#start2').val("")
+        $('#end2').val("")
+        $('#business').val("")
+        $('#type').val("")
+    })
 </script>
 @endsection

@@ -320,13 +320,41 @@ class AllController extends Controller
             }
         }
 
-        foreach ($businessArray as $key => $value) {
-            if(!in_array($value->NAME,$busi)){
-                array_push($busi, $value->NAME);
+        if($business == 'ALL'){
+            foreach ($performance as $key => $value) {
+                if(!in_array($value->NAME,$busi)){
+                    array_push($busi, $value->NAME);
+                }
             }
+        }
+        else{
+            foreach ($businessArray as $key => $value) {
+                if(!in_array($value->NAME,$busi)){
+                    array_push($busi, $value->NAME);
+                }
 
-            if(!in_array($value->TYPE,$category)){
-                array_push($category, $value->TYPE);
+                if(!in_array($value->TYPE,$category)){
+                    array_push($category, $value->TYPE);
+                }
+            }
+        }
+
+        if($types == 'ALL'){
+            foreach ($performance as $key => $value) {
+                if(!in_array($value->TYPE,$category)){
+                    array_push($category, $value->TYPE);
+                }
+            }
+        }
+        else{
+            foreach ($businessArray as $key => $value) {
+                if(!in_array($value->NAME,$busi)){
+                    array_push($busi, $value->NAME);
+                }
+
+                if(!in_array($value->TYPE,$category)){
+                    array_push($category, $value->TYPE);
+                }
             }
         }
 

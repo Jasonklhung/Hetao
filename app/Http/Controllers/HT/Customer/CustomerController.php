@@ -54,7 +54,7 @@ class CustomerController extends Controller
         return view('ht.Customer.index',compact('organization','caseCount'));
     }
 
-    public function show(Organization $organization, $id,$type)
+    public function show(Organization $organization, $id)
     {
     	$job = Auth::user()->job;
         $dept = Organization::where('id',$organization->id)->get();

@@ -156,7 +156,18 @@ class OverviewController extends Controller
 
         $activity = Activity::where('organization_id',$organization->id)->where('owner',Auth::user()->id)->orderBy('start','asc')->get();
 
-        return $activity;
+        $activityAll = Activity::where('organization_id',$organization->id)->orderBy('start','asc')->get();
+
+        $activityJoin = array();
+
+        foreach ($activityAll as $key => $value) {
+
+            if(strpos($value['meetingToken'],Auth::user()->token) !== false){ 
+                $activityJoin[] = $value;
+            }
+        }
+
+        return $activityJoin;
     }
 
     public function showAll(Organization $organization,Activity $activity,Request $request)
@@ -169,24 +180,40 @@ class OverviewController extends Controller
 
     public function search(Organization $organization,Request $request)
     {
-        $oneDay = Activity::where('organization_id',$organization->id)->where('owner',Auth::user()->id)->whereDate('start',$request->date)->orderBy('start','asc')->get();
+        $oneDay = Activity::where('organization_id',$organization->id)->whereDate('start',$request->date)->orderBy('start','asc')->get();
 
 
         $activity = Activity::where('organization_id',$organization->id)
                     ->whereDate('start','<',$request->date)
                     ->whereDate('end','>=',$request->date)
-                    ->where('owner',Auth::user()->id)
                     ->orderBy('start','asc')
                     ->get();
 
-        if($oneDay->isNotEmpty() && $activity->isEmpty()){
-            return [$oneDay];
+        $oneDayArray = array();
+        $activityArray = array();
+
+        foreach ($oneDay as $key => $value) {
+
+            if(strpos($value['meetingToken'],Auth::user()->token) !== false){ 
+                $oneDayArray[] = $value;
+            }
         }
-        elseif($oneDay->isEmpty() && $activity->isNotEmpty()){
-            return [$activity];
+
+        foreach ($activity as $key => $value) {
+
+            if(strpos($value['meetingToken'],Auth::user()->token) !== false){ 
+                $activityArray[] = $value;
+            }
+        }
+
+        if($oneDayArray != '' && $activityArray == ''){
+            return [$oneDayArray];
+        }
+        elseif($oneDayArray == '' && $activityArray != ''){
+            return [$activityArray];
         }
         else{
-            return [$oneDay,$activity];
+            return [$oneDayArray,$activityArray];
         }
     }
 

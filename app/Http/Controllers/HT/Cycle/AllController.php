@@ -79,7 +79,7 @@ class AllController extends Controller
 
         $allAssign = array();
 
-        $assign = CycleAssign::where('organization_name',$dept[0]['name'])->where('statusERP','N')->get();
+        $assign = CycleAssign::where('organization_name',$dept[0]['name'])->where('status','!=','T')->where('statusERP','N')->get();
 
         foreach ($assign as $key => $value) {
             array_push($allAssign, $value->kind);

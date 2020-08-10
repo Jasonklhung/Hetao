@@ -115,7 +115,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 		//客戶資料查詢
 		Route::get('/HT/{organization}/Customer/index','HT\Customer\CustomerController@index')->name('ht.Customer.index');
-		Route::get('/HT/{organization}/Customer/show/{type}/{id}','HT\Customer\CustomerController@show')->name('ht.Customer.show');
+		Route::get('/HT/{organization}/Customer/show/{id}','HT\Customer\CustomerController@show')->name('ht.Customer.show');
 		Route::post('/HT/{organization}/Customer/search','HT\Customer\CustomerController@search')->name('ht.Customer.search');
 		Route::post('/HT/{organization}/Customer/show/tradeSearch','HT\Customer\CustomerController@tradeSearch')->name('ht.Customer.show.tradeSearch');
 		Route::post('/HT/{organization}/Customer/show/arapSearch','HT\Customer\CustomerController@arapSearch')->name('ht.Customer.show.arapSearch');

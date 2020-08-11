@@ -89,7 +89,7 @@
                                                         </div>
                                                         <div class="form-item">
                                                             <label class="d-block">附件上傳</label>
-                                                            <input type="file" class="d-none upload" id="upload" name="file" accept=".csv,.xls,.xlsx,.doc,.docx,.pdf" onchange="checkfile(this);">
+                                                            <input type="file" class="d-none upload" id="upload" name="file[]" multiple accept=".csv,.xls,.xlsx,.doc,.docx,.pdf" onchange="checkfile(this);">
                                                             <label class="form-control" for="upload">上傳附件</label>
                                                         </div>
                                                         <div class="form-item ">

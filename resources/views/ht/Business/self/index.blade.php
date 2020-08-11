@@ -120,7 +120,7 @@
                                                                         <div class="td-icon">
                                                                             <input class="chkall" type="checkbox" name="businessVisit" value="{{ $data->id }}">
                                                                             @if($data->file)
-                                                                            <a href="{{ asset($data->file) }}"><i class="fas fa-paperclip"></i></a>
+                                                                            <a class="downloadfile"><i class="fas fa-paperclip"></i></a>
                                                                             @endif
                                                                         </div>
                                                                     </td>
@@ -1815,5 +1815,37 @@
     $("#datetimepicker4").on("dp.change", function (e) {
         $('#datetimepicker3').data("DateTimePicker").maxDate(e.date);
     });
+</script>
+<script type="text/javascript">
+    $('.downloadfile').on('click',function(){
+
+        var id = $(this).parents('div').children('input').val();
+        
+        $.ajax({
+            type:'post',
+            url:"{{ route('ht.Business.self.downloadfile',['organization'=>$organization]) }}",
+            data:{
+                '_token':'{{csrf_token()}}',
+                'id':id
+            },
+            success:function(res){
+
+                var a = res.file.split(',')
+                var b = a.length;
+
+                for (var i = 0; i < b; i++) {
+
+
+                    var $a = $("<a>");
+                    $a.attr("href",'http://localhost/HetaoTest/public/'+res.file.split(',')[i]);
+                    $("body").append($a);
+                    $a.attr("download",(res.file.split(',')[i]).split('/')[3] );
+                    $a[0].click();
+                    $a.remove();
+
+                }
+            }
+        })
+    })
 </script>
 @endsection

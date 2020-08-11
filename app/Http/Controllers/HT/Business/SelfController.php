@@ -15,6 +15,7 @@ use App\Notice;
 use App\Exports\BusinessDownloadExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
 
 class SelfController extends Controller
 {
@@ -713,14 +714,23 @@ class SelfController extends Controller
         $business->phone = $request->phone;
         $business->other = $request->other;
 
+        //dd($request->file);
+        $fileArray = array();
+
         if($request->hasFile('file'))
         {
+            foreach ($request->file as $key => $value) {
 
-            $filename = $request->file('file')->getClientOriginalName();
-            $request->file('file')->storeAs('/upload/business',$filename,'public_uploads');
+                $filename = $request->file('file')[$key]->getClientOriginalName();
+                $request->file('file')[$key]->storeAs('/upload/business',$filename,'public_uploads');
 
-            $upload = '/upload/business/'.$filename;
-            $business->file = $upload;
+                $upload = '/upload/business/'.$filename;
+
+                array_push($fileArray, $upload);
+            }
+            
+            $fileImp = implode(',', $fileArray);
+            $business->file = $fileImp;
         }
 
         (isset($request->statusTrack))? $business->statusTrack = 'Y' : $business->statusTrack = 'N';
@@ -766,11 +776,18 @@ class SelfController extends Controller
 
         if($request->hasFile('file'))
         {
-            $filename = $request->file('file')->getClientOriginalName();
-            $request->file('file')->storeAs('/upload/business',$filename,'public_uploads');
+            foreach ($request->file as $key => $value) {
 
-            $upload = '/upload/business/'.$filename;
-            $visit->file = $upload;
+                $filename = $request->file('file')[$key]->getClientOriginalName();
+                $request->file('file')[$key]->storeAs('/upload/business',$filename,'public_uploads');
+
+                $upload = '/upload/business/'.$filename;
+
+                array_push($fileArray, $upload);
+            }
+            
+            $fileImp = implode(',', $fileArray);
+            $visit->file = $fileImp;
         }
 
         (isset($request->statusTrack))? $visit->statusTrack = 'Y' : $visit->statusTrack = 'N';
@@ -823,6 +840,8 @@ class SelfController extends Controller
         }
 
         $visit = Business::find($request->id);
+
+        //dd($visit);
 
         return view('ht.Business.self.visitEdit',compact('organization','caseCount','visit'));
     }
@@ -1617,5 +1636,12 @@ class SelfController extends Controller
 
             return redirect()->route('ht.Overview.notice.index',compact('organization'))->with('success','新增成功');
         }
+    }
+
+    public function downloadfile(Organization $organization,Request $request)
+    {
+        $business = Business::find($request->id);
+
+        return $business;
     }
 }

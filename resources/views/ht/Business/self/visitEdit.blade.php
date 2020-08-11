@@ -144,10 +144,10 @@
                                                             <label class="d-block">附件上傳</label>
                                                             
                                                             <span class="form-control">
-                                                                <input type="file" class="d-none upload" id="upload" name="file" accept=".csv,.xls,.xlsx,.doc,.docx,.pdf" onchange="checkfile(this);">
+                                                                <input type="file" class="d-none upload" id="upload" multiple name="file[]" accept=".csv,.xls,.xlsx,.doc,.docx,.pdf" onchange="checkfile(this);">
                                                                 @if($visit->file)
                                                                 <label for="upload">{{ explode('/',$visit->file)[3] }}</label>
-                                                                <a target="_blank" href="{{ asset($visit->file) }}" download><i class="fas fa-file-download float-right my-xs" data-toggle="tooltip" data-placement="top" title="下載附件"></i></a>
+                                                                <a id="downloadfile"><i class="fas fa-file-download float-right my-xs" data-toggle="tooltip" data-placement="top" title="下載附件"></i></a>
                                                                 @else
                                                                 <label for="upload">無檔案</label>
                                                                 <a href="#"><i class="fas fa-file-download float-right my-xs" data-toggle="tooltip" data-placement="top" title="下載附件"></i></a>
@@ -297,5 +297,26 @@
                 $(".area2").append("<option value='"+area_data[val][i]+"'>"+area_data[val][i]+"</option>")
             }
         });
+</script>
+<script type="text/javascript">
+    $('#downloadfile').on('click',function(){
+        var file = '<?php echo $visit->file ?>'
+
+        var a = file.split(',')
+        var b = a.length;
+
+        for (var i = 0; i < b; i++) {
+
+            //window.open('http://localhost/HetaoTest/public/'+file.split(',')[i]);
+
+            var $a = $("<a>");
+            $a.attr("href",'http://localhost/HetaoTest/public/'+file.split(',')[i]);
+            $("body").append($a);
+            $a.attr("download",(file.split(',')[i]).split('/')[3] );
+            $a[0].click();
+            $a.remove();
+
+        }
+    })
 </script>
 @endsection

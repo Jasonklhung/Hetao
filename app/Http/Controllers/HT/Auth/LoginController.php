@@ -50,11 +50,11 @@ class LoginController extends Controller
 
                 $client = new \GuzzleHttp\Client();
                 $data =  json_encode(array('user_token' => $user['token'],'messages' => [array('type'=>'text','text'=> '登入成功')] ));
-                $response = $client->post('https://accunixwh.azurewebsites.net/api/LINEBot/5dfafa8e/sendMessages', [
+                $response = $client->post('https://api-tf.accunix.net/api/LINEBot/5dfafa8e/sendMessages', [
                     'headers' => ['Content-Type' => 'application/json'],
                     'body' => $data
                 ]);
-
+                
                 $response = $response->getBody()->getContents();
 
     			return response()->json([
